@@ -26,12 +26,12 @@ public class Player {
   /**
    * Mutator method for the name.
    *
-   * @throws IllegalArgumentException if name is null or isblank
-   * @param name
+   * @throws IllegalArgumentException if name is null or isBlank.
+   * @param name of the player.
    */
   public void setName(String name) {
-    if(name != null || name.isBlank()) {
-      throw new NullPointerException("Name cannot be null or blank");
+    if(name == null || name.isBlank()) {
+      throw new IllegalArgumentException("Name cannot be null or blank");
     }
     this.name = name;
   }
