@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Class that represents the whole game.
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class BoardGame {
   private Board board;
@@ -25,7 +25,11 @@ public class BoardGame {
    * @param player a new player.
    */
   private void addPlayer(Player player) {
-    players.add(player);
+    for (Player p : players) {
+      if (!p.equals(player)) {
+        players.add(player);
+      }
+    }
   }
 
   /*
