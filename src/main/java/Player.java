@@ -62,7 +62,7 @@ public class Player {
   }
 
   /**
-   * The current the player is on.
+   * The current tile the player is placed on the board.
    *
    * @param tile the player is on.
    */
