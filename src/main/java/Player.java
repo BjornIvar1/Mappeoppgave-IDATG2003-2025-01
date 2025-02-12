@@ -30,7 +30,7 @@ public class Player {
    * @param name
    */
   public void setName(String name) {
-    if(name != null || name.isBlank()) {
+    if(name == null || name.isBlank()) {
       throw new NullPointerException("Name cannot be null or blank");
     }
     this.name = name;
