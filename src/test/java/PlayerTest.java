@@ -13,4 +13,10 @@ class PlayerTest {
     assertEquals("John", player1.getName());
   }
 
+  @Test
+  void setNameNegativeTest(){
+    assertThrows(IllegalArgumentException.class, () -> player1.setName(" "));
+    assertThrows(IllegalArgumentException.class, () -> player1.setName(null));
+  }
+
 }
