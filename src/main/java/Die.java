@@ -12,8 +12,6 @@ public class Die {
   private int lastRolledValue;
   private final Random random = new Random();
 
-  //    <groupId>edu.ntnu.idi.bidata</groupId>
-  //    <artifactId>Mappeoppgave-IDATG2003-2025-01</artifactId>
   /**
    * Rolls a die generating a random number between 1-6,
    * using {@link Random}.
