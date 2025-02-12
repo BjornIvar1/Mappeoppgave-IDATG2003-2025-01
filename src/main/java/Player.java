@@ -5,11 +5,12 @@
  *
  * @since 0.0.1
  * @author Arpit Sahoo
- * @version 0.0.1
+ * @version 0.1.0
  */
 
 public class Player {
   private String name;
+  private Tile currrenTile;
   //String color
 
   //constructor
@@ -18,7 +19,7 @@ public class Player {
    *
    * @param name is the name of the player.
    */
-  public Player(String name) {
+  Player(String name) {
     setName(name);
   }
 
@@ -44,4 +45,29 @@ public class Player {
   public String getName() {
     return name;
   }
+
+  /**
+   * Moves the player on the board,
+   * by using a loop to move the player onto the next tile.
+   *
+   * @param steps The amount of steps to the player.
+   */
+  public void move(int steps) {
+    for (int i = 0; i < steps ; i++) {
+      if (currrenTile.getNextTile() != null) {
+        currrenTile = currrenTile.getNextTile();
+      }
+    }
+    currrenTile.landPlayer(this);
+  }
+
+  /**
+   * The current the player is on.
+   *
+   * @param tile the player is on.
+   */
+  public void placeOnTile(Tile tile) {
+    currrenTile = tile;
+  }
+
 }
