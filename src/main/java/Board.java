@@ -24,7 +24,7 @@ public class Board {
    * @param tile the tile that will be added on the board.
    */
   public void addTile(Tile tile) {
-    tiles.put(tiles.size()+1, tile);
+    tiles.put(tile.getTileId(), tile);
   }
 
   /**
