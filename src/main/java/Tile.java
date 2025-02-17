@@ -60,4 +60,13 @@ public class Tile {
   public Tile getNextTile() {
     return nextTile;
   }
+
+  /**
+   * Returns the tileID of the tile.
+   *
+   * @return the tileID
+   */
+  public int getTileId() {
+    return tileId;
+  }
 }
