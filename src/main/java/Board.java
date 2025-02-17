@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +14,17 @@ import java.util.Map;
  * @version 0.1.0
  */
 public class Board {
-  private Map<Integer, Tile> tiles;
+  private final Map<Integer, Tile> tiles;
+
+  /**
+   * <p>
+   *   Constructs a new Board object and creates a HashMap for the tiles,
+   *   as an empty Hashmap to store the tiles for the board.
+   * </p>
+   */
+  public Board() {
+    tiles = new HashMap<>();
+  }
 
   /**
    * Add tiles to the board.
@@ -28,13 +39,12 @@ public class Board {
   }
 
   /**
-   * Finds and return the tile from the board.
+   * Uses the tileID to find and return the tile from the board.
    *
-   * @param tile the tile we need to find.
+   * @param tileId the ID of the tile we need to find.
    * @return the tile we need from the board.
    */
-  public Tile getTile(int tile) {
-    return tiles.get(tile);
+  public Tile getTile(int tileId) {
+    return tiles.get(tileId);
   }
-
 }
