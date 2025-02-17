@@ -17,7 +17,7 @@ public class Tile {
    * @param tileId the id for the tile
    */
   public Tile(int tileId) {
-    this.tileId = tileId;
+    setTileId(tileId);
   }
 
   /**
@@ -50,6 +50,13 @@ public class Tile {
    */
   public void setNextTile(Tile nextTile) {
     this.nextTile = nextTile;
+  }
+
+  public void setTileId(int tileId) {
+    if (tileId < 0) {
+      throw new IllegalArgumentException("Tile ID must be a positive integer.");
+    }
+    this.tileId = tileId;
   }
 
   /**
