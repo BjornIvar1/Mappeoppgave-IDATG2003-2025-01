@@ -9,19 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardGameTest {
   BoardGame boardGame;
   List<Player> players;
-
   Player player1;
   Player player2;
 
   @BeforeEach
   void setUp() {
     boardGame = new BoardGame();
+
     players = new ArrayList<>();
 
     player1 = new Player("Player1");
     player2 = new Player("Player2");
-    player1.placeOnTile(new Tile(0));
-    player2.placeOnTile(new Tile(0));
   }
 
   @Test
@@ -31,5 +29,14 @@ class BoardGameTest {
 
     assertEquals(2, boardGame.getPlayers().size());
   }
+
+  @Test
+  void createDicePositiveTest() {
+    boardGame.createDice(2);
+    Dice dice1 = boardGame.getDice(); // Retrieve created dice
+    assertEquals(2, dice1.getNumberOfDice());
+  }
+
+
 
 }
