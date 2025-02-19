@@ -6,12 +6,12 @@ import java.util.List;
  * It includes methods for: adding a player, creating dice, creating a board
  * and playing the game.
  *
- * @since 0.0.1
  * @author Bjørn
  * @version 0.2.0
+ * @since 0.0.1
  */
 public class BoardGame {
-  private List<Player>players;
+  private List<Player> players;
   private Board board;
   private Player currentPlayer;
   private Dice dice;
@@ -99,7 +99,7 @@ public class BoardGame {
 
         Tile currentTile = player.getCurrentTile();
 
-        if (currentTile.getTileId() == board.getTiles().size()-1) {
+        if (currentTile.getTileId() == board.getTiles().size() - 1) {
           System.out.println("And the winner is... " + player.getName());
           winner = true;
           break;
