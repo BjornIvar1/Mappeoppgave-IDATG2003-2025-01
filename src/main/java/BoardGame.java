@@ -7,7 +7,7 @@ import java.util.List;
  * and playing the game.
  *
  * @author Bjørn
- * @version 0.2.0
+ * @version 0.2.1
  * @since 0.0.1
  */
 public class BoardGame {
@@ -97,7 +97,7 @@ public class BoardGame {
     while (!winner) {
       round++;
       System.out.println();
-      System.out.println("Runde: " + round);
+      System.out.println("Round: " + round);
       for (Player player : players) {
         int steps = dice.roll();
         player.move(steps);
