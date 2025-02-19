@@ -36,7 +36,8 @@ public class BoardGame {
   }
 
   /**
-   * A returns every player of the game.
+   * Retrieves a player that is participating in
+   * the game.
    *
    * @return players.
    */
@@ -52,6 +53,10 @@ public class BoardGame {
    */
   public void createDice(int numberOfDice) {
     dice = new Dice(numberOfDice);
+  }
+
+  public Dice getDice() {
+    return dice;
   }
 
   /**
