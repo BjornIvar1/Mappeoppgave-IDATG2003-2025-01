@@ -4,10 +4,9 @@ import java.util.Map;
 /**
  * Class that represents the board.
  *
- *<p> The board is a collection of {@link Tile} that creates the
+ * <p>The board is a collection of {@link Tile} that creates the
  * board. There is a possibility to
- * add tiles and fetch tiles.
- *</p>
+ * add tiles and fetch tiles.</p>
  *
  * @since 0.0.1
  * @author Arpit
@@ -17,10 +16,8 @@ public class Board {
   private final Map<Integer, Tile> tiles;
 
   /**
-   * <p>
-   *   Constructs a new Board object and creates a HashMap for the tiles,
-   *   as an empty Hashmap to store the tiles for the board.
-   * </p>
+   * Constructs a new Board object and creates a HashMap for the tiles,
+   * as an empty Hashmap to store the tiles for the board.
    */
   public Board() {
     tiles = new HashMap<>();
@@ -29,9 +26,10 @@ public class Board {
   /**
    * Add tiles to the board.
    *
-   * <p> Adds the tile to the board.
+   * <p>Adds the tile to the board.
    * gives a new key value by checking the quantity of tiles.
    * </p>
+   *
    * @param tile the tile that will be added on the board.
    */
   public void addTile(Tile tile) {
@@ -46,5 +44,9 @@ public class Board {
    */
   public Tile getTile(int tileId) {
     return tiles.get(tileId);
+  }
+
+  public Map<Integer, Tile> getTiles() {
+    return tiles;
   }
 }
