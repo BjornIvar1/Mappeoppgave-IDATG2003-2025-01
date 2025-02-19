@@ -10,7 +10,7 @@
 
 public class Player {
   private String name;
-  private Tile currrenTile;
+  private Tile currentTile;
   //String color
 
   //constructor
@@ -27,11 +27,11 @@ public class Player {
   /**
    * Mutator method for the name.
    *
-   * @throws IllegalArgumentException if name is null or isBlank.
-   * @param name of the player.
+   * @param name of the player
+   * @throws IllegalArgumentException if name is null or isBlank
    */
   public void setName(String name) {
-    if(name == null || name.isBlank()) {
+    if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name cannot be null or blank");
     }
     this.name = name;
@@ -53,12 +53,12 @@ public class Player {
    * @param steps The amount of steps to the player.
    */
   public void move(int steps) {
-    for (int i = 0; i < steps ; i++) {
-      if (currrenTile.getNextTile() != null) {
-        currrenTile = currrenTile.getNextTile();
+    for (int i = 0; i < steps; i++) {
+      if (currentTile.getNextTile() != null) {
+        currentTile = currentTile.getNextTile();
       }
     }
-    currrenTile.landPlayer(this);
+    currentTile.landPlayer(this);
   }
 
   /**
@@ -67,7 +67,10 @@ public class Player {
    * @param tile the player is on.
    */
   public void placeOnTile(Tile tile) {
-    currrenTile = tile;
+    currentTile = tile;
   }
 
+  public Tile getCurrentTile() {
+    return currentTile;
+  }
 }
