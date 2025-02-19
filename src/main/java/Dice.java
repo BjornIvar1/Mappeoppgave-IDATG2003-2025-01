@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @since 0.0.1
  * @author Bjørn
- * @version 0.0.1
+ * @version 0.1.0
  */
 public class Dice extends Die {
   private final List<Die> dice;
@@ -24,6 +24,15 @@ public class Dice extends Die {
     for (int i = 0; i < numberOfDice; i++) {
       dice.add(new Die());
     }
+  }
+
+  /**
+   * A method that access the quantity of dices in the game.
+   *
+   * @return the quantity of dices.
+   */
+  public int getNumberOfDice() {
+    return dice.size();
   }
 
   /**
