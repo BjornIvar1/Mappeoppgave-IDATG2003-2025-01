@@ -27,7 +27,7 @@ public class Tile {
    * @param player the player to perform an action on
    */
   public void landPlayer(Player player) {
-    if (player != null) {
+    if (player != null && landAction !=null) {
       landAction.perform(player);
     }
   }
