@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @since 0.0.1
  * @author Bjørn
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class BoardGame {
   private List<Player>players;
@@ -33,6 +33,15 @@ public class BoardGame {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
+  }
+
+  /**
+   * A returns every player of the game.
+   *
+   * @return players.
+   */
+  public List<Player> getPlayers() {
+    return players;
   }
 
   /**
