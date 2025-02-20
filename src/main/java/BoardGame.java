@@ -81,6 +81,10 @@ public class BoardGame {
     }
   }
 
+  public int numberOfTiles() {
+    return board.getTileCount();
+  }
+
   /**
    * Simple board game for testing...
    */
