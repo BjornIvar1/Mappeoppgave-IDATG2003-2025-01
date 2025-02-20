@@ -11,6 +11,8 @@ class BoardGameTest {
   List<Player> players;
   Player player1;
   Player player2;
+  Board board;
+  Tile nextTile;
 
   @BeforeEach
   void setUp() {
@@ -31,8 +33,23 @@ class BoardGameTest {
   }
 
   @Test
-  void addPlayerNegativeTest() {
+  void addPlayerNegativeTestEmptyHashMap() {
     assertNotEquals(2, boardGame.getPlayers().size());
+  }
+
+  @Test
+  void addPlayerNegativeTest2SamePlayer() {
+    boardGame.addPlayer(player1);
+    boardGame.addPlayer(player1);
+    assertNotEquals(2, boardGame.getPlayers().size());
+    assertEquals(1, boardGame.getPlayers().size());
+  }
+
+  @Test
+  void addPlayerNegativeTestNullPlayer() {
+    boardGame.addPlayer(null);
+    assertNotEquals(1, boardGame.getPlayers().size());
+    assertEquals(0, boardGame.getPlayers().size());
   }
 
   @Test
@@ -58,7 +75,47 @@ class BoardGameTest {
   @Test
   void createBoardNegativeTest() {
     boardGame.createBoard(-20);
-    assertEquals(0, boardGame.numberOfTiles());
+    assertEquals(0, boardGame.numberOfTiles()); //Since number of tile is negative.
   }
+
+  @Test
+  void checkTilesPositiveTest() {
+    int numberOfTiles = 5;
+    boardGame.createBoard(numberOfTiles);
+    board = boardGame.getBoard();
+
+    Tile currentTile = board.getTile(0); // First tile
+
+    for (int i = 1; i < numberOfTiles; i++) { // Start at 1 to check links correctly
+      nextTile = currentTile.getNextTile(); // Retries the next tile
+
+      //Ensures if the next tile is linked/connected to the next. recommended by OpenAI 2024
+      assertNotNull(nextTile, "Tile " + (i - 1) + " should connect with tile " + i);
+      //Ensures that the tile has correct index.
+      assertEquals(i, nextTile.getTileId(), "Tile " + i + " should have correct index.");
+
+      currentTile = nextTile; // Move to the next tile
+    }
+  }
+
+  @Test
+  void checkTilesNegativeTest() {
+    int numberOfTiles = 5;
+    boardGame.createBoard(numberOfTiles);
+    board = boardGame.getBoard();
+    Tile currentTile = board.getTile(0);
+
+    for (int i = 1; i < numberOfTiles; i++) {
+      nextTile = currentTile.getNextTile();
+      currentTile = nextTile;
+    }
+    // Make sure no tile is after the last tile.
+    assertNull(nextTile.getNextTile(), "Last tile should not link to another tile.");
+  }
+
+
+
+
+
 
 }
