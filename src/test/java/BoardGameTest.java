@@ -31,6 +31,11 @@ class BoardGameTest {
   }
 
   @Test
+  void addPlayerNegativeTest() {
+    assertNotEquals(2, boardGame.getPlayers().size());
+  }
+
+  @Test
   void createDicePositiveTest() {
     boardGame.createDice(2);
     Dice dice1 = boardGame.getDice(); // Retrieve created dice
@@ -46,8 +51,14 @@ class BoardGameTest {
 
   @Test
   void createBoardPositiveTest() {
-    boardGame.createBoard(20);
-    assertEquals(20, boardGame.numberOfTiles());
+    boardGame.createBoard(20); //Board with 20 tiles.
+    assertEquals(20, boardGame.numberOfTiles()); //Checks if there is 20 tiles.
+  }
+
+  @Test
+  void createBoardNegativeTest() {
+    boardGame.createBoard(-20);
+    assertEquals(0, boardGame.numberOfTiles());
   }
 
 }
