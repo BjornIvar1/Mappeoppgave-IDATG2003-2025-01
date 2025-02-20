@@ -37,6 +37,17 @@ class BoardGameTest {
     assertEquals(2, dice1.getNumberOfDice());
   }
 
+  @Test
+  void createDiceNegativeTest() {
+    boardGame.createDice(-2);
+    Dice dice1 = boardGame.getDice();
+    assertEquals(0, dice1.getNumberOfDice());
+  }
 
+  @Test
+  void createBoardPositiveTest() {
+    boardGame.createBoard(20);
+    assertEquals(20, boardGame.numberOfTiles());
+  }
 
 }
