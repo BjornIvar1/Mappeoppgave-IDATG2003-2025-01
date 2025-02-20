@@ -49,4 +49,8 @@ public class Board {
   public Map<Integer, Tile> getTiles() {
     return tiles;
   }
+
+  public int getTileCount() {
+    return tiles.size();
+  }
 }
