@@ -55,20 +55,42 @@ public class BoardGame {
     dice = new Dice(numberOfDice);
   }
 
+  /** Accessor the dice that are created.
+   *
+   * @return the dices that are created.
+   */
   public Dice getDice() {
     return dice;
   }
 
   /**
    * Creates the board with a specified amount of tiles.
-   * Each tile is linked together forming the board game,
-   * using the {@link Tile#setNextTile(Tile)}.
    *
-   * @param numberOfTiles the number of tiles to create
    */
   public void createBoard(int numberOfTiles) {
     board = new Board();
 
+    checkTiles(numberOfTiles);
+  }
+
+  /** Accessor method that returns the board.
+   *
+   * @return board.
+   */
+  public Board getBoard() {
+    return board;
+  }
+
+  /**
+   * A method that creates and arranges the tiles on the board.
+   *
+   *<p>Each tile is linked together forming the board game,
+   *using the {@link Tile#setNextTile(Tile)}.
+   * </p>
+   *
+   * @param numberOfTiles the number of tiles to create
+   */
+  public void checkTiles(int numberOfTiles) {
     Tile previousTile = null;
     for (int i = 0; i < numberOfTiles; i++) {
       Tile tile = new Tile(i);
@@ -81,6 +103,11 @@ public class BoardGame {
     }
   }
 
+  /**
+   * Access the number of tiles on the board.
+   *
+   * @return number of tiles on the board.
+   */
   public int numberOfTiles() {
     return board.getTileCount();
   }
