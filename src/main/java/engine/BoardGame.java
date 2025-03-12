@@ -1,11 +1,10 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.Board;
 import model.Player;
 import model.Tile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The class {@code engine.BoardGame} represents the whole game.
@@ -70,8 +69,10 @@ public class BoardGame {
   }
 
   /**
-   * Creates the board with a specified amount of tiles.
+   * Creates the board with a specified amount of rows and columns.
    *
+   * @param rows the amount of rows on the board
+   * @param columns the amount of columns on the board
    */
   public void createBoard(int rows, int columns) {
     board = new Board(rows, columns);
