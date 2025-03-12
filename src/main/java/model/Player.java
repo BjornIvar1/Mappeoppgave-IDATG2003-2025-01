@@ -1,5 +1,7 @@
 package model;
 
+import engine.BoardGame;
+
 /**
  * An entity class for player.
  *
@@ -11,6 +13,7 @@ package model;
  */
 
 public class Player {
+  private final BoardGame game;
   private String name;
   private Tile currentTile;
   //String color
@@ -21,7 +24,8 @@ public class Player {
    *
    * @param name is the name of the player.
    */
-  public Player(String name) {
+  public Player(String name, BoardGame game) {
+    this.game = game;
     setName(name);
   }
 
