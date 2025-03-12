@@ -4,16 +4,13 @@ import model.Player;
 public class Main {
   public static void main(String[] args) {
     BoardGame boardGame = new BoardGame();
-    Player player1 = new Player("Jon");
-    Player player2 = new Player("Mona");
-    Player player3 = new Player("Arpit");
-    Player player4 = new Player("Bjørn");
-    boardGame.addPlayer(player1);
-    boardGame.addPlayer(player2);
-    boardGame.addPlayer(player3);
-    boardGame.addPlayer(player4);
-    boardGame.createBoard(101);
 
+    boardGame.createBoard(90); // Creates a standard board of 90 linked tiles
+    boardGame.createDice(2); // Creates 2 Dice
+    boardGame.addPlayer(new Player("Arne", boardGame));
+    boardGame.addPlayer(new Player("Ivar", boardGame));
+    boardGame.addPlayer(new Player("Majid", boardGame));
+    boardGame.addPlayer(new Player("Atle", boardGame));
     boardGame.play();
   }
 }
