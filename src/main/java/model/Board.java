@@ -62,15 +62,6 @@ public class Board {
   }
 
   /**
-   * Returns the size of {@link #tiles}.
-   *
-   * @return the size of the HashMap tiles
-   */
-  public int getNumberOfTiles() {
-    return columns*rows;
-  }
-
-  /**
    * Returns the column of the board.
    *
    * @return the column
