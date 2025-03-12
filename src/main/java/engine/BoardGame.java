@@ -12,7 +12,7 @@ import java.util.List;
  * It includes methods for: adding a player, creating dice, creating a board
  * and playing the game.
  *
- * @author Bjørn
+ * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
  * @since 0.0.1
  */

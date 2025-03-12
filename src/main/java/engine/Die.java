@@ -6,9 +6,9 @@ import java.util.Random;
  * The class engine.Die represents a six sided die,
  * that can generate a number between 1-6.
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Bjørn
- * @version 0.0.1
  */
 public class Die {
   private int lastRolledValue;

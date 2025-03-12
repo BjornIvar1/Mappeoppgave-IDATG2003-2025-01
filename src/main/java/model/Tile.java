@@ -4,9 +4,9 @@ package model;
  * Class model.Tile represents a tile on a game board.
  * Each tile has its own ID, and a tile can perform an action on a player.
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Bjørn
- * @version 0.0.1
  */
 public class Tile {
   private Tile nextTile;

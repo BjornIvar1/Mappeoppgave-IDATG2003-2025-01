@@ -10,9 +10,9 @@ import java.util.Map;
  * board. There is a possibility to
  * add tiles and fetch tiles.</p>
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Arpit
- * @version 0.1.0
  */
 public class Board {
   private final Map<Integer, Tile> tiles;

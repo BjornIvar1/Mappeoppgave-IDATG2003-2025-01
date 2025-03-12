@@ -8,9 +8,9 @@ import java.util.List;
  * to represent multiple dice.
  * It includes methods for rolling multiple dice and return a specific die.
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Bjørn
- * @version 0.1.0
  */
 public class Dice extends Die {
   private final List<Die> dice;
