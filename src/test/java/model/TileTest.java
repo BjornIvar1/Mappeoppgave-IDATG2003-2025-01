@@ -12,9 +12,9 @@ class TileTest {
 
   @BeforeEach
   void setUp() {
-    tile1 = new Tile(0);
-    tile2 = new Tile(1);
-    tile3 = new Tile(2);
+    tile1 = new Tile(0, 0, 0);
+    tile2 = new Tile(1, 1, 0);
+    tile3 = new Tile(2, 2, 0);
   }
 
   @Test
@@ -36,9 +36,7 @@ class TileTest {
 
   @Test
   void setIncorrectTileId() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      tile1.setTileId(-1);
-    });
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setTileId(-1));
     assertEquals("model.Tile ID must be a positive integer.", exception.getMessage());
   }
 }

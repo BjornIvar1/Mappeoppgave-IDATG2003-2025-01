@@ -1,16 +1,15 @@
-import engine.BoardGame;
+import engine.SnakeAndLaddersGame;
 import model.Player;
 
 public class Main {
   public static void main(String[] args) {
-    BoardGame boardGame = new BoardGame();
+    SnakeAndLaddersGame game = new SnakeAndLaddersGame();
 
-    boardGame.createBoard(90); // Creates a standard board of 90 linked tiles
-    boardGame.createDice(2); // Creates 2 Dice
-    boardGame.addPlayer(new Player("Arne", boardGame));
-    boardGame.addPlayer(new Player("Ivar", boardGame));
-    boardGame.addPlayer(new Player("Majid", boardGame));
-    boardGame.addPlayer(new Player("Atle", boardGame));
-    boardGame.play();
+    game.createDice(2);
+    game.addPlayer(new Player("Arne", game));
+    game.addPlayer(new Player("Ivar", game));
+    game.addPlayer(new Player("Majid", game));
+    game.addPlayer(new Player("Atle", game));
+    game.play();
   }
 }

@@ -12,14 +12,18 @@ public class Tile {
   private Tile nextTile;
   private int tileId;
   private TileAction landAction;
+  private final int xCoordinate;
+  private final int yCoordinate;
 
   /**
    * Constructor for creating model.Tile with an unique ID.
    *
    * @param tileId the id for the tile
    */
-  public Tile(int tileId) {
+  public Tile(int tileId, int xCoordinate, int yCoordinate) {
     setTileId(tileId);
+    this.xCoordinate = xCoordinate;
+    this.yCoordinate = yCoordinate;
   }
 
   /**
@@ -82,5 +86,23 @@ public class Tile {
    */
   public int getTileId() {
     return tileId;
+  }
+
+  /**
+   * Returns the x-coordinate of the tile.
+   *
+   * @return the xCoordinate
+   */
+  public int getXCoordinate() {
+    return xCoordinate;
+  }
+
+  /**
+   * Returns the y-coordinate of the tile.
+   *
+   * @return the yCoordinate
+   */
+  public int getYCoordinate() {
+    return yCoordinate;
   }
 }
