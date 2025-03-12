@@ -1,3 +1,5 @@
+package model;
+
 /**
  * A entity class for player.
  *

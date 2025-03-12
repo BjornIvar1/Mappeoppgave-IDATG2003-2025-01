@@ -1,7 +1,9 @@
+package engine;
+
 import java.util.Random;
 
 /**
- * The class Die represents a six sided die,
+ * The class engine.Die represents a six sided die,
  * that can generate a number between 1-6.
  *
  * @since 0.0.1

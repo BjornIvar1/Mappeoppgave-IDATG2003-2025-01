@@ -1,8 +1,14 @@
+package engine;
+
+import model.Board;
+import model.Player;
+import model.Tile;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class {@code BoardGame} represents the whole game.
+ * The class {@code engine.BoardGame} represents the whole game.
  * It includes methods for: adding a player, creating dice, creating a board
  * and playing the game.
  *
@@ -17,7 +23,7 @@ public class BoardGame {
   private Dice dice;
 
   /**
-   * A constructor the {@code BoardGame} class.
+   * A constructor the {@code engine.BoardGame} class.
    */
   public BoardGame() {
     players = new ArrayList<>();
@@ -47,7 +53,7 @@ public class BoardGame {
 
   /**
    * Creates a new set of dice with a specific amount,
-   * using the constructor from the class Dice.
+   * using the constructor from the class engine.Dice.
    *
    * @param numberOfDice the number of dice to create
    */

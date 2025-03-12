@@ -1,3 +1,8 @@
+package engine;
+
+import model.Board;
+import model.Player;
+import model.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,7 +73,7 @@ class BoardGameTest {
 
   @Test
   void createBoardPositiveTest() {
-    boardGame.createBoard(20); //Board with 20 tiles.
+    boardGame.createBoard(20); //model.Board with 20 tiles.
     assertEquals(20, boardGame.numberOfTiles()); //Checks if there is 20 tiles.
   }
 
@@ -90,9 +95,9 @@ class BoardGameTest {
       nextTile = currentTile.getNextTile(); // Retries the next tile
 
       //Ensures if the next tile is linked/connected to the next. recommended by OpenAI 2024
-      assertNotNull(nextTile, "Tile " + (i - 1) + " should connect with tile " + i);
+      assertNotNull(nextTile, "model.Tile " + (i - 1) + " should connect with tile " + i);
       //Ensures that the tile has correct index.
-      assertEquals(i, nextTile.getTileId(), "Tile " + i + " should have correct index.");
+      assertEquals(i, nextTile.getTileId(), "model.Tile " + i + " should have correct index.");
 
       currentTile = nextTile; // Move to the next tile
     }

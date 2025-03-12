@@ -1,5 +1,7 @@
+package model;
+
 /**
- * Class Tile represents a tile on a game board.
+ * Class model.Tile represents a tile on a game board.
  * Each tile has its own ID, and a tile can perform an action on a player.
  *
  * @since 0.0.1
@@ -12,7 +14,7 @@ public class Tile {
   private TileAction landAction;
 
   /**
-   * Constructor for creating Tile with an unique ID.
+   * Constructor for creating model.Tile with an unique ID.
    *
    * @param tileId the id for the tile
    */
@@ -59,7 +61,7 @@ public class Tile {
    */
   public void setTileId(int tileId) {
     if (tileId < 0) {
-      throw new IllegalArgumentException("Tile ID must be a positive integer.");
+      throw new IllegalArgumentException("model.Tile ID must be a positive integer.");
     }
     this.tileId = tileId;
   }

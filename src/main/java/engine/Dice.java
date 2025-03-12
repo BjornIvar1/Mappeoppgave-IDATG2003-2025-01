@@ -1,8 +1,10 @@
+package engine;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class Dice extends the class Die
+ * The class engine.Dice extends the class engine.Die
  * to represent multiple dice.
  * It includes methods for rolling multiple dice and return a specific die.
  *
@@ -14,7 +16,7 @@ public class Dice extends Die {
   private final List<Die> dice;
 
   /**
-   * Constructor for Dice object that holds multiple dice.
+   * Constructor for engine.Dice object that holds multiple dice.
    * Creates an {@link ArrayList} containing a specific amount of dice.
    *
    * @param numberOfDice stored in the ArrayList dice

@@ -1,3 +1,5 @@
+package model;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +39,6 @@ class TileTest {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       tile1.setTileId(-1);
     });
-    assertEquals("Tile ID must be a positive integer.", exception.getMessage());
+    assertEquals("model.Tile ID must be a positive integer.", exception.getMessage());
   }
 }

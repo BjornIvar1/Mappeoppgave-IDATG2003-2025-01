@@ -1,3 +1,5 @@
+package model;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +18,7 @@ public class Board {
   private final Map<Integer, Tile> tiles;
 
   /**
-   * Constructs a new Board object and creates a HashMap for the tiles,
+   * Constructs a new model.Board object and creates a HashMap for the tiles,
    * as an empty Hashmap to store the tiles for the board.
    */
   public Board() {
