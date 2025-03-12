@@ -36,9 +36,7 @@ class TileTest {
 
   @Test
   void setIncorrectTileId() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      tile1.setTileId(-1);
-    });
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setTileId(-1));
     assertEquals("model.Tile ID must be a positive integer.", exception.getMessage());
   }
 }
