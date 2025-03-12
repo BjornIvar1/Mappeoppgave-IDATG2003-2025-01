@@ -21,7 +21,7 @@ public class Player {
    *
    * @param name is the name of the player.
    */
-  Player(String name) {
+  public Player(String name) {
     setName(name);
   }
 
