@@ -17,12 +17,12 @@ class BoardTest {
 
   @BeforeEach
   void setUp() {
-    board = new Board();
+    board = new Board(10, 10);
     tiles = new HashMap<>();
 
-    tile1 = new Tile(1);
-    tile2 = new Tile(2);
-    tile3 = new Tile(3);
+    tile1 = new Tile(1, 0, 0);
+    tile2 = new Tile(2, 1, 0);
+    tile3 = new Tile(3, 2, 0);
   }
 
   @Test

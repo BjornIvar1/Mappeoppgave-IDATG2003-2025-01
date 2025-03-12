@@ -12,9 +12,9 @@ class TileTest {
 
   @BeforeEach
   void setUp() {
-    tile1 = new Tile(0);
-    tile2 = new Tile(1);
-    tile3 = new Tile(2);
+    tile1 = new Tile(0, 0, 0);
+    tile2 = new Tile(1, 1, 0);
+    tile3 = new Tile(2, 2, 0);
   }
 
   @Test
