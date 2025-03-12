@@ -1,7 +1,7 @@
 package model;
 
 /**
- * A entity class for player.
+ * An entity class for player.
  *
  * <p>This class represents the player in the game.</p>
  *
