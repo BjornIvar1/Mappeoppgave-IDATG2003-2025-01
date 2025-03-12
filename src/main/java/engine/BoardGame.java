@@ -17,7 +17,7 @@ import java.util.List;
  * @since 0.0.1
  */
 public class BoardGame {
-  private List<Player> players;
+  private final List<Player> players;
   private Board board;
   private Player currentPlayer;
   private Dice dice;
@@ -58,7 +58,7 @@ public class BoardGame {
    * @param numberOfDice the number of dice to create
    */
   public void createDice(int numberOfDice) {
-    dice = new Dice(numberOfDice);
+    this.dice = new Dice(numberOfDice);
   }
 
   /** Accessor the dice that are created.
@@ -73,10 +73,8 @@ public class BoardGame {
    * Creates the board with a specified amount of tiles.
    *
    */
-  public void createBoard(int numberOfTiles) {
-    board = new Board();
-
-    checkTiles(numberOfTiles);
+  public void createBoard(int rows, int columns) {
+    board = new Board(rows, columns);
   }
 
   /** Accessor method that returns the board.
@@ -88,47 +86,16 @@ public class BoardGame {
   }
 
   /**
-   * A method that creates and arranges the tiles on the board.
-   *
-   *<p>Each tile is linked together forming the board game,
-   *using the {@link Tile#setNextTile(Tile)}.
-   * </p>
-   *
-   * @param numberOfTiles the number of tiles to create
-   */
-  public void checkTiles(int numberOfTiles) {
-    Tile previousTile = null;
-    for (int i = 0; i < numberOfTiles; i++) {
-      Tile tile = new Tile(i);
-      board.addTile(tile);
-
-      if (previousTile != null) {
-        previousTile.setNextTile(tile);
-      }
-      previousTile = tile;
-    }
-  }
-
-  /**
-   * Access the number of tiles on the board.
-   *
-   * @return number of tiles on the board.
-   */
-  public int numberOfTiles() {
-    return board.getTileCount();
-  }
-
-  /**
    * Simple board game for testing...
    */
   public void play() {
     boolean winner = false;
     int round = 0;
-    createDice(8);
+
     System.out.println("The following players are playing the game:");
     for (Player player : players) {
       System.out.println(" -" + player.getName());
-      player.placeOnTile(board.getTile(0));
+      player.placeOnTile(board.getTile(1));
     }
 
     while (!winner) {
@@ -141,7 +108,7 @@ public class BoardGame {
 
         Tile currentTile = player.getCurrentTile();
 
-        if (currentTile.getTileId() == board.getTiles().size() - 1) {
+        if (currentTile.getTileId() == board.getTiles().size()) {
           System.out.println("And the winner is... " + player.getName());
           winner = true;
           break;
