@@ -26,7 +26,6 @@ public class MainPage extends Application {
    * Starts the JavaFX application and initializes the user interface.
    *
    * @param primaryStage the primary stage for this application
-   * @throws Exception if an error occurs during initialization
    */
   @Override
   public void start(Stage primaryStage) {
@@ -42,17 +41,17 @@ public class MainPage extends Application {
 
   /**
    * Creates a menubar for the user to easily exit the game.
-   * @return
+   * @return menuBar.
    */
   private MenuBar createmenuBar() {
     MenuBar menuBar = new MenuBar();
-    Menu fileitem = new Menu("file");
+    Menu fileItem = new Menu("file");
 
     MenuItem closeItem = new MenuItem("Exit");
     closeItem.setOnAction(e -> System.exit(0));
 
-    fileitem.getItems().add(closeItem);
-    menuBar.getMenus().addAll(fileitem);
+    fileItem.getItems().add(closeItem);
+    menuBar.getMenus().addAll(fileItem);
     return menuBar;
   }
 
