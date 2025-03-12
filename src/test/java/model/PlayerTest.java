@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import engine.BoardGame;
 import org.junit.jupiter.api.*;
 
 class PlayerTest {
@@ -11,7 +12,7 @@ class PlayerTest {
 
   @BeforeEach
   void setUp() {
-    player1 = new Player("John");
+    player1 = new Player("John", new BoardGame());
     tile1 = new Tile(2);
     tile2 = new Tile(3);
 

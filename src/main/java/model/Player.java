@@ -13,7 +13,6 @@ import engine.BoardGame;
  */
 
 public class Player {
-  private final BoardGame game;
   private String name;
   private Tile currentTile;
   //String color
@@ -23,9 +22,9 @@ public class Player {
    * A constructor for the class player.
    *
    * @param name is the name of the player.
-   */
+   * @param game the board game the player is playing.
+   * */
   public Player(String name, BoardGame game) {
-    this.game = game;
     setName(name);
   }
 

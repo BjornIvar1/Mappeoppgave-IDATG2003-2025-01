@@ -25,8 +25,8 @@ class BoardGameTest {
 
     players = new ArrayList<>();
 
-    player1 = new Player("Player1");
-    player2 = new Player("Player2");
+    player1 = new Player("Player1", boardGame);
+    player2 = new Player("Player2", boardGame);
   }
 
   @Test
