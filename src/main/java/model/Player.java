@@ -7,17 +7,15 @@ import engine.BoardGame;
  *
  * <p>This class represents the player in the game.</p>
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Arpit Sahoo
- * @version 0.1.0
  */
 
 public class Player {
   private String name;
   private Tile currentTile;
-  //String color
 
-  //constructor
   /**
    * A constructor for the class player.
    *

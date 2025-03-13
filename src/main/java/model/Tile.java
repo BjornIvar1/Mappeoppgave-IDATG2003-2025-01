@@ -4,22 +4,26 @@ package model;
  * Class model.Tile represents a tile on a game board.
  * Each tile has its own ID, and a tile can perform an action on a player.
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Bjørn
- * @version 0.0.1
  */
 public class Tile {
   private Tile nextTile;
   private int tileId;
   private TileAction landAction;
+  private final int xCoordinate;
+  private final int yCoordinate;
 
   /**
    * Constructor for creating model.Tile with an unique ID.
    *
    * @param tileId the id for the tile
    */
-  public Tile(int tileId) {
+  public Tile(int tileId, int xCoordinate, int yCoordinate) {
     setTileId(tileId);
+    this.xCoordinate = xCoordinate;
+    this.yCoordinate = yCoordinate;
   }
 
   /**
@@ -82,5 +86,23 @@ public class Tile {
    */
   public int getTileId() {
     return tileId;
+  }
+
+  /**
+   * Returns the x-coordinate of the tile.
+   *
+   * @return the xCoordinate
+   */
+  public int getXCoordinate() {
+    return xCoordinate;
+  }
+
+  /**
+   * Returns the y-coordinate of the tile.
+   *
+   * @return the yCoordinate
+   */
+  public int getYCoordinate() {
+    return yCoordinate;
   }
 }

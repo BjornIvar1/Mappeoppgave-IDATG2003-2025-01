@@ -13,8 +13,8 @@ class PlayerTest {
   @BeforeEach
   void setUp() {
     player1 = new Player("John", new BoardGame());
-    tile1 = new Tile(2);
-    tile2 = new Tile(3);
+    tile1 = new Tile(2, 1, 0);
+    tile2 = new Tile(3, 2, 0);
 
     tile1.setNextTile(tile2);
   }

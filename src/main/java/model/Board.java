@@ -10,19 +10,23 @@ import java.util.Map;
  * board. There is a possibility to
  * add tiles and fetch tiles.</p>
  *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
  * @since 0.0.1
- * @author Arpit
- * @version 0.1.0
  */
 public class Board {
   private final Map<Integer, Tile> tiles;
+  private final int rows;
+  private final int columns;
 
   /**
    * Constructs a new model.Board object and creates a HashMap for the tiles,
    * as an empty Hashmap to store the tiles for the board.
    */
-  public Board() {
+  public Board(int rows, int columns) {
     tiles = new HashMap<>();
+    this.rows = rows;
+    this.columns = columns;
   }
 
   /**
@@ -48,11 +52,30 @@ public class Board {
     return tiles.get(tileId);
   }
 
+  /**
+   * Returns the {@link HashMap} of the {@link #tiles}.
+   *
+   * @return the HashMap of the tiles
+   */
   public Map<Integer, Tile> getTiles() {
     return tiles;
   }
 
-  public int getTileCount() {
-    return tiles.size();
+  /**
+   * Returns the column of the board.
+   *
+   * @return the column
+   */
+  public int getColumns() {
+    return columns;
+  }
+
+  /**
+   * Returns the row of the board.
+   *
+   * @return the row
+   */
+  public int getRows() {
+    return rows;
   }
 }
