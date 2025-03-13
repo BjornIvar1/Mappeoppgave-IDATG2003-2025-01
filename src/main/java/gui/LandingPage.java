@@ -1,5 +1,6 @@
 package gui;
 
+import controller.ControllerLandingPage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,15 +13,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 /**
- * The {@code MainPage} class creates a graphical user interface for interacting that
- * allows the user to enter and leave the game.
+ * The {@code LandingPage} class creates a graphical user interface for visual interaction.
+ * It contains a button to start playing, a logo to show the brand and menu bar.
  *
  * @since 0.0.1
  * @author Arpit & Bjørn
  * @version 0.0.1
  */
-public class MainPage extends Application {
+public class LandingPage extends Application {
+  ControllerLandingPage controllerLP;
+
 
   /**
    * Starts the JavaFX application and initializes the user interface.
@@ -29,6 +34,7 @@ public class MainPage extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
+    controllerLP = new ControllerLandingPage(this);
     BorderPane root = new BorderPane();
     root.setCenter(buttonAndImage());
     root.setTop(createmenuBar());
@@ -48,7 +54,8 @@ public class MainPage extends Application {
     Menu fileItem = new Menu("file");
 
     MenuItem closeItem = new MenuItem("Exit");
-    closeItem.setOnAction(e -> System.exit(0));
+    closeItem.setOnAction(event ->
+        controllerLP.exitApplication());
 
     fileItem.getItems().add(closeItem);
     menuBar.getMenus().addAll(fileItem);
@@ -77,7 +84,9 @@ public class MainPage extends Application {
    */
   private FlowPane imagePaneCreate() {
     FlowPane imagePane = new FlowPane();
-    ImageView image = new ImageView("logo.png");
+    ImageView image = new ImageView(Objects.
+        requireNonNull(getClass().
+            getResource("/image/logo.png")).toExternalForm());
     imagePane.getChildren().add(image);
     imagePane.setAlignment(Pos.CENTER);
     return imagePane;
