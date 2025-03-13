@@ -1,11 +1,11 @@
 import engine.SnakeAndLaddersGame;
-import gui.MainPage;
+import gui.LandingPage;
 import model.Player;
 
 public class Main {
   public static void main(String[] args) {
     SnakeAndLaddersGame game = new SnakeAndLaddersGame();
-    MainPage.main(args);
+    LandingPage.main(args);
     game.createDice(2);
     game.addPlayer(new Player("Arne", game));
     game.addPlayer(new Player("Ivar", game));
