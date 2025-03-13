@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @since 0.0.1
  * @author Arpit & Bjørn
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class LandingPage extends Application {
   ControllerLandingPage controllerLP;
