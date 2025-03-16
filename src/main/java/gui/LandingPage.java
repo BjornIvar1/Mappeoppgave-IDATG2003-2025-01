@@ -93,7 +93,7 @@ public class LandingPage extends Application {
   }
 
   /**
-   * Adds a button, so the player can go to next page
+   * Adds a button, so the player can go to the next page
    * and begin playing the game.
    *
    * @return buttonPane.
