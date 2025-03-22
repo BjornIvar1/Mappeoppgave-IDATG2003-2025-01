@@ -10,6 +10,10 @@ import java.util.List;
 
 /**
  * PlayerFileWriter writes and saves all the players that are stored in the game.
+ *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.0.2
+ * @since 0.0.1
  */
 public class PlayerFileWriter {
 
@@ -24,7 +28,7 @@ public class PlayerFileWriter {
   public static void writeToCSV(List<Player> playersToSave, String fileName) {
     try (BufferedWriter writer = Files.newBufferedWriter(Path.of(fileName))) {
       for (Player player : playersToSave) {
-        writer.write(player.getName() + "\n");
+        writer.write(player.getName() + "," + "\n");
       }
     } catch (IOException e) {
       System.out.println("Error writing to file: " + fileName);
