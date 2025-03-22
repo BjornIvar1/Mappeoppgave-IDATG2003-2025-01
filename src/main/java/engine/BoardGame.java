@@ -2,13 +2,15 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import filehandler.PlayerFileWriter;
 import model.Board;
 import model.Player;
 import model.Tile;
 
 /**
  * The class {@code engine.BoardGame} represents the whole game.
- * It includes methods for: adding a player, creating dice, creating a board
+ * It includes methods for adding a player, creating dice, creating a board
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
@@ -30,7 +32,7 @@ public class BoardGame {
 
   /**
    * A method for adding a player to the board game.
-   * The player can not already exist or be {@code null}
+   * The player cannot yet exist or be {@code null}
    *
    * @param player the player to add
    */
@@ -38,16 +40,17 @@ public class BoardGame {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
+    PlayerFileWriter.writeToCSV(players, "playerInGameFile");
   }
 
   /**
-   * Retrieves a player that is participating in
+   * Retrieves a player participating in
    * the game.
    *
    * @return players.
    */
   public List<Player> getPlayers() {
-    return players;
+    return players; // only for testing.
   }
 
   /**
@@ -69,10 +72,10 @@ public class BoardGame {
   }
 
   /**
-   * Creates the board with a specified amount of rows and columns.
+   * Creates the board with a specified number of rows and columns.
    *
-   * @param rows the amount of rows on the board
-   * @param columns the amount of columns on the board
+   * @param rows the number of rows on the board
+   * @param columns the number of columns on the board
    */
   public void createBoard(int rows, int columns) {
     board = new Board(rows, columns);
