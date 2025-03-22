@@ -14,7 +14,7 @@ public class Main {
     game.addPlayer(new Player("Majid", game));
     game.addPlayer(new Player("Atle", game));
 
-    //For testing pruposes.
+    //For testing purposes.
     boardGame.addPlayer(new Player("Arne", game));
     boardGame.addPlayer(new Player("Ivar", game));
     boardGame.addPlayer(new Player("Majid", game));
