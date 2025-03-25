@@ -12,18 +12,18 @@ public class Tile {
   private Tile nextTile;
   private int tileId;
   private TileAction landAction;
-  private final int xCoordinate;
-  private final int yCoordinate;
+  private int xcoordinate;
+  private int ycoordinate;
 
   /**
-   * Constructor for creating model.Tile with an unique ID.
+   * Constructor for creating model.Tile with a unique ID.
    *
    * @param tileId the id for the tile
    */
-  public Tile(int tileId, int xCoordinate, int yCoordinate) {
+  public Tile(int tileId, int xcoordinate, int ycoordinate) {
     setTileId(tileId);
-    this.xCoordinate = xCoordinate;
-    this.yCoordinate = yCoordinate;
+    setXcoordinate(xcoordinate);
+    setYcoordinate(ycoordinate);
   }
 
   /**
@@ -33,7 +33,7 @@ public class Tile {
    * @param player the player to perform an action on
    */
   public void landPlayer(Player player) {
-    if (player != null && landAction !=null) {
+    if (player != null && landAction != null) {
       landAction.perform(player);
     }
   }
@@ -71,6 +71,29 @@ public class Tile {
   }
 
   /**
+   * Sets the action to be performed when a player lands on the tile.
+   *
+   * @param action the action to be performed
+   */
+  public void setLandAction(TileAction action) {
+    this.landAction = action;
+  }
+
+  public void setXcoordinate(int xcoordinate) {
+    if (xcoordinate < 0) {
+      throw new IllegalArgumentException("x-coordinate must be a positive number.");
+    }
+    this.xcoordinate = xcoordinate;
+  }
+
+  public void setYcoordinate(int ycoordinate) {
+    if (ycoordinate < 0) {
+      throw new IllegalArgumentException("y-coordinate must be a positive number.");
+    }
+    this.ycoordinate = ycoordinate;
+  }
+
+  /**
    * Returns the next tile.
    *
    * @return the next tile on the board
@@ -89,12 +112,21 @@ public class Tile {
   }
 
   /**
+   * Returns the action to be performed when a player lands on the tile.
+   *
+   * @return the action to be performed
+   */
+  public TileAction getLandAction() {
+    return landAction;
+  }
+
+  /**
    * Returns the x-coordinate of the tile.
    *
    * @return the xCoordinate
    */
-  public int getXCoordinate() {
-    return xCoordinate;
+  public int getXcoordinate() {
+    return xcoordinate;
   }
 
   /**
@@ -102,7 +134,7 @@ public class Tile {
    *
    * @return the yCoordinate
    */
-  public int getYCoordinate() {
-    return yCoordinate;
+  public int getYcoordinateCoordinate() {
+    return ycoordinate;
   }
 }
