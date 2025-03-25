@@ -11,8 +11,8 @@ public class Main {
   public static void main(String[] args) {
     BoardFileeReader reader = new BoardFileReaderGson();
     try {
-      Board board = reader.readBoard(Path.of("board.json"));
-      BoardGame boardGame = new BoardGame(board);
+      BoardGame boardGame = new BoardGame();
+      boardGame.createBoard(reader.readBoard(Path.of("board.json")));
       boardGame.createDice(1);
       boardGame.addPlayer(new Player("Arne", boardGame));
       boardGame.addPlayer(new Player("Ivar", boardGame));
