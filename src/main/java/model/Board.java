@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class Board {
   private final Map<Integer, Tile> tiles;
-  private final int rows;
-  private final int columns;
+  private int rows;
+  private int columns;
 
   /**
    * Constructs a new model.Board object and creates a HashMap for the tiles,
@@ -25,8 +25,8 @@ public class Board {
    */
   public Board(int rows, int columns) {
     tiles = new HashMap<>();
-    this.rows = rows;
-    this.columns = columns;
+    setRows(rows);
+    setColumns(columns);
   }
 
   /**
@@ -59,6 +59,40 @@ public class Board {
    */
   public Map<Integer, Tile> getTiles() {
     return tiles;
+  }
+
+  /**
+   * Returns the tile using the id.
+   *
+   * @param id the id of the tile
+   * @return the tile
+   */
+  public Tile getTileById(int id) {
+    return tiles.get(id);
+  }
+
+  /**
+   * Sets the rows of the board.
+   *
+   * @param rows the rows of the board
+   */
+  public void setRows(int rows) {
+    if (rows > 0) {
+      throw new IllegalArgumentException("Rows must be greater than 0");
+    }
+    this.rows = rows;
+  }
+
+  /**
+   * Sets the columns of the board.
+   *
+   * @param columns the columns of the board
+   */
+  public void setColumns(int columns) {
+    if (columns > 0) {
+      throw new IllegalArgumentException("Columns must be greater than 0");
+    }
+    this.columns = columns;
   }
 
   /**
