@@ -5,7 +5,8 @@ import engine.BoardGame;
 /**
  * An entity class for player.
  *
- * <p>This class represents the player in the game.</p>
+ * <p>This class represents the player in the game.
+ * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
@@ -15,7 +16,7 @@ import engine.BoardGame;
 public class Player {
   private String name;
   private Tile currentTile;
-
+  private final BoardGame game;
   /**
    * A constructor for the class player.
    *
@@ -24,9 +25,9 @@ public class Player {
    * */
   public Player(String name, BoardGame game) {
     setName(name);
+    this.game = game;
   }
 
-  //getter and setter
   /**
    * Mutator method for the name.
    *
@@ -65,6 +66,20 @@ public class Player {
   }
 
   /**
+   * Moves the player to a specific tile.
+   *
+   * @param tileId The id of the tile the player should move to.
+   */
+  public void moveToTile(int tileId) {
+    Tile destination = game.getBoard().getTileById(tileId);
+    if (destination != null) {
+      this.placeOnTile(destination);
+    } else {
+      throw new IllegalArgumentException("Tile with id " + tileId + " not found");
+    }
+  }
+
+  /**
    * The current tile the player is placed on the board.
    *
    * @param tile the player is on.
@@ -73,6 +88,11 @@ public class Player {
     currentTile = tile;
   }
 
+  /**
+   * Accesses the current tile the player is on.
+   *
+   * @return the current tile the player is on.
+   */
   public Tile getCurrentTile() {
     return currentTile;
   }
