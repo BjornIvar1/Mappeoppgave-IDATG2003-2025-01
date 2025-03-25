@@ -21,22 +21,27 @@ public class LadderAction implements TileAction {
    *
    * @param destinationTile of where the user will land.
    */
-  LadderAction(int destinationTile, String description) {
+  public LadderAction(int destinationTile, String description) {
     setDestinationTile(destinationTile);
     setDescription(description);
+  }
+
+  /**
+   * Move the player to the correct tile.
+   *
+   * @param player The Player who lands on the tile.
+   */
+  @Override
+  public void perform(Player player) {
+    player.moveToTile(destinationTile);
   }
 
   /**
    * Mutates the destination the player will land on.
    *
    * @param destinationTile that the player will land on.
-   * @throws IllegalArgumentException if the destination is smaller than 0.
-   * @throws IllegalArgumentException if the destination is bigger than 10.
    */
   public void setDestinationTile(int destinationTile) {
-    if (destinationTile < 0 || destinationTile > 10) { //Tile.getSize?
-      throw new IllegalArgumentException("Destination tile must be between 0 and 100");
-    }
     this.destinationTile = destinationTile;
   }
 
@@ -71,15 +76,4 @@ public class LadderAction implements TileAction {
     }
     this.description = description;
   }
-
-  /**
-   * Move the player to the correct destination.
-   *
-   * @param player The Player who lands on the tile.
-   */
-  @Override
-  public void perform(Player player) {
-    player.move(getDestinationTile());
-  }
-
 }
