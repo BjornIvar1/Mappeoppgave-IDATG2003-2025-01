@@ -77,7 +77,7 @@ public class Board {
    * @param rows the rows of the board
    */
   public void setRows(int rows) {
-    if (rows > 0) {
+    if (rows <= 0) {
       throw new IllegalArgumentException("Rows must be greater than 0");
     }
     this.rows = rows;
@@ -89,7 +89,7 @@ public class Board {
    * @param columns the columns of the board
    */
   public void setColumns(int columns) {
-    if (columns > 0) {
+    if (columns <= 0) {
       throw new IllegalArgumentException("Columns must be greater than 0");
     }
     this.columns = columns;
