@@ -69,13 +69,16 @@ public class BoardGame {
   }
 
   /**
-   * Creates the board with a specified amount of rows and columns.
+   * Creates a new board for the game.
+   * If board is null it throws an exception.
    *
-   * @param rows the amount of rows on the board
-   * @param columns the amount of columns on the board
+   * @param board the board to create
    */
-  public void createBoard(int rows, int columns) {
-    board = new Board(rows, columns);
+  public void createBoard(Board board) {
+    if (board == null) {
+      throw new IllegalArgumentException("The board can not be null.");
+    }
+    this.board = board;
   }
 
   /** Accessor method that returns the board.
