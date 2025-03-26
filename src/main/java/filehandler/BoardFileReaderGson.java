@@ -35,47 +35,94 @@ public class BoardFileReaderGson implements BoardFileeReader {
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
       JsonObject rootObj = JsonParser.parseReader(reader).getAsJsonObject();
       JsonArray tilesArray = rootObj.getAsJsonArray("tiles");
-
       int rows = rootObj.get("rows").getAsInt();
       int columns = rootObj.get("columns").getAsInt();
-
       Board board = new Board(rows, columns);
 
-      Map<Integer, Tile> tileMap = new HashMap<>();
-      for (JsonElement element : tilesArray) {
-        JsonObject tileObj = element.getAsJsonObject();
-        int id = tileObj.get("id").getAsInt();
-        int x = tileObj.get("x").getAsInt();
-        int y = tileObj.get("y").getAsInt();
+      Map<Integer, Tile> tileMap = getTileMap(tilesArray, board);
+      linkNextTile(tilesArray, tileMap);
+      createTileAction(tilesArray, tileMap);
 
-        Tile tile = new Tile(id, x, y);
-        board.addTile(tile);
-        tileMap.put(id, tile);
-      }
-      for (JsonElement element : tilesArray) {
-        JsonObject tileObj = element.getAsJsonObject();
-        int id = tileObj.get("id").getAsInt();
-        Tile currentTile = tileMap.get(id);
-
-        if (tileObj.has("nextTile")) {
-          int nextTileId = tileObj.get("nextTile").getAsInt();
-          Tile nextTile = tileMap.get(nextTileId);
-          currentTile.setNextTile(nextTile);
-        }
-
-        if (tileObj.has("action")) {
-          JsonObject actionObj = tileObj.getAsJsonObject("action");
-          String type = actionObj.get("type").getAsString();
-
-          if ("LadderAction".equals(type) || "SnakeAction".equals(type)) {
-            int destinationTileId = actionObj.get("destinationTileId").getAsInt();
-            String description = actionObj.get("description").getAsString();
-            TileAction action = new MoveToTileAction(destinationTileId, description);
-            currentTile.setLandAction(action);
-          }
-        }
-      }
       return board;
     }
+  }
+
+  /**
+   * Creates a map of tiles from the JSON array and adds the tiles to {@link HashMap} tileMap.
+   * Returns the map of tiles.
+   *
+   * @param tilesArray the JSON array of tiles
+   * @param board the board to add the tiles to
+   * @return the map of tiles
+   */
+  private static Map<Integer, Tile> getTileMap(JsonArray tilesArray, Board board) {
+    Map<Integer, Tile> tileMap = new HashMap<>();
+    for (JsonElement element : tilesArray) {
+      JsonObject tileObj = element.getAsJsonObject();
+      int id = tileObj.get("id").getAsInt();
+      int x = tileObj.get("x").getAsInt();
+      int y = tileObj.get("y").getAsInt();
+
+      Tile tile = new Tile(id, x, y);
+      board.addTile(tile);
+      tileMap.put(id, tile);
+    }
+    return tileMap;
+  }
+
+  /**
+   * Links the next tile to the current tile.
+   *
+   * @param tilesArray the JSON array of tiles
+   * @param tileMap the map of tiles
+   */
+  private static void linkNextTile(JsonArray tilesArray, Map<Integer, Tile> tileMap) {
+    for (JsonElement element : tilesArray) {
+      JsonObject tileObj = element.getAsJsonObject();
+      int id = tileObj.get("id").getAsInt();
+      Tile currentTile = tileMap.get(id);
+
+      if (tileObj.has("nextTile")) {
+        int nextTileId = tileObj.get("nextTile").getAsInt();
+        Tile nextTile = tileMap.get(nextTileId);
+        currentTile.setNextTile(nextTile);
+      }
+    }
+  }
+
+  /**
+   * Creates a tile action for the tiles.
+   *
+   * @param tilesArray the JSON array of tiles
+   * @param tileMap the map of tiles
+   */
+  private static void createTileAction(JsonArray tilesArray, Map<Integer, Tile> tileMap) {
+    for (JsonElement element : tilesArray) {
+      JsonObject tileObj = element.getAsJsonObject();
+      int id = tileObj.get("id").getAsInt();
+      Tile currentTile = tileMap.get(id);
+      if (tileObj.has("action")) {
+        JsonObject actionObj = tileObj.getAsJsonObject("action");
+        TileAction tileAction = createTileActionForSnakesAndLadders(actionObj);
+        currentTile.setLandAction(tileAction);
+      }
+    }
+  }
+
+  /**
+   * Creates the tile Action for Snakes and Ladders.
+   * Returns the tile action or null, if the tile do not have an action.
+   *
+   * @param actionObj the JSON object of the action
+   * @return the tile action or null
+   */
+  private static TileAction createTileActionForSnakesAndLadders(JsonObject actionObj) {
+    String type = actionObj.get("type").getAsString();
+    if ("LadderAction".equals(type) || "SnakeAction".equals(type)) {
+      int destinationTileId = actionObj.get("destinationTileId").getAsInt();
+      String description = actionObj.get("description").getAsString();
+      return new MoveToTileAction(destinationTileId, description);
+    }
+    return null;
   }
 }
