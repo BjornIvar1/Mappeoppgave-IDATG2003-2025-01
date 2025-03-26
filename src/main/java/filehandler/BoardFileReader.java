@@ -11,7 +11,7 @@ import model.Board;
  * @version 0.2.1
  * @since 0.0.1
  */
-public interface BoardFileeReader {
+public interface BoardFileReader {
   /**
    * Reads a board from a file.
    *
