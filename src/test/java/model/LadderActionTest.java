@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LadderActionTest {
-  MoveToTileAction moveToTileAction;
+  LadderAction ladderAction;
   BoardGame boardGame;
   Board board;
   Map<Integer, Tile> tiles;
@@ -21,7 +21,7 @@ class LadderActionTest {
 
   @BeforeEach
   void setUp() {
-    moveToTileAction = new MoveToTileAction(3, "you have to move 3 tiles.");
+    ladderAction = new LadderAction(3, "you have to move 3 tiles.");
     boardGame = new BoardGame();
     board = new Board(1, 3);
     tiles = new HashMap<>();
@@ -43,41 +43,41 @@ class LadderActionTest {
 
   @Test
   void setDestinationPositiveTest() {
-    moveToTileAction.setDestinationTile(3);
-    assertEquals(3, moveToTileAction.getDestinationTile());
+    ladderAction.setDestinationTile(3);
+    assertEquals(3, ladderAction.getDestinationTile());
   }
 
   @Test
   void setDestinationNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> moveToTileAction.setDestinationTile(-3),
+    assertThrows(IllegalArgumentException.class, () -> ladderAction.setDestinationTile(-3),
         "can not be lower then 1");
   }
 
   @Test
   void setDescriptionPositiveTest() {
-    moveToTileAction.setDescription("You have to move 3 tiles.");
-    assertEquals("You have to move 3 tiles.", moveToTileAction.getDescription());
+    ladderAction.setDescription("You have to move 3 tiles.");
+    assertEquals("You have to move 3 tiles.", ladderAction.getDescription());
   }
 
   @Test
   void setDescriptionNegativeTestEmpty() {
-    assertThrows(IllegalArgumentException.class, () -> moveToTileAction.setDescription(""));
+    assertThrows(IllegalArgumentException.class, () -> ladderAction.setDescription(""));
   }
 
   @Test
   void setDescriptionNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> moveToTileAction.setDescription(null) );
+    assertThrows(IllegalArgumentException.class, () -> ladderAction.setDescription(null) );
   }
 
   @Test
   void performPositiveTest() {
-    moveToTileAction.perform(player);
+    ladderAction.perform(player);
     assertEquals(3, player.getCurrentTile().getTileId());
   }
 
   @Test
   void performNegativeTest() {
-    moveToTileAction.perform(player);
+    ladderAction.perform(player);
     assertNotEquals(1, player.getCurrentTile().getTileId(),
         "Player has moved to tile 3, not 1");
   }
