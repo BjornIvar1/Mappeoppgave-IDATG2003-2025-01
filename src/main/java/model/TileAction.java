@@ -14,4 +14,8 @@ public interface TileAction {
    * @param player The model.Player who lands on the tile
    */
   void perform(Player player);
+
+  String getDescription();
+
+  int getDestinationTile();
 }
