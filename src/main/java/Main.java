@@ -12,7 +12,7 @@ public class Main {
     BoardFileeReader reader = new BoardFileReaderGson();
     try {
       BoardGame boardGame = new BoardGame();
-      boardGame.createBoard(reader.readBoard(Path.of("board.json")));
+      boardGame.createBoard(reader.readBoard(Path.of("src/main/resources/board.json")));
       boardGame.createDice(1);
       boardGame.addPlayer(new Player("Arne", boardGame));
       boardGame.addPlayer(new Player("Ivar", boardGame));
