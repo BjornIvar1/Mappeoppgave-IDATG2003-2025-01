@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
 
 public class BoardFileWriterGson implements BoardFileWriter{
   @Override
@@ -20,25 +21,31 @@ public class BoardFileWriterGson implements BoardFileWriter{
       writer.write("\"columns\": " + board.getColumns() + ",\n");
       writer.write("\"tiles\": \n");
       writer.write("[\n");
-
-      for (Tile tile : board.getTiles().values()) {
+      Iterator<Tile> iterator = board.getTiles().values().iterator();
+      while (iterator.hasNext()) {
+        Tile tile = iterator.next();
         writer.write("    {");
         writer.write("\"id\": " + tile.getTileId() + ", ");
         writer.write("\"x\": " + tile.getXcoordinate() + ", ");
         writer.write("\"y\": " + tile.getYcoordinate());
-        if (tile.getNextTile() == null) {
-          writer.write("} \n");
-        } else {
+
+        if (tile.getNextTile() != null) {
           writer.write(", " + "\"nextTile\": " + tile.getNextTile().getTileId());
         }
+
         if (tile.getLandAction() != null) {
           writer.write(", " + "\"action\": { ");
           writer.write("\"type\": \"" + "LadderAction" + "\"");
           writer.write(", " + "\"description\": \"" + tile.getLandAction().getDescription() + "\"");
           writer.write(", " + "\"destinationTileId\": " + tile.getLandAction().getDestinationTile());
-          writer.write("}}," + "\n");
-        } else if (tile.getNextTile() != null) {
-          writer.write("},\n");
+          writer.write("}");
+        }
+        writer.write("}");
+
+        if (iterator.hasNext()) {
+          writer.write(",\n");
+        } else {
+          writer.write("\n");
         }
       }
       writer.write("  ]\n");
