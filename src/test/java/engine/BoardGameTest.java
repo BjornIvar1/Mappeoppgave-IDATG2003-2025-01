@@ -1,5 +1,6 @@
 package engine;
 
+import model.Board;
 import model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,7 +69,13 @@ class BoardGameTest {
 
   @Test
   void createBoardPositiveTest() {
-    boardGame.createBoard(10, 10);
+    boardGame.createBoard(new Board(10, 10));
     assertNotNull(boardGame.getBoard());
+  }
+
+  @Test
+  void createBoardNegativeTest() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> boardGame.createBoard(null));
+    assertEquals("The board can not be null.", exception.getMessage());
   }
 }
