@@ -40,8 +40,12 @@ public class LadderAction implements TileAction {
    * Mutates the destination the player will land on.
    *
    * @param destinationTile that the player will land on.
+   * @throws IllegalArgumentException if the destinationTile is lower than 1.
    */
   public void setDestinationTile(int destinationTile) {
+    if (destinationTile <= 0){
+      throw new IllegalArgumentException("Destination tile cannot be lower than 1");
+    }
     this.destinationTile = destinationTile;
   }
 
