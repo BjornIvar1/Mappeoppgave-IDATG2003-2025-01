@@ -1,18 +1,14 @@
 package model;
 
 /**
- * Represents the ladders in the game of snake and ladders.
- *
- * <p>Inherent TileAction's method {@code perform} to allow the user
- * to land on a ladder and moves them to another tile based on the
- * {@code destinationTile}.
- * </p>
+ * A class that represents a tile action that moves a player to another tile.
+ * The class implements the interface TileAction.
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
  * @version 0.0.1
  */
-public class LadderAction implements TileAction {
+public class MoveToTileAction implements TileAction {
   private int destinationTile;
   private String description;
 
@@ -21,7 +17,7 @@ public class LadderAction implements TileAction {
    *
    * @param destinationTile of where the user will land.
    */
-  public LadderAction(int destinationTile, String description) {
+  public MoveToTileAction(int destinationTile, String description) {
     setDestinationTile(destinationTile);
     setDescription(description);
   }
@@ -60,7 +56,7 @@ public class LadderAction implements TileAction {
 
   /**
    * Accesses the description the player will get when landing
-   * on a ladder.
+   * on the action.
    *
    * @return description.
    */
@@ -71,7 +67,7 @@ public class LadderAction implements TileAction {
   /**
    * Mutates the description.
    *
-   * @param description of what happens when the player lands on a ladder.
+   * @param description of what happens when the player lands on the action.
    * @throws IllegalArgumentException if the description is null og empty.
    */
   public void setDescription(String description) {
