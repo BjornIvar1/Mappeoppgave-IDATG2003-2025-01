@@ -1,6 +1,6 @@
 {
   "name": "Snakes and Ladders",
-  "description" : "A simple snakes and ladders board",
+  "description" : "A simple snakes and ladders board game",
   "columns": 10,
   "rows": 9,
   "tiles": [
@@ -41,7 +41,7 @@
     { "id": 32, "x": 8, "y": 3, "nextTile": 33 },
     { "id": 33, "x": 7, "y": 3, "nextTile": 34 },
     { "id": 34, "x": 6, "y": 3, "nextTile": 35 },
-    { "id": 35, "x": 5, "y": 3, "nextTile": 36, "action": { "type": "SnakeAction", "description": "Snake from 35 to 20", "destinationTileId": 20 }},
+    { "id": 35, "x": 5, "y": 3, "nextTile": 36 },
     { "id": 36, "x": 4, "y": 3, "nextTile": 37 },
     { "id": 37, "x": 3, "y": 3, "nextTile": 38 },
     { "id": 38, "x": 2, "y": 3, "nextTile": 39 },
