@@ -134,7 +134,7 @@ public class Tile {
    *
    * @return the yCoordinate
    */
-  public int getYcoordinateCoordinate() {
+  public int getYcoordinate() {
     return ycoordinate;
   }
 }
