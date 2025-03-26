@@ -65,13 +65,13 @@ public class BoardFileReaderGson implements BoardFileeReader {
 
         if (tileObj.has("action")) {
           JsonObject actionObj = tileObj.getAsJsonObject("action");
-          String description = actionObj.get("description").getAsString();
+          String type = actionObj.get("type").getAsString();
 
-          if ("LadderAction".equals(description)) {
+          if ("LadderAction".equals(type)) {
             int destinationTileId = actionObj.get("destinationTileId").getAsInt();
-            TileAction action = new LadderAction(destinationTileId, "s");
+            String description = actionObj.get("description").getAsString();
+            TileAction action = new LadderAction(destinationTileId, description);
             currentTile.setLandAction(action);
-
           }
         }
       }
