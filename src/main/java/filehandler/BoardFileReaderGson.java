@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import model.Board;
-import model.MoveToTileAction;
+import model.LadderAction;
 import model.Tile;
 import model.TileAction;
 import java.io.BufferedReader;
@@ -103,7 +103,7 @@ public class BoardFileReaderGson implements BoardFileReader {
       Tile currentTile = tileMap.get(id);
       if (tileObj.has("action")) {
         JsonObject actionObj = tileObj.getAsJsonObject("action");
-        TileAction tileAction = createTileActionForSnakesAndLadders(actionObj);
+        TileAction tileAction = createTileActionLadder(actionObj);
         currentTile.setLandAction(tileAction);
       }
     }
@@ -116,12 +116,12 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param actionObj the JSON object of the action
    * @return the tile action or null
    */
-  private static TileAction createTileActionForSnakesAndLadders(JsonObject actionObj) {
+  private static TileAction createTileActionLadder(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
-    if ("LadderAction".equals(type) || "SnakeAction".equals(type)) {
+    if ("LadderAction".equals(type)) {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
       String description = actionObj.get("description").getAsString();
-      return new MoveToTileAction(destinationTileId, description);
+      return new LadderAction(destinationTileId, description);
     }
     return null;
   }
