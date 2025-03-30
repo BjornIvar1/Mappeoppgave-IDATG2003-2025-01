@@ -2,6 +2,8 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import filehandler.PlayerFileWriter;
 import model.Board;
 import model.Player;
 import model.Tile;
@@ -38,6 +40,7 @@ public class BoardGame {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
+    PlayerFileWriter.writeToCSV(players, "src/main/resources/players/playersInGameFile.csv");
   }
 
   /**
