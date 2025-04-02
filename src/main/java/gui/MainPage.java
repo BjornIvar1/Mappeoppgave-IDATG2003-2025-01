@@ -77,7 +77,7 @@ public class MainPage extends Application {
    */
   private FlowPane imagePaneCreate() {
     FlowPane imagePane = new FlowPane();
-    ImageView image = new ImageView("logo.png");
+    ImageView image = new ImageView("src/main/resources/image/logo.png");
     imagePane.getChildren().add(image);
     imagePane.setAlignment(Pos.CENTER);
     return imagePane;
