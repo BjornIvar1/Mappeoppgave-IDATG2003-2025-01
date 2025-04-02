@@ -1,9 +1,9 @@
 package filehandler;
 
 import engine.BoardGame;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +20,11 @@ class PlayerFileReaderAndWriterTest {
   void setUp() throws IOException {
     game = new BoardGame();
     csvReader = new PlayerFileReader();
+  }
+
+  @AfterAll
+  static void tearDown() throws IOException {
+    Files.deleteIfExists(Path.of(TEST_FILE));
   }
 
   @Test
@@ -58,9 +63,4 @@ class PlayerFileReaderAndWriterTest {
     //There should not be any players in the game.
     assertTrue(game.getPlayers().isEmpty(), "No players found");
   }
-
-
-
-
-
 }
