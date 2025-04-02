@@ -1,5 +1,6 @@
 package model;
 
+import engine.BoardGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +39,36 @@ class TileTest {
   void setIncorrectTileId() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setTileId(-1));
     assertEquals("model.Tile ID must be a positive integer.", exception.getMessage());
+  }
+
+  @Test
+  void setLandAction_Test() {
+    TileAction action = new LadderAction(1,"Ladder");
+    tile1.setLandAction(action);
+    assertEquals(action, tile1.getLandAction());
+  }
+
+  @Test
+  void setXcoordinatePositive_Test() {
+    tile1.setXcoordinate(1);
+    assertEquals(1, tile1.getXcoordinate());
+  }
+
+  @Test
+  void setXcoordinateNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setXcoordinate(-1));
+    assertEquals("x-coordinate must be a positive number.", exception.getMessage());
+  }
+
+  @Test
+  void setYcoordinatePositive_Test() {
+    tile1.setYcoordinate(1);
+    assertEquals(1, tile1.getYcoordinate());
+  }
+
+  @Test
+  void setYcoordinateNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setYcoordinate(-1));
+    assertEquals("y-coordinate must be a positive number.", exception.getMessage());
   }
 }

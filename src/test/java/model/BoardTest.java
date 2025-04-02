@@ -40,4 +40,53 @@ class BoardTest {
   void negativeTestGetTile() {
     assertNull(board.getTile(4));
   }
+
+  @Test
+  void getTilesTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    tiles.put(1, tile1);
+    tiles.put(2, tile2);
+    tiles.put(3, tile3);
+
+    assertEquals(tiles, board.getTiles());
+    assertEquals(3, board.getTiles().size());
+  }
+
+  @Test
+  void getTileById_Test() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    assertEquals(tile1, board.getTileById(1));
+    assertEquals(tile2, board.getTileById(2));
+    assertEquals(tile3, board.getTileById(3));
+  }
+
+  @Test
+  void setRowsPositive_Test() {
+    board.setRows(5);
+    assertEquals(5, board.getRows());
+  }
+
+  @Test
+  void setRowsNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> board.setRows(-1));
+    assertEquals("Rows must be greater than 0", exception.getMessage());
+  }
+
+  @Test
+  void setColumnsPositive_Test() {
+    board.setColumns(5);
+    assertEquals(5, board.getColumns());
+  }
+
+  @Test
+  void setColumnsNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> board.setColumns(-1));
+    assertEquals("Columns must be greater than 0", exception.getMessage());
+  }
 }
