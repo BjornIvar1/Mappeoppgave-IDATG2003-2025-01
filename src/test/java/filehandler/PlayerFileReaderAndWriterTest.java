@@ -20,6 +20,10 @@ class PlayerFileReaderAndWriterTest {
   void setUp() throws IOException {
     game = new BoardGame();
     csvReader = new PlayerFileReader();
+  }
+
+  @Test
+  void readAndWritePositiveTest() throws IOException {
 
     // Create a temporary CSV file.
     List<String> players = List.of(
@@ -30,10 +34,7 @@ class PlayerFileReaderAndWriterTest {
 
     //Creates and writes the player to the file.
     Files.write(Path.of(TEST_FILE), players);
-  }
 
-  @Test
-  void readAndWritePositiveTest() {
     csvReader.readCsvBuffered(TEST_FILE, game);
 
     // check if there are 3 players saved.
