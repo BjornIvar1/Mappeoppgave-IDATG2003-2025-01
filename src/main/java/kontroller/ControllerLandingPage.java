@@ -1,7 +1,6 @@
 package kontroller;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import gui.GameChoice;
 
 public class ControllerLandingPage {
   private SceneManager sceneManager;
@@ -10,5 +9,8 @@ public class ControllerLandingPage {
     this.sceneManager = sceneManager;
   }
 
+  public void switchToGameChoice() {
+    sceneManager.setView(new GameChoice());
+  }
 
 }
