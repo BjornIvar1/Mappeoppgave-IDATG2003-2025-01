@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class LandingPage extends FlowPane {
 
-  public LandingPage(ControllerLandingPage controllerLandingPage) {
+  public LandingPage() {
     setAlignment(Pos.CENTER);
     this.getChildren().addAll(buttonAndImage());
   }
