@@ -24,7 +24,7 @@ public class MainPage extends Application {
   public void start(Stage primaryStage) {
     SceneManager sceneManager = new SceneManager(primaryStage);
     ControllerLandingPage controllerLandingPage = new ControllerLandingPage(sceneManager);
-    sceneManager.setView(new LandingPage(controllerLandingPage));
+    sceneManager.setView(new LandingPage());
   }
 
   /**
