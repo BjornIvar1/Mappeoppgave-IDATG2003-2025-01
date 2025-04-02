@@ -1,5 +1,6 @@
 import engine.BoardGame;
 import filehandler.*;
+import gui.MainPage;
 import model.Player;
 
 import java.io.IOException;
@@ -29,5 +30,6 @@ public class Main {
     } catch (IOException e) {
       System.out.println("Could not read board from file: " + e.getMessage());
     }
+    MainPage.main(args);
   }
 }
