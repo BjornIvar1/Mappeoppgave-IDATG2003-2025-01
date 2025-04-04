@@ -21,6 +21,7 @@ public class BoardGame {
   private final List<Player> players;
   private Board board;
   private Player currentPlayer;
+  private int currentPlayerIndex;
   private Dice dice;
 
   /**
@@ -96,33 +97,33 @@ public class BoardGame {
    * Simple board game for testing...
    */
   public void play() {
-    boolean winner = false;
-    int round = 0;
 
-    System.out.println("The following players are playing the game:");
-    for (Player player : players) {
-      System.out.println(" -" + player.getName());
-      player.placeOnTile(board.getTile(1));
-    }
-
-    while (!winner) {
-      round++;
-      System.out.println();
-      System.out.println("Round: " + round);
+    if (currentPlayer == null) {
+      System.out.println("The following players are playing the game:");
       for (Player player : players) {
-        int steps = dice.roll();
-        player.move(steps);
-
-        Tile currentTile = player.getCurrentTile();
-
-        if (currentTile.getTileId() == board.getTiles().size()) {
-          System.out.println("And the winner is... " + player.getName());
-          winner = true;
-          break;
-        }
-
-        System.out.println(player.getName() + " on tile " + player.getCurrentTile().getTileId());
+        System.out.println(" -" + player.getName());
+        currentPlayer = players.get(currentPlayerIndex);
+        player.placeOnTile(board.getTile(1));
       }
     }
+
+    if (currentPlayer == null) {
+      System.out.println("No players have been added to the game.");
+      return;
+    }
+
+    int steps = dice.roll();
+    currentPlayer.move(steps);
+
+    Tile currentTile = currentPlayer.getCurrentTile();
+
+    if (currentTile.getTileId() == board.getTiles().size()) {
+      System.out.println("And the winner is... " + currentPlayer.getName());
+      return;
+    }
+
+    System.out.println(currentPlayer.getName() + " on tile " + currentPlayer.getCurrentTile().getTileId());
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    currentPlayer = players.get(currentPlayerIndex);
   }
 }
