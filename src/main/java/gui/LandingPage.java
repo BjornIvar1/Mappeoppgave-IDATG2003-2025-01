@@ -10,9 +10,24 @@ import kontroller.ControllerLandingPage;
 
 import java.util.Objects;
 
+/**
+ * This class represents the landing page.
+ *
+ * <p>This class is the landing page were the user
+ * starts, when the user launches the application.
+ * The user will be introduced with logo and a button to start
+ * playing the game.</p>
+ *
+ * @author A. Sahoo, B.I. Høie
+ * @since 0.0.1
+ * @version 0.0.2
+ */
 public class LandingPage extends FlowPane {
 
-  public LandingPage() {
+  private final ControllerLandingPage controller;
+
+  public LandingPage(ControllerLandingPage controller) {
+    this.controller = controller;
     setAlignment(Pos.CENTER);
     this.getChildren().addAll(buttonAndImage());
   }
@@ -56,6 +71,7 @@ public class LandingPage extends FlowPane {
   private FlowPane startButtonPaneCreate() {
     FlowPane buttonPane = new FlowPane();
     Button startButton = new Button("Start");
+    startButton.setOnAction(event ->  controller.switchToGameChoice() );
     startButton.prefHeight(30);
     startButton.prefWidth(300);
     buttonPane.getChildren().addAll(startButton);
