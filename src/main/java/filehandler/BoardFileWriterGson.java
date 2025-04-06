@@ -1,15 +1,29 @@
 package filehandler;
 
-import model.Board;
-import model.Tile;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
+import model.Board;
+import model.Tile;
 
-public class BoardFileWriterGson implements BoardFileWriter{
+/**
+ * Class that writes a board to a file using Gson.
+ *
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.2.1
+ * @since 0.0.1
+ */
+public class BoardFileWriterGson implements BoardFileWriter {
+
+  /**
+   * Writes a board to a file using Gson.
+   *
+   * @param board the board to write
+   * @param filePath the path to the file
+   * @throws IOException if the file could not be written
+   */
   @Override
   public void writeBoard(Board board, Path filePath) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
@@ -27,6 +41,13 @@ public class BoardFileWriterGson implements BoardFileWriter{
     }
   }
 
+  /**
+   * Writes the tiles of the board to the file.
+   *
+   * @param board the board to write
+   * @param writer the writer to write to the file
+   * @throws IOException if the file could not be written
+   */
   private static void writeTiles(Board board, BufferedWriter writer) throws IOException {
     Iterator<Tile> iterator = board.getTiles().values().iterator();
     while (iterator.hasNext()) {
@@ -53,6 +74,13 @@ public class BoardFileWriterGson implements BoardFileWriter{
     }
   }
 
+  /**
+   * Writes the land action of the tile to the file.
+   *
+   * @param writer the writer to write to the file
+   * @param tile the tile to write the land action of
+   * @throws IOException if the file could not be written
+   */
   private static void writeLandAction(BufferedWriter writer, Tile tile) throws IOException {
     writer.write(", " + "\"action\": { ");
     writer.write("\"type\": \"" + "LadderAction" + "\"");
