@@ -1,19 +1,20 @@
 package gui;
 
+import gui.menu.LandingPage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import kontroller.ControllerLandingPage;
 import kontroller.SceneManager;
 
 /**
- * The {@code MainPage} class creates a graphical user interface for interacting that
+ * The {@code GameLauncher} class creates a graphical user interface for interacting that
  * allows the user to enter and leave the game.
  *
  * @since 0.0.1
  * @author Arpit & Bjørn
  * @version 0.0.1
  */
-public class MainPage extends Application {
+public class GameLauncher extends Application {
 
   /**
    * Starts the JavaFX application and initializes the user interface.
