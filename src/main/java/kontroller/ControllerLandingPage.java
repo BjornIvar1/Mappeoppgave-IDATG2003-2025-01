@@ -1,6 +1,7 @@
 package kontroller;
 
-import gui.GameChoice;
+import gui.menu.GameSelection;
+
 /**
  * Controls the landing page behavior and scene transitions.
  *
@@ -25,10 +26,10 @@ public class ControllerLandingPage {
   /**
    * Switches to the game selection view.
    *
-   * <p>This method updates the scene to display the {@code GameChoice} interface,
+   * <p>This method updates the scene to display the {@code GameSelection} interface,
    * allowing users to choose and start a game.</p>
    */
   public void switchToGameChoice() {
-    sceneManager.setView(new GameChoice(new ControllerGameChoice(sceneManager)));
+    sceneManager.setView(new GameSelection(new ControllerGameChoice(sceneManager)));
   }
 }
