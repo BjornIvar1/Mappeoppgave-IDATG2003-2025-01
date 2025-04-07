@@ -17,7 +17,7 @@ class PlayerFileReaderAndWriterTest {
   private static final String TEST_FILE = "test_players.csv";
 
   @BeforeEach
-  void setUp() throws IOException {
+  void setUp() {
     game = new BoardGame();
     csvReader = new PlayerFileReader();
   }
