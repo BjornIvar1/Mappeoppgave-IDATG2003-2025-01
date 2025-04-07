@@ -1,5 +1,6 @@
-package gui;
+package gui.menu;
 
+import gui.BasePage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,14 +21,14 @@ import java.util.Objects;
  * @version 0.0.2
  * @since 0.0.1
  */
-public class GameChoice extends FlowPane {
+public class GameSelection extends BasePage {
 
   /**
-   * Constructs a {@code GameChoice} instance with a given game controller.
+   * Constructs a {@code GameSelection} instance with a given game controller.
    *
    * @param controllerGameChoice the game controller responsible for game selection logic
    */
-  public GameChoice(ControllerGameChoice controllerGameChoice) {
+  public GameSelection(ControllerGameChoice controllerGameChoice) {
     setAlignment(Pos.CENTER);
     getChildren().addAll(createGameSelectionPane());
   }
