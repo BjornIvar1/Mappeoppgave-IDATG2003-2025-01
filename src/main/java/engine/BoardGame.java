@@ -97,7 +97,6 @@ public class BoardGame {
    * Simple board game for testing...
    */
   public void play() {
-
     if (currentPlayer == null) {
       System.out.println("The following players are playing the game:");
       for (Player player : players) {
