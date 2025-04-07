@@ -1,5 +1,6 @@
-package gui;
+package gui.menu;
 
+import gui.BasePage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ import java.util.Objects;
  * @since 0.0.1
  * @version 0.0.2
  */
-public class LandingPage extends FlowPane {
+public class LandingPage extends BasePage {
 
   private final ControllerLandingPage controller;
 
