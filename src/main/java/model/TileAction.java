@@ -4,7 +4,7 @@ package model;
  * Represent an action when a player lands on a model.Tile.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.3.0
  * @since 0.0.1
  */
 public interface TileAction {
@@ -18,4 +18,8 @@ public interface TileAction {
   String getDescription();
 
   int getDestinationTile();
+
+  int getMoney();
+
+  int looseMoney(int money);
 }
