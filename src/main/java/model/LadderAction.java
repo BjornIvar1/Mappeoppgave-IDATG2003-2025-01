@@ -10,7 +10,7 @@ package model;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.2.0
  */
 public class LadderAction implements TileAction {
   private int destinationTile;
@@ -79,5 +79,15 @@ public class LadderAction implements TileAction {
       throw new IllegalArgumentException("Description cannot be null or empty");
     }
     this.description = description;
+  }
+
+  @Override
+  public int getMoney() {
+    return 0; // Not applicable for ladder action
+  }
+
+  @Override
+  public int looseMoney(int money) {
+    return 0; // Not applicable for ladder action
   }
 }
