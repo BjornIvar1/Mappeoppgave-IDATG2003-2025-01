@@ -32,9 +32,9 @@ class PlayerFileReaderAndWriterTest {
 
     // Create a temporary CSV file.
     List<String> players = List.of(
-        "Atle,",
-        "Marvin,",
-        "Bjorn,"
+        "Atle,BLACK",
+        "Marvin,BLACK",
+        "Bjorn,BLACK"
     );
 
     //Creates and writes the player to the file.
