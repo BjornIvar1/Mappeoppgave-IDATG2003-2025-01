@@ -90,6 +90,6 @@ public class LadderAction implements TileAction {
    * @return the color of the ladder.
    */
   public Color getColor() {
-    return Color.BROWN;
+    return Color.web("#f5f04b");
   }
 }

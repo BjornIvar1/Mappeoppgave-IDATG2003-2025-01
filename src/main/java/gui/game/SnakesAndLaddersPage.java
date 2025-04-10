@@ -165,7 +165,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private StackPane createTile(int tileId) {
     Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0) ? Color.BEIGE : Color.WHITE;
+    Color baseColor = (tileId % 2 == 0) ? Color.web("#32bff5") : Color.web("#bbd962");
 
     rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);

@@ -90,6 +90,6 @@ public class SnakeAction implements TileAction {
    * @return the color of the snake.
    */
   public Color getColor() {
-    return Color.GREEN;
+    return Color.web("#e5626a");
   }
 }
