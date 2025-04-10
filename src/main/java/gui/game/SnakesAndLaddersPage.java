@@ -174,6 +174,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     TileAction landAction = boardGame.getBoard().getTiles().get(tileId).getLandAction();
     if (landAction != null) {
       rect.setFill(landAction.getColor());
+      text.setWrappingWidth(TILE_SIZE);
+      text.setText(landAction.getDescription());
     }
 
 
