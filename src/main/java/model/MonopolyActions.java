@@ -43,12 +43,12 @@ abstract class MonopolyActions implements TileAction {
    * @param player The model.Player who lands on the tile
    */
   @Override
-  public void perform(Player player){
+  public void perform(Player player) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("This method must be overridden by subclasses");
   }
 
   /**
-   * Accesses an description of what happens when the player lands on a tile.
+   * Accesses a description of what happens when the player lands on a tile.
    *
    * @return a description.
    */
