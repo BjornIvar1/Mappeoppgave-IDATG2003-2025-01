@@ -9,15 +9,20 @@ package model;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.0.2
  */
-public class BankAction implements TileAction{
-  private String description;
+public class BankAction extends MonopolyActions{
   private int money;
 
+  /**
+   * Creates a bank action with a specified amount of money.
+   *
+   * @param money       the amount of money to be given to the player.
+   * @param description the description of the action.
+   */
   public BankAction(int money, String description) {
+    super(description);
     setMoney(money);
-    setDescription(description);
   }
 
   /**
@@ -32,22 +37,9 @@ public class BankAction implements TileAction{
     }
   }
 
-  public void setDescription(String description) {
-    if (description == null || description.isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty");
-    }
-    this.description = description;
-  }
-
-  /**
-   * Accesses the description the player will get when landing
-   * on the tile.
-   *
-   * @return description of the action.
-   */
   @Override
-  public String getDescription() {
-    return description;
+  public int getDestinationTile() {
+    return 0; // No specific destination tile for bank action
   }
 
   /**
@@ -55,7 +47,6 @@ public class BankAction implements TileAction{
    *
    * @return money that the player will get.
    */
-  @Override
   public int getMoney() {
     return money;
   }
@@ -66,20 +57,10 @@ public class BankAction implements TileAction{
    * @param money that the player will get.
    * @throws IllegalArgumentException if the money is lower than 0.
    */
-  private void setMoney(int money) {
+  public void setMoney(int money) throws IllegalArgumentException {
     if (money < 0) {
       throw new IllegalArgumentException("Money cannot be negative");
     }
     this.money = money;
-  }
-
-  @Override
-  public int getDestinationTile() {
-    return 0; // Not applicable for bank action
-  }
-
-  @Override
-  public int looseMoney(int money) {
-    return 0; // Not applicable for bank action
   }
 }
