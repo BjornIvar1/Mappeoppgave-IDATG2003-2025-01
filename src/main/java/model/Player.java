@@ -1,9 +1,6 @@
 package model;
 
 import engine.BoardGame;
-import javafx.scene.paint.Color;
-
-import java.util.List;
 
 /**
  * An entity class for player.
@@ -27,10 +24,10 @@ public class Player {
    * @param name is the name of the player.
    * @param game the board game the player is playing.
    * */
-  public Player(String name, BoardGame game, String color) {
+  public Player(String name, String color, BoardGame game) {
     setName(name);
+    setColor(color);
     this.game = game;
-    this.color = color;
   }
 
   /**
@@ -53,6 +50,28 @@ public class Player {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Mutator method for the name.
+   *
+   * @param color of the player
+   * @throws IllegalArgumentException if color is null or isBlank
+   */
+  public void setColor(String color) {
+    if (color == null || color.isBlank()) {
+      throw new IllegalArgumentException("Color cannot be null or blank");
+    }
+    this.color = color;
+  }
+
+  /**
+   * Accessor method for player name.
+   *
+   * @return the color of th player
+   */
+  public String getColor() {
+    return color;
   }
 
   /**
@@ -100,9 +119,5 @@ public class Player {
    */
   public Tile getCurrentTile() {
     return currentTile;
-  }
-
-  public String getColor() {
-    return color;
   }
 }
