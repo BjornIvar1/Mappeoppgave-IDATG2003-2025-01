@@ -35,7 +35,7 @@ public class PlayerFileReader {
           String name = words[0].strip();
           String color = words[1].strip();
 
-          game.addPlayer(new Player(name, game, color));
+          game.addPlayer(new Player(name, color, game));
         } else {
           System.out.println("Skipping invalid line: " + line);
         }
