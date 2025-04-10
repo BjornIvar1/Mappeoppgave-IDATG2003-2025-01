@@ -80,14 +80,4 @@ public class LadderAction implements TileAction {
     }
     this.description = description;
   }
-
-  @Override
-  public int getMoney() {
-    return 0; // Not applicable for ladder action
-  }
-
-  @Override
-  public int looseMoney(int money) {
-    return 0; // Not applicable for ladder action
-  }
 }
