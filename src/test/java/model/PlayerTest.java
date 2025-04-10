@@ -12,7 +12,7 @@ class PlayerTest {
 
   @BeforeEach
   void setUp() {
-    player1 = new Player("John", new BoardGame());
+    player1 = new Player("John", "RED", new BoardGame());
     tile1 = new Tile(2, 1, 0);
     tile2 = new Tile(3, 2, 0);
 
@@ -28,6 +28,17 @@ class PlayerTest {
   void setNameNegativeTest(){
     assertThrows(IllegalArgumentException.class, () -> player1.setName(" "));
     assertThrows(IllegalArgumentException.class, () -> player1.setName(null));
+  }
+
+  @Test
+  void setColorPositiveTest(){
+    assertEquals("RED", player1.getColor());
+  }
+
+  @Test
+  void setColorNegativeTest(){
+    assertThrows(IllegalArgumentException.class, () -> player1.setColor(" "));
+    assertThrows(IllegalArgumentException.class, () -> player1.setColor(null));
   }
 
   @Test
