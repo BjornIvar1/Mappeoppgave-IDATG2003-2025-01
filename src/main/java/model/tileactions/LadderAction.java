@@ -1,5 +1,6 @@
 package model.tileactions;
 
+import javafx.scene.paint.Color;
 import model.Player;
 
 /**
@@ -81,5 +82,14 @@ public class LadderAction implements TileAction {
       throw new IllegalArgumentException("Description cannot be null or empty");
     }
     this.description = description;
+  }
+
+  /**
+   * Accesses the color of the ladder.
+   *
+   * @return the color of the ladder.
+   */
+  public Color getColor() {
+    return Color.BROWN;
   }
 }
