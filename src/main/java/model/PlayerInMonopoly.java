@@ -9,7 +9,7 @@ import engine.BoardGame;
  * the player's balance.</p>
  *
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.1.0
  * @since 0.0.1
  */
 public class PlayerInMonopoly extends Player {
@@ -19,11 +19,12 @@ public class PlayerInMonopoly extends Player {
    * Constructor for the PlayerInMonopoly class.
    *
    * @param name    the name of the player
+   * @param color   the color the players are
    * @param game    the board game the player is playing
    * @param balance the initial balance of the player
    */
-  public PlayerInMonopoly(String name, BoardGame game, int balance) {
-    super(name, game);
+  public PlayerInMonopoly(String name, String color, BoardGame game, int balance) {
+    super(name,color, game);
     setBalance(balance);
   }
 
