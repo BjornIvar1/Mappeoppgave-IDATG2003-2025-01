@@ -1,5 +1,7 @@
 package model;
 
+import model.tileactions.TileAction;
+
 /**
  * Represents the actions in the game of Monopoly.
  *
