@@ -9,14 +9,14 @@ import java.nio.file.Path;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerSnakesAndLadders;
+import model.Player;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -42,6 +42,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       "src/main/resources/players/playersInGameFile.csv";
 
   private BoardGame boardGame;
+  private BorderPane mainLayout;
+  private Label gameInformation;
 
   /**
    * Constructor for the SnakesAndLaddersPage class.
@@ -51,9 +53,16 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   public SnakesAndLaddersPage(ControllerSnakesAndLadders controllerSnakesAndLadders) {
     initializeGame();
     GridPane board = createBoard();
+    HBox controlPanel = createControlPanel();
 
+    mainLayout = new BorderPane();
+    mainLayout.setCenter(board);
+    mainLayout.setBottom(controlPanel);
+
+    BorderPane.setAlignment(controlPanel, Pos.CENTER);
     setAlignment(Pos.CENTER);
-    getChildren().addAll(board, createControlPanel());
+
+    getChildren().add(mainLayout);
   }
 
   /**
@@ -95,10 +104,19 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
       boardGame.play();
+      Player player = boardGame.getCurrentPlayer();
+      int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
+      if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+      } else {
+        gameInformation.setText(player.getName() + " rolled: " + rollSum);
+      }
       updateBoard();
     });
 
-    controlPanel.getChildren().addAll(startButton, rollDice);
+    gameInformation = new Label("");
+
+    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation);
     return controlPanel;
   }
 
@@ -107,7 +125,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private void updateBoard() {
     GridPane boardGrid = createBoard();
-    getChildren().set(0, boardGrid);
+    mainLayout.setCenter(boardGrid);
   }
 
   /**
@@ -146,11 +164,12 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
     Color baseColor = (tileId % 2 == 0) ? Color.LIGHTBLUE : Color.WHITE;
 
+    rect.setFill(baseColor);
+
     if (boardGame.getBoard().getTiles().get(tileId).getLandAction() != null) {
       rect.setFill(Color.BROWN);
     }
 
-    rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
