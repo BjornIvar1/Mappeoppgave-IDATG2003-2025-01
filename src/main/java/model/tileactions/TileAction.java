@@ -1,5 +1,6 @@
 package model.tileactions;
 
+import javafx.scene.paint.Color;
 import model.Player;
 
 /**
@@ -20,4 +21,6 @@ public interface TileAction {
   String getDescription();
 
   int getDestinationTile();
+
+  Color getColor();
 }
