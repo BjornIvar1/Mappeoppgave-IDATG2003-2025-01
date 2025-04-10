@@ -13,6 +13,7 @@ import java.util.Map;
 import model.Board;
 import model.tileactions.LadderAction;
 import model.Tile;
+import model.tileactions.SnakeAction;
 import model.tileactions.TileAction;
 
 /**
@@ -103,7 +104,7 @@ public class BoardFileReaderGson implements BoardFileReader {
       Tile currentTile = tileMap.get(id);
       if (tileObj.has("action")) {
         JsonObject actionObj = tileObj.getAsJsonObject("action");
-        TileAction tileAction = createTileActionLadder(actionObj);
+        TileAction tileAction = createTileActionSnakesAndLadders(actionObj);
         currentTile.setLandAction(tileAction);
       }
     }
@@ -116,13 +117,16 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param actionObj the JSON object of the action
    * @return the tile action or null
    */
-  private static TileAction createTileActionLadder(JsonObject actionObj) {
+  private static TileAction createTileActionSnakesAndLadders(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
     if ("LadderAction".equals(type)) {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
       String description = actionObj.get("description").getAsString();
       return new LadderAction(destinationTileId, description);
+    } else if ("SnakeAction".equals(type)) {
+      int destinationTileId = actionObj.get("destinationTileId").getAsInt();
+      String description = actionObj.get("description").getAsString();
+      return new SnakeAction(destinationTileId, description);
     }
     return null;
-  }
-}
+  }}
