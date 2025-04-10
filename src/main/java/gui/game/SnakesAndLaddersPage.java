@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerSnakesAndLadders;
 import model.Player;
+import model.tileactions.TileAction;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -164,16 +165,17 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private StackPane createTile(int tileId) {
     Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0) ? Color.LIGHTBLUE : Color.WHITE;
+    Color baseColor = (tileId % 2 == 0) ? Color.BEIGE : Color.WHITE;
 
     rect.setFill(baseColor);
-
-    if (boardGame.getBoard().getTiles().get(tileId).getLandAction() != null) {
-      rect.setFill(Color.BROWN);
-    }
-
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
+
+    TileAction landAction = boardGame.getBoard().getTiles().get(tileId).getLandAction();
+    if (landAction != null) {
+      rect.setFill(landAction.getColor());
+    }
+
 
     StackPane stack = new StackPane();
     stack.getChildren().addAll(rect, text);
