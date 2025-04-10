@@ -1,7 +1,9 @@
-package model;
+package model.tileactions;
 
 import engine.BoardGame;
-import model.tileactions.LadderAction;
+import model.Board;
+import model.Player;
+import model.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,4 +85,8 @@ class LadderActionTest {
         "Player has moved to tile 3, not 1");
   }
 
+  @Test
+  void getColor() {
+    assertEquals("0xf5f04bff", ladderAction.getColor().toString());
+  }
 }
