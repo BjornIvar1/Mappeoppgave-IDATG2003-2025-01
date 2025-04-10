@@ -1,5 +1,7 @@
 package kontroller;
 
+import gui.game.SnakesAndLaddersPage;
+
 /**
  * Manages game selection interactions.
  *
@@ -10,16 +12,21 @@ package kontroller;
  * @since 0.0.1
  * @version 0.0.2
  */
-public class ControllerGameChoice {
+public class ControllerGameSelection {
   private final SceneManager sceneManager;
 
   /**
-   * Constructs a {@code ControllerGameChoice} with the specified scene manager.
+   * Constructs a {@code ControllerGameSelection} with the specified scene manager.
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
    */
-  public ControllerGameChoice(SceneManager sceneManager) {
+  public ControllerGameSelection(SceneManager sceneManager) {
     this.sceneManager = sceneManager;
   }
+
+  public void goToSnakesAndLadders() {
+    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
+  }
+
 }
 
