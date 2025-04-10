@@ -24,6 +24,12 @@ public class ControllerGameSelection {
     this.sceneManager = sceneManager;
   }
 
+  /**
+   * Navigates to the Snakes and Ladders game page.
+   *
+   * <p>This method updates the scene to display the {@code SnakesAndLaddersPage} interface,
+   * allowing users to play the game.</p>
+   */
   public void goToSnakesAndLadders() {
     sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
   }
