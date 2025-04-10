@@ -30,6 +30,6 @@ public class ControllerLandingPage {
    * allowing users to choose and start a game.</p>
    */
   public void switchToGameChoice() {
-    sceneManager.setView(new GameSelection(new ControllerGameChoice(sceneManager)));
+    sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
   }
 }
