@@ -1,4 +1,4 @@
-package kontroller;
+package controller;
 
 /**
  * Controller for the Snakes and Ladders game.

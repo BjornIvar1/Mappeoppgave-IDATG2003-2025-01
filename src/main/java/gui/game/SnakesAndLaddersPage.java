@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import kontroller.ControllerSnakesAndLadders;
+import controller.ControllerSnakesAndLadders;
 import model.Player;
 import model.tileactions.TileAction;
 

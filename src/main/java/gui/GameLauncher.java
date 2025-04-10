@@ -3,8 +3,8 @@ package gui;
 import gui.menu.LandingPage;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import kontroller.ControllerLandingPage;
-import kontroller.SceneManager;
+import controller.ControllerLandingPage;
+import controller.SceneManager;
 
 /**
  * The {@code GameLauncher} class creates a graphical user interface for interacting that

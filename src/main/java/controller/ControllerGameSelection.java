@@ -1,4 +1,4 @@
-package kontroller;
+package controller;
 
 import gui.game.SnakesAndLaddersPage;
 

@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import kontroller.ControllerLandingPage;
+import controller.ControllerLandingPage;
 
 import java.util.Objects;
 

@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import kontroller.ControllerGameSelection;
+import controller.ControllerGameSelection;
 
 import java.util.Objects;
 
