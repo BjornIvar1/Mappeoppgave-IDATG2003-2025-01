@@ -19,7 +19,7 @@
     { "id": 12, "x": 8, "y": 1, "nextTile": 13 },
     { "id": 13, "x": 7, "y": 1, "nextTile": 14 },
     { "id": 14, "x": 6, "y": 1, "nextTile": 15 },
-    { "id": 15, "x": 5, "y": 1, "nextTile": 16 },
+    { "id": 15, "x": 5, "y": 1, "nextTile": 16 , "action": { "type": "SnakeAction", "description": "Snake from 15 to 30", "destinationTileId": 4 }},
     { "id": 16, "x": 4, "y": 1, "nextTile": 17 },
     { "id": 17, "x": 3, "y": 1, "nextTile": 18 },
     { "id": 18, "x": 2, "y": 1, "nextTile": 19 },
@@ -92,7 +92,7 @@
     { "id": 79, "x": 1, "y": 7, "nextTile": 80 },
     { "id": 80, "x": 0, "y": 7, "nextTile": 81 },
 
-    { "id": 81, "x": 0, "y": 8, "nextTile": 82 },
+    { "id": 81, "x": 0, "y": 8, "nextTile": 82 , "action": { "type": "SnakeAction", "description": "Snake from 81 to 58", "destinationTileId": 58 }},
     { "id": 82, "x": 1, "y": 8, "nextTile": 83 },
     { "id": 83, "x": 2, "y": 8, "nextTile": 84 },
     { "id": 84, "x": 3, "y": 8, "nextTile": 85 },
