@@ -36,14 +36,13 @@ import model.tileactions.TileAction;
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private static final int TILE_SIZE = 60;
-
   private static final String BOARD_FILE_PATH =
       "src/main/resources/board/SnakesAndLaddersBoard.json";
   private static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
 
-  private BoardGame boardGame;
   private final BorderPane mainLayout;
+  private BoardGame boardGame;
   private Label gameInformation;
 
   /**
@@ -87,6 +86,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
+   * Updates the board display by creating a new board grid and replacing the old one.
+   */
+  private void updateBoard() {
+    GridPane boardGrid = createBoard();
+    mainLayout.setCenter(boardGrid);
+  }
+
+  /**
    * Creates the control panel with buttons to start the game and roll the dice.
    *
    * @return HBox containing the control panel with buttons.
@@ -103,6 +110,21 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       updateBoard();
     });
 
+    Button rollDice = getRollDice();
+
+    gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayers(boardGame));
+
+    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
+    return controlPanel;
+  }
+
+  /**
+   * Creates the button to roll the dice and play the game.
+   *
+   * @return Button to roll the dice.
+   */
+  private Button getRollDice() {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
       boardGame.play();
@@ -115,20 +137,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       }
       updateBoard();
     });
-
-    gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayers(boardGame));
-
-    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
-    return controlPanel;
-  }
-
-  /**
-   * Updates the board display by creating a new board grid and replacing the old one.
-   */
-  private void updateBoard() {
-    GridPane boardGrid = createBoard();
-    mainLayout.setCenter(boardGrid);
+    return rollDice;
   }
 
   /**
@@ -164,6 +173,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return StackPane representing the tile.
    */
   private StackPane createTile(int tileId) {
+    StackPane stack = new StackPane();
     Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
     Color baseColor = (tileId % 2 == 0) ? Color.web("#32bff5") : Color.web("#bbd962");
 
@@ -178,16 +188,24 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       text.setText(landAction.getDescription());
     }
 
-
-    StackPane stack = new StackPane();
     stack.getChildren().addAll(rect, text);
+    placePlayerOnTile(tileId, stack);
 
+    return stack;
+  }
+
+  /**
+   * Places the player on the specified tile.
+   *
+   * @param tileId the ID of the tile
+   * @param stack the StackPane representing the tile
+   */
+  private void placePlayerOnTile(int tileId, StackPane stack) {
     boardGame.getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
         .forEach(player -> {
           Circle playerCircle = createPlayer(player.getColor());
           stack.getChildren().add(playerCircle);
         });
-    return stack;
   }
 }
