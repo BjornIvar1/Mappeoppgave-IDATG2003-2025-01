@@ -11,9 +11,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import model.Board;
-import model.LadderAction;
+import model.tileactions.LadderAction;
 import model.Tile;
-import model.TileAction;
+import model.tileactions.TileAction;
 
 /**
  * Class that reads a board from a file using Gson.

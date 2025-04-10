@@ -1,7 +1,7 @@
 package filehandler;
 
 import model.Board;
-import model.TileAction;
+import model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

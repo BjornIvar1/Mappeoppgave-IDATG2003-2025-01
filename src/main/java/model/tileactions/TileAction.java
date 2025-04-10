@@ -1,4 +1,6 @@
-package model;
+package model.tileactions;
+
+import model.Player;
 
 /**
  * Represent an action when a player lands on a model.Tile.
