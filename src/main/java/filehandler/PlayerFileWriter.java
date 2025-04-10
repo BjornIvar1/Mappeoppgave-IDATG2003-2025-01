@@ -28,7 +28,7 @@ public class PlayerFileWriter {
   public static void writeToCSV(List<Player> playersToSave, String fileName) {
     try (BufferedWriter writer = Files.newBufferedWriter(Path.of(fileName))) {
       for (Player player : playersToSave) {
-        writer.write(player.getName() + "," + "\n");
+        writer.write(player.getName() + "," + player.getColor() + "," + "\n");
       }
     } catch (IOException e) {
       System.out.println("Error writing to file: " + fileName);

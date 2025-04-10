@@ -1,5 +1,7 @@
 package model;
 
+import model.tileactions.TileAction;
+
 /**
  * Class model.Tile represents a tile on a game board.
  * Each tile has its own ID, and a tile can perform an action on a player.
@@ -37,18 +39,6 @@ public class Tile {
       landAction.perform(player);
     }
   }
-
-  /**
-   * Leaveplayer...
-   * method for a player leaving the game?
-   * method for player when no more tiles = winning the game?
-   *
-   * @param player the player to leave...
-   */
-  public void leavePlayer(Player player) {
-
-  }
-
   /**
    * Sets the next tile on the game board.
    *

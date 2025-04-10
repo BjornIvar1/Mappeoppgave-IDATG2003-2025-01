@@ -2,6 +2,7 @@ package filehandler;
 
 import model.Board;
 import model.Tile;
+import model.tileactions.LadderAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -24,7 +25,7 @@ class BoardFileWriterGsonTest {
     Tile tile1 = new Tile(1, 0, 0);
     Tile tile2 = new Tile(2, 1, 0);
     Tile tile3 = new Tile(3,2,1);
-    tile1.setLandAction(new model.LadderAction(3, "Ladder from 1 to 3"));
+    tile1.setLandAction(new LadderAction(3, "Ladder from 1 to 3"));
     tile1.setNextTile(tile2);
     tile2.setNextTile(tile3);
     board.addTile(tile1);

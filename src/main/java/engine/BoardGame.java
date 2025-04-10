@@ -22,6 +22,7 @@ public class BoardGame {
   private Board board;
   private Player currentPlayer;
   private Dice dice;
+  private int currentPlayerIndex;
 
   /**
    * A constructor the {@code engine.BoardGame} class.
@@ -93,36 +94,39 @@ public class BoardGame {
   }
 
   /**
+   * Accessor method that returns the current player.
+   *
+   * @return currentPlayer
+   */
+  public Player getCurrentPlayer(){
+    return currentPlayer;
+  }
+
+  /**
    * Simple board game for testing...
    */
   public void play() {
-    boolean winner = false;
-    int round = 0;
-
-    System.out.println("The following players are playing the game:");
-    for (Player player : players) {
-      System.out.println(" -" + player.getName());
-      player.placeOnTile(board.getTile(1));
+    if (currentPlayer == null) {
+      players.forEach(player -> {
+        currentPlayer = players.get(currentPlayerIndex);
+        player.placeOnTile(board.getTile(1));
+      });
     }
 
-    while (!winner) {
-      round++;
-      System.out.println();
-      System.out.println("Round: " + round);
-      for (Player player : players) {
-        int steps = dice.roll();
-        player.move(steps);
-
-        Tile currentTile = player.getCurrentTile();
-
-        if (currentTile.getTileId() == board.getTiles().size()) {
-          System.out.println("And the winner is... " + player.getName());
-          winner = true;
-          break;
-        }
-
-        System.out.println(player.getName() + " on tile " + player.getCurrentTile().getTileId());
-      }
+    if (currentPlayer == null) {
+      throw new IllegalArgumentException("The current player can not be null.");
     }
+
+    int steps = dice.roll();
+    currentPlayer.move(steps);
+
+    Tile currentTile = currentPlayer.getCurrentTile();
+
+    if (currentTile.getTileId() == board.getTiles().size()) {
+      return;
+    }
+
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    currentPlayer = players.get(currentPlayerIndex);
   }
 }

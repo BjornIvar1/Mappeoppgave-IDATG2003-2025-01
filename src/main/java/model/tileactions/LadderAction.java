@@ -1,4 +1,6 @@
-package model;
+package model.tileactions;
+
+import model.Player;
 
 /**
  * Represents the ladders in the game of snake and ladders.

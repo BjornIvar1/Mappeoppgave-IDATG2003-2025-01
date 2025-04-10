@@ -17,14 +17,16 @@ public class Player {
   private String name;
   private Tile currentTile;
   private final BoardGame game;
+  private String color;
   /**
    * A constructor for the class player.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
    * */
-  public Player(String name, BoardGame game) {
+  public Player(String name, String color, BoardGame game) {
     setName(name);
+    setColor(color);
     this.game = game;
   }
 
@@ -48,6 +50,28 @@ public class Player {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Mutator method for the name.
+   *
+   * @param color of the player
+   * @throws IllegalArgumentException if color is null or isBlank
+   */
+  public void setColor(String color) {
+    if (color == null || color.isBlank()) {
+      throw new IllegalArgumentException("Color cannot be null or blank");
+    }
+    this.color = color;
+  }
+
+  /**
+   * Accessor method for player name.
+   *
+   * @return the color of th player
+   */
+  public String getColor() {
+    return color;
   }
 
   /**

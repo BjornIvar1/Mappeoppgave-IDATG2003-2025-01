@@ -1,6 +1,7 @@
 package model;
 
-import engine.BoardGame;
+import model.tileactions.LadderAction;
+import model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

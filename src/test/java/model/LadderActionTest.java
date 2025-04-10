@@ -1,6 +1,7 @@
 package model;
 
 import engine.BoardGame;
+import model.tileactions.LadderAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ class LadderActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", boardGame);
+    player = new Player("John", "RED", boardGame);
     player.placeOnTile(tile1);
   }
 

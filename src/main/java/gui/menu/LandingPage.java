@@ -1,9 +1,11 @@
-package gui;
+package gui.menu;
 
+import gui.BasePage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import kontroller.ControllerLandingPage;
@@ -22,14 +24,19 @@ import java.util.Objects;
  * @since 0.0.1
  * @version 0.0.2
  */
-public class LandingPage extends FlowPane {
-
+public class LandingPage extends BasePage {
   private final ControllerLandingPage controller;
 
   public LandingPage(ControllerLandingPage controller) {
     this.controller = controller;
+
+    BorderPane mainLayout = new BorderPane();
+
+    mainLayout.setTop(createMenuBar());
+    mainLayout.setCenter(buttonAndImage());
+
     setAlignment(Pos.CENTER);
-    this.getChildren().addAll(buttonAndImage());
+    this.getChildren().add(mainLayout);
   }
 
   /**
