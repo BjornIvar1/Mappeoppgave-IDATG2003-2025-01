@@ -37,7 +37,7 @@ class LadderActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", boardGame);
+    player = new Player("John", "RED", boardGame);
     player.placeOnTile(tile1);
   }
 
