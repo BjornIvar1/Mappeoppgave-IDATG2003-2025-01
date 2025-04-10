@@ -2,7 +2,6 @@ package gui.menu;
 
 import gui.BasePage;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -27,12 +26,11 @@ import java.util.Objects;
  */
 public class LandingPage extends BasePage {
   private final ControllerLandingPage controller;
-  private final BorderPane mainLayout;
 
   public LandingPage(ControllerLandingPage controller) {
     this.controller = controller;
 
-    mainLayout = new BorderPane();
+    BorderPane mainLayout = new BorderPane();
 
     mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(buttonAndImage());
