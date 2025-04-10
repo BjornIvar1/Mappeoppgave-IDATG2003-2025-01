@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+
+import model.BankAction;
 import model.Board;
 import model.tileactions.LadderAction;
 import model.Tile;
@@ -19,7 +21,7 @@ import model.tileactions.TileAction;
  * Class that reads a board from a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 public class BoardFileReaderGson implements BoardFileReader {
@@ -101,9 +103,13 @@ public class BoardFileReaderGson implements BoardFileReader {
       JsonObject tileObj = element.getAsJsonObject();
       int id = tileObj.get("id").getAsInt();
       Tile currentTile = tileMap.get(id);
-      if (tileObj.has("action")) {
+      if (tileObj.has("action") && tileObj.has("name") && "SnakesAndLadders".equals(tileObj.get("name").getAsString())) {
+          JsonObject actionObj = tileObj.getAsJsonObject("action");
+          TileAction tileAction = createTileActionLadder(actionObj);
+          currentTile.setLandAction(tileAction);
+      } else if (tileObj.has("action") && tileObj.has("name") && "Monopoly".equals(tileObj.get("name").getAsString())) {
         JsonObject actionObj = tileObj.getAsJsonObject("action");
-        TileAction tileAction = createTileActionLadder(actionObj);
+        TileAction tileAction = createTileActionGetMoney(actionObj);
         currentTile.setLandAction(tileAction);
       }
     }
@@ -122,6 +128,16 @@ public class BoardFileReaderGson implements BoardFileReader {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
       String description = actionObj.get("description").getAsString();
       return new LadderAction(destinationTileId, description);
+    }
+    return null;
+  }
+
+  private static TileAction createTileActionGetMoney(JsonObject actionObj) {
+    String type = actionObj.get("type").getAsString();
+    if ("BankAction".equals(type)) {
+      int amount = actionObj.get("amount").getAsInt();
+      String description = actionObj.get("description").getAsString();
+      return new BankAction(amount, description);
     }
     return null;
   }
