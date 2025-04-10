@@ -94,21 +94,27 @@ public class BoardGame {
   }
 
   /**
+   * Accessor method that returns the current player.
+   *
+   * @return currentPlayer
+   */
+  public Player getCurrentPlayer(){
+    return currentPlayer;
+  }
+
+  /**
    * Simple board game for testing...
    */
   public void play() {
     if (currentPlayer == null) {
-      System.out.println("The following players are playing the game:");
-      for (Player player : players) {
-        System.out.println(" -" + player.getName());
+      players.forEach(player -> {
         currentPlayer = players.get(currentPlayerIndex);
         player.placeOnTile(board.getTile(1));
-      }
+      });
     }
 
     if (currentPlayer == null) {
-      System.out.println("No players have been added to the game.");
-      return;
+      throw new IllegalArgumentException("The current player can not be null.");
     }
 
     int steps = dice.roll();
@@ -117,11 +123,9 @@ public class BoardGame {
     Tile currentTile = currentPlayer.getCurrentTile();
 
     if (currentTile.getTileId() == board.getTiles().size()) {
-      System.out.println("And the winner is... " + currentPlayer.getName());
       return;
     }
 
-    System.out.println(currentPlayer.getName() + " on tile " + currentPlayer.getCurrentTile().getTileId());
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     currentPlayer = players.get(currentPlayerIndex);
   }
