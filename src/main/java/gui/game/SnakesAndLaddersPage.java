@@ -115,9 +115,10 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       updateBoard();
     });
 
-    gameInformation = new Label("");
+    gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayers(boardGame));
 
-    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation);
+    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
     return controlPanel;
   }
 
