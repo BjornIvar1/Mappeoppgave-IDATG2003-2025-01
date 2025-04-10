@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import kontroller.ControllerGameChoice;
+import kontroller.ControllerGameSelection;
 
 import java.util.Objects;
 
@@ -22,13 +22,15 @@ import java.util.Objects;
  * @since 0.0.1
  */
 public class GameSelection extends BasePage {
+  private final ControllerGameSelection controller;
 
   /**
    * Constructs a {@code GameSelection} instance with a given game controller.
    *
    * @param controllerGameChoice the game controller responsible for game selection logic
    */
-  public GameSelection(ControllerGameChoice controllerGameChoice) {
+  public GameSelection(ControllerGameSelection controllerGameChoice) {
+    this.controller = controllerGameChoice;
     setAlignment(Pos.CENTER);
     getChildren().addAll(createGameSelectionPane());
   }
@@ -92,6 +94,7 @@ public class GameSelection extends BasePage {
     snakesLaddersButton.setPrefWidth(300);
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
+    snakesLaddersButton.setOnAction(event ->  controller.goToSnakesAndLadders() );
 
     buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
     buttonPane.setAlignment(Pos.CENTER);
