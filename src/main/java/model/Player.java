@@ -1,6 +1,9 @@
 package model;
 
 import engine.BoardGame;
+import javafx.scene.paint.Color;
+
+import java.util.List;
 
 /**
  * An entity class for player.
@@ -17,15 +20,17 @@ public class Player {
   private String name;
   private Tile currentTile;
   private final BoardGame game;
+  private String color;
   /**
    * A constructor for the class player.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
    * */
-  public Player(String name, BoardGame game) {
+  public Player(String name, BoardGame game, String color) {
     setName(name);
     this.game = game;
+    this.color = color;
   }
 
   /**
@@ -95,5 +100,9 @@ public class Player {
    */
   public Tile getCurrentTile() {
     return currentTile;
+  }
+
+  public String getColor() {
+    return color;
   }
 }
