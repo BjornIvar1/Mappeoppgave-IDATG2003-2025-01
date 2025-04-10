@@ -42,7 +42,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       "src/main/resources/players/playersInGameFile.csv";
 
   private BoardGame boardGame;
-  private BorderPane mainLayout;
+  private final BorderPane mainLayout;
   private Label gameInformation;
 
   /**
@@ -56,6 +56,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
+    mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
 

@@ -23,6 +23,7 @@ import java.util.Objects;
  */
 public class GameSelection extends BasePage {
   private final ControllerGameSelection controller;
+  private final BorderPane mainLayout;
 
   /**
    * Constructs a {@code GameSelection} instance with a given game controller.
@@ -32,7 +33,13 @@ public class GameSelection extends BasePage {
   public GameSelection(ControllerGameSelection controllerGameChoice) {
     this.controller = controllerGameChoice;
     setAlignment(Pos.CENTER);
-    getChildren().addAll(createGameSelectionPane());
+    mainLayout = new BorderPane();
+
+    mainLayout.setTop(createMenuBar());
+    mainLayout.setCenter(createGameSelectionPane());
+
+
+    getChildren().add(mainLayout);
   }
 
   /**
