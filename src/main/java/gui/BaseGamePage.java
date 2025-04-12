@@ -1,12 +1,18 @@
 package gui;
 
 import engine.BoardGame;
+import filehandler.BoardFileReaderGson;
+import filehandler.PlayerFileReader;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * This class represents the base page for the game.
+ * @since 0.0.1
+ * @version 0.1.0
  */
 public class BaseGamePage extends BasePage {
   /**
@@ -54,5 +60,20 @@ public class BaseGamePage extends BasePage {
           .append("\n");
     }
     return stringBuilder.toString();
+  }
+
+  protected BoardGame initializeBoardGame(String boardFilePath, String playerFilePath) {
+    BoardGame boardGame = new BoardGame();
+    BoardFileReaderGson reader = new BoardFileReaderGson();
+    PlayerFileReader playerReader = new PlayerFileReader();
+    try {
+      boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
+      boardGame.createDice(2);
+      playerReader.readCsvBuffered(playerFilePath, boardGame);
+      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
+    } catch (IOException e) {
+      System.out.println("Could not read board or players from file: " + e.getMessage());
+    }
+    return boardGame;
   }
 }
