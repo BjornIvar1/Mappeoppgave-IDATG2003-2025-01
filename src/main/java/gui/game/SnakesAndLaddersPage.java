@@ -1,11 +1,7 @@
 package gui.game;
 
 import engine.BoardGame;
-import filehandler.BoardFileReaderGson;
-import filehandler.PlayerFileReader;
 import gui.BaseGamePage;
-import java.io.IOException;
-import java.nio.file.Path;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -41,7 +37,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
 
-  private BoardGame boardGame;
+  private BoardGame boardGameSnakesAndL;
   private final BorderPane mainLayout;
   private Label gameInformation;
 
@@ -70,19 +66,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * Initializes the game by creating a new BoardGame,
    * and creating a board, dice and adding the players.
    */
-  private void initializeGame() {
-    boardGame = new BoardGame();
-
-    BoardFileReaderGson reader = new BoardFileReaderGson();
-    PlayerFileReader playerReader = new PlayerFileReader();
-    try {
-      boardGame.createBoard(reader.readBoard(Path.of(BOARD_FILE_PATH)));
-      boardGame.createDice(2);
-      playerReader.readCsvBuffered(PLAYER_FILE_PATH, boardGame);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException e) {
-      System.out.println("Could not read board or players from file: " + e.getMessage());
-    }
+  protected void initializeGame() {
+    boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
   /**
@@ -102,24 +87,29 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       updateBoard();
     });
 
+    Button rollDice = getButton();
+
+    gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
+
+    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
+    return controlPanel;
+  }
+
+  private Button getButton() {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
-      boardGame.play();
-      Player player = boardGame.getCurrentPlayer();
-      int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
-      if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+      boardGameSnakesAndL.play();
+      Player player = boardGameSnakesAndL.getCurrentPlayer();
+      int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
+      if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
         gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
       } else {
         gameInformation.setText(player.getName() + " rolled: " + rollSum);
       }
       updateBoard();
     });
-
-    gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayers(boardGame));
-
-    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
-    return controlPanel;
+    return rollDice;
   }
 
   /**
@@ -139,14 +129,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     GridPane grid = new GridPane();
     int tileNumber = 90;
 
-    for (int y = 0; y < boardGame.getBoard().getRows(); y++) {
+    for (int y = 0; y < boardGameSnakesAndL.getBoard().getRows(); y++) {
       if (y % 2 != 0) {
-        for (int x = 0; x < boardGame.getBoard().getColumns(); x++) {
+        for (int x = 0; x < boardGameSnakesAndL.getBoard().getColumns(); x++) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
       } else {
-        for (int x = boardGame.getBoard().getColumns() - 1; x >= 0; x--) {
+        for (int x = boardGameSnakesAndL.getBoard().getColumns() - 1; x >= 0; x--) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
@@ -168,7 +158,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
 
     rect.setFill(baseColor);
 
-    if (boardGame.getBoard().getTiles().get(tileId).getLandAction() != null) {
+    if (boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction() != null) {
       rect.setFill(Color.BROWN);
     }
 
@@ -178,7 +168,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     StackPane stack = new StackPane();
     stack.getChildren().addAll(rect, text);
 
-    boardGame.getPlayers().stream()
+    boardGameSnakesAndL.getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
         .forEach(player -> {
           Circle playerCircle = createPlayer(player.getColor());
