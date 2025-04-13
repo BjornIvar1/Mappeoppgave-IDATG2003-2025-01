@@ -71,7 +71,7 @@
     { "id": 60, "x": 0, "y": 5, "nextTile": 61 },
 
     { "id": 61, "x": 0, "y": 6, "nextTile": 62 },
-    { "id": 62, "x": 1, "y": 6, "nextTile": 63 },
+    { "id": 62, "x": 1, "y": 6, "nextTile": 63, "action": { "type": "SnakeAction", "description": "Snake from 62 to 12", "destinationTileId": 12 }},
     { "id": 63, "x": 2, "y": 6, "nextTile": 64 },
     { "id": 64, "x": 3, "y": 6, "nextTile": 65 },
     { "id": 65, "x": 4, "y": 6, "nextTile": 66 },
