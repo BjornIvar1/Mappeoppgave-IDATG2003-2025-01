@@ -3,7 +3,13 @@ package gui.game;
 
 import engine.BoardGame;
 import gui.BaseGamePage;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import kontroller.ControllerMonopoly;
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -17,25 +23,50 @@ import javafx.scene.layout.BorderPane;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.1
+ * @version 0.1.0
  */
 public class MonopolyPage extends BaseGamePage {
-  BoardGame boardGameForMonopoly;
-  private final BorderPane mainLayout;
+  private BoardGame boardGameForMonopoly;
+  private BorderPane mainLayout;
 
   private static final String BOARD_FILE_PATH =
-      "src/main/resources/board/MonopolyBoard.json";
+      "src/main/resources/board/monopolyBoard.json";
   private static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
 
-  public MonopolyPage() {
-    mainLayout = new BorderPane();
+  public MonopolyPage(ControllerMonopoly controllerMonopoly) {
+    initializeGameMPY();
+    GridPane board = createBoard();
 
+    Button startButton = getButton("Start Game", () -> {
+      initializeGameMPY();
+      updateBoard(mainLayout, boardGameForMonopoly);
+    });
+
+    Button rollDice = getButton("Roll Dice", () ->
+      boardGameForMonopoly.play());
+
+    Label gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayers(boardGameForMonopoly));
+
+    HBox controlPanel = createControlPanel(startButton, rollDice, gameInformation, playerInformation);
+
+    mainLayout = new BorderPane();
+    mainLayout.setTop(createMenuBar());
+    mainLayout.setCenter(board);
+    mainLayout.setBottom(controlPanel);
+    setAlignment(Pos.CENTER);
+
+    getChildren().add(mainLayout);
   }
 
-  protected void initializeGame() {
+  private void initializeGameMPY() {
     boardGameForMonopoly = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
+  private GridPane createBoard() {
+    return createBoard(boardGameForMonopoly);
+  }
 
 }
+
