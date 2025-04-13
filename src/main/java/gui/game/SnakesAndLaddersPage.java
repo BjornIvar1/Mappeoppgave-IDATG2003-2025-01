@@ -7,10 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import kontroller.ControllerSnakesAndLadders;
 import model.Player;
 
@@ -27,10 +23,9 @@ import model.Player;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
-  private static final int TILE_SIZE = 60;
 
   private static final String BOARD_FILE_PATH =
       "src/main/resources/board/SnakesAndLaddersBoard.json";
@@ -63,14 +58,6 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Initializes the game by creating a new BoardGame,
-   * and creating a board, dice and adding the players.
-   */
-  protected void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
-  }
-
-  /**
    * Creates the control panel with buttons to start the game and roll the dice.
    *
    * @return HBox containing the control panel with buttons.
@@ -84,7 +71,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = new Button("Start Game");
     startButton.setOnAction(e -> {
       initializeGame();
-      updateBoard();
+      updateBoard(mainLayout, boardGameSnakesAndL);
     });
 
     Button rollDice = getButton();
@@ -107,73 +94,28 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       } else {
         gameInformation.setText(player.getName() + " rolled: " + rollSum);
       }
-      updateBoard();
+      updateBoard(mainLayout, boardGameSnakesAndL);
     });
     return rollDice;
   }
 
   /**
-   * Updates the board display by creating a new board grid and replacing the old one.
+   * Initializes the game by creating a new BoardGame,
+   * and creating a board, dice and adding the players.
    */
-  private void updateBoard() {
-    GridPane boardGrid = createBoard();
-    mainLayout.setCenter(boardGrid);
-  }
-
-  /**
-   * Creates the board grid for the Snakes and Ladders game.
-   *
-   * @return GridPane representing the game board.
-   */
-  private GridPane createBoard() {
-    GridPane grid = new GridPane();
-    int tileNumber = 90;
-
-    for (int y = 0; y < boardGameSnakesAndL.getBoard().getRows(); y++) {
-      if (y % 2 != 0) {
-        for (int x = 0; x < boardGameSnakesAndL.getBoard().getColumns(); x++) {
-          StackPane tile = createTile(tileNumber--);
-          grid.add(tile, x, y);
-        }
-      } else {
-        for (int x = boardGameSnakesAndL.getBoard().getColumns() - 1; x >= 0; x--) {
-          StackPane tile = createTile(tileNumber--);
-          grid.add(tile, x, y);
-        }
-      }
-    }
-
-    return grid;
+  protected void initializeGame() {
+    boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
   /**
    * Creates a tile for the game board.
    *
-   * @param tileId the ID of the tile.
-   * @return StackPane representing the tile.
+   * <p>This method creates a tile for the game board
+   * by initializing {@code createBoard}</p>
+   *
+   * @return a StackPane representing the tile
    */
-  private StackPane createTile(int tileId) {
-    Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0) ? Color.LIGHTBLUE : Color.WHITE;
-
-    rect.setFill(baseColor);
-
-    if (boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction() != null) {
-      rect.setFill(Color.BROWN);
-    }
-
-    rect.setStroke(Color.BLACK);
-    Text text = new Text(String.valueOf(tileId));
-
-    StackPane stack = new StackPane();
-    stack.getChildren().addAll(rect, text);
-
-    boardGameSnakesAndL.getPlayers().stream()
-        .filter(player -> player.getCurrentTile().getTileId() == tileId)
-        .forEach(player -> {
-          Circle playerCircle = createPlayer(player.getColor());
-          stack.getChildren().add(playerCircle);
-        });
-    return stack;
+  private GridPane createBoard() {
+    return createBoard(boardGameSnakesAndL);
   }
 }
