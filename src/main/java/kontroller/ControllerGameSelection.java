@@ -1,5 +1,6 @@
 package kontroller;
 
+import gui.game.MonopolyPage;
 import gui.game.SnakesAndLaddersPage;
 
 /**
@@ -10,7 +11,7 @@ import gui.game.SnakesAndLaddersPage;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class ControllerGameSelection {
   private final SceneManager sceneManager;
@@ -32,6 +33,11 @@ public class ControllerGameSelection {
    */
   public void goToSnakesAndLadders() {
     sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
+  }
+
+  public void goToMonopoly() {
+    MonopolyPage monopolyPage = new MonopolyPage(new ControllerMonopoly(sceneManager));
+    sceneManager.setView(monopolyPage);
   }
 
 }
