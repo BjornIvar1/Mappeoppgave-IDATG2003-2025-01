@@ -29,7 +29,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.1
+ * @version 0.4.2
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -42,6 +42,11 @@ public class MonopolyPage extends BaseGamePage {
       "src/main/resources/players/playersInGameFile.csv";
   //TODO create constants class for the file paths
 
+  /**
+   * Constructor for the MonopolyPage class.
+   *
+   * @param controllerMonopoly the controller for the Monopoly game.
+   */
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     initializeGameMPY();
     GridPane board = createBoard();
@@ -72,45 +77,46 @@ public class MonopolyPage extends BaseGamePage {
    * Creates the game board for Monopoly.
    *
    * <p>This method generates a grid layout representing the Monopoly board.
-   * It places tiles in a clockwise manner starting from the top-left corner,
-   * ensuring that all 40 tiles are added to the grid in the correct order.</p>
+   * It creates tiles for each position on the board and places player pieces
+   * on the corresponding tiles. The player goes around board in a clockwise
+   * manner.</p>
    *
-   * @return A `GridPane` containing the Monopoly board layout.
+   * @return grid containing the Monopoly board layout.
    */
   private GridPane createBoard() {
     GridPane grid = new GridPane();
     int gridSize = 11; // Size of the grid (11x11 for Monopoly)
-    int tileId = 1; // Start with tile ID 1
+    int firstTileId = 1; // Start with tile ID 1
 
-    // Place tiles on the top.
-    for (int x = 0; x < gridSize; x++) {
-      if (tileId <= 40) {
-        StackPane tile = createTile(tileId++);
-        grid.add(tile, x, 0);
+    //First row from left to right. Tile from 1-10.
+    for (int xCoordinateRow = gridSize - 2; xCoordinateRow >= 0; xCoordinateRow--) {
+      if (firstTileId <= 40) {
+        StackPane tile = createTile(firstTileId++);
+        grid.add(tile, xCoordinateRow, gridSize - 1);
       }
     }
 
-    // Place tiles on the right side.
-    for (int y = 1; y < gridSize; y++) {
-      if (tileId <= 40) {
-        StackPane tile = createTile(tileId++);
-        grid.add(tile, gridSize - 1, y);
+    //First column from bottom to top. Tile from 11-21.
+    for (int yCoordinateColumn = gridSize - 2; yCoordinateColumn >= 0; yCoordinateColumn--) {
+      if (firstTileId <= 40) {
+        StackPane tile = createTile(firstTileId++);
+        grid.add(tile, 0, yCoordinateColumn);
       }
     }
 
-    // Place tiles on the bottom.
-    for (int x = gridSize - 2; x >= 0; x--) {
-      if (tileId <= 40) {
-        StackPane tile = createTile(tileId++);
-        grid.add(tile, x, gridSize - 1);
+    //Second row from right to left. Tile from 22-31.
+    for (int xCoordinateRow = 1; xCoordinateRow < gridSize - 1; xCoordinateRow++) {
+      if (firstTileId <= 40) {
+        StackPane tile = createTile(firstTileId++);
+        grid.add(tile, xCoordinateRow, 0);
       }
     }
 
-    // Place tiles along the left right side.
-    for (int y = gridSize - 2; y > 0; y--) {
-      if (tileId <= 40) {
-        StackPane tile = createTile(tileId++);
-        grid.add(tile, 0, y);
+    //Second column from top to bottom. Tile from 32-40.
+    for (int yCoordinateColumn = 0; yCoordinateColumn < gridSize; yCoordinateColumn++) {
+      if (firstTileId <= 40) {
+        StackPane tile = createTile(firstTileId++);
+        grid.add(tile, gridSize - 1, yCoordinateColumn);
       }
     }
 
