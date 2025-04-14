@@ -9,7 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
+import model.tileactions.TileAction;
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -23,7 +29,7 @@ import kontroller.ControllerMonopoly;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.3.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -55,7 +61,43 @@ public class MonopolyPage extends BaseGamePage {
   }
 
   private GridPane createBoard() {
-    return createBoard(boardGameForMonopoly);
+    GridPane grid = new GridPane();
+    int gridSize = 11; // Size of the grid (11x11 for Monopoly)
+    int tileId = 1; // Start with tile ID 1
+
+    // Place tiles on the top.
+    for (int x = 0; x < gridSize; x++) {
+      if (tileId <= 40) {
+        StackPane tile = createTile(tileId++);
+        grid.add(tile, x, 0);
+      }
+    }
+
+    // Place tiles on the right side.
+    for (int y = 1; y < gridSize; y++) {
+      if (tileId <= 40) {
+        StackPane tile = createTile(tileId++);
+        grid.add(tile, gridSize - 1, y);
+      }
+    }
+
+    // Place tiles on the bottom.
+    for (int x = gridSize - 2; x >= 0; x--) {
+      if (tileId <= 40) {
+        StackPane tile = createTile(tileId++);
+        grid.add(tile, x, gridSize - 1);
+      }
+    }
+
+    // Place tiles along the left right side.
+    for (int y = gridSize - 2; y > 0; y--) {
+      if (tileId <= 40) {
+        StackPane tile = createTile(tileId++);
+        grid.add(tile, 0, y);
+      }
+    }
+
+    return grid;
   }
 
   private HBox createControlPanel() {
@@ -66,7 +108,7 @@ public class MonopolyPage extends BaseGamePage {
     Button startGameButton = new Button("Start Game");
     startGameButton.setOnAction(event -> {
       initializeGameMPY();
-      updateBoard(mainLayout, boardGameForMonopoly);
+      updateBoard();
     });
 
     gameInformation = new Label("Last rolled: ---");
@@ -75,6 +117,46 @@ public class MonopolyPage extends BaseGamePage {
 
     controlPanel.getChildren().addAll(startGameButton, gameInformation, playerInformation);
     return controlPanel;
+  }
+
+  /**
+   * Updates the board display by creating a new board grid and replacing the old one.
+   */
+  private void updateBoard() {
+    GridPane boardGrid = createBoard();
+    mainLayout.setCenter(boardGrid);
+  }
+
+  private StackPane createTile(int tileId) {
+    StackPane stack = new StackPane();
+    Rectangle rect = new Rectangle(60, 60);
+    Color baseColor = getColor(tileId);
+
+    rect.setFill(baseColor);
+    rect.setStroke(Color.BLACK);
+    Text text = new Text(String.valueOf(tileId));
+
+
+    TileAction landAction = boardGameForMonopoly.getBoard().getTiles().get(tileId).getLandAction();
+    if (landAction != null) {
+      rect.setFill(landAction.getColor());
+      text.setWrappingWidth(60);
+      text.setText(landAction.getDescription());
+    }
+
+    stack.getChildren().addAll(rect, text);
+    placePlayerOnTile(tileId, stack);
+
+    return stack;
+  }
+
+  private void placePlayerOnTile(int tileId, StackPane stack) {
+    boardGameForMonopoly.getPlayers().stream()
+        .filter(player -> player.getCurrentTile().getTileId() == tileId)
+        .forEach(player -> {
+          Circle playerCircle = createPlayer(player.getColor());
+          stack.getChildren().add(playerCircle);
+        });
   }
 
 
