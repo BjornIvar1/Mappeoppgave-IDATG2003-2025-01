@@ -28,7 +28,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.3
+ * @version 0.1.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private static final int TILE_SIZE = 60;
@@ -76,7 +76,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = new Button("Start Game");
     startButton.setOnAction(e -> {
       initializeGame();
-      updateBoard(mainLayout, boardGameSnakesAndL);
+      updateBoard(mainLayout);
     });
 
     Button rollDice = getRollDice();
@@ -104,7 +104,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       } else {
         gameInformation.setText(player.getName() + " rolled: " + rollSum);
       }
-      updateBoard(mainLayout, boardGameSnakesAndL);
+      updateBoard(mainLayout);
     });
     return rollDice;
   }
@@ -115,6 +115,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   protected void initializeGame() {
     boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
+  }
+
+  /**
+   * Updates the board display by creating a new board grid and replacing the old one.
+   */
+  protected void updateBoard(BorderPane mainLayout) {
+    GridPane boardGrid = createBoard();
+    mainLayout.setCenter(boardGrid);
   }
 
   /**
@@ -152,15 +160,15 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private StackPane createTile(int tileId) {
     StackPane stack = new StackPane();
     Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0) ? Color.web("#32bff5") : Color.web("#bbd962");
+    Color baseColor = getColor(tileId);
 
-    rect.setFill(baseColor);
+    setFill(rect, baseColor);
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
     TileAction landAction = boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction();
     if (landAction != null) {
-      rect.setFill(landAction.getColor());
+      setFill(rect, landAction.getColor());
       text.setWrappingWidth(TILE_SIZE);
       text.setText(landAction.getDescription());
     }
