@@ -23,11 +23,12 @@ import kontroller.ControllerMonopoly;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
-  private BorderPane mainLayout;
+  private final BorderPane mainLayout;
+  private Label gameInformation;
 
   private static final String BOARD_FILE_PATH =
       "src/main/resources/board/monopolyBoard.json";
@@ -37,24 +38,13 @@ public class MonopolyPage extends BaseGamePage {
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     initializeGameMPY();
     GridPane board = createBoard();
-
-    Button startButton = getButton("Start Game", () -> {
-      initializeGameMPY();
-      updateBoard(mainLayout, boardGameForMonopoly);
-    });
-
-    Button rollDice = getButton("Roll Dice", () ->
-      boardGameForMonopoly.play());
-
-    Label gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayers(boardGameForMonopoly));
-
-    HBox controlPanel = createControlPanel(startButton, rollDice, gameInformation, playerInformation);
-
+    HBox controlPanel = createControlPanel();
     mainLayout = new BorderPane();
     mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
-    mainLayout.setBottom(controlPanel);
+    mainLayout.setBottom(createControlPanel());
+
+    BorderPane.setAlignment(controlPanel, Pos.CENTER);
     setAlignment(Pos.CENTER);
 
     getChildren().add(mainLayout);
@@ -67,6 +57,26 @@ public class MonopolyPage extends BaseGamePage {
   private GridPane createBoard() {
     return createBoard(boardGameForMonopoly);
   }
+
+  private HBox createControlPanel() {
+    HBox controlPanel = new HBox();
+    controlPanel.setAlignment(Pos.CENTER);
+    controlPanel.setSpacing(10);
+
+    Button startGameButton = new Button("Start Game");
+    startGameButton.setOnAction(event -> {
+      initializeGameMPY();
+      updateBoard(mainLayout, boardGameForMonopoly);
+    });
+
+    gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayers(boardGameForMonopoly));
+
+
+    controlPanel.getChildren().addAll(startGameButton, gameInformation, playerInformation);
+    return controlPanel;
+  }
+
 
 }
 
