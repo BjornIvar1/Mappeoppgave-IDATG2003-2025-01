@@ -15,7 +15,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
-import model.Player;
 import model.tileactions.TileAction;
 
 /**
@@ -30,7 +29,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.0
+ * @version 0.4.1
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -201,26 +200,6 @@ public class MonopolyPage extends BaseGamePage {
       updateBoard();
     });
     return rollDice;
-  }
-
-  /**
-   * Plays the game by rolling the dice and updating the game information.
-   *
-   * <p>This method simulates a turn in the game by rolling the dice,
-   *
-   * @param boardGameForMonopoly the board game instance.
-   * @param gameInformation the label to display game information.
-   */
-  static void playGame(BoardGame boardGameForMonopoly, Label gameInformation) {
-    boardGameForMonopoly.play();
-    Player player = boardGameForMonopoly.getCurrentPlayer();
-    int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
-    if (boardGameForMonopoly.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
-      //TODO find a way to difine a winner by checking max balance.
-      gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
-    } else {
-      gameInformation.setText(player.getName() + " rolled: " + rollSum);
-    }
   }
 
   /**
