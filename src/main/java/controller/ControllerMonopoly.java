@@ -1,5 +1,7 @@
 package kontroller;
 
+import controller.SceneManager;
+
 /**
  * Represents the controller for the Monopoly game.
  *
