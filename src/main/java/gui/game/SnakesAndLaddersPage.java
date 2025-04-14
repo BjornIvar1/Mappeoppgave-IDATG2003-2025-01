@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.Player;
 import model.tileactions.TileAction;
 
 /**
@@ -28,7 +27,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private static final int TILE_SIZE = 60;
@@ -96,14 +95,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private Button getRollDice() {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
-      boardGameSnakesAndL.play();
-      Player player = boardGameSnakesAndL.getCurrentPlayer();
-      int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
-      if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
-        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
-      } else {
-        gameInformation.setText(player.getName() + " rolled: " + rollSum);
-      }
+      playGame(boardGameSnakesAndL, gameInformation);
       updateBoard(mainLayout);
     });
     return rollDice;
@@ -113,14 +105,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * Initializes the game by creating a new BoardGame,
    * and creating a board, dice and adding the players.
    */
-  protected void initializeGame() {
+  private void initializeGame() {
     boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
   /**
    * Updates the board display by creating a new board grid and replacing the old one.
    */
-  protected void updateBoard(BorderPane mainLayout) {
+  private void updateBoard(BorderPane mainLayout) {
     GridPane boardGrid = createBoard();
     mainLayout.setCenter(boardGrid);
   }
