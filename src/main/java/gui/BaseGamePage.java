@@ -147,7 +147,6 @@ public class BaseGamePage extends BasePage {
           Circle playerCircle = createPlayer(player.getColor());
           stack.getChildren().add(playerCircle);
         });
-
     return stack;
   }
 
