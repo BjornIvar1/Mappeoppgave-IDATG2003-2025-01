@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import model.BankAction;
+import model.tileactions.BankAction;
 import model.Board;
 import model.tileactions.LadderAction;
 import model.Tile;

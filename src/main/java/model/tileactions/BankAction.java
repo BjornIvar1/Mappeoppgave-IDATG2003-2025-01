@@ -1,6 +1,8 @@
-package model;
+package model.tileactions;
 
 import javafx.scene.paint.Color;
+import model.Player;
+import model.PlayerInMonopoly;
 
 /**
  * Represents the bank action in the game of Monopoly.
@@ -13,7 +15,7 @@ import javafx.scene.paint.Color;
  * @author Arpit @ Bjørn
  * @version 0.0.2
  */
-public class BankAction extends MonopolyActions{
+public class BankAction extends MonopolyActions {
   private int money;
 
   /**

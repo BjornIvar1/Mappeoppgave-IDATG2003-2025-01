@@ -1,6 +1,8 @@
-package model;
+package model.tileactions;
 
 import javafx.scene.paint.Color;
+import model.Player;
+import model.PlayerInMonopoly;
 
 /**
  * Represents the action of losing money in the game of Monopoly.
