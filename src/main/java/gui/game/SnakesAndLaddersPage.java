@@ -1,11 +1,8 @@
 package gui.game;
 
+import controller.ControllerSnakesAndLadders;
 import engine.BoardGame;
-import filehandler.BoardFileReaderGson;
-import filehandler.PlayerFileReader;
 import gui.BaseGamePage;
-import java.io.IOException;
-import java.nio.file.Path;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import kontroller.ControllerSnakesAndLadders;
 import model.Player;
+import model.tileactions.TileAction;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -85,7 +82,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button rollDice = getRollDice();
 
     gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayers(boardGame));
+    Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
 
     controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
     return controlPanel;
@@ -129,14 +126,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     GridPane grid = new GridPane();
     int tileNumber = 90;
 
-    for (int y = 0; y < boardGame.getBoard().getRows(); y++) {
+    for (int y = 0; y < boardGameSnakesAndL.getBoard().getRows(); y++) {
       if (y % 2 != 0) {
-        for (int x = 0; x < boardGame.getBoard().getColumns(); x++) {
+        for (int x = 0; x < boardGameSnakesAndL.getBoard().getColumns(); x++) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
       } else {
-        for (int x = boardGame.getBoard().getColumns() - 1; x >= 0; x--) {
+        for (int x = boardGameSnakesAndL.getBoard().getColumns() - 1; x >= 0; x--) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
@@ -161,7 +158,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-    TileAction landAction = boardGame.getBoard().getTiles().get(tileId).getLandAction();
+    TileAction landAction = boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction();
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(TILE_SIZE);
@@ -181,7 +178,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @param stack the StackPane representing the tile
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    boardGame.getPlayers().stream()
+    boardGameSnakesAndL.getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
         .forEach(player -> {
           Circle playerCircle = createPlayer(player.getColor());
