@@ -40,6 +40,7 @@ public class MonopolyPage extends BaseGamePage {
       "src/main/resources/board/monopolyBoard.json";
   private static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
+  //TODO create constants class for the file paths
 
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     initializeGameMPY();
