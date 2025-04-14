@@ -20,7 +20,7 @@ import java.nio.file.Path;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.0
+ * @version 0.3.0
  */
 public class BaseGamePage extends BasePage {
 
@@ -107,6 +107,27 @@ public class BaseGamePage extends BasePage {
   }
   protected static void setFill(Rectangle rect, Color baseColor) {
     rect.setFill(baseColor);
+  }
+
+  /**
+   * Plays the game by rolling the dice and updating the game information.
+   *
+   * <p>This method simulates a turn in the game by rolling the dice,
+   *
+   * @param boardGame the board game instance.
+   * @param gameInformation the label to display game information.
+   */
+  protected void playGame(BoardGame boardGame, Label gameInformation) {
+    boardGame.play();
+    Player player = boardGame.getCurrentPlayer();
+    int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
+    if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+      //TODO find a way to difine a winner by checking max balance.
+      //TODO add if sentence of which game the player is playing.
+      gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+    } else {
+      gameInformation.setText(player.getName() + " rolled: " + rollSum);
+    }
   }
 
 }
