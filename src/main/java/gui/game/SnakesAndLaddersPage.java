@@ -15,9 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import controller.ControllerSnakesAndLadders;
+import kontroller.ControllerSnakesAndLadders;
 import model.Player;
-import model.tileactions.TileAction;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -32,7 +31,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private static final int TILE_SIZE = 60;
@@ -41,8 +40,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
 
+  private BoardGame boardGameSnakesAndL;
   private final BorderPane mainLayout;
-  private BoardGame boardGame;
   private Label gameInformation;
 
   /**
@@ -67,33 +66,6 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Initializes the game by creating a new BoardGame,
-   * and creating a board, dice and adding the players.
-   */
-  private void initializeGame() {
-    boardGame = new BoardGame();
-
-    BoardFileReaderGson reader = new BoardFileReaderGson();
-    PlayerFileReader playerReader = new PlayerFileReader();
-    try {
-      boardGame.createBoard(reader.readBoard(Path.of(BOARD_FILE_PATH)));
-      boardGame.createDice(2);
-      playerReader.readCsvBuffered(PLAYER_FILE_PATH, boardGame);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException e) {
-      System.out.println("Could not read board or players from file: " + e.getMessage());
-    }
-  }
-
-  /**
-   * Updates the board display by creating a new board grid and replacing the old one.
-   */
-  private void updateBoard() {
-    GridPane boardGrid = createBoard();
-    mainLayout.setCenter(boardGrid);
-  }
-
-  /**
    * Creates the control panel with buttons to start the game and roll the dice.
    *
    * @return HBox containing the control panel with buttons.
@@ -107,7 +79,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = new Button("Start Game");
     startButton.setOnAction(e -> {
       initializeGame();
-      updateBoard();
+      updateBoard(mainLayout, boardGameSnakesAndL);
     });
 
     Button rollDice = getRollDice();
@@ -127,17 +99,25 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private Button getRollDice() {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
-      boardGame.play();
-      Player player = boardGame.getCurrentPlayer();
-      int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
-      if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+      boardGameSnakesAndL.play();
+      Player player = boardGameSnakesAndL.getCurrentPlayer();
+      int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
+      if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
         gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
       } else {
         gameInformation.setText(player.getName() + " rolled: " + rollSum);
       }
-      updateBoard();
+      updateBoard(mainLayout, boardGameSnakesAndL);
     });
     return rollDice;
+  }
+
+  /**
+   * Initializes the game by creating a new BoardGame,
+   * and creating a board, dice and adding the players.
+   */
+  protected void initializeGame() {
+    boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
   /**

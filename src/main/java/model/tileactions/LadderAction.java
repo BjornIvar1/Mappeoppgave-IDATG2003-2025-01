@@ -13,7 +13,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.2.0
  */
 public class LadderAction implements TileAction {
   private int destinationTile;

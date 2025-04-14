@@ -42,6 +42,7 @@ public class BoardGame {
       players.add(player);
     }
     PlayerFileWriter.writeToCSV(players, "src/main/resources/players/playersInGameFile.csv");
+    //TODO: Add a method to save the players to a file with balance.
   }
 
   /**

@@ -1,9 +1,11 @@
 package controller;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Manages scene transitions within a JavaFX application.
@@ -46,7 +48,23 @@ public class SceneManager {
     AnchorPane.setBottomAnchor(view, 0.0);
     AnchorPane.setLeftAnchor(view, 0.0);
     AnchorPane.setRightAnchor(view, 0.0);
+    fadeTransition(view);
     root.getChildren().add(view);
+  }
+
+  /**
+   * Applies a fade transition effect to the specified view.
+   *
+   * <p>This method creates a {@code FadeTransition} that animates the opacity of the
+   * provided {@code Parent} view from 0 to 1 over a duration of 500 milliseconds.
+   *
+   * @param view the {@code Parent} view to which the fade transition will be applied
+   */
+  private void fadeTransition(Parent view) {
+    FadeTransition fade = new FadeTransition(Duration.millis(500), view);
+    fade.setFromValue(0);
+    fade.setToValue(1);
+    fade.play();
   }
 }
 

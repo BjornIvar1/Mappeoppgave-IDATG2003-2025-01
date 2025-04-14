@@ -1,0 +1,68 @@
+package model;
+
+/**
+ * Represents the action of losing money in the game of Monopoly.
+ *
+ * <p>Inherits from the TileAction interface and allows the player
+ * to perform actions related to losing money
+ * when landing on a tile.</p>
+ *
+ * @since 0.0.1
+ * @author Arpit @ Bjørn
+ * @version 0.0.2
+ */
+public class LooseMoneyAction extends MonopolyActions {
+  private int money;
+  private String description;
+
+  /**
+   * Creates a loose money action with a specified amount of money.
+   *
+   * @param money       the amount of money to be deducted from the player.
+   * @param description the description of the action.
+   */
+  public LooseMoneyAction(int money, String description) {
+    super(description);
+    setMoney(money);
+  }
+
+  /**
+   * Updates the player's balance by deducting the specified amount of money.
+   *
+   * @param player that loses the money.
+   */
+  @Override
+  public void perform(Player player) {
+    if (player instanceof PlayerInMonopoly playerInMonopoly) {
+      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - looseMoney(money));
+    }
+  }
+
+
+  /**
+   *
+   * Accesses the amount of money the player will lose.
+   *
+   */
+  public void setMoney(int money) throws IllegalArgumentException {
+    if (money >= 0) {
+      throw new IllegalArgumentException("Money cannot be bigger than 0");
+    }
+    this.money = money;
+  }
+
+  /**
+   * Accesses the amount of money the player will lose.
+   *
+   * @return money that the player will lose.
+   */
+  public int looseMoney(int money) {
+    return money;
+  }
+
+  @Override
+  public int getDestinationTile() {
+    return 0; // No specific destination tile for loose money action
+  }
+
+}

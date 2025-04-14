@@ -10,20 +10,22 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import model.BankAction;
 import model.Board;
 import model.tileactions.LadderAction;
 import model.Tile;
-import model.tileactions.SnakeAction;
 import model.tileactions.TileAction;
 
 /**
  * Class that reads a board from a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.3.0
  * @since 0.0.1
  */
 public class BoardFileReaderGson implements BoardFileReader {
+private static final String ACTION = "action";
+
   /**
    * Reads a board from a file using Gson.
    *
@@ -42,7 +44,7 @@ public class BoardFileReaderGson implements BoardFileReader {
 
       Map<Integer, Tile> tileMap = getTileMap(tilesArray, board);
       linkNextTile(tilesArray, tileMap);
-      createTileAction(tilesArray, tileMap);
+      createTileAction(tilesArray, tileMap, rootObj);
 
       return board;
     }
@@ -97,15 +99,21 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param tilesArray the JSON array of tiles
    * @param tileMap the map of tiles
    */
-  private static void createTileAction(JsonArray tilesArray, Map<Integer, Tile> tileMap) {
+  private static void createTileAction(JsonArray tilesArray, Map<Integer, Tile> tileMap, JsonObject rootObj) {
     for (JsonElement element : tilesArray) {
       JsonObject tileObj = element.getAsJsonObject();
       int id = tileObj.get("id").getAsInt();
       Tile currentTile = tileMap.get(id);
-      if (tileObj.has("action")) {
-        JsonObject actionObj = tileObj.getAsJsonObject("action");
-        TileAction tileAction = createTileActionSnakesAndLadders(actionObj);
+      if (tileObj.has(ACTION) && "Snakes and Ladders".equals(rootObj.get("name").getAsString())) {
+        JsonObject actionObj = tileObj.getAsJsonObject(ACTION);
+        TileAction tileAction = createTileActionLadder(actionObj);
         currentTile.setLandAction(tileAction);
+      } else if (tileObj.has(ACTION) && "Monopoly".equals(rootObj.get("name").getAsString())) {
+        JsonObject actionObj = tileObj.getAsJsonObject(ACTION);
+        TileAction tileAction = createTileActionBankAction(actionObj);
+        currentTile.setLandAction(tileAction);
+      } else {
+        currentTile.setLandAction(null);
       }
     }
   }
@@ -117,16 +125,23 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param actionObj the JSON object of the action
    * @return the tile action or null
    */
-  private static TileAction createTileActionSnakesAndLadders(JsonObject actionObj) {
+  private static TileAction createTileActionLadder(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
     if ("LadderAction".equals(type)) {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
       String description = actionObj.get("description").getAsString();
       return new LadderAction(destinationTileId, description);
-    } else if ("SnakeAction".equals(type)) {
-      int destinationTileId = actionObj.get("destinationTileId").getAsInt();
-      String description = actionObj.get("description").getAsString();
-      return new SnakeAction(destinationTileId, description);
     }
     return null;
-  }}
+  }
+
+  private static TileAction createTileActionBankAction(JsonObject actionObj) {
+    String type = actionObj.get("type").getAsString();
+    if ("BankAction".equals(type)) {
+      int amount = actionObj.get("amount").getAsInt();
+      String description = actionObj.get("description").getAsString();
+      return new BankAction(amount, description);
+    }
+    return null;
+  }
+}

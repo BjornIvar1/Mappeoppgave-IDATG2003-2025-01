@@ -18,7 +18,7 @@ import java.util.Objects;
  * allowing users to select and start a game with a single button click.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.2
+ * @version 0.1.0
  * @since 0.0.1
  */
 public class GameSelection extends BasePage {
@@ -100,7 +100,9 @@ public class GameSelection extends BasePage {
     snakesLaddersButton.setPrefWidth(300);
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
+
     snakesLaddersButton.setOnAction(event ->  controller.goToSnakesAndLadders() );
+    monopolyButton.setOnAction(event -> controller.goToMonopoly());
 
     buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
     buttonPane.setAlignment(Pos.CENTER);
