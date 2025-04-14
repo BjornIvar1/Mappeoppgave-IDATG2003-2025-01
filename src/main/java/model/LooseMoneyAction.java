@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.paint.Color;
+
 /**
  * Represents the action of losing money in the game of Monopoly.
  *
@@ -63,6 +65,11 @@ public class LooseMoneyAction extends MonopolyActions {
   @Override
   public int getDestinationTile() {
     return 0; // No specific destination tile for loose money action
+  }
+
+  @Override
+  public Color getColor() {
+    return null;
   }
 
 }
