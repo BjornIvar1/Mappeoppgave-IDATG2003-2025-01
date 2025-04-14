@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class LooseMoneyAction extends MonopolyActions {
   private int money;
@@ -69,9 +69,9 @@ public class LooseMoneyAction extends MonopolyActions {
     return 0; // No specific destination tile for loose money action
   }
 
-  @Override
+
   public Color getColor() {
-    return null;
+    return Color.web("#e5626a");
   }
 
 }
