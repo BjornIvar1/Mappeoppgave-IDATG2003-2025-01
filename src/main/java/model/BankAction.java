@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.paint.Color;
+
 /**
  * Represents the bank action in the game of Monopoly.
  *
@@ -40,6 +42,11 @@ public class BankAction extends MonopolyActions{
   @Override
   public int getDestinationTile() {
     return 0; // No specific destination tile for bank action
+  }
+
+  @Override
+  public Color getColor() {
+    return null;
   }
 
   /**
