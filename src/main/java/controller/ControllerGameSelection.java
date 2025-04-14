@@ -36,7 +36,7 @@ public class ControllerGameSelection {
   }
 
   public void goToMonopoly() {
-    MonopolyPage monopolyPage = new MonopolyPage(new ControllerMonopoly(sceneManager));
+    MonopolyPage monopolyPage = new MonopolyPage(new kontroller.ControllerMonopoly(sceneManager));
     sceneManager.setView(monopolyPage);
   }
 
