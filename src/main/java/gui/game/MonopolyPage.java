@@ -15,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
+import model.Player;
 import model.tileactions.TileAction;
 
 /**
@@ -29,7 +30,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -56,10 +57,26 @@ public class MonopolyPage extends BaseGamePage {
     getChildren().add(mainLayout);
   }
 
+  /**
+   * Initializes the Monopoly game by loading the board configuration and player data
+   * from the specified file paths.
+   *
+   * <p>This method sets up the `boardGameForMonopoly` object by reading the board
+   * layout from a JSON file and player information from a CSV file.</p>
+   */
   private void initializeGameMPY() {
     boardGameForMonopoly = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
   }
 
+  /**
+   * Creates the game board for Monopoly.
+   *
+   * <p>This method generates a grid layout representing the Monopoly board.
+   * It places tiles in a clockwise manner starting from the top-left corner,
+   * ensuring that all 40 tiles are added to the grid in the correct order.</p>
+   *
+   * @return A `GridPane` containing the Monopoly board layout.
+   */
   private GridPane createBoard() {
     GridPane grid = new GridPane();
     int gridSize = 11; // Size of the grid (11x11 for Monopoly)
@@ -100,6 +117,15 @@ public class MonopolyPage extends BaseGamePage {
     return grid;
   }
 
+  /**
+   * Creates the control panel for the game.
+   *
+   * <p>This method creates a horizontal box layout containing buttons and labels
+   * for controlling the game. It includes a button to start the game and a label
+   * to display game information.</p>
+   *
+   * @return A HBox containing the control panel elements.
+   */
   private HBox createControlPanel() {
     HBox controlPanel = new HBox();
     controlPanel.setAlignment(Pos.CENTER);
@@ -115,7 +141,7 @@ public class MonopolyPage extends BaseGamePage {
     Label playerInformation = new Label(displayPlayers(boardGameForMonopoly));
 
 
-    controlPanel.getChildren().addAll(startGameButton, gameInformation, playerInformation);
+    controlPanel.getChildren().addAll(startGameButton, getButton(), gameInformation, playerInformation);
     return controlPanel;
   }
 
@@ -127,6 +153,16 @@ public class MonopolyPage extends BaseGamePage {
     mainLayout.setCenter(boardGrid);
   }
 
+  /**
+   * Creates a tile for the Monopoly board.
+   *
+   * <p>This method generates a StackPane containing a rectangle representing the tile,
+   * along with a text label displaying the tile ID. It also handles placing player pieces
+   * on the tile if they are present.</p>
+   *
+   * @param tileId The ID of the tile to be created.
+   * @return A StackPane containing the tile representation.
+   */
   private StackPane createTile(int tileId) {
     StackPane stack = new StackPane();
     Rectangle rect = new Rectangle(60, 60);
@@ -150,6 +186,52 @@ public class MonopolyPage extends BaseGamePage {
     return stack;
   }
 
+  /**
+   * Creates a button to roll the dice.
+   *
+   * <p>This method creates a button that, when clicked, rolls the dice and updates
+   * the game information label with the result.</p>
+   *
+   * @return A Button for rolling the dice.
+   */
+  private Button getButton() {
+    Button rollDice = new Button("Roll Dice");
+    rollDice.setOnAction(e -> {
+      playGame(boardGameForMonopoly, gameInformation);
+      updateBoard();
+    });
+    return rollDice;
+  }
+
+  /**
+   * Plays the game by rolling the dice and updating the game information.
+   *
+   * <p>This method simulates a turn in the game by rolling the dice,
+   *
+   * @param boardGameForMonopoly the board game instance.
+   * @param gameInformation the label to display game information.
+   */
+  static void playGame(BoardGame boardGameForMonopoly, Label gameInformation) {
+    boardGameForMonopoly.play();
+    Player player = boardGameForMonopoly.getCurrentPlayer();
+    int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
+    if (boardGameForMonopoly.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+      //TODO find a way to difine a winner by checking max balance.
+      gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+    } else {
+      gameInformation.setText(player.getName() + " rolled: " + rollSum);
+    }
+  }
+
+  /**
+   * Places player pieces on the specified tile.
+   *
+   * <p>This method checks if any players are currently on the specified tile and
+   * adds their corresponding game pieces to the StackPane representing that tile.</p>
+   *
+   * @param tileId The ID of the tile where players should be placed.
+   * @param stack  The StackPane representing the tile.
+   */
   private void placePlayerOnTile(int tileId, StackPane stack) {
     boardGameForMonopoly.getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
