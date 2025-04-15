@@ -96,7 +96,7 @@ public class MonopolyPage extends BaseGamePage {
       }
     }
 
-    //First column from bottom to top. Tile from 11-21.
+    //First column from bottom to top. Tile from 11-19.
     for (int yCoordinateColumn = gridSize - 2; yCoordinateColumn >= 0; yCoordinateColumn--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
@@ -104,7 +104,7 @@ public class MonopolyPage extends BaseGamePage {
       }
     }
 
-    //Second row from right to left. Tile from 22-31.
+    //Second row from right to left. Tile from 20-30.
     for (int xCoordinateRow = 1; xCoordinateRow < gridSize - 1; xCoordinateRow++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
@@ -112,7 +112,7 @@ public class MonopolyPage extends BaseGamePage {
       }
     }
 
-    //Second column from top to bottom. Tile from 32-40.
+    //Second column from top to bottom. Tile from 31-40.
     for (int yCoordinateColumn = 0; yCoordinateColumn < gridSize; yCoordinateColumn++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
