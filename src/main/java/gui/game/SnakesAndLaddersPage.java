@@ -69,11 +69,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-    Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
-    startButton.setOnAction(e -> {
-      initializeGame();
-      updateBoard(mainLayout, boardGameSnakesAndL);
-    });
+    Button startButton = getStartGameButton();
 
     Button rollDice = getRollDice();
 
@@ -82,6 +78,20 @@ public class SnakesAndLaddersPage extends BaseGamePage {
 
     controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
     return controlPanel;
+  }
+
+  /**
+   * Creates the button to start the game.
+   *
+   * @return Button to start the game.
+   */
+  private Button getStartGameButton() {
+    Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
+    startButton.setOnAction(e -> {
+      initializeGame();
+      updateBoard(mainLayout, boardGameSnakesAndL);
+    });
+    return startButton;
   }
 
   /**
@@ -109,7 +119,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * Initializes the game by creating a new BoardGame,
    * and creating a board, dice and adding the players.
    */
-  protected void initializeGame() {
+  private void initializeGame() {
     boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.SNAKES_AND_LADDERS_PLAYER_FILE_PATH);
   }
 
