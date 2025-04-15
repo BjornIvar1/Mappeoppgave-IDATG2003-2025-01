@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class BankAction extends MonopolyActions {
   private int money;
@@ -66,7 +66,7 @@ public class BankAction extends MonopolyActions {
    * @throws IllegalArgumentException if the money is lower than 0.
    */
   public void setMoney(int money) throws IllegalArgumentException {
-    if (money < 0) {
+    if (money <= 0) {
       throw new IllegalArgumentException("Money cannot be negative");
     }
     this.money = money;
