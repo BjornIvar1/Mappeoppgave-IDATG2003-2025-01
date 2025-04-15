@@ -14,6 +14,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
 import model.tileactions.TileAction;
+import utils.Constants;
+import utils.MessageDisplay;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -31,12 +33,6 @@ import model.tileactions.TileAction;
  * @version 0.0.3
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
-  private static final int TILE_SIZE = 60;
-  private static final String BOARD_FILE_PATH =
-      "src/main/resources/board/SnakesAndLaddersBoard.json";
-  private static final String PLAYER_FILE_PATH =
-      "src/main/resources/players/playersInGameFile.csv";
-
   private BoardGame boardGameSnakesAndL;
   private final BorderPane mainLayout;
   private Label gameInformation;
@@ -73,7 +69,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-    Button startButton = new Button("Start Game");
+    Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startButton.setOnAction(e -> {
       initializeGame();
       updateBoard(mainLayout, boardGameSnakesAndL);
@@ -81,7 +77,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
 
     Button rollDice = getRollDice();
 
-    gameInformation = new Label("Last rolled: ---");
+    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
 
     controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
@@ -94,15 +90,15 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return Button to roll the dice.
    */
   private Button getRollDice() {
-    Button rollDice = new Button("Roll Dice");
+    Button rollDice = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDice.setOnAction(e -> {
       boardGameSnakesAndL.play();
       Player player = boardGameSnakesAndL.getCurrentPlayer();
       int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
       if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
-        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+        gameInformation.setText(MessageDisplay.winningMessage(player));
       } else {
-        gameInformation.setText(player.getName() + " rolled: " + rollSum);
+        gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
       }
       updateBoard(mainLayout, boardGameSnakesAndL);
     });
@@ -114,7 +110,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * and creating a board, dice and adding the players.
    */
   protected void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
+    boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.SNAKES_AND_LADDERS_PLAYER_FILE_PATH);
   }
 
   /**
@@ -151,8 +147,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private StackPane createTile(int tileId) {
     StackPane stack = new StackPane();
-    Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0) ? Color.web("#32bff5") : Color.web("#bbd962");
+    Rectangle rect = new Rectangle(Constants.SNAKES_AND_LADDERS_TILE_SIZE, Constants.SNAKES_AND_LADDERS_TILE_SIZE);
+    Color baseColor = (tileId % 2 == 0)? Color.web(Constants.COLOR_TILE_EVEN) : Color.web(Constants.COLOR_TILE_ODD);
 
     rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);
@@ -161,7 +157,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     TileAction landAction = boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction();
     if (landAction != null) {
       rect.setFill(landAction.getColor());
-      text.setWrappingWidth(TILE_SIZE);
+      text.setWrappingWidth(Constants.SNAKES_AND_LADDERS_TILE_SIZE);
       text.setText(landAction.getDescription());
     }
 
