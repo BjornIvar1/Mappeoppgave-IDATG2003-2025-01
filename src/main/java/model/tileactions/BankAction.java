@@ -13,11 +13,11 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.4
+ * @version 0.1.0
  */
-public class BankAction extends MonopolyActions {
+public class BankAction implements TileAction {
   private int money;
-
+  private String description;
   /**
    * Creates a bank action with a specified amount of money.
    *
@@ -25,7 +25,7 @@ public class BankAction extends MonopolyActions {
    * @param description the description of the action.
    */
   public BankAction(int money, String description) {
-    super(description);
+    setDescription(description);
     setMoney(money);
   }
 
@@ -39,6 +39,11 @@ public class BankAction extends MonopolyActions {
     if (player instanceof PlayerInMonopoly playerInMonopoly) {
       playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + getMoney());
     }
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -70,5 +75,18 @@ public class BankAction extends MonopolyActions {
       throw new IllegalArgumentException("Money cannot be negative");
     }
     this.money = money;
+  }
+
+  /**
+   * Mutates the description.
+   *
+   * @param description of what happens when the player lands on a ladder.
+   * @throws IllegalArgumentException if the description is null og empty.
+   */
+  public void setDescription(String description) {
+    if (description == null || description.isEmpty()) {
+      throw new IllegalArgumentException("Description cannot be null or empty");
+    }
+    this.description = description;
   }
 }
