@@ -30,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.3
+ * @version 0.1.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
@@ -89,7 +89,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startButton.setOnAction(e -> {
       initializeGame();
-      updateBoard(mainLayout, boardGameSnakesAndL);
+      updateBoard(mainLayout);
     });
     return startButton;
   }
@@ -110,7 +110,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
       }
-      updateBoard(mainLayout, boardGameSnakesAndL);
+      updateBoard(mainLayout);
     });
     return rollDice;
   }
@@ -121,6 +121,11 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private void initializeGame() {
     boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.SNAKES_AND_LADDERS_PLAYER_FILE_PATH);
+  }
+
+  private void updateBoard(BorderPane mainLayout) {
+    GridPane boardGrid = createBoard();
+    mainLayout.setCenter(boardGrid);
   }
 
   /**
