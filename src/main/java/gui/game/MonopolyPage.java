@@ -15,7 +15,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
+import model.PlayerInMonopoly;
 import model.tileactions.TileAction;
+import utils.MessageDisplay;
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -29,7 +31,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.2
+ * @version 0.5.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -51,6 +53,7 @@ public class MonopolyPage extends BaseGamePage {
     initializeGameMPY();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
+
     mainLayout = new BorderPane();
     mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
@@ -203,11 +206,21 @@ public class MonopolyPage extends BaseGamePage {
   private Button getButton() {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
-      playGame(boardGameForMonopoly, gameInformation);
+      boardGameForMonopoly.play();
+      PlayerInMonopoly player = boardGameForMonopoly.getCurrentPlayer();
+      int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
+
+      if (player.getBalance() >= 1) { // Adjusted winning condition
+        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+        rollDice.setDisable(true); // Disable further gameplay
+      } else {
+        gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
+      }
       updateBoard();
     });
     return rollDice;
   }
+
 
   /**
    * Places player pieces on the specified tile.
