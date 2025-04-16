@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.Player;
+import model.PlayerInMonopoly;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -16,7 +17,7 @@ import java.nio.file.Path;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.1
+ * @version 0.4.0
  */
 public class BaseGamePage extends BasePage {
 
@@ -68,6 +69,22 @@ public class BaseGamePage extends BasePage {
   }
 
   /**
+   * Displays the players in the game for Monopoly.
+   *
+   * @param boardGame the board game
+   * @return a string representation of the players
+   */
+  protected String displayPlayerInfoMonopoly(BoardGame boardGame) {
+    StringBuilder stringBuilder = new StringBuilder();
+    for (PlayerInMonopoly p : boardGame.getPlayers()) {
+      stringBuilder.append("Name: ").append(p.getName()).append("; ")
+          .append("Game Piece: ").append(p.getColor()).append("; ")
+          .append("Balance: ").append(p.getBalance()).append("\n");
+    }
+    return stringBuilder.toString();
+  }
+
+  /**
    * Initializes the board game with players and board.
    *
    * <p>This method reads the board and player files, creates the board,
@@ -113,8 +130,6 @@ public class BaseGamePage extends BasePage {
     Player player = boardGame.getCurrentPlayer();
     int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
     if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
-      //TODO find a way to define a winner by checking max balance.
-      //TODO add if sentence of which game the player is playing.
       gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
     } else {
       gameInformation.setText(player.getName() + " rolled: " + rollSum);
