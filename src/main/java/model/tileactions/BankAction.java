@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class BankAction implements TileAction {
   private int money;
@@ -37,10 +37,14 @@ public class BankAction implements TileAction {
   @Override
   public void perform(Player player) {
     if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + getMoney());
+      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + money);
     }
   }
-
+  /**
+   * Returns the description of the bank action.
+   *
+   * @return the description of the bank action.
+   */
   @Override
   public String getDescription() {
     return description;
@@ -51,6 +55,11 @@ public class BankAction implements TileAction {
     return 0; // No specific destination tile for bank action
   }
 
+  /**
+   * Returns the color of the bank action.
+   *
+   * @return the color of the bank action.
+   */
   public Color getColor() {
     return Color.web("#f5f04b");
   }
@@ -70,7 +79,7 @@ public class BankAction implements TileAction {
    * @param money that the player will get.
    * @throws IllegalArgumentException if the money is lower than 0.
    */
-  public void setMoney(int money) throws IllegalArgumentException {
+   public void setMoney(int money) throws IllegalArgumentException {
     if (money <= 0) {
       throw new IllegalArgumentException("Money cannot be negative");
     }
