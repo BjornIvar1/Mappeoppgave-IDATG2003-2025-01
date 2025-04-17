@@ -13,9 +13,9 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.0
+ * @version 0.1.1
  */
-public class LooseMoneyAction implements TileAction {
+public class LooseMoneyAction extends MonopolyActions {
   private int money;
   private String description;
 
@@ -26,7 +26,7 @@ public class LooseMoneyAction implements TileAction {
    * @param description the description of the action.
    */
   public LooseMoneyAction(int money, String description) {
-    setDescription(description);
+    super(description);
     setMoney(money);
   }
 
@@ -47,11 +47,11 @@ public class LooseMoneyAction implements TileAction {
     return description;
   }
 
-
   /**
+   * Mutates the amount of money the player will lose.
    *
-   * Accesses the amount of money the player will lose.
-   *
+   * @param money that the player will lose.
+   * @throws IllegalArgumentException if the money is less than 0.
    */
   public void setMoney(int money) throws IllegalArgumentException {
     if (money >= 0) {
@@ -75,6 +75,12 @@ public class LooseMoneyAction implements TileAction {
   }
 
 
+  /**
+   * Mutates the description of what happens when the player lands on a tile.
+   *
+   * @param description of what happens when the player lands on a tile.
+   */
+  @Override
   public void setDescription(String description) {
     if (description == null || description.isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty");
@@ -82,6 +88,11 @@ public class LooseMoneyAction implements TileAction {
     this.description = description;
   }
 
+  /**
+   * Returns the color of the loose money action.
+   *
+   * @return the color of the loose money action.
+   */
   public Color getColor() {
     return Color.web("#e5626a");
   }
