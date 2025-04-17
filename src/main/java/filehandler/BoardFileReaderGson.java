@@ -135,6 +135,13 @@ private static final String ACTION = "action";
     return null;
   }
 
+  /**
+   * Creates the tile Action for Monopoly.
+   * Returns the tile action or null, if the tile do not have an action.
+   *
+   * @param actionObj the JSON object of the action
+   * @return the tile action or null
+   */
   private static TileAction createTileActionBankAction(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
     if ("BankAction".equals(type)) {
@@ -144,4 +151,6 @@ private static final String ACTION = "action";
     }
     return null;
   }
+
+
 }
