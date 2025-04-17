@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.2
+ * @version 0.1.3
  */
 public class BankAction extends MonopolyActions {
   private int money;
@@ -37,7 +37,7 @@ public class BankAction extends MonopolyActions {
   @Override
   public void perform(Player player) {
     if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + money);
+      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + getMoney());
     }
   }
   /**
