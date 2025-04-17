@@ -13,9 +13,9 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.1
+ * @version 0.1.2
  */
-public class BankAction implements TileAction {
+public class BankAction extends MonopolyActions {
   private int money;
   private String description;
   /**
@@ -25,7 +25,7 @@ public class BankAction implements TileAction {
    * @param description the description of the action.
    */
   public BankAction(int money, String description) {
-    setDescription(description);
+    super(description);
     setMoney(money);
   }
 
@@ -92,6 +92,7 @@ public class BankAction implements TileAction {
    * @param description of what happens when the player lands on a ladder.
    * @throws IllegalArgumentException if the description is null og empty.
    */
+  @Override
   public void setDescription(String description) {
     if (description == null || description.isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty");
