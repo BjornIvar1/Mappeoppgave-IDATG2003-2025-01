@@ -186,7 +186,7 @@ public class MonopolyPage extends BaseGamePage {
       PlayerInMonopoly player = boardGameForMonopoly.getCurrentPlayer();
       int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
 
-      if (player.getBalance() >= 1000000) { // Winning condition
+      if (player.getBalance() >= 5000000) { // Winning condition
         gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
         rollDice.setDisable(true);
       } else {
