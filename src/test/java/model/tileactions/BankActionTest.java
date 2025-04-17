@@ -1,6 +1,7 @@
 package model.tileactions;
 
 import engine.BoardGame;
+import javafx.scene.paint.Color;
 import model.Board;
 import model.PlayerInMonopoly;
 import model.Tile;
@@ -53,6 +54,42 @@ class BankActionTest {
   @Test
   void setMoneyNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> bankAction.setMoney(0));
+  }
+
+  @Test
+  void performTest() {
+    int initialBalance = player.getBalance();
+    bankAction.perform(player);
+    assertEquals(initialBalance + 300, player.getBalance());
+  }
+
+  @Test
+  void performNegativeTest() {
+    int initialBalance = player.getBalance();
+    bankAction.perform(player);
+    assertNotEquals(initialBalance - 300, player.getBalance());
+  }
+
+  @Test
+  void setDescriptionTest() {
+    bankAction.setDescription("you have to pay 300 $");
+    assertEquals("you have to pay 300 $", bankAction.getDescription());
+  }
+
+  @Test
+  void setDescriptionNullTest() {
+    assertThrows(IllegalArgumentException.class, () -> bankAction.setDescription(null));
+  }
+
+  @Test
+  void setDescriptionEmptyTest() {
+    assertThrows(IllegalArgumentException.class, () -> bankAction.setDescription(""));
+  }
+
+  @Test
+  void getColorTest() {
+    Color expectedColor = Color.web("#f5f04b");
+    assertEquals(expectedColor, bankAction.getColor());
   }
 
 }
