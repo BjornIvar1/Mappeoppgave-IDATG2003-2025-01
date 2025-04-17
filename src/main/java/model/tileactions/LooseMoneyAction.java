@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.1
+ * @version 0.2.0
  */
 public class LooseMoneyAction extends MonopolyActions {
   private int money;
@@ -38,7 +38,11 @@ public class LooseMoneyAction extends MonopolyActions {
   @Override
   public void perform(Player player) {
     if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - looseMoney(money));
+      if (playerInMonopoly.getBalance() <= getLooseMoney()) {
+        playerInMonopoly.setBalance(0);
+      } else {
+        playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - getLooseMoney());
+      }
     }
   }
 
@@ -54,8 +58,8 @@ public class LooseMoneyAction extends MonopolyActions {
    * @throws IllegalArgumentException if the money is less than 0.
    */
   public void setMoney(int money) throws IllegalArgumentException {
-    if (money >= 0) {
-      throw new IllegalArgumentException("Money cannot be bigger than 0");
+    if (money <= 0) {
+      throw new IllegalArgumentException("Money cannot be smaller than 0");
     }
     this.money = money;
   }
@@ -65,13 +69,13 @@ public class LooseMoneyAction extends MonopolyActions {
    *
    * @return money that the player will lose.
    */
-  public int looseMoney(int money) {
+  public int getLooseMoney() {
     return money;
   }
 
   @Override
   public int getDestinationTile() {
-    return 0; // No specific destination tile for loose money action
+    return 0; // No specific destination tile for LooseMoneyAction.
   }
 
 
@@ -89,9 +93,9 @@ public class LooseMoneyAction extends MonopolyActions {
   }
 
   /**
-   * Returns the color of the loose money action.
+   * Returns the color of the loose money action tile.
    *
-   * @return the color of the loose money action.
+   * @return the color of the loose money action tile.
    */
   public Color getColor() {
     return Color.web("#e5626a");
