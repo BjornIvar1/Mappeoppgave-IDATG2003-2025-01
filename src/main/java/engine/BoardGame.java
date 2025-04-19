@@ -5,7 +5,7 @@ import java.util.List;
 
 import filehandler.PlayerFileWriter;
 import model.Board;
-import model.Player;
+import model.PlayerInMonopoly;
 import model.Tile;
 
 /**
@@ -14,13 +14,13 @@ import model.Tile;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 public class BoardGame {
-  private final List<Player> players;
+  private final List<PlayerInMonopoly> players;
   private Board board;
-  private Player currentPlayer;
+  private PlayerInMonopoly currentPlayer;
   private Dice dice;
   private int currentPlayerIndex;
 
@@ -37,12 +37,11 @@ public class BoardGame {
    *
    * @param player the player to add
    */
-  public void addPlayer(Player player) {
+  public void addPlayer(PlayerInMonopoly player) {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
     PlayerFileWriter.writeToCSV(players, "src/main/resources/players/playersInGameFile.csv");
-    //TODO: Add a method to save the players to a file with balance.
   }
 
   /**
@@ -51,7 +50,7 @@ public class BoardGame {
    *
    * @return players.
    */
-  public List<Player> getPlayers() {
+  public List<PlayerInMonopoly> getPlayers() {
     return players;
   }
 
@@ -99,7 +98,7 @@ public class BoardGame {
    *
    * @return currentPlayer
    */
-  public Player getCurrentPlayer(){
+  public PlayerInMonopoly getCurrentPlayer(){
     return currentPlayer;
   }
 

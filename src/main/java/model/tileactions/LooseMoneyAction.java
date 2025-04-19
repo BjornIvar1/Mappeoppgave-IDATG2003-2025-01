@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.3
+ * @version 0.2.0
  */
 public class LooseMoneyAction extends MonopolyActions {
   private int money;
@@ -38,19 +38,28 @@ public class LooseMoneyAction extends MonopolyActions {
   @Override
   public void perform(Player player) {
     if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - looseMoney(money));
+      if (playerInMonopoly.getBalance() <= getLooseMoney()) {
+        playerInMonopoly.setBalance(0);
+      } else {
+        playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - getLooseMoney());
+      }
     }
   }
 
+  @Override
+  public String getDescription() {
+    return description;
+  }
 
   /**
+   * Mutates the amount of money the player will lose.
    *
-   * Accesses the amount of money the player will lose.
-   *
+   * @param money that the player will lose.
+   * @throws IllegalArgumentException if the money is less than 0.
    */
   public void setMoney(int money) throws IllegalArgumentException {
-    if (money >= 0) {
-      throw new IllegalArgumentException("Money cannot be bigger than 0");
+    if (money <= 0) {
+      throw new IllegalArgumentException("Money cannot be smaller than 0");
     }
     this.money = money;
   }
@@ -60,16 +69,34 @@ public class LooseMoneyAction extends MonopolyActions {
    *
    * @return money that the player will lose.
    */
-  public int looseMoney(int money) {
+  public int getLooseMoney() {
     return money;
   }
 
   @Override
   public int getDestinationTile() {
-    return 0; // No specific destination tile for loose money action
+    return 0; // No specific destination tile for LooseMoneyAction.
   }
 
 
+  /**
+   * Mutates the description of what happens when the player lands on a tile.
+   *
+   * @param description of what happens when the player lands on a tile.
+   */
+  @Override
+  public void setDescription(String description) {
+    if (description == null || description.isEmpty()) {
+      throw new IllegalArgumentException("Description cannot be null or empty");
+    }
+    this.description = description;
+  }
+
+  /**
+   * Returns the color of the loose money action tile.
+   *
+   * @return the color of the loose money action tile.
+   */
   public Color getColor() {
     return Color.web("#e5626a");
   }

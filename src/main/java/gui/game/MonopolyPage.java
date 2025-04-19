@@ -15,7 +15,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
+import model.PlayerInMonopoly;
 import model.tileactions.TileAction;
+import utils.MessageDisplay;
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -29,7 +31,7 @@ import model.tileactions.TileAction;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.2
+ * @version 0.6.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -51,6 +53,7 @@ public class MonopolyPage extends BaseGamePage {
     initializeGameMPY();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
+
     mainLayout = new BorderPane();
     mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
@@ -134,21 +137,65 @@ public class MonopolyPage extends BaseGamePage {
    */
   private HBox createControlPanel() {
     HBox controlPanel = new HBox();
+    gameInformation = new Label("Last rolled: ---");
+    Label playerInformation = new Label(displayPlayerInfoMonopoly(boardGameForMonopoly));
+
     controlPanel.setAlignment(Pos.CENTER);
     controlPanel.setSpacing(10);
 
+    Button rollDice = rollDiceButton(playerInformation);
+    Button startGameButton = getStartGameButton(rollDice, playerInformation);
+
+
+    controlPanel.getChildren().addAll(startGameButton, rollDice, gameInformation, playerInformation);
+    return controlPanel;
+  }
+
+  /**
+   * Creates the button to start the game.
+   *
+   * <p>This method initializes the game and enables the roll dice button.</p>
+   *
+   * @param rollDice          The button to roll the dice.
+   * @param playerInformation The label to display player information.
+   * @return Button to start the game.
+   */
+  private Button getStartGameButton(Button rollDice, Label playerInformation) {
     Button startGameButton = new Button("Start Game");
     startGameButton.setOnAction(event -> {
       initializeGameMPY();
       updateBoard();
+      rollDice.setDisable(false);
+      playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
     });
+    return startGameButton;
+  }
 
-    gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayers(boardGameForMonopoly));
+  /**
+   * Creates the button to roll the dice and play the game.
+   *
+   * <p>This method handles the action of rolling the dice and updating the game information.</p>
+   *
+   * @param playerInformation The label to display player information.
+   * @return Button to roll the dice.
+   */
+  private Button rollDiceButton(Label playerInformation) {
+    Button rollDice = new Button("Roll Dice");
+    rollDice.setOnAction(e -> {
+      boardGameForMonopoly.play();
+      PlayerInMonopoly player = boardGameForMonopoly.getCurrentPlayer();
+      int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
 
-
-    controlPanel.getChildren().addAll(startGameButton, getButton(), gameInformation, playerInformation);
-    return controlPanel;
+      if (player.getBalance() >= 5000000) { // Winning condition
+        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+        rollDice.setDisable(true);
+      } else {
+        gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
+      }
+      playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
+      updateBoard();
+    });
+    return rollDice;
   }
 
   /**
@@ -192,22 +239,6 @@ public class MonopolyPage extends BaseGamePage {
     return stack;
   }
 
-  /**
-   * Creates a button to roll the dice.
-   *
-   * <p>This method creates a button that, when clicked, rolls the dice and updates
-   * the game information label with the result.</p>
-   *
-   * @return A Button for rolling the dice.
-   */
-  private Button getButton() {
-    Button rollDice = new Button("Roll Dice");
-    rollDice.setOnAction(e -> {
-      playGame(boardGameForMonopoly, gameInformation);
-      updateBoard();
-    });
-    return rollDice;
-  }
 
   /**
    * Places player pieces on the specified tile.
