@@ -30,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
@@ -48,14 +48,13 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
-    mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
 
+    BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
-    setAlignment(Pos.CENTER);
 
-    getChildren().add(mainLayout);
+    setPageContent(mainLayout);
   }
 
   /**
@@ -135,6 +134,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private GridPane createBoard() {
     GridPane grid = new GridPane();
+    grid.setAlignment(Pos.CENTER);
     int tileNumber = 90;
 
     for (int y = 0; y < boardGameSnakesAndL.getBoard().getRows(); y++) {
