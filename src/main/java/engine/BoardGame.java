@@ -2,7 +2,6 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import filehandler.PlayerFileWriter;
 import model.Board;
 import model.PlayerInMonopoly;
