@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import kontroller.ControllerMonopoly;
 import model.PlayerInMonopoly;
 import model.tileactions.TileAction;
+import utils.Constants;
 import utils.MessageDisplay;
 
 /**
@@ -31,18 +32,12 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.6.0
+ * @version 0.6.1
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
   private final BorderPane mainLayout;
   private Label gameInformation;
-
-  private static final String BOARD_FILE_PATH =
-      "src/main/resources/board/monopolyBoard.json";
-  private static final String PLAYER_FILE_PATH =
-      "src/main/resources/players/playersInGameFile.csv";
-  //TODO create constants class for the file paths
 
   /**
    * Constructor for the MonopolyPage class.
@@ -73,7 +68,8 @@ public class MonopolyPage extends BaseGamePage {
    * layout from a JSON file and player information from a CSV file.</p>
    */
   private void initializeGameMPY() {
-    boardGameForMonopoly = initializeBoardGame(BOARD_FILE_PATH, PLAYER_FILE_PATH);
+    boardGameForMonopoly = initializeBoardGame(Constants.MONOPOLY_BOARD_FILE_PATH,
+        Constants.PLAYER_FILE_PATH);
   }
 
   /**
