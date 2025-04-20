@@ -120,7 +120,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * and creating a board, dice and adding the players.
    */
   private void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.SNAKES_AND_LADDERS_PLAYER_FILE_PATH);
+    boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.PLAYER_FILE_PATH);
   }
 
   private void updateBoard(BorderPane mainLayout) {

@@ -10,22 +10,19 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import model.tileactions.BankAction;
+import model.tileactions.*;
 import model.Board;
-import model.tileactions.LadderAction;
 import model.Tile;
-import model.tileactions.SnakeAction;
-import model.tileactions.TileAction;
+import utils.Constants;
 
 /**
  * Class that reads a board from a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.0
+ * @version 0.4.0
  * @since 0.0.1
  */
 public class BoardFileReaderGson implements BoardFileReader {
-private static final String ACTION = "action";
 
   /**
    * Reads a board from a file using Gson.
@@ -105,13 +102,13 @@ private static final String ACTION = "action";
       JsonObject tileObj = element.getAsJsonObject();
       int id = tileObj.get("id").getAsInt();
       Tile currentTile = tileMap.get(id);
-      if (tileObj.has(ACTION) && "Snakes and Ladders".equals(rootObj.get("name").getAsString())) {
-        JsonObject actionObj = tileObj.getAsJsonObject(ACTION);
+      if (tileObj.has(Constants.ACTION) && "Snakes and Ladders".equals(rootObj.get("name").getAsString())) {
+        JsonObject actionObj = tileObj.getAsJsonObject(Constants.ACTION);
         TileAction tileAction = createTileActionSnakesAndLadders(actionObj);
         currentTile.setLandAction(tileAction);
-      } else if (tileObj.has(ACTION) && "Monopoly".equals(rootObj.get("name").getAsString())) {
-        JsonObject actionObj = tileObj.getAsJsonObject(ACTION);
-        TileAction tileAction = createTileActionBankAction(actionObj);
+      } else if (tileObj.has(Constants.ACTION) && "Monopoly".equals(rootObj.get("name").getAsString())) {
+        JsonObject actionObj = tileObj.getAsJsonObject(Constants.ACTION);
+        TileAction tileAction = createTileMonopolyAction(actionObj);
         currentTile.setLandAction(tileAction);
       } else {
         currentTile.setLandAction(null);
@@ -130,11 +127,11 @@ private static final String ACTION = "action";
     String type = actionObj.get("type").getAsString();
     if ("LadderAction".equals(type)) {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
-      String description = actionObj.get("description").getAsString();
+      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new LadderAction(destinationTileId, description);
     } else if ("SnakeAction".equals(type)) {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
-      String description = actionObj.get("description").getAsString();
+      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new SnakeAction(destinationTileId, description);
     }
     return null;
@@ -147,12 +144,16 @@ private static final String ACTION = "action";
    * @param actionObj the JSON object of the action
    * @return the tile action or null
    */
-  private static TileAction createTileActionBankAction(JsonObject actionObj) {
+  private static TileAction createTileMonopolyAction(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
     if ("BankAction".equals(type)) {
       int amount = actionObj.get("amount").getAsInt();
-      String description = actionObj.get("description").getAsString();
+      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new BankAction(amount, description);
+    } else if ("LooseMoneyAction".equals(type)) {
+      int amount = actionObj.get("amount").getAsInt();
+      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
+      return new LooseMoneyAction(amount, description);
     }
     return null;
   }
