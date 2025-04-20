@@ -102,7 +102,12 @@ public class BoardGame {
   }
 
   /**
-   * Simple board game for testing...
+   * This method is responsible for playing the game.
+   *
+   * <p>It rolls the dice and moves the current player
+   * to the next tile. If the player lands on a tile
+   * that is not the last tile,
+   * it will move to the next player.</p>
    */
   public void play() {
     if (currentPlayer == null) {
