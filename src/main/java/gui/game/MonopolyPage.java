@@ -31,7 +31,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.7.0
+ * @version 0.7.1
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -46,13 +46,14 @@ public class MonopolyPage extends BaseGamePage {
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     initializeGameMPY();
     GridPane board = createBoard();
+    HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
     mainLayout.setCenter(board);
-    mainLayout.setBottom(createControlPanel());
+    mainLayout.setBottom(controlPanel);
 
     BorderPane.setAlignment(board, Pos.CENTER);
-    BorderPane.setAlignment(createControlPanel(), Pos.CENTER);
+    BorderPane.setAlignment(controlPanel, Pos.CENTER);
 
     setPageContent(mainLayout);
   }
