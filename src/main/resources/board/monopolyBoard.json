@@ -20,7 +20,13 @@
         "amount": 500000
       }
     },
-    { "id": 5, "x": 4, "y": 0, "nextTile": 6 },
+    { "id": 5, "x": 4, "y": 0, "nextTile": 6,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 6, "x": 5, "y": 0, "nextTile": 7,
       "action": {
         "type": "BankAction",
@@ -29,7 +35,13 @@
       }
     },
     { "id": 7, "x": 6, "y": 0, "nextTile": 8 },
-    { "id": 8, "x": 7, "y": 0, "nextTile": 9 },
+    { "id": 8, "x": 7, "y": 0, "nextTile": 9,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 9, "x": 8, "y": 0, "nextTile": 10,
       "action": {
         "type": "BankAction",
@@ -40,7 +52,13 @@
     { "id": 10, "x": 9, "y": 0, "nextTile": 11},
 
     { "id": 11, "x": 9, "y": 1, "nextTile": 12 },
-    { "id": 12, "x": 9, "y": 2, "nextTile": 13 },
+    { "id": 12, "x": 9, "y": 2, "nextTile": 13,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 13, "x": 9, "y": 3, "nextTile": 14,
       "action": {
         "type": "BankAction",
@@ -62,7 +80,13 @@
     { "id": 19, "x": 9, "y": 9, "nextTile": 20 },
 
     { "id": 20, "x": 8, "y": 9, "nextTile": 21 },
-    { "id": 21, "x": 7, "y": 9, "nextTile": 22 },
+    { "id": 21, "x": 7, "y": 9, "nextTile": 22,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 22, "x": 6, "y": 9, "nextTile": 23 },
     { "id": 23, "x": 5, "y": 9, "nextTile": 24,
       "action": {
@@ -73,7 +97,13 @@
     },
     { "id": 24, "x": 4, "y": 9, "nextTile": 25 },
     { "id": 25, "x": 3, "y": 9, "nextTile": 26 },
-    { "id": 26, "x": 2, "y": 9, "nextTile": 27 },
+    { "id": 26, "x": 2, "y": 9, "nextTile": 27,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 27, "x": 1, "y": 9, "nextTile": 28 },
 
     { "id": 28, "x": 0, "y": 9, "nextTile": 29 },
@@ -87,7 +117,13 @@
     },
     { "id": 31, "x": 0, "y": 6, "nextTile": 32 },
     { "id": 32, "x": 0, "y": 5, "nextTile": 33 },
-    { "id": 33, "x": 0, "y": 4, "nextTile": 34 },
+    { "id": 33, "x": 0, "y": 4, "nextTile": 34,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 34, "x": 0, "y": 3, "nextTile": 35 },
     { "id": 35, "x": 0, "y": 2, "nextTile": 36,
       "action": {
@@ -97,7 +133,13 @@
       }
     },
     { "id": 36, "x": 0, "y": 1, "nextTile": 37 },
-    { "id": 37, "x": 0, "y": 0, "nextTile": 38 },
+    { "id": 37, "x": 0, "y": 0, "nextTile": 38,
+      "action": {
+        "type": "LooseMoneyAction",
+        "description": "You lost 250000",
+        "amount": 250000
+      }
+    },
     { "id": 38, "x": 1, "y": 0, "nextTile": 39,
       "action": {
         "type": "BankAction",
