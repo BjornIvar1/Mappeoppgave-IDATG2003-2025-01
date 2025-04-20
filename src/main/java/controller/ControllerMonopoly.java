@@ -1,6 +1,4 @@
-package kontroller;
-
-import controller.SceneManager;
+package controller;
 
 /**
  * Represents the controller for the Monopoly game.
@@ -10,7 +8,7 @@ import controller.SceneManager;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
