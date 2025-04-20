@@ -1,6 +1,6 @@
 package gui.game;
 
-
+import controller.ControllerMonopoly;
 import engine.BoardGame;
 import gui.BaseGamePage;
 import javafx.geometry.Pos;
@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import kontroller.ControllerMonopoly;
 import model.PlayerInMonopoly;
 import model.tileactions.TileAction;
 import utils.MessageDisplay;
@@ -31,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.6.0
+ * @version 0.6.1
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
