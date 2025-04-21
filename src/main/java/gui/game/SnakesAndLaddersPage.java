@@ -3,6 +3,7 @@ package gui.game;
 import controller.ControllerSnakesAndLadders;
 import engine.BoardGame;
 import gui.BaseGamePage;
+import gui.factory.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -30,12 +31,13 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.2.2
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
-  private final BorderPane mainLayout;
+  private BorderPane mainLayout;
   private Label gameInformation;
+  private final ControllerSnakesAndLadders controllerSnakesAndLadders;
 
   /**
    * Constructor for the SnakesAndLaddersPage class.
@@ -43,18 +45,36 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @param controllerSnakesAndLadders the controller for the Snakes and Ladders game.
    */
   public SnakesAndLaddersPage(ControllerSnakesAndLadders controllerSnakesAndLadders) {
+    this.controllerSnakesAndLadders = controllerSnakesAndLadders;
     initializeGame();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
-    mainLayout = new BorderPane();
-    mainLayout.setCenter(board);
-    mainLayout.setBottom(controlPanel);
+    mainLayout = getBorderPane(board, controlPanel);
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
 
     setPageContent(mainLayout);
+  }
+
+  /**
+   * Creates a BoardPane with the main layout.
+   *
+   * <p>A BoarderPane with the button the top,
+   * the board in the center and the control panel in
+   * the bottom.</p>
+   *
+   * @param board the snakes and ladder Board.
+   * @param controlPanel the control panel.
+   * @return main layout of the page.
+   */
+  private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
+    mainLayout = new BorderPane();
+    mainLayout.setTop(createReturnButton());
+    mainLayout.setCenter(board);
+    mainLayout.setBottom(controlPanel);
+    return mainLayout;
   }
 
   /**
@@ -195,5 +215,10 @@ public class SnakesAndLaddersPage extends BaseGamePage {
           Circle playerCircle = createPlayer(player.getColor());
           stack.getChildren().add(playerCircle);
         });
+  }
+
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory("back",
+        controllerSnakesAndLadders::switchToGameSelection);
   }
 }
