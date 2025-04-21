@@ -87,6 +87,7 @@ public class GameSelection extends BasePage {
     HBox buttonPane = new HBox();
     Button snakesLaddersButton = new Button("Snakes and Ladders");
     Button monopolyButton = new Button("Monopoly");
+    Button createUser = new Button("Create User");
 
     buttonPane.setSpacing(30);
     snakesLaddersButton.setPrefHeight(30);
@@ -96,8 +97,9 @@ public class GameSelection extends BasePage {
 
     snakesLaddersButton.setOnAction(event ->  controller.goToSnakesAndLadders() );
     monopolyButton.setOnAction(event -> controller.goToMonopoly());
+    createUser.setOnAction(event -> controller.goToCreateUser());
 
-    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
+    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton, createUser);
     buttonPane.setAlignment(Pos.CENTER);
     return buttonPane;
   }
