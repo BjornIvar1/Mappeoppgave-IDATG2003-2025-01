@@ -94,6 +94,8 @@ public class GameSelection extends BasePage {
     snakesLaddersButton.setPrefWidth(300);
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
+    createUser.setPrefHeight(30);
+    createUser.setPrefWidth(300);
 
     snakesLaddersButton.setOnAction(event ->  controller.goToSnakesAndLadders() );
     monopolyButton.setOnAction(event -> controller.goToMonopoly());
