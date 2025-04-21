@@ -22,21 +22,15 @@ import java.util.Objects;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.1.0
  */
 public class LandingPage extends BasePage {
   private final ControllerLandingPage controller;
 
   public LandingPage(ControllerLandingPage controller) {
     this.controller = controller;
-
-    BorderPane mainLayout = new BorderPane();
-
-    mainLayout.setTop(createMenuBar());
-    mainLayout.setCenter(buttonAndImage());
-
-    setAlignment(Pos.CENTER);
-    this.getChildren().add(mainLayout);
+    setCenter(buttonAndImage());
+    setTop(createMenuBar());
   }
 
   /**

@@ -1,6 +1,6 @@
 package gui.game;
 
-
+import controller.ControllerMonopoly;
 import engine.BoardGame;
 import gui.BaseGamePage;
 import javafx.geometry.Pos;
@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import kontroller.ControllerMonopoly;
 import model.PlayerInMonopoly;
 import model.tileactions.TileAction;
 import utils.Constants;
@@ -32,7 +31,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.6.1
+ * @version 0.7.1
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -50,14 +49,13 @@ public class MonopolyPage extends BaseGamePage {
     HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
-    mainLayout.setTop(createMenuBar());
     mainLayout.setCenter(board);
-    mainLayout.setBottom(createControlPanel());
+    mainLayout.setBottom(controlPanel);
 
+    BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
-    setAlignment(Pos.CENTER);
 
-    getChildren().add(mainLayout);
+    setPageContent(mainLayout);
   }
 
   /**
@@ -84,6 +82,7 @@ public class MonopolyPage extends BaseGamePage {
    */
   private GridPane createBoard() {
     GridPane grid = new GridPane();
+    grid.setAlignment(Pos.CENTER);
     int gridSize = 11; // Size of the grid (11x11 for Monopoly)
     int firstTileId = 1; // Start with tile ID 1
 
@@ -118,7 +117,6 @@ public class MonopolyPage extends BaseGamePage {
         grid.add(tile, gridSize - 1, yCoordinateColumn);
       }
     }
-
     return grid;
   }
 

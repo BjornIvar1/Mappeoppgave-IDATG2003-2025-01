@@ -1,9 +1,8 @@
 package controller;
 
 import javafx.animation.FadeTransition;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -15,23 +14,17 @@ import javafx.util.Duration;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class SceneManager {
-  private Stage stage;
-  private AnchorPane root;
+  private final Stage stage;
 
   /**
    * Constructs a {@code SceneManager} with the specified stage.
    *
-   * @param stage the primary {@code Stage} where scenes will be displayed
    */
-  public SceneManager(Stage stage) {
-    this.stage = stage;
-    this.root = new AnchorPane();
-    Scene scene = new Scene(root, 800, 800);
-    stage.setScene(scene);
-    stage.show();
+  public SceneManager(Stage newRoot) {
+    this.stage = newRoot;
   }
 
   /**
@@ -40,30 +33,25 @@ public class SceneManager {
    * <p>This method clears the existing children of the root container and sets the
    * provided {@code Parent} view as the new content, aligning it to the edges.
    *
-   * @param view the {@code Parent} view to be displayed
    */
-  public void setView(Parent view) {
-    root.getChildren().clear();
-    AnchorPane.setTopAnchor(view, 0.0);
-    AnchorPane.setBottomAnchor(view, 0.0);
-    AnchorPane.setLeftAnchor(view, 0.0);
-    AnchorPane.setRightAnchor(view, 0.0);
-    fadeTransition(view);
-    root.getChildren().add(view);
+  public void setView(Pane newRoot) {
+    Scene newScene = new Scene(newRoot, 800, 800);
+    fadeTransition(newScene);
+    stage.setScene(newScene);
+    stage.show();
   }
 
   /**
    * Applies a fade transition effect to the specified view.
    *
    * <p>This method creates a {@code FadeTransition} that animates the opacity of the
-   * provided {@code Parent} view from 0 to 1 over a duration of 500 milliseconds.
-   *
-   * @param view the {@code Parent} view to which the fade transition will be applied
-   */
-  private void fadeTransition(Parent view) {
-    FadeTransition fade = new FadeTransition(Duration.millis(500), view);
+   * provided {@code Parent} view from 0 to 1 over a duration of 500 milliseconds.</p>
+   * */
+  private void fadeTransition(Scene scene) {
+    FadeTransition fade = new FadeTransition(Duration.millis(500));
     fade.setFromValue(0);
     fade.setToValue(1);
+    fade.setNode(scene.getRoot());
     fade.play();
   }
 }

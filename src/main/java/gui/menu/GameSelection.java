@@ -18,7 +18,7 @@ import java.util.Objects;
  * allowing users to select and start a game with a single button click.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.1.0
+ * @version 0.2.0
  * @since 0.0.1
  */
 public class GameSelection extends BasePage {
@@ -31,14 +31,7 @@ public class GameSelection extends BasePage {
    */
   public GameSelection(ControllerGameSelection controllerGameChoice) {
     this.controller = controllerGameChoice;
-    setAlignment(Pos.CENTER);
-    BorderPane mainLayout = new BorderPane();
-
-    mainLayout.setTop(createMenuBar());
-    mainLayout.setCenter(createGameSelectionPane());
-
-
-    getChildren().add(mainLayout);
+    setCenter(createGameSelectionPane());
   }
 
   /**

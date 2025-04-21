@@ -3,7 +3,8 @@ package gui;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 /**
  * This class represents the base page for the application.
@@ -11,9 +12,14 @@ import javafx.scene.layout.FlowPane;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.1.0
  */
-public class BasePage extends FlowPane {
+public class BasePage extends BorderPane {
+
+  public BasePage() {
+    setTop(createMenuBar());
+  }
+
   /**
    * Creates a menu bar with a "File" menu and a "Close" menu item.
    *
@@ -30,5 +36,9 @@ public class BasePage extends FlowPane {
     MenuBar menuBar = new MenuBar();
     menuBar.getMenus().addAll(fileMenu);
     return menuBar;
+  }
+
+  protected void setPageContent(Pane content) {
+    setCenter(content);
   }
 }
