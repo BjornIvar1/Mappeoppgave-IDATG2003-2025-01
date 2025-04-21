@@ -3,13 +3,11 @@ package gui.game;
 import controller.ControllerMonopoly;
 import engine.BoardGame;
 import gui.BaseGamePage;
+import gui.factory.ButtonFactory;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -31,12 +29,13 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.7.1
+ * @version 0.7.2
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
   private final BorderPane mainLayout;
   private Label gameInformation;
+  private final ControllerMonopoly controllerMonopoly;
 
   /**
    * Constructor for the MonopolyPage class.
@@ -44,11 +43,13 @@ public class MonopolyPage extends BaseGamePage {
    * @param controllerMonopoly the controller for the Monopoly game.
    */
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
+    this.controllerMonopoly = controllerMonopoly;
     initializeGameMPY();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
+    mainLayout.setTop(createReturnButton());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
 
@@ -250,6 +251,11 @@ public class MonopolyPage extends BaseGamePage {
           Circle playerCircle = createPlayer(player.getColor());
           stack.getChildren().add(playerCircle);
         });
+  }
+
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory("back",
+        controllerMonopoly::switchToGameSelection);
   }
 
 
