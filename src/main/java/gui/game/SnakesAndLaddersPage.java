@@ -31,7 +31,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.2
+ * @version 0.3.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
@@ -88,9 +88,9 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-    Button startButton = getStartGameButton();
 
     Button rollDice = getRollDice();
+    Button startButton = getStartGameButton(rollDice);
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
@@ -104,11 +104,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    *
    * @return Button to start the game.
    */
-  private Button getStartGameButton() {
+  private Button getStartGameButton(Button rollDice) {
     Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
+    startButton.setDisable(true);
     startButton.setOnAction(e -> {
       initializeGame();
       updateBoard(mainLayout);
+      rollDice.setDisable(false);
+      startButton.setDisable(true);
     });
     return startButton;
   }
@@ -123,9 +126,18 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rollDice.setOnAction(e -> {
       boardGameSnakesAndL.play();
       Player player = boardGameSnakesAndL.getCurrentPlayer();
-      int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
+      int rollSum = boardGameSnakesAndL.getDice().
+          getDie(0) +
+          boardGameSnakesAndL.getDice().
+          getDie(1);
+
       if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
         gameInformation.setText(MessageDisplay.winningMessage(player));
+        Button startGameButton = (Button)
+            ((HBox) rollDice.getParent()).
+                getChildren().getFirst(); //code from GitHub Copilot.
+        startGameButton.setDisable(false);
+        rollDice.setDisable(true);
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
       }
