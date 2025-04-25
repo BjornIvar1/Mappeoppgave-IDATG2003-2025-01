@@ -4,6 +4,7 @@ import controller.ControllerMonopoly;
 import engine.BoardGame;
 import gui.BaseGamePage;
 import gui.factory.ButtonFactory;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.7.2
+ * @version 0.8.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -52,6 +53,9 @@ public class MonopolyPage extends BaseGamePage {
     mainLayout.setTop(createReturnButton());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
+    mainLayout.setPadding(new Insets(10));
+    mainLayout.setMinHeight(600); // Set minimum height for the layout
+    mainLayout.setPrefHeight(800); // Set preferred height for the layout
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
@@ -84,6 +88,8 @@ public class MonopolyPage extends BaseGamePage {
   private GridPane createBoard() {
     GridPane grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
+    grid.setScaleX(0.8); // Set a scale for the horizontal axis
+    grid.setScaleY(0.8); // Set a scale for the vertical axis
     int gridSize = 11; // Size of the grid (11x11 for Monopoly)
     int firstTileId = 1; // Start with tile ID 1
 
@@ -132,11 +138,12 @@ public class MonopolyPage extends BaseGamePage {
    */
   private HBox createControlPanel() {
     HBox controlPanel = new HBox();
-    gameInformation = new Label("Last rolled: ---");
-    Label playerInformation = new Label(displayPlayerInfoMonopoly(boardGameForMonopoly));
-
-    controlPanel.setAlignment(Pos.CENTER);
+    controlPanel.setPadding(new Insets(10));
     controlPanel.setSpacing(10);
+    controlPanel.setAlignment(Pos.CENTER);
+
+    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
+    Label playerInformation = new Label(displayPlayerInfoMonopoly(boardGameForMonopoly));
 
     Button rollDice = rollDiceButton(playerInformation);
     Button startGameButton = getStartGameButton(rollDice, playerInformation);
@@ -157,10 +164,12 @@ public class MonopolyPage extends BaseGamePage {
    */
   private Button getStartGameButton(Button rollDice, Label playerInformation) {
     Button startGameButton = new Button("Start Game");
+    startGameButton.setDisable(true);
     startGameButton.setOnAction(event -> {
       initializeGameMPY();
       updateBoard();
-      rollDice.setDisable(false);
+      rollDice.setDisable(true);
+      startGameButton.setDisable(true);
       playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
     });
     return startGameButton;
@@ -181,9 +190,13 @@ public class MonopolyPage extends BaseGamePage {
       PlayerInMonopoly player = boardGameForMonopoly.getCurrentPlayer();
       int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
 
-      if (player.getBalance() >= 5000000) { // Winning condition
-        gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
+      if (player.getBalance() >= 1000000) { // Winning condition
+        gameInformation.setText(MessageDisplay.winningMessage(player));
         rollDice.setDisable(true);
+        Button startGameButton = (Button)
+            ((HBox) rollDice.getParent()).
+                getChildren().getFirst(); //code from GitHub Copilot.
+        startGameButton.setDisable(false);
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
       }
