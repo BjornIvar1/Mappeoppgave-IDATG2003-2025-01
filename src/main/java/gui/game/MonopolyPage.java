@@ -30,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.8.1
+ * @version 0.8.0
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -168,7 +168,7 @@ public class MonopolyPage extends BaseGamePage {
     startGameButton.setOnAction(event -> {
       initializeGameMPY();
       updateBoard();
-      rollDice.setDisable(false);
+      rollDice.setDisable(true);
       startGameButton.setDisable(true);
       playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
     });
