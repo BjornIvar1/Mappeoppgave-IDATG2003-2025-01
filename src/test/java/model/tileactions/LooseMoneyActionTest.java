@@ -3,7 +3,7 @@ package model.tileactions;
 import engine.BoardGame;
 import javafx.scene.paint.Color;
 import model.Board;
-import model.PlayerInMonopoly;
+import model.Player;
 import model.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class LooseMoneyActionTest {
   LooseMoneyAction action;
   BoardGame boardGame;
   Board board;
-  PlayerInMonopoly player;
+  Player player;
   Tile tile1;
   Tile tile2;
   Tile tile3;
@@ -36,7 +36,7 @@ class LooseMoneyActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new PlayerInMonopoly("John", "RED", boardGame, 5000);
+    player = new Player("John", "RED", boardGame, 5000);
     player.placeOnTile(tile1);
   }
 
