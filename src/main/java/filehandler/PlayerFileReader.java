@@ -5,14 +5,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import model.PlayerInMonopoly;
+import model.Player;
 
 /**
  * PlayerFileReader class reads the file of player stored in the csv files
  * and adds the players back to the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.3
+ * @version 0.0.4
  * @since 0.0.1
  */
 public class PlayerFileReader {
@@ -35,7 +35,7 @@ public class PlayerFileReader {
           String name = words[0].strip();
           String color = words[1].strip();
           int balance = Integer.parseInt(words[2].strip());
-          game.addPlayer(new PlayerInMonopoly(name, color, game, balance));
+          game.addPlayer(new Player(name, color, game, balance));
         } else {
           System.out.println("Skipping invalid line: " + line);
         }
