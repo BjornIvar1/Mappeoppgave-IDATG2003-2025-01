@@ -2,7 +2,6 @@ package engine;
 
 import model.Board;
 import model.Player;
-import model.PlayerInMonopoly;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardGameTest {
   BoardGame boardGame;
   List<Player> players;
-  PlayerInMonopoly player1;
-  PlayerInMonopoly player2;
+  Player player1;
+  Player player2;
 
   @BeforeEach
   void setUp() {
     boardGame = new BoardGame();
     players = new ArrayList<>();
 
-    player1 = new PlayerInMonopoly("Player1", "RED", boardGame, 1700);
-    player2 = new PlayerInMonopoly("Player2", "BLACK", boardGame, 1700);
+    player1 = new Player("Player1", "RED", boardGame, 1700);
+    player2 = new Player("Player2", "BLACK", boardGame, 1700);
   }
 
   @Test
