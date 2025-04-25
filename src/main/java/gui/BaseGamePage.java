@@ -6,7 +6,6 @@ import filehandler.PlayerFileReader;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
-import model.PlayerInMonopoly;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -74,7 +73,7 @@ public class BaseGamePage extends BasePage {
    */
   protected String displayPlayerInfoMonopoly(BoardGame boardGame) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (PlayerInMonopoly p : boardGame.getPlayers()) {
+    for (Player p : boardGame.getPlayers()) {
       stringBuilder.append("Name: ").append(p.getName()).append("; ")
           .append("Game Piece: ").append(p.getColor()).append("; ")
           .append("Balance: ").append(p.getBalance()).append("\n");
