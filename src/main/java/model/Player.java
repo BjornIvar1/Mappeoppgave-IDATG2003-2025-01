@@ -9,7 +9,7 @@ import engine.BoardGame;
  * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 
@@ -18,16 +18,21 @@ public class Player {
   private Tile currentTile;
   private final BoardGame game;
   private String color;
+  private int balance;
+
   /**
    * A constructor for the class player.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
    * */
-  public Player(String name, String color, BoardGame game) {
+  public Player(String name, String color, BoardGame game , int balance) {
     setName(name);
     setColor(color);
     this.game = game;
+    this.balance = balance;
+    setBalance(0);
+
   }
 
   /**
@@ -119,5 +124,27 @@ public class Player {
    */
   public Tile getCurrentTile() {
     return currentTile;
+  }
+
+  /**
+   * Accessor method for the player's balance.
+   *
+   * @return the player's balance
+   */
+  public int getBalance() {
+    return balance;
+  }
+
+  /**
+   * Mutator method for the player's balance.
+   *
+   * @param balance the new balance of the player
+   * @throws IllegalArgumentException if the balance is negative
+   */
+  public void setBalance(int balance) {
+    if (balance < 0) {
+      throw new IllegalArgumentException("Balance cannot be negative");
+    }
+    this.balance = balance;
   }
 }
