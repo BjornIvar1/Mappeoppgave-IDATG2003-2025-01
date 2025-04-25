@@ -3,10 +3,8 @@ package gui;
 import engine.BoardGame;
 import filehandler.BoardFileReaderGson;
 import filehandler.PlayerFileReader;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import model.Player;
 import model.PlayerInMonopoly;
 import java.io.IOException;
@@ -17,7 +15,7 @@ import java.nio.file.Path;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.0
+ * @version 0.4.1
  */
 public class BaseGamePage extends BasePage {
 
@@ -111,29 +109,6 @@ public class BaseGamePage extends BasePage {
 
   protected static Color getColor(int tileId) {
     return (tileId % 2 == 0) ? Color.web("#32bff5") : Color.web("#bbd962");
-  }
-
-  protected static void setFill(Rectangle rect, Color baseColor) {
-    rect.setFill(baseColor);
-  }
-
-  /**
-   * Plays the game by rolling the dice and updating the game information.
-   *
-   * <p>This method simulates a turn in the game by rolling the dice,
-   *
-   * @param boardGame the board game instance.
-   * @param gameInformation the label to display game information.
-   */
-  protected void playGame(BoardGame boardGame, Label gameInformation) {
-    boardGame.play();
-    Player player = boardGame.getCurrentPlayer();
-    int rollSum = boardGame.getDice().getDie(0) + boardGame.getDice().getDie(1);
-    if (boardGame.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
-      gameInformation.setText("Winner: " + player.getName() + "\n" + "Press Start Game to play again");
-    } else {
-      gameInformation.setText(player.getName() + " rolled: " + rollSum);
-    }
   }
 
 }
