@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import filehandler.PlayerFileWriter;
 import model.Board;
-import model.PlayerInMonopoly;
+import model.Player;
 import model.Tile;
 
 /**
@@ -13,13 +13,13 @@ import model.Tile;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.2
+ * @version 0.2.3
  * @since 0.0.1
  */
 public class BoardGame {
-  private final List<PlayerInMonopoly> players;
+  private final List<Player> players;
   private Board board;
-  private PlayerInMonopoly currentPlayer;
+  private Player currentPlayer;
   private Dice dice;
   private int currentPlayerIndex;
 
@@ -36,7 +36,7 @@ public class BoardGame {
    *
    * @param player the player to add
    */
-  public void addPlayer(PlayerInMonopoly player) {
+  public void addPlayer(Player player) {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
@@ -49,7 +49,7 @@ public class BoardGame {
    *
    * @return players.
    */
-  public List<PlayerInMonopoly> getPlayers() {
+  public List<Player> getPlayers() {
     return players;
   }
 
@@ -97,7 +97,7 @@ public class BoardGame {
    *
    * @return currentPlayer
    */
-  public PlayerInMonopoly getCurrentPlayer(){
+  public Player getCurrentPlayer(){
     return currentPlayer;
   }
 
