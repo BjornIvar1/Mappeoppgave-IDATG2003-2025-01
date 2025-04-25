@@ -2,7 +2,6 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.PlayerInMonopoly;
 
 /**
  * Represents the bank action in the game of Monopoly.
@@ -13,7 +12,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.3
+ * @version 0.1.4
  */
 public class BankAction extends MonopolyActions {
   private int money;
@@ -36,9 +35,7 @@ public class BankAction extends MonopolyActions {
    */
   @Override
   public void perform(Player player) {
-    if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      playerInMonopoly.updateBalance(playerInMonopoly.getBalance() + getMoney());
-    }
+    player.setBalance(player.getBalance() + getMoney());
   }
   /**
    * Returns the description of the bank action.
