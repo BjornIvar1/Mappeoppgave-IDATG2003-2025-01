@@ -40,7 +40,7 @@ class SnakeActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", "RED", boardGame);
+    player = new Player("John", "RED", boardGame, 0);
     player.placeOnTile(tile1);
   }
 
