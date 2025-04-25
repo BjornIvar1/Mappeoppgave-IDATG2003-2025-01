@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.PlayerInMonopoly;
+import model.Player;
 import model.tileactions.TileAction;
 import utils.Constants;
 import utils.MessageDisplay;
@@ -30,7 +30,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.8.1
+ * @version 0.8.2
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -187,7 +187,7 @@ public class MonopolyPage extends BaseGamePage {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
       boardGameForMonopoly.play();
-      PlayerInMonopoly player = boardGameForMonopoly.getCurrentPlayer();
+      Player player = boardGameForMonopoly.getCurrentPlayer();
       int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
 
       if (player.getBalance() >= 1000000) { // Winning condition
