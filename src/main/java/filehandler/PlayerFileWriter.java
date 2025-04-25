@@ -1,6 +1,7 @@
 package filehandler;
 
-import model.PlayerInMonopoly;
+import model.Player;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,7 @@ import java.util.List;
  * PlayerFileWriter writes and saves all the players that are stored in the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.1.0
+ * @version 0.1.1
  * @since 0.0.1
  */
 public class PlayerFileWriter {
@@ -24,9 +25,9 @@ public class PlayerFileWriter {
    * @param playersToSave The list of players.
    * @param fileName The file name.
    */
-  public static void writeToCSV(List<PlayerInMonopoly> playersToSave, String fileName) {
+  public static void writeToCSV(List<Player> playersToSave, String fileName) {
     try (BufferedWriter writer = Files.newBufferedWriter(Path.of(fileName))) {
-      for (PlayerInMonopoly player : playersToSave) {
+      for (Player player : playersToSave) {
         System.out.println("Writing player: " + player.getName() + ", Balance: " + player.getBalance());
         //System out for debugging.
         writer.write(player.getName() + "," + player.getColor() + "," + player.getBalance() + "\n");
