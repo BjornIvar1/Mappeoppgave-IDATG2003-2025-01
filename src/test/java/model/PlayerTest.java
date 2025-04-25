@@ -12,7 +12,7 @@ class PlayerTest {
 
   @BeforeEach
   void setUp() {
-    player1 = new Player("John", "RED", new BoardGame());
+    player1 = new Player("John", "RED", new BoardGame(), 0);
     tile1 = new Tile(2, 1, 0);
     tile2 = new Tile(3, 2, 0);
 
@@ -52,6 +52,17 @@ class PlayerTest {
     player1.placeOnTile(tile1);
     player1.move(1);
     assertEquals(3, player1.getCurrentTile().getTileId());
+  }
+
+  @Test
+  void setMoneyPositiveTest() {
+    player1.setBalance(100);
+    assertEquals(100, player1.getBalance());
+  }
+
+  @Test
+  void setMoneyNegativeTest() {
+    assertThrows(IllegalArgumentException.class, () -> player1.setBalance(-100));
   }
 
 }
