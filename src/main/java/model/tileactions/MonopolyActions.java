@@ -1,6 +1,7 @@
 package model.tileactions;
 
 import model.Player;
+import model.exception.TileNotFoundException;
 
 /**
  * Represents the actions in the game of Monopoly.
@@ -11,7 +12,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.0.2
  */
 abstract class MonopolyActions implements TileAction {
   private String description;
@@ -42,11 +43,12 @@ abstract class MonopolyActions implements TileAction {
    * Perform an Action when a player lands on a tile.
    *
    * <p>Empty method, since it is in use by the subclasses.</p>
+   *
    * @param player The model.Player who lands on the tile
    */
   @Override
-  public void perform(Player player) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException("This method must be overridden by subclasses");
+  public void perform(Player player) throws TileNotFoundException {
+    throw new TileNotFoundException("This method must be overridden by subclasses");
   }
 
   /**
