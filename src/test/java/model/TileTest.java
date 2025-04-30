@@ -52,7 +52,7 @@ class TileTest {
   @Test
   void setXCoordinatePositive_Test() {
     tile1.setXCoordinate(1);
-    assertEquals(1, tile1.getxCoordinate());
+    assertEquals(1, tile1.getXCoordinate());
   }
 
   @Test
@@ -64,7 +64,7 @@ class TileTest {
   @Test
   void setYCoordinatePositive_Test() {
     tile1.setYCoordinate(1);
-    assertEquals(1, tile1.getyCoordinate());
+    assertEquals(1, tile1.getYCoordinate());
   }
 
   @Test

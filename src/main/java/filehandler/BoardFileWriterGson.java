@@ -54,8 +54,8 @@ public class BoardFileWriterGson implements BoardFileWriter {
       Tile tile = iterator.next();
       writer.write("    {");
       writer.write("\"id\": " + tile.getTileId() + ", ");
-      writer.write("\"x\": " + tile.getxCoordinate() + ", ");
-      writer.write("\"y\": " + tile.getyCoordinate());
+      writer.write("\"x\": " + tile.getXCoordinate() + ", ");
+      writer.write("\"y\": " + tile.getYCoordinate());
 
       if (tile.getNextTile() != null) {
         writer.write(", " + "\"nextTile\": " + tile.getNextTile().getTileId());

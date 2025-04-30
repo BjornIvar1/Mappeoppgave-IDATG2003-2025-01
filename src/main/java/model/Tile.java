@@ -132,7 +132,7 @@ public class Tile {
    *
    * @return the xCoordinate
    */
-  public int getxCoordinate() {
+  public int getXCoordinate() {
     return xCoordinate;
   }
 
@@ -141,7 +141,7 @@ public class Tile {
    *
    * @return the yCoordinate
    */
-  public int getyCoordinate() {
+  public int getYCoordinate() {
     return yCoordinate;
   }
 }
