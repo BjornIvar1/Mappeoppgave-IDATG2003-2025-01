@@ -25,9 +25,12 @@ public class CreateUser extends BasePage {
   private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
   private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
   private final ObservableList<TextField> playerFields = FXCollections.observableArrayList();
+  private final List<String> listOfColors = List.of("RED", "BLUE", "GREEN", "YELLOW");
 
 
   public CreateUser(ControllerCreateUser controllerGameChoice) {
+    //TODO lag en id for spillet de skal spille sliik den sender deg til rikitg spill i kontrolleren til createusercontroller?
+    //TODO Deretter så er det een if statement for hvor de sendes if game === monoply go to monoply else go to snakes and ladders?
     this.controller = controllerGameChoice;
     setCenter(createUserPane());
   }
@@ -83,7 +86,7 @@ public class CreateUser extends BasePage {
         for (int i = 0; i < playerAmount.getValue(); i++) {
           TextField playerField = playerFields.get(i);
           String userName = playerField.getText().trim();
-          Player player = new Player(userName, "Red", null, 0);
+          Player player = new Player(userName, listOfColors.get(i), null, 0);
           playerList.add(player);
         }
 
