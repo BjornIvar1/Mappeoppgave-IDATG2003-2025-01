@@ -1,8 +1,8 @@
 package model;
 
-import model.exception.NegativeIntegerException;
 import java.util.HashMap;
 import java.util.Map;
+import model.exception.NegativeIntegerException;
 
 /**
  * Class that represents the board.
