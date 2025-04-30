@@ -1,8 +1,10 @@
-package gui.game;
+package ui.gui.game;
 
-import controller.ControllerSnakesAndLadders;
+import ui.controller.ControllerSnakesAndLadders;
 import engine.BoardGame;
-import gui.BaseGamePage;
+import ui.gui.BaseGamePage;
+import ui.factory.ButtonFactory;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
+import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 import utils.Constants;
 import utils.MessageDisplay;
@@ -30,12 +33,13 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.3.1
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
-  private final BorderPane mainLayout;
+  private BorderPane mainLayout;
   private Label gameInformation;
+  private final ControllerSnakesAndLadders controllerSnakesAndLadders;
 
   /**
    * Constructor for the SnakesAndLaddersPage class.
@@ -43,18 +47,36 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @param controllerSnakesAndLadders the controller for the Snakes and Ladders game.
    */
   public SnakesAndLaddersPage(ControllerSnakesAndLadders controllerSnakesAndLadders) {
+    this.controllerSnakesAndLadders = controllerSnakesAndLadders;
     initializeGame();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
-    mainLayout = new BorderPane();
-    mainLayout.setCenter(board);
-    mainLayout.setBottom(controlPanel);
+    mainLayout = getBorderPane(board, controlPanel);
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
 
     setPageContent(mainLayout);
+  }
+
+  /**
+   * Creates a BoardPane with the main layout.
+   *
+   * <p>A BoarderPane with the button the top,
+   * the board in the center and the control panel in
+   * the bottom.</p>
+   *
+   * @param board the snakes and ladder Board.
+   * @param controlPanel the control panel.
+   * @return main layout of the page.
+   */
+  private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
+    mainLayout = new BorderPane();
+    mainLayout.setTop(createReturnButton());
+    mainLayout.setCenter(board);
+    mainLayout.setBottom(controlPanel);
+    return mainLayout;
   }
 
   /**
@@ -68,9 +90,9 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-    Button startButton = getStartGameButton();
 
     Button rollDice = getRollDice();
+    Button startButton = getStartGameButton(rollDice);
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
@@ -84,11 +106,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    *
    * @return Button to start the game.
    */
-  private Button getStartGameButton() {
+  private Button getStartGameButton(Button rollDice) {
     Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
+    startButton.setDisable(true);
     startButton.setOnAction(e -> {
       initializeGame();
       updateBoard(mainLayout);
+      rollDice.setDisable(false);
+      startButton.setDisable(true);
     });
     return startButton;
   }
@@ -101,11 +126,24 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private Button getRollDice() {
     Button rollDice = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDice.setOnAction(e -> {
-      boardGameSnakesAndL.play();
+      try {
+        boardGameSnakesAndL.play();
+      } catch (TileNotFoundException ex) {
+        Logger.getLogger(SnakesAndLaddersPage.class.getName())
+            .warning("Tile not found: " + ex.getMessage());
+      }
       Player player = boardGameSnakesAndL.getCurrentPlayer();
-      int rollSum = boardGameSnakesAndL.getDice().getDie(0) + boardGameSnakesAndL.getDice().getDie(1);
+      int rollSum = boardGameSnakesAndL.getDice()
+          .getDie(0) + boardGameSnakesAndL.getDice()
+          .getDie(1);
+
       if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
         gameInformation.setText(MessageDisplay.winningMessage(player));
+        Button startGameButton = (Button)
+            ((HBox) rollDice.getParent())
+                .getChildren().getFirst(); //code from GitHub Copilot.
+        startGameButton.setDisable(false);
+        rollDice.setDisable(true);
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
       }
@@ -119,7 +157,9 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * and creating a board, dice and adding the players.
    */
   private void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.PLAYER_FILE_PATH);
+    boardGameSnakesAndL = initializeBoardGame(Constants
+            .SNAKES_AND_LADDERS_BOARD_FILE_PATH,
+            Constants.PLAYER_FILE_PATH);
   }
 
   private void updateBoard(BorderPane mainLayout) {
@@ -161,9 +201,12 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return StackPane representing the tile.
    */
   private StackPane createTile(int tileId) {
-    StackPane stack = new StackPane();
-    Rectangle rect = new Rectangle(Constants.SNAKES_AND_LADDERS_TILE_SIZE, Constants.SNAKES_AND_LADDERS_TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0)? Color.web(Constants.COLOR_TILE_EVEN) : Color.web(Constants.COLOR_TILE_ODD);
+    final StackPane stack = new StackPane();
+    Rectangle rect = new Rectangle(Constants
+        .SNAKES_AND_LADDERS_TILE_SIZE,
+        Constants.SNAKES_AND_LADDERS_TILE_SIZE);
+    Color baseColor = (tileId % 2 == 0) ? Color.web(Constants.COLOR_TILE_EVEN)
+        : Color.web(Constants.COLOR_TILE_ODD);
 
     rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);
@@ -195,5 +238,10 @@ public class SnakesAndLaddersPage extends BaseGamePage {
           Circle playerCircle = createPlayer(player.getColor());
           stack.getChildren().add(playerCircle);
         });
+  }
+
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory("back",
+        controllerSnakesAndLadders::switchToGameSelection);
   }
 }

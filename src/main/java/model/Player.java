@@ -1,6 +1,10 @@
 package model;
 
 import engine.BoardGame;
+import model.exception.InvalidNameException;
+import model.exception.NegativeIntegerException;
+import model.exception.NullOrBlankColorException;
+import model.exception.TileNotFoundException;
 
 /**
  * An entity class for player.
@@ -9,7 +13,7 @@ import engine.BoardGame;
  * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.3
  * @since 0.0.1
  */
 
@@ -18,27 +22,36 @@ public class Player {
   private Tile currentTile;
   private final BoardGame game;
   private String color;
+  private int balance;
+
   /**
    * A constructor for the class player.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
-   * */
-  public Player(String name, String color, BoardGame game) {
+   * @param color the color of the player.
+   * @param balance the balance of the player.
+   * @throws NullOrBlankColorException if name or color is null or blank
+   */
+  public Player(String name, String color, BoardGame game, int balance)
+      throws NullOrBlankColorException {
     setName(name);
     setColor(color);
     this.game = game;
+    this.balance = balance;
+    setBalance(0);
+
   }
 
   /**
    * Mutator method for the name.
    *
    * @param name of the player
-   * @throws IllegalArgumentException if name is null or isBlank
+   * @throws InvalidNameException if name is null or isBlank
    */
   public void setName(String name) {
     if (name == null || name.isBlank()) {
-      throw new IllegalArgumentException("Name cannot be null or blank");
+      throw new InvalidNameException("Name cannot be null or blank");
     }
     this.name = name;
   }
@@ -56,11 +69,11 @@ public class Player {
    * Mutator method for the name.
    *
    * @param color of the player
-   * @throws IllegalArgumentException if color is null or isBlank
+   * @throws NullOrBlankColorException if color is null or isBlank
    */
-  public void setColor(String color) {
+  public void setColor(String color) throws NullOrBlankColorException {
     if (color == null || color.isBlank()) {
-      throw new IllegalArgumentException("Color cannot be null or blank");
+      throw new NullOrBlankColorException("Color cannot be null or blank");
     }
     this.color = color;
   }
@@ -80,7 +93,7 @@ public class Player {
    *
    * @param steps The amount of steps to the player.
    */
-  public void move(int steps) {
+  public void move(int steps) throws TileNotFoundException {
     for (int i = 0; i < steps; i++) {
       if (currentTile.getNextTile() != null) {
         currentTile = currentTile.getNextTile();
@@ -93,13 +106,14 @@ public class Player {
    * Moves the player to a specific tile.
    *
    * @param tileId The id of the tile the player should move to.
+   * @throws TileNotFoundException if the tile with the given id is not found
    */
-  public void moveToTile(int tileId) {
+  public void moveToTile(int tileId) throws TileNotFoundException {
     Tile destination = game.getBoard().getTileById(tileId);
     if (destination != null) {
       this.placeOnTile(destination);
     } else {
-      throw new IllegalArgumentException("Tile with id " + tileId + " not found");
+      throw new TileNotFoundException("Tile with id " + tileId + " not found");
     }
   }
 
@@ -119,5 +133,27 @@ public class Player {
    */
   public Tile getCurrentTile() {
     return currentTile;
+  }
+
+  /**
+   * Accessor method for the player's balance.
+   *
+   * @return the player's balance
+   */
+  public int getBalance() {
+    return balance;
+  }
+
+  /**
+   * Mutator method for the player's balance.
+   *
+   * @param balance the new balance of the player
+   * @throws NegativeIntegerException if the balance is negative
+   */
+  public void setBalance(int balance) throws NegativeIntegerException {
+    if (balance < 0) {
+      throw new NegativeIntegerException("Balance cannot be negative");
+    }
+    this.balance = balance;
   }
 }

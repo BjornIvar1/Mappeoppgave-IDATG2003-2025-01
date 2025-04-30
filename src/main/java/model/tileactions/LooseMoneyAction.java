@@ -2,7 +2,7 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.PlayerInMonopoly;
+import model.exception.NegativeIntegerException;
 
 /**
  * Represents the action of losing money in the game of Monopoly.
@@ -13,7 +13,7 @@ import model.PlayerInMonopoly;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.2.0
+ * @version 0.2.2
  */
 public class LooseMoneyAction extends MonopolyActions {
   private int money;
@@ -36,13 +36,11 @@ public class LooseMoneyAction extends MonopolyActions {
    * @param player that loses the money.
    */
   @Override
-  public void perform(Player player) {
-    if (player instanceof PlayerInMonopoly playerInMonopoly) {
-      if (playerInMonopoly.getBalance() <= getLooseMoney()) {
-        playerInMonopoly.setBalance(0);
-      } else {
-        playerInMonopoly.updateBalance(playerInMonopoly.getBalance() - getLooseMoney());
-      }
+  public void perform(Player player) throws NegativeIntegerException {
+    if (player.getBalance() <= getLooseMoney()) {
+      player.setBalance(0);
+    } else {
+      player.setBalance(player.getBalance() - getLooseMoney());
     }
   }
 

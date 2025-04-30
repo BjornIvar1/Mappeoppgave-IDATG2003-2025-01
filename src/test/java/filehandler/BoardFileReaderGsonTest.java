@@ -12,19 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardFileReaderGsonTest {
   private BoardFileReaderGson gsonReader;
   private static final String BOARDJSON = """
-      {
-        "columns": 1,
-        "rows": 6,
-        "tiles": [
-          { "id": 1, "x": 0, "y": 0, "nextTile": 2 },
-          { "id": 2, "x": 1, "y": 0, "nextTile": 3 },
-          { "id": 3, "x": 2, "y": 0, "nextTile": 4, "action": { "type": "LadderAction", "description": "Ladder from 3 to 6", "destinationTileId": 6 }},
-          { "id": 4, "x": 3, "y": 0, "nextTile": 5 },
-          { "id": 5, "x": 4, "y": 0, "nextTile": 6 },
-          { "id": 6, "x": 5, "y": 0 }
-        ]
-      }
-    """;
+    {
+      "name": "Snakes and Ladders",
+      "columns": 1,
+      "rows": 6,
+      "tiles": [
+        { "id": 1, "x": 0, "y": 0, "nextTile": 2 },
+        { "id": 2, "x": 1, "y": 0, "nextTile": 3 },
+        { "id": 3, "x": 2, "y": 0, "nextTile": 4, "action": { "type": "LadderAction", "description": "Ladder from 3 to 6", "destinationTileId": 6 }},
+        { "id": 4, "x": 3, "y": 0, "nextTile": 5 },
+        { "id": 5, "x": 4, "y": 0, "nextTile": 6 },
+        { "id": 6, "x": 5, "y": 0 }
+      ]
+    }
+  """;
 
   @BeforeEach
   void setUp() {

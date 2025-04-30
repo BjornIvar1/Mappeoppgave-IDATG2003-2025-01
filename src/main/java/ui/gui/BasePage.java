@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

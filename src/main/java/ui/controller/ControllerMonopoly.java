@@ -1,4 +1,6 @@
-package controller;
+package ui.controller;
+
+import ui.gui.menu.GameSelection;
 
 /**
  * Represents the controller for the Monopoly game.
@@ -8,7 +10,7 @@ package controller;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.2
+ * @version 0.1.0
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
@@ -22,4 +24,9 @@ public class ControllerMonopoly {
     this.sceneManager = sceneManager;
   }
 
+  public void switchToGameSelection() {
+    sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
+  }
+
+  //TODO move logical methods to this class.
 }

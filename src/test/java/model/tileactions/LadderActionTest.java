@@ -4,6 +4,8 @@ import engine.BoardGame;
 import model.Board;
 import model.Player;
 import model.Tile;
+import model.exception.NullOrBlankColorException;
+import model.exception.TileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class LadderActionTest {
   Tile tile3;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws NullOrBlankColorException {
     ladderAction = new LadderAction(3, "you have to move 3 tiles.");
     boardGame = new BoardGame();
     board = new Board(1, 3);
@@ -40,7 +42,7 @@ class LadderActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", "RED", boardGame);
+    player = new Player("John", "RED", boardGame, 0);
     player.placeOnTile(tile1);
   }
 
@@ -73,13 +75,13 @@ class LadderActionTest {
   }
 
   @Test
-  void performPositiveTest() {
+  void performPositiveTest() throws TileNotFoundException {
     ladderAction.perform(player);
     assertEquals(3, player.getCurrentTile().getTileId());
   }
 
   @Test
-  void performNegativeTest() {
+  void performNegativeTest() throws TileNotFoundException {
     ladderAction.perform(player);
     assertNotEquals(1, player.getCurrentTile().getTileId(),
         "Player has moved to tile 3, not 1");

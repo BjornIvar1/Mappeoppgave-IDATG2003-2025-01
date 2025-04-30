@@ -1,8 +1,7 @@
-package controller;
+package ui.controller;
 
-import gui.game.MonopolyPage;
-import gui.game.SnakesAndLaddersPage;
-import gui.menu.CreateUser;
+import ui.gui.game.MonopolyPage;
+import ui.gui.game.SnakesAndLaddersPage;
 
 /**
  * Manages game selection interactions.
@@ -12,7 +11,7 @@ import gui.menu.CreateUser;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class ControllerGameSelection {
   private final SceneManager sceneManager;
@@ -37,11 +36,9 @@ public class ControllerGameSelection {
   }
 
   public void goToMonopoly() {
-    sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager)));
+    MonopolyPage monopolyPage = new MonopolyPage(new ControllerMonopoly(sceneManager));
+    sceneManager.setView(monopolyPage);
   }
 
-  public void goToCreateUser() {
-    sceneManager.setView(new CreateUser(new ControllerCreateUser(sceneManager)));
-  }
 }
 

@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import model.exception.NegativeIntegerException;
 
 /**
  * Class that represents the board.
@@ -11,7 +12,7 @@ import java.util.Map;
  * add tiles and fetch tiles.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 public class Board {
@@ -75,10 +76,11 @@ public class Board {
    * Sets the rows of the board.
    *
    * @param rows the rows of the board
+   * @throws NegativeIntegerException if the rows are less than 0
    */
-  public void setRows(int rows) {
+  public void setRows(int rows) throws NegativeIntegerException {
     if (rows <= 0) {
-      throw new IllegalArgumentException("Rows must be greater than 0");
+      throw new NegativeIntegerException("Rows must be greater than 0");
     }
     this.rows = rows;
   }
@@ -87,10 +89,11 @@ public class Board {
    * Sets the columns of the board.
    *
    * @param columns the columns of the board
+   * @throws NegativeIntegerException if the columns are less than 0
    */
-  public void setColumns(int columns) {
+  public void setColumns(int columns) throws NegativeIntegerException {
     if (columns <= 0) {
-      throw new IllegalArgumentException("Columns must be greater than 0");
+      throw new NegativeIntegerException("Columns must be greater than 0");
     }
     this.columns = columns;
   }

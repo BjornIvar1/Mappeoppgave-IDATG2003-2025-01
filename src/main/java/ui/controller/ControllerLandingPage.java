@@ -1,6 +1,6 @@
-package controller;
+package ui.controller;
 
-import gui.menu.GameSelection;
+import ui.gui.menu.GameSelection;
 
 /**
  * Controls the landing page behavior and scene transitions.
