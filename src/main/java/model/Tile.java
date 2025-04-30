@@ -1,5 +1,7 @@
 package model;
 
+import model.exception.NegativeIntegerException;
+import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 
 /**
@@ -7,7 +9,7 @@ import model.tileactions.TileAction;
  * Each tile has its own ID, and a tile can perform an action on a player.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 public class Tile {
@@ -34,11 +36,12 @@ public class Tile {
    *
    * @param player the player to perform an action on
    */
-  public void landPlayer(Player player) {
+  public void landPlayer(Player player) throws TileNotFoundException {
     if (player != null && landAction != null) {
       landAction.perform(player);
     }
   }
+
   /**
    * Sets the next tile on the game board.
    *
@@ -52,10 +55,11 @@ public class Tile {
    * Sets the tileId of a tile.
    *
    * @param tileId the id of the tile
+   * @throws NegativeIntegerException if the tileId is negative
    */
   public void setTileId(int tileId) {
     if (tileId < 0) {
-      throw new IllegalArgumentException("model.Tile ID must be a positive integer.");
+      throw new NegativeIntegerException("model.Tile ID must be a positive integer.");
     }
     this.tileId = tileId;
   }
@@ -64,21 +68,34 @@ public class Tile {
    * Sets the action to be performed when a player lands on the tile.
    *
    * @param action the action to be performed
+   * @throws NullPointerException if the action is null
    */
   public void setLandAction(TileAction action) {
     this.landAction = action;
   }
 
-  public void setXcoordinate(int xcoordinate) {
+  /**
+   * Sets the x-coordinate of the tile.
+   *
+   * @param xcoordinate the x-coordinate of the tile
+   * @throws NegativeIntegerException if the x-coordinate is negative
+   */
+  public void setXcoordinate(int xcoordinate) throws NegativeIntegerException {
     if (xcoordinate < 0) {
-      throw new IllegalArgumentException("x-coordinate must be a positive number.");
+      throw new NegativeIntegerException("x-coordinate must be a positive number.");
     }
     this.xcoordinate = xcoordinate;
   }
 
+  /**
+   * Sets the y-coordinate of the tile.
+   *
+   * @param ycoordinate the y-coordinate of the tile
+   * @throws NegativeIntegerException if the y-coordinate is negative
+   */
   public void setYcoordinate(int ycoordinate) {
     if (ycoordinate < 0) {
-      throw new IllegalArgumentException("y-coordinate must be a positive number.");
+      throw new NegativeIntegerException("y-coordinate must be a positive number.");
     }
     this.ycoordinate = ycoordinate;
   }
