@@ -2,6 +2,7 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
+import model.exception.TileNotFoundException;
 
 /**
  * Represents a snake in the game of snake and ladders.
@@ -13,7 +14,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class SnakeAction implements TileAction {
   private int destinationTile;
@@ -35,7 +36,7 @@ public class SnakeAction implements TileAction {
    * @param player The Player who lands on the tile.
    */
   @Override
-  public void perform(Player player) {
+  public void perform(Player player) throws TileNotFoundException {
     player.moveToTile(destinationTile);
   }
 
@@ -46,7 +47,7 @@ public class SnakeAction implements TileAction {
    * @throws IllegalArgumentException if the destinationTile is lower than 1.
    */
   public void setDestinationTile(int destinationTile) {
-    if (destinationTile <= 0){
+    if (destinationTile <= 0) {
       throw new IllegalArgumentException("Destination tile cannot be lower than 1");
     }
     this.destinationTile = destinationTile;
