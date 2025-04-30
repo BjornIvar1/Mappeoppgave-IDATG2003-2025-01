@@ -2,12 +2,11 @@ package engine;
 
 import model.Board;
 import model.Player;
+import model.exception.NullOrBlankColorException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardGameTest {
@@ -17,7 +16,7 @@ class BoardGameTest {
   Player player2;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws NullOrBlankColorException {
     boardGame = new BoardGame();
     players = new ArrayList<>();
 
