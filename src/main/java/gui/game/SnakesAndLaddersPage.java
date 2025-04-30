@@ -4,6 +4,7 @@ import controller.ControllerSnakesAndLadders;
 import engine.BoardGame;
 import gui.BaseGamePage;
 import gui.factory.ButtonFactory;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
+import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 import utils.Constants;
 import utils.MessageDisplay;
@@ -31,7 +33,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private BoardGame boardGameSnakesAndL;
@@ -124,18 +126,22 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private Button getRollDice() {
     Button rollDice = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDice.setOnAction(e -> {
-      boardGameSnakesAndL.play();
+      try {
+        boardGameSnakesAndL.play();
+      } catch (TileNotFoundException ex) {
+        Logger.getLogger(SnakesAndLaddersPage.class.getName())
+            .warning("Tile not found: " + ex.getMessage());
+      }
       Player player = boardGameSnakesAndL.getCurrentPlayer();
-      int rollSum = boardGameSnakesAndL.getDice().
-          getDie(0) +
-          boardGameSnakesAndL.getDice().
-          getDie(1);
+      int rollSum = boardGameSnakesAndL.getDice()
+          .getDie(0) + boardGameSnakesAndL.getDice()
+          .getDie(1);
 
       if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
         gameInformation.setText(MessageDisplay.winningMessage(player));
         Button startGameButton = (Button)
-            ((HBox) rollDice.getParent()).
-                getChildren().getFirst(); //code from GitHub Copilot.
+            ((HBox) rollDice.getParent())
+                .getChildren().getFirst(); //code from GitHub Copilot.
         startGameButton.setDisable(false);
         rollDice.setDisable(true);
       } else {
@@ -151,7 +157,9 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * and creating a board, dice and adding the players.
    */
   private void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH, Constants.PLAYER_FILE_PATH);
+    boardGameSnakesAndL = initializeBoardGame(Constants
+            .SNAKES_AND_LADDERS_BOARD_FILE_PATH,
+            Constants.PLAYER_FILE_PATH);
   }
 
   private void updateBoard(BorderPane mainLayout) {
@@ -193,9 +201,12 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return StackPane representing the tile.
    */
   private StackPane createTile(int tileId) {
-    StackPane stack = new StackPane();
-    Rectangle rect = new Rectangle(Constants.SNAKES_AND_LADDERS_TILE_SIZE, Constants.SNAKES_AND_LADDERS_TILE_SIZE);
-    Color baseColor = (tileId % 2 == 0)? Color.web(Constants.COLOR_TILE_EVEN) : Color.web(Constants.COLOR_TILE_ODD);
+    final StackPane stack = new StackPane();
+    Rectangle rect = new Rectangle(Constants
+        .SNAKES_AND_LADDERS_TILE_SIZE,
+        Constants.SNAKES_AND_LADDERS_TILE_SIZE);
+    Color baseColor = (tileId % 2 == 0) ? Color.web(Constants.COLOR_TILE_EVEN)
+        : Color.web(Constants.COLOR_TILE_ODD);
 
     rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);
