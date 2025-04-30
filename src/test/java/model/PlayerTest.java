@@ -3,6 +3,9 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import engine.BoardGame;
+import model.exception.NegativeIntegerException;
+import model.exception.NullOrBlankColorException;
+import model.exception.TileNotFoundException;
 import org.junit.jupiter.api.*;
 
 class PlayerTest {
@@ -11,7 +14,7 @@ class PlayerTest {
   Tile tile2;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws NullOrBlankColorException {
     player1 = new Player("John", "RED", new BoardGame(), 0);
     tile1 = new Tile(2, 1, 0);
     tile2 = new Tile(3, 2, 0);
@@ -37,8 +40,8 @@ class PlayerTest {
 
   @Test
   void setColorNegativeTest(){
-    assertThrows(IllegalArgumentException.class, () -> player1.setColor(" "));
-    assertThrows(IllegalArgumentException.class, () -> player1.setColor(null));
+    assertThrows(NullOrBlankColorException.class, () -> player1.setColor(" "));
+    assertThrows(NullOrBlankColorException.class, () -> player1.setColor(null));
   }
 
   @Test
@@ -48,14 +51,14 @@ class PlayerTest {
   }
 
   @Test
-  void movePositiveTest () {
+  void movePositiveTest () throws TileNotFoundException {
     player1.placeOnTile(tile1);
     player1.move(1);
     assertEquals(3, player1.getCurrentTile().getTileId());
   }
 
   @Test
-  void setMoneyPositiveTest() {
+  void setMoneyPositiveTest() throws NegativeIntegerException {
     player1.setBalance(100);
     assertEquals(100, player1.getBalance());
   }
