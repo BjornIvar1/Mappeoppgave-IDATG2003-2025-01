@@ -50,26 +50,26 @@ class TileTest {
   }
 
   @Test
-  void setXcoordinatePositive_Test() {
-    tile1.setXcoordinate(1);
-    assertEquals(1, tile1.getXcoordinate());
+  void setXCoordinatePositive_Test() {
+    tile1.setXCoordinate(1);
+    assertEquals(1, tile1.getxCoordinate());
   }
 
   @Test
-  void setXcoordinateNegative_Test() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setXcoordinate(-1));
+  void setXCoordinateNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setXCoordinate(-1));
     assertEquals("x-coordinate must be a positive number.", exception.getMessage());
   }
 
   @Test
-  void setYcoordinatePositive_Test() {
-    tile1.setYcoordinate(1);
-    assertEquals(1, tile1.getYcoordinate());
+  void setYCoordinatePositive_Test() {
+    tile1.setYCoordinate(1);
+    assertEquals(1, tile1.getyCoordinate());
   }
 
   @Test
-  void setYcoordinateNegative_Test() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setYcoordinate(-1));
+  void setYCoordinateNegative_Test() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setYCoordinate(-1));
     assertEquals("y-coordinate must be a positive number.", exception.getMessage());
   }
 }
