@@ -1,6 +1,6 @@
-package controller;
+package ui.controller;
 
-import gui.menu.GameSelection;
+import ui.gui.game.SnakesAndLaddersPage;
 
 public class ControllerCreateUser {
   private final SceneManager sceneManager;
@@ -12,5 +12,9 @@ public class ControllerCreateUser {
    */
   public ControllerCreateUser(SceneManager sceneManager) {
     this.sceneManager = sceneManager;
+  }
+
+  public void goToSnakesAndLadders() {
+    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
   }
 }
