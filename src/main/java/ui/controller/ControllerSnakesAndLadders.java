@@ -1,6 +1,6 @@
-package controller;
+package ui.controller;
 
-import gui.menu.GameSelection;
+import ui.gui.menu.GameSelection;
 
 /**
  * Controller for the Snakes and Ladders game.

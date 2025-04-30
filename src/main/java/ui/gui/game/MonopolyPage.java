@@ -1,9 +1,9 @@
-package gui.game;
+package ui.gui.game;
 
-import controller.ControllerMonopoly;
+import ui.controller.ControllerMonopoly;
 import engine.BoardGame;
-import gui.BaseGamePage;
-import gui.factory.ButtonFactory;
+import ui.gui.BaseGamePage;
+import ui.factory.ButtonFactory;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

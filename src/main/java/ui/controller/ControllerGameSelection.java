@@ -1,7 +1,7 @@
-package controller;
+package ui.controller;
 
-import gui.game.MonopolyPage;
-import gui.game.SnakesAndLaddersPage;
+import ui.gui.game.MonopolyPage;
+import ui.gui.game.SnakesAndLaddersPage;
 
 /**
  * Manages game selection interactions.

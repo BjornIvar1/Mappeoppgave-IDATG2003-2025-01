@@ -1,4 +1,4 @@
-package gui.factory;
+package ui.factory;
 
 import javafx.scene.control.Button;
 

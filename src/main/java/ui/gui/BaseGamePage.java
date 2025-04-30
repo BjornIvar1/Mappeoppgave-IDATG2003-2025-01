@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 import engine.BoardGame;
 import filehandler.BoardFileReaderGson;
@@ -6,6 +6,7 @@ import filehandler.PlayerFileReader;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
+
 import java.io.IOException;
 import java.nio.file.Path;
 

@@ -1,6 +1,6 @@
-package controller;
+package ui.controller;
 
-import gui.menu.GameSelection;
+import ui.gui.menu.GameSelection;
 
 /**
  * Represents the controller for the Monopoly game.
