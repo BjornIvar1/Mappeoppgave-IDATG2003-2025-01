@@ -4,6 +4,7 @@ import controller.ControllerMonopoly;
 import engine.BoardGame;
 import gui.BaseGamePage;
 import gui.factory.ButtonFactory;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
+import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 import utils.Constants;
 import utils.MessageDisplay;
@@ -30,7 +32,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.8.2
+ * @version 0.8.3
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -186,7 +188,12 @@ public class MonopolyPage extends BaseGamePage {
   private Button rollDiceButton(Label playerInformation) {
     Button rollDice = new Button("Roll Dice");
     rollDice.setOnAction(e -> {
-      boardGameForMonopoly.play();
+      try {
+        boardGameForMonopoly.play();
+      } catch (TileNotFoundException ex) {
+        Logger.getLogger(MonopolyPage.class.getName())
+            .warning("Tile not found: " + ex.getMessage());
+      }
       Player player = boardGameForMonopoly.getCurrentPlayer();
       int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
 
