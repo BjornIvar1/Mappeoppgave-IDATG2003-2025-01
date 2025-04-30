@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import model.Board;
 import model.Player;
 import model.Tile;
+import model.exception.NullOrBlankColorException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ class BankActionTest {
   Tile tile3;
 
   @BeforeEach
-  void setup() {
+  void setup() throws NullOrBlankColorException {
     bankAction = new BankAction(300, "you have to pay 300 $" );
     boardGame = new BoardGame();
     board = new Board(1, 3);
