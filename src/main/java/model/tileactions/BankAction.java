@@ -1,6 +1,7 @@
 package model.tileactions;
 
 import javafx.scene.paint.Color;
+import model.exception.NegativeIntegerException;
 import model.Player;
 
 /**
@@ -12,7 +13,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.4
+ * @version 0.1.5
  */
 public class BankAction extends MonopolyActions {
   private int money;
@@ -34,7 +35,7 @@ public class BankAction extends MonopolyActions {
    * @param player that gets the money.
    */
   @Override
-  public void perform(Player player) {
+  public void perform(Player player) throws NegativeIntegerException {
     player.setBalance(player.getBalance() + getMoney());
   }
   /**
