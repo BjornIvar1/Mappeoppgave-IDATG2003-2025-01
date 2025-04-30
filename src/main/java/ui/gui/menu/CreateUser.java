@@ -1,18 +1,31 @@
-package gui.menu;
+package ui.gui.menu;
 
-import controller.ControllerCreateUser;
 import filehandler.PlayerFileWriter;
-import gui.BasePage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
 import model.Player;
+import model.exception.InvalidNameException;
+import model.exception.NullOrBlankColorException;
+import ui.controller.ControllerCreateUser;
+import ui.gui.BasePage;
+import ui.gui.exception.GUIInvalidNameException;
+import ui.gui.exception.InvalidPlayerFields;
+import utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateUser extends BasePage {
   private final ControllerCreateUser controller;
+  private final Spinner<Integer> playerAmount = new Spinner<>(0,4,0);
+  private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+  private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+  private final ObservableList<TextField> playerFields = FXCollections.observableArrayList();
+
 
   public CreateUser(ControllerCreateUser controllerGameChoice) {
     this.controller = controllerGameChoice;
@@ -21,27 +34,68 @@ public class CreateUser extends BasePage {
 
   private Pane createUserPane() {
     VBox container = new VBox();
-    TextField textField = new TextField();
-    textField.setPromptText("Enter your name");
-    textField.setMaxWidth(200);
-    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-    Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
 
+    playerFields.addAll(new TextField(), new TextField(), new TextField(), new TextField());
+    for (TextField playerField : playerFields) {
+      playerField.setVisible(false);
+      playerField.setMaxWidth(160);
+      playerField.setPromptText("Player " + (playerFields.indexOf(playerField) + 1));
+      container.getChildren().add(playerField);
+    }
+
+    playerAmount.setPromptText("Number of players");
+    playerAmount.setEditable(true);
+
+    //Løsning Inspireret av:
+    //https://stackoverflow.com/questions/43745272/generate-plain-text-fields-based-on-chosen-spinner-value
+    playerAmount.valueProperty().addListener((obs, oldValue, newValue) -> {
+      for (int i = 0; i < playerFields.size(); i++) {
+        playerFields.get(i).setVisible(i < newValue);
+      }
+    });
+
+    Button createUserButton = getCreateUserButton();
+
+    container.getChildren().addAll(playerAmount, createUserButton);
+    container.setAlignment(Pos.CENTER);
+    return container;
+  }
+
+  private Button getCreateUserButton() {
     Button createUserButton = new Button("Create User");
     createUserButton.setOnAction(event -> {
       try {
-        String userName = textField.getText();
-        Player player = new Player(userName, "red", null);
-        alertConfirmation.setContentText("User " + player.getName() + " created successfully!");
+        int numberOfPlayerFields = playerAmount.getValue();
+        List <Player> playerList = new ArrayList<>();
+        if (numberOfPlayerFields == 0) {
+          throw new InvalidPlayerFields("Please select a number of players.");
+        }
+
+        for (int i = 0; i < playerAmount.getValue(); i++) {
+          TextField playerField = playerFields.get(i);
+          String userName = playerField.getText().trim();
+          System.out.println(i);
+          if (userName.isEmpty()) {
+            throw new GUIInvalidNameException("Player " + (i+1) + " name is empty.");
+          }
+        }
+
+        for (int i = 0; i < playerAmount.getValue(); i++) {
+          TextField playerField = playerFields.get(i);
+          String userName = playerField.getText().trim();
+          Player player = new Player(userName, "Red", null, 0);
+          playerList.add(player);
+        }
+
+        alertConfirmation.setContentText("Users created successfully!");
         alertConfirmation.show();
-      } catch (IllegalArgumentException e) {
+        PlayerFileWriter.writeToCSV(playerList, Constants.PLAYER_FILE_PATH);
+        controller.goToSnakesAndLadders();
+      } catch (NullOrBlankColorException | GUIInvalidNameException | InvalidPlayerFields e) {
         alertWarning.setContentText(e.getMessage());
         alertWarning.show();
       }
     });
-
-    container.getChildren().addAll(textField, createUserButton);
-    container.setAlignment(Pos.CENTER);
-    return container;
+    return createUserButton;
   }
 }
