@@ -1,11 +1,12 @@
 package engine;
 
+import filehandler.PlayerFileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import filehandler.PlayerFileWriter;
 import model.Board;
 import model.Player;
 import model.Tile;
+import model.exception.TileNotFoundException;
 
 /**
  * The class {@code engine.BoardGame} represents the whole game.
@@ -13,7 +14,7 @@ import model.Tile;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.3
+ * @version 0.2.4
  * @since 0.0.1
  */
 public class BoardGame {
@@ -97,7 +98,7 @@ public class BoardGame {
    *
    * @return currentPlayer
    */
-  public Player getCurrentPlayer(){
+  public Player getCurrentPlayer() {
     return currentPlayer;
   }
 
@@ -109,7 +110,7 @@ public class BoardGame {
    * that is not the last tile,
    * it will move to the next player.</p>
    */
-  public void play() {
+  public void play() throws TileNotFoundException {
     if (currentPlayer == null) {
       players.forEach(player -> {
         currentPlayer = players.get(currentPlayerIndex);
