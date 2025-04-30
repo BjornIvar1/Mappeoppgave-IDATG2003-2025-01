@@ -3,8 +3,10 @@ package model.tileactions;
 import engine.BoardGame;
 import javafx.scene.paint.Color;
 import model.Board;
+import model.exception.NegativeIntegerException;
 import model.Player;
 import model.Tile;
+import model.exception.NullOrBlankColorException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,7 @@ class LooseMoneyActionTest {
   Tile tile3;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws NullOrBlankColorException {
     action = new LooseMoneyAction(300, "you have to pay 300 $");
     boardGame = new BoardGame();
     board = new Board(1, 3);
@@ -52,7 +54,7 @@ class LooseMoneyActionTest {
   }
 
   @Test
-  void performPositiveTest() {
+  void performPositiveTest() throws NegativeIntegerException {
     player.setBalance(5000);
     int initialBalance = player.getBalance();
     action.perform(player);
@@ -60,14 +62,14 @@ class LooseMoneyActionTest {
   }
 
   @Test
-  void performZeroBalanceTest() {
+  void performZeroBalanceTest() throws NegativeIntegerException {
     player.setBalance(0);
     action.perform(player);
     assertEquals(0, player.getBalance());
   }
 
   @Test
-  void performNegativeTest() {
+  void performNegativeTest() throws NegativeIntegerException {
     int initialBalance = player.getBalance();
     player.setBalance(200);
     action.perform(player);
