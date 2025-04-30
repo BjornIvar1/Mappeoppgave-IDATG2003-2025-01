@@ -12,7 +12,7 @@ import model.Tile;
  * Class that writes a board to a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.2.2
  * @since 0.0.1
  */
 public class BoardFileWriterGson implements BoardFileWriter {
@@ -54,8 +54,8 @@ public class BoardFileWriterGson implements BoardFileWriter {
       Tile tile = iterator.next();
       writer.write("    {");
       writer.write("\"id\": " + tile.getTileId() + ", ");
-      writer.write("\"x\": " + tile.getXcoordinate() + ", ");
-      writer.write("\"y\": " + tile.getYcoordinate());
+      writer.write("\"x\": " + tile.getxCoordinate() + ", ");
+      writer.write("\"y\": " + tile.getyCoordinate());
 
       if (tile.getNextTile() != null) {
         writer.write(", " + "\"nextTile\": " + tile.getNextTile().getTileId());
