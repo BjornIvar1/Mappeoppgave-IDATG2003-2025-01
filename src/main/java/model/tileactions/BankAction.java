@@ -2,6 +2,8 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
+import utils.exception.IntegerException;
+import utils.exception.StringException;
 
 /**
  * Represents the bank action in the game of Monopoly.
@@ -12,7 +14,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.6
+ * @version 0.1.7
  */
 public class BankAction extends MonopolyActions {
   private int money;
@@ -73,12 +75,14 @@ public class BankAction extends MonopolyActions {
   /**
    * Mutates the amount of money the player will get.
    *
+   * <p>Sets the amount of money the player will get.</p>
+   *
    * @param money that the player will get.
-   * @throws IllegalArgumentException if the money is lower than 0.
+   * @throws IntegerException if the money is lower than 0.
    */
-   public void setMoney(int money) throws IllegalArgumentException {
+   public void setMoney(int money) throws IntegerException {
     if (money <= 0) {
-      throw new IllegalArgumentException("Money cannot be negative");
+      throw new IntegerException("Money cannot be negative");
     }
     this.money = money;
   }
@@ -86,13 +90,15 @@ public class BankAction extends MonopolyActions {
   /**
    * Mutates the description.
    *
+   * <p>Sets the description of the bank tile.</p>
+   *
    * @param description of what happens when the player lands on a ladder.
-   * @throws IllegalArgumentException if the description is null og empty.
+   * @throws StringException if the description is null og empty.
    */
   @Override
-  public void setDescription(String description) {
+  public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty");
+      throw new StringException("Description cannot be null or empty");
     }
     this.description = description;
   }
