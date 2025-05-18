@@ -19,7 +19,7 @@ import utils.Constants;
  * Class that reads a board from a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.0
+ * @version 0.5.0
  * @since 0.0.1
  */
 public class BoardFileReaderGson implements BoardFileReader {
@@ -154,9 +154,11 @@ public class BoardFileReaderGson implements BoardFileReader {
       int amount = actionObj.get("amount").getAsInt();
       String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new LooseMoneyAction(amount, description);
+    } else if ("JailAction".equals(type)) {
+      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
+      return new JailAction(description);
     }
     return null;
   }
-
 
 }
