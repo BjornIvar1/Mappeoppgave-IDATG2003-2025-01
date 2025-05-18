@@ -2,7 +2,7 @@
   "name": "Snakes and Ladders",
   "description" : "A simple snakes and ladders board game",
   "columns": 10,
-  "rows": 4,
+  "rows": 5,
   "tiles": [
     { "id": 1, "x": 0, "y": 0, "nextTile": 2 },
     { "id": 2, "x": 1, "y": 0, "nextTile": 3 },
@@ -42,10 +42,21 @@
     { "id": 33, "x": 7, "y": 3, "nextTile": 34 },
     { "id": 34, "x": 6, "y": 3, "nextTile": 35 },
     { "id": 35, "x": 5, "y": 3, "nextTile": 36 },
-    { "id": 36, "x": 4, "y": 3, "nextTile": 37 },
+    { "id": 36, "x": 4, "y": 3, "nextTile": 37, "action": { "type": "SnakeAction", "description": "Snake from 36 to 30", "destinationTileId": 30 }},
     { "id": 37, "x": 3, "y": 3, "nextTile": 38 },
     { "id": 38, "x": 2, "y": 3, "nextTile": 39 },
     { "id": 39, "x": 1, "y": 3, "nextTile": 40 },
-    { "id": 40, "x": 0, "y": 3 }
+    { "id": 40, "x": 0, "y": 3, "nextTile": 41 },
+
+    { "id": 41, "x": 0, "y": 4, "nextTile": 42 },
+    { "id": 42, "x": 1, "y": 4, "nextTile": 43 },
+    { "id": 43, "x": 2, "y": 4, "nextTile": 44 },
+    { "id": 44, "x": 3, "y": 4, "nextTile": 45 },
+    { "id": 45, "x": 4, "y": 4, "nextTile": 46 },
+    { "id": 46, "x": 5, "y": 4, "nextTile": 47 },
+    { "id": 47, "x": 6, "y": 4, "nextTile": 48 },
+    { "id": 48, "x": 7, "y": 4, "nextTile": 49 },
+    { "id": 49, "x": 8, "y": 4, "nextTile": 50 },
+    { "id": 50, "x": 9, "y": 4 }
   ]
 }
