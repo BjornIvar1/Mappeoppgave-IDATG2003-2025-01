@@ -1,6 +1,8 @@
 package ui.gui.menu;
 
 import filehandler.PlayerFileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -8,15 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Player;
-import model.exception.NullOrBlankColorException;
 import ui.controller.ControllerCreatePlayer;
 import ui.gui.BasePage;
-import ui.gui.exception.GUIInvalidNameException;
-import ui.gui.exception.InvalidPlayerFields;
 import utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
+import utils.exception.GUIInvalidNameException;
+import utils.exception.InvalidPlayerFields;
 
 public class CreatePlayer extends BasePage {
   private final ControllerCreatePlayer controller;
@@ -25,7 +23,7 @@ public class CreatePlayer extends BasePage {
   private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
   private final ObservableList<TextField> playerFields = FXCollections.observableArrayList();
   private final List<String> listOfColors = List.of("RED", "BLUE", "GREEN", "YELLOW");
-  private String gameboardPath;
+  private String gameBoardPath;
 
 
   public CreatePlayer(ControllerCreatePlayer controllerGameChoice) {
@@ -73,12 +71,12 @@ public class CreatePlayer extends BasePage {
     MenuItem snakesAndLaddersSmall = new MenuItem("Small Snakes and Ladders");
 
     snakesAndLaddersNormal.setOnAction(actionEvent -> {
-      gameboardPath = Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH;
+      gameBoardPath = Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH;
       System.out.println("Normal");
       chooseGameBoard.setText(snakesAndLaddersNormal.getText());
     });
     snakesAndLaddersSmall.setOnAction(actionEvent -> {
-      gameboardPath = Constants.SNAKES_AND_LADDERS_SMALL_BOARD_FILE_PATH;
+      gameBoardPath = Constants.SNAKES_AND_LADDERS_SMALL_BOARD_FILE_PATH;
       System.out.println("Small");
       chooseGameBoard.setText(snakesAndLaddersSmall.getText());
     });
@@ -115,9 +113,9 @@ public class CreatePlayer extends BasePage {
 
         alertConfirmation.setContentText("Users created successfully!");
         alertConfirmation.show();
-        PlayerFileWriter.writeToCSV(playerList, Constants.PLAYER_FILE_PATH);
-        controller.goToGame(gameboardPath);
-      } catch (NullOrBlankColorException | GUIInvalidNameException | InvalidPlayerFields e) {
+        PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
+        controller.goToGame(gameBoardPath);
+      } catch (GUIInvalidNameException | InvalidPlayerFields e) {
         alertWarning.setContentText(e.getMessage());
         alertWarning.show();
       }
