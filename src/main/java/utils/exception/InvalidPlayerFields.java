@@ -1,4 +1,4 @@
-package ui.gui.exception;
+package utils.exception;
 
 /**
  * Exception thrown for invalid amount of player fields.

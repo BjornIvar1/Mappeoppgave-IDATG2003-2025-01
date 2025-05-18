@@ -1,4 +1,4 @@
-package model.exception;
+package utils.exception;
 
 /**
  * Exception thrown when a player's balance is negative.
@@ -10,14 +10,14 @@ package model.exception;
  * @version 0.2.2
  * @since 0.0.1
  */
-public class NegativeIntegerException extends IllegalArgumentException {
+public class IntegerException extends IllegalArgumentException {
 
   /**
-   * Constructs a new NegativeIntegerException with the specified detail message.
+   * Constructs a new IntegerException with the specified detail message.
    *
    * @param message the detail message
    */
-  public NegativeIntegerException(String message) {
+  public IntegerException(String message) {
     super(message);
   }
 }
