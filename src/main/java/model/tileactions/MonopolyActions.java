@@ -1,7 +1,8 @@
 package model.tileactions;
 
 import model.Player;
-import model.exception.TileNotFoundException;
+import utils.exception.NullOrBlankException;
+import utils.exception.StringException;
 
 /**
  * Represents the actions in the game of Monopoly.
@@ -12,7 +13,7 @@ import model.exception.TileNotFoundException;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.0.2
+ * @version 0.0.3
  */
 abstract class MonopolyActions implements TileAction {
   private String description;
@@ -30,11 +31,11 @@ abstract class MonopolyActions implements TileAction {
    * Mutates the description of what happens when the player lands on a tile.
    *
    * @param description of what happens when the player lands on a tile.
-   * @throws IllegalArgumentException if the description is null or empty.
+   * @throws StringException if the description is null or empty.
    */
-  public void setDescription(String description) throws IllegalArgumentException {
+  public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty");
+      throw new StringException("Description cannot be null or empty");
     }
     this.description = description;
   }
@@ -47,8 +48,8 @@ abstract class MonopolyActions implements TileAction {
    * @param player The model.Player who lands on the tile
    */
   @Override
-  public void perform(Player player) throws TileNotFoundException {
-    throw new TileNotFoundException("This method must be overridden by subclasses");
+  public void perform(Player player) throws NullOrBlankException {
+    throw new NullOrBlankException("This method must be overridden by subclasses");
   }
 
   /**
