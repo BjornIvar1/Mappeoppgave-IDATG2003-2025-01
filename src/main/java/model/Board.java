@@ -2,7 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-import model.exception.NegativeIntegerException;
+import utils.exception.IntegerException;
 
 /**
  * Class that represents the board.
@@ -12,7 +12,7 @@ import model.exception.NegativeIntegerException;
  * add tiles and fetch tiles.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.2
+ * @version 0.2.3
  * @since 0.0.1
  */
 public class Board {
@@ -76,11 +76,11 @@ public class Board {
    * Sets the rows of the board.
    *
    * @param rows the rows of the board
-   * @throws NegativeIntegerException if the rows are less than 0
+   * @throws IntegerException if the rows are less than 0
    */
-  public void setRows(int rows) throws NegativeIntegerException {
+  public void setRows(int rows) throws IntegerException {
     if (rows <= 0) {
-      throw new NegativeIntegerException("Rows must be greater than 0");
+      throw new IntegerException("Rows must be greater than 0");
     }
     this.rows = rows;
   }
@@ -89,11 +89,11 @@ public class Board {
    * Sets the columns of the board.
    *
    * @param columns the columns of the board
-   * @throws NegativeIntegerException if the columns are less than 0
+   * @throws IntegerException if the columns are less than 0
    */
-  public void setColumns(int columns) throws NegativeIntegerException {
+  public void setColumns(int columns) throws IntegerException {
     if (columns <= 0) {
-      throw new NegativeIntegerException("Columns must be greater than 0");
+      throw new IntegerException("Columns must be greater than 0");
     }
     this.columns = columns;
   }
