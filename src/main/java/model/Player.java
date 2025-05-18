@@ -26,8 +26,7 @@ public class Player {
   private boolean inJail;
 
   /**
-   * A constructor for the class player for players in the
-   * monopoly game.
+   * A constructor for the {@code Player} class.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
@@ -43,22 +42,6 @@ public class Player {
     this.balance = balance;
     setBalance(0);
 
-  }
-
-  /**
-   * A constructor for the class player for players in the
-   * snakes and ladders game.
-   *
-   * @param name is the name of the player.
-   * @param game the board game the player is playing.
-   * @param color the color of the player.
-   * @throws NullOrBlankColorException if name or color is null or blank
-   */
-  public Player(String name, String color, BoardGame game)
-      throws NullOrBlankColorException {
-    setName(name);
-    setColor(color);
-    this.game = game;
   }
 
   /**
