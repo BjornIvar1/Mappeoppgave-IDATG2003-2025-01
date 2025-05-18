@@ -1,4 +1,4 @@
-package model.exception;
+package utils.exception;
 
 /**
  * Exception thrown when a name is invalid.
@@ -9,16 +9,14 @@ package model.exception;
  * @since 0.0.1
  * @version 0.0.1
  */
-public class InvalidNameException extends IllegalArgumentException {
+public class StringException extends IllegalArgumentException {
 
   /**
-   * Constructs a new InvalidNameException with the specified detail message.
+   * Constructs a new StringException with the specified detail message.
    *
    * @param message the detail message
    */
-  public InvalidNameException(String message) {
+  public StringException(String message) {
     super(message);
   }
-
-  //TODO: Change name to String and apply to all classes
 }
