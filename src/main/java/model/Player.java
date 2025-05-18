@@ -1,10 +1,9 @@
 package model;
 
 import engine.BoardGame;
-import model.exception.InvalidNameException;
-import model.exception.NegativeIntegerException;
-import model.exception.NullOrBlankColorException;
-import model.exception.TileNotFoundException;
+import utils.exception.IntegerException;
+import utils.exception.StringException;
+import utils.exception.NullOrBlankException;
 
 /**
  * An entity class for player.
@@ -13,7 +12,7 @@ import model.exception.TileNotFoundException;
  * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.0
+ * @version 0.3.1
  * @since 0.0.1
  */
 
@@ -32,10 +31,8 @@ public class Player {
    * @param game the board game the player is playing.
    * @param color the color of the player.
    * @param balance the balance of the player.
-   * @throws NullOrBlankColorException if name or color is null or blank
    */
-  public Player(String name, String color, BoardGame game, int balance)
-      throws NullOrBlankColorException {
+  public Player(String name, String color, BoardGame game, int balance) {
     setName(name);
     setColor(color);
     this.game = game;
@@ -48,11 +45,11 @@ public class Player {
    * Mutator method for the name.
    *
    * @param name of the player
-   * @throws InvalidNameException if name is null or isBlank
+   * @throws StringException if name is null or isBlank
    */
-  public void setName(String name) {
+  public void setName(String name) throws StringException {
     if (name == null || name.isBlank()) {
-      throw new InvalidNameException("Name cannot be null or blank");
+      throw new StringException("Name cannot be null or blank");
     }
     this.name = name;
   }
@@ -70,11 +67,11 @@ public class Player {
    * Mutator method for the name.
    *
    * @param color of the player
-   * @throws NullOrBlankColorException if color is null or isBlank
+   * @throws StringException if color is null or isBlank
    */
-  public void setColor(String color) throws NullOrBlankColorException {
+  public void setColor(String color) throws StringException {
     if (color == null || color.isBlank()) {
-      throw new NullOrBlankColorException("Color cannot be null or blank");
+      throw new StringException("Color cannot be null or blank");
     }
     this.color = color;
   }
@@ -94,27 +91,31 @@ public class Player {
    *
    * @param steps The amount of steps to the player.
    */
-  public void move(int steps) throws TileNotFoundException {
+  public void move(int steps) {
     for (int i = 0; i < steps; i++) {
       if (currentTile.getNextTile() != null) {
         currentTile = currentTile.getNextTile();
       }
     }
-    currentTile.landPlayer(this);
+    try {
+      currentTile.landPlayer(this);
+    } catch (NullOrBlankException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
   }
 
   /**
    * Moves the player to a specific tile.
    *
    * @param tileId The id of the tile the player should move to.
-   * @throws TileNotFoundException if the tile with the given id is not found
+   * @throws NullOrBlankException if the tile with the given id is not found
    */
-  public void moveToTile(int tileId) throws TileNotFoundException {
+  public void moveToTile(int tileId) throws NullOrBlankException {
     Tile destination = game.getBoard().getTileById(tileId);
     if (destination != null) {
       this.placeOnTile(destination);
     } else {
-      throw new TileNotFoundException("Tile with id " + tileId + " not found");
+      throw new NullOrBlankException("Tile with id " + tileId + " not found");
     }
   }
 
@@ -149,11 +150,11 @@ public class Player {
    * Mutator method for the player's balance.
    *
    * @param balance the new balance of the player
-   * @throws NegativeIntegerException if the balance is negative
+   * @throws IntegerException if the balance is negative
    */
-  public void setBalance(int balance) throws NegativeIntegerException {
+  public void setBalance(int balance) throws IntegerException {
     if (balance < 0) {
-      throw new NegativeIntegerException("Balance cannot be negative");
+      throw new IntegerException("Balance cannot be negative");
     }
     this.balance = balance;
   }
