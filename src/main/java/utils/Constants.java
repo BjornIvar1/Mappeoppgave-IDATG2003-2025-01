@@ -11,10 +11,12 @@ public final class Constants {
   // Prevent instantiation
   private Constants() {}
 
-  public static final String SNAKES_AND_LADDERS_BOARD_FILE_PATH =
-      "src/main/resources/board/SnakesAndLaddersBoard.json";
-  public static final String SNAKES_AND_LADDERS_SMALL_BOARD_FILE_PATH =
-      "src/main/resources/board/SnakesAndLaddersSmallBoard.json";
+  public static final String SNAKES_AND_LADDERS_NORMAL_BOARD_FILE_PATH =
+      "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersNormalBoard.json";
+  public static final String SNAKES_AND_LADDERS_EASY_BOARD_FILE_PATH =
+      "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersEasyBoard.json";
+  public static final String SNAKES_AND_LADDERS_HARD_BOARD_FILE_PATH =
+      "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersHardBoard.json";
   public static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
   public static final int SNAKES_AND_LADDERS_TILE_SIZE = 60;
