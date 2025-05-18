@@ -2,7 +2,9 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.exception.TileNotFoundException;
+import utils.exception.IntegerException;
+import utils.exception.NullOrBlankException;
+import utils.exception.StringException;
 
 /**
  * Represents the ladders in the game of snake and ladders.
@@ -14,7 +16,7 @@ import model.exception.TileNotFoundException;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.2.1
+ * @version 0.2.2
  */
 public class LadderAction implements TileAction {
   private int destinationTile;
@@ -36,7 +38,7 @@ public class LadderAction implements TileAction {
    * @param player The Player who lands on the tile.
    */
   @Override
-  public void perform(Player player) throws TileNotFoundException {
+  public void perform(Player player) throws NullOrBlankException {
     player.moveToTile(destinationTile);
   }
 
@@ -44,11 +46,11 @@ public class LadderAction implements TileAction {
    * Mutates the destination the player will land on.
    *
    * @param destinationTile that the player will land on.
-   * @throws IllegalArgumentException if the destinationTile is lower than 1.
+   * @throws IntegerException if the destinationTile is lower than 1.
    */
-  public void setDestinationTile(int destinationTile) {
+  public void setDestinationTile(int destinationTile) throws IntegerException {
     if (destinationTile <= 0) {
-      throw new IllegalArgumentException("Destination tile cannot be lower than 1");
+      throw new IntegerException("Destination tile cannot be lower than 1");
     }
     this.destinationTile = destinationTile;
   }
@@ -78,9 +80,9 @@ public class LadderAction implements TileAction {
    * @param description of what happens when the player lands on a ladder.
    * @throws IllegalArgumentException if the description is null og empty.
    */
-  public void setDescription(String description) {
+  public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty");
+      throw new StringException("Description cannot be null or empty");
     }
     this.description = description;
   }
