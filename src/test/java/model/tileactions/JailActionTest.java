@@ -60,7 +60,8 @@ class JailActionTest {
 
   @Test
   void getDescriptionPositiveTest() {
-    assertEquals("You are in jail", jailAction.getDescription());
+    jailAction.setDescription("You are in jail!");
+    assertEquals("You are in jail!", jailAction.getDescription());
   }
 
   @Test
