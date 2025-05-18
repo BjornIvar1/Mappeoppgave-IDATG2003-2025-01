@@ -1,9 +1,5 @@
 package ui.gui.game;
 
-import ui.controller.ControllerSnakesAndLadders;
-import engine.BoardGame;
-import ui.gui.BaseGamePage;
-import ui.factory.ButtonFactory;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +13,9 @@ import javafx.scene.text.Text;
 import model.Player;
 import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
+import ui.controller.ControllerSnakesAndLadders;
+import ui.factory.ButtonFactory;
+import ui.gui.BaseGamePage;
 import utils.Constants;
 import utils.MessageDisplay;
 
@@ -36,19 +35,18 @@ import utils.MessageDisplay;
  * @version 0.3.1
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
-  private BoardGame boardGameSnakesAndL;
+  private final ControllerSnakesAndLadders controller;
   private BorderPane mainLayout;
   private Label gameInformation;
-  private final ControllerSnakesAndLadders controllerSnakesAndLadders;
 
   /**
    * Constructor for the SnakesAndLaddersPage class.
    *
-   * @param controllerSnakesAndLadders the controller for the Snakes and Ladders game.
+   * @param controller the controller for the Snakes and Ladders game.
    */
-  public SnakesAndLaddersPage(ControllerSnakesAndLadders controllerSnakesAndLadders) {
-    this.controllerSnakesAndLadders = controllerSnakesAndLadders;
-    initializeGame();
+  public SnakesAndLaddersPage(ControllerSnakesAndLadders controller) {
+    this.controller = controller;
+    controller.initializeGame();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
@@ -95,7 +93,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = getStartGameButton(rollDice);
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
-    Label playerInformation = new Label(displayPlayers(boardGameSnakesAndL));
+    Label playerInformation = new Label(displayPlayers(controller.getGame()));
 
     controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
     return controlPanel;
@@ -110,7 +108,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startButton.setDisable(true);
     startButton.setOnAction(e -> {
-      initializeGame();
+      controller.initializeGame();
       updateBoard(mainLayout);
       rollDice.setDisable(false);
       startButton.setDisable(true);
@@ -127,17 +125,17 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     Button rollDice = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDice.setOnAction(e -> {
       try {
-        boardGameSnakesAndL.play();
+        controller.getGame().play();
       } catch (TileNotFoundException ex) {
         Logger.getLogger(SnakesAndLaddersPage.class.getName())
             .warning("Tile not found: " + ex.getMessage());
       }
-      Player player = boardGameSnakesAndL.getCurrentPlayer();
-      int rollSum = boardGameSnakesAndL.getDice()
-          .getDie(0) + boardGameSnakesAndL.getDice()
+      Player player = controller.getGame().getCurrentPlayer();
+      int rollSum = controller.getGame().getDice()
+          .getDie(0) + controller.getGame().getDice()
           .getDie(1);
 
-      if (boardGameSnakesAndL.getCurrentPlayer().getCurrentTile().getTileId() == 90) {
+      if (controller.getCurrentTileId() == controller.getTotalTiles()) {
         gameInformation.setText(MessageDisplay.winningMessage(player));
         Button startGameButton = (Button)
             ((HBox) rollDice.getParent())
@@ -150,16 +148,6 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       updateBoard(mainLayout);
     });
     return rollDice;
-  }
-
-  /**
-   * Initializes the game by creating a new BoardGame,
-   * and creating a board, dice and adding the players.
-   */
-  private void initializeGame() {
-    boardGameSnakesAndL = initializeBoardGame(Constants
-            .SNAKES_AND_LADDERS_BOARD_FILE_PATH,
-            Constants.PLAYER_FILE_PATH);
   }
 
   private void updateBoard(BorderPane mainLayout) {
@@ -175,16 +163,16 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private GridPane createBoard() {
     GridPane grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
-    int tileNumber = 90;
+    int tileNumber = controller.getTotalTiles();
 
-    for (int y = 0; y < boardGameSnakesAndL.getBoard().getRows(); y++) {
+    for (int y = 0; y < controller.getRows(); y++) {
       if (y % 2 != 0) {
-        for (int x = 0; x < boardGameSnakesAndL.getBoard().getColumns(); x++) {
+        for (int x = 0; x < controller.getColumns(); x++) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
       } else {
-        for (int x = boardGameSnakesAndL.getBoard().getColumns() - 1; x >= 0; x--) {
+        for (int x = controller.getColumns() - 1; x >= 0; x--) {
           StackPane tile = createTile(tileNumber--);
           grid.add(tile, x, y);
         }
@@ -212,7 +200,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-    TileAction landAction = boardGameSnakesAndL.getBoard().getTiles().get(tileId).getLandAction();
+    TileAction landAction = controller.getCurrentPlayerAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(Constants.SNAKES_AND_LADDERS_TILE_SIZE);
@@ -232,7 +220,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @param stack the StackPane representing the tile
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    boardGameSnakesAndL.getPlayers().stream()
+    controller.getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
         .forEach(player -> {
           Circle playerCircle = createPlayer(player.getColor());
@@ -242,6 +230,6 @@ public class SnakesAndLaddersPage extends BaseGamePage {
 
   private Button createReturnButton() {
     return ButtonFactory.returnButtonFactory("back",
-        controllerSnakesAndLadders::switchToGameSelection);
+        controller::switchToGameSelection);
   }
 }
