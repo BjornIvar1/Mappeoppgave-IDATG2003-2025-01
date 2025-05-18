@@ -54,7 +54,7 @@ public class MonopolyPage extends BaseGamePage {
    */
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     this.controllerMonopoly = controllerMonopoly;
-    controllerMonopoly.initializeMPY();
+    controllerMonopoly.initializeMonopoly();
 
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
@@ -177,7 +177,7 @@ public class MonopolyPage extends BaseGamePage {
     startGameButton = new Button("Start Game");
     startGameButton.setDisable(true);
     startGameButton.setOnAction(event -> {
-      controllerMonopoly.initializeMPY();
+      controllerMonopoly.initializeMonopoly();
       updateBoard();
       rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);
