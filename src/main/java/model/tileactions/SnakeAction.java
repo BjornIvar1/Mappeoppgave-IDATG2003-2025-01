@@ -13,8 +13,8 @@ import model.exception.TileNotFoundException;
  * </p>
  *
  * @since 0.0.1
- * @author Arpit @ Bjørn
- * @version 0.0.2
+ * @author A. Sahoo, B.I. Høie
+ * @version 0.0.3
  */
 public class SnakeAction implements TileAction {
   private int destinationTile;
@@ -78,7 +78,7 @@ public class SnakeAction implements TileAction {
    * @param description of what happens when the player lands on a ladder.
    * @throws IllegalArgumentException if the description is null og empty.
    */
-  public void setDescription(String description) {
+  public void setDescription(String description) throws IllegalArgumentException {
     if (description == null || description.isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty");
     }
