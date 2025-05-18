@@ -2,6 +2,7 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
+import utils.exception.StringException;
 
 /**
  * Represents a jail action in the game of Monopoly.
@@ -12,7 +13,7 @@ import model.Player;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class JailAction implements TileAction {
   private String description;
@@ -52,9 +53,9 @@ public class JailAction implements TileAction {
    * Sets the description of the jail action.
    *
    * @param description the new description of the jail action.
-   * @throws IllegalArgumentException if the description is null or blank.
+   * @throws StringException if the description is null or blank.
    */
-  public void setDescription(String description) throws IllegalArgumentException {
+  public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty");
     }
