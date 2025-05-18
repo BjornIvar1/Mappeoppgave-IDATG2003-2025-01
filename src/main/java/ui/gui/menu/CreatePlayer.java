@@ -28,11 +28,11 @@ import utils.exception.InvalidPlayerFields;
 public class CreatePlayer extends BasePage {
   private final ControllerCreatePlayer controller;
   private final Spinner<Integer> playerAmount = new Spinner<>(0, 4, 0);
-  private SplitMenuButton chooseGameBoard = new SplitMenuButton();
   private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
   private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
   private final ObservableList<HBox> playerFields = FXCollections.observableArrayList();
   private final List<String> listOfColors = List.of("RED", "BLUE", "GREEN", "YELLOW");
+  private SplitMenuButton chooseGameBoard = new SplitMenuButton();
   private String gameBoardPath;
 
   /**
