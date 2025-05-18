@@ -2,7 +2,8 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.exception.NegativeIntegerException;
+import utils.exception.IntegerException;
+import utils.exception.StringException;
 
 /**
  * Represents the action of losing money in the game of Monopoly.
@@ -13,7 +14,7 @@ import model.exception.NegativeIntegerException;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.2.2
+ * @version 0.2.3
  */
 public class LooseMoneyAction extends MonopolyActions {
   private int money;
@@ -36,7 +37,7 @@ public class LooseMoneyAction extends MonopolyActions {
    * @param player that loses the money.
    */
   @Override
-  public void perform(Player player) throws NegativeIntegerException {
+  public void perform(Player player) throws IntegerException {
     if (player.getBalance() <= getLooseMoney()) {
       player.setBalance(0);
     } else {
@@ -53,11 +54,11 @@ public class LooseMoneyAction extends MonopolyActions {
    * Mutates the amount of money the player will lose.
    *
    * @param money that the player will lose.
-   * @throws IllegalArgumentException if the money is less than 0.
+   * @throws IntegerException if the money is less than 0.
    */
-  public void setMoney(int money) throws IllegalArgumentException {
+  public void setMoney(int money) throws IntegerException {
     if (money <= 0) {
-      throw new IllegalArgumentException("Money cannot be smaller than 0");
+      throw new IntegerException("Money cannot be smaller than 0");
     }
     this.money = money;
   }
@@ -81,11 +82,12 @@ public class LooseMoneyAction extends MonopolyActions {
    * Mutates the description of what happens when the player lands on a tile.
    *
    * @param description of what happens when the player lands on a tile.
+   * @throws StringException if the description is null or blank.
    */
   @Override
-  public void setDescription(String description) {
+  public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty");
+      throw new StringException("Description cannot be null or empty");
     }
     this.description = description;
   }
