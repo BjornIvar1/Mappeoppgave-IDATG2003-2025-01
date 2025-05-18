@@ -1,7 +1,7 @@
 package ui.gui;
 
 import engine.BoardGame;
-import filehandler.BoardFileReaderGson;
+import filehandler.board.BoardFileReaderGson;
 import filehandler.PlayerFileReader;
 import java.io.IOException;
 import java.nio.file.Path;

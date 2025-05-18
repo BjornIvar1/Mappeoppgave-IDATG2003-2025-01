@@ -17,6 +17,8 @@ public final class Constants {
       "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersEasyBoard.json";
   public static final String SNAKES_AND_LADDERS_HARD_BOARD_FILE_PATH =
       "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersHardBoard.json";
+  public static final String SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH =
+      "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersBoardWritten.json";
   public static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
   public static final int SNAKES_AND_LADDERS_TILE_SIZE = 60;

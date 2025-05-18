@@ -115,7 +115,11 @@ public class BoardGame {
     if (currentPlayer == null) {
       players.forEach(player -> {
         currentPlayer = players.get(currentPlayerIndex);
-        player.placeOnTile(board.getTile(1));
+        if (player.getCurrentTile() == null) {
+          player.placeOnTile(board.getTile(1));
+        } else {
+          player.placeOnTile(player.getCurrentTile());
+        }
       });
     }
 

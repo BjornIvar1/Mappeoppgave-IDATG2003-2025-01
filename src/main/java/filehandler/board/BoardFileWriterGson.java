@@ -1,11 +1,14 @@
-package filehandler;
+package filehandler.board;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.List;
+
 import model.Board;
+import model.Player;
 import model.Tile;
 
 /**
@@ -25,7 +28,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
    * @throws IOException if the file could not be written
    */
   @Override
-  public void writeBoard(Board board, Path filePath) throws IOException {
+  public void writeBoard(Board board, List<Player> playerList, Path filePath) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
       writer.write("{\n");
       writer.write("  \"name\": \"" + "Snakes and Ladders" + "\",\n");
@@ -34,7 +37,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
       writer.write("  \"columns\": " + board.getColumns() + ",\n");
       writer.write("  \"tiles\": [\n");
 
-      writeTiles(board, writer);
+      writeTiles(board, playerList, writer);
 
       writer.write("  ]\n");
       writer.write("}");
@@ -48,7 +51,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
    * @param writer the writer to write to the file
    * @throws IOException if the file could not be written
    */
-  private static void writeTiles(Board board, BufferedWriter writer) throws IOException {
+  private static void writeTiles(Board board, List<Player> playerList, BufferedWriter writer) throws IOException {
     Iterator<Tile> iterator = board.getTiles().values().iterator();
     while (iterator.hasNext()) {
       Tile tile = iterator.next();
@@ -64,12 +67,23 @@ public class BoardFileWriterGson implements BoardFileWriter {
       if (tile.getLandAction() != null) {
         writeLandAction(writer, tile);
       }
-      writer.write("}");
+
+      for (int i = 0; i < playerList.size(); i++) {
+        Player player = playerList.get(i);
+        if (tile.getTileId() == player.getCurrentTile().getTileId()) {
+          writer.write(", " + "\"player"+ (i+1) + "\": { ");
+          writer.write("\"name\": \"" + player.getName() + "\"");
+          writer.write(", " + "\"color\": \"" + player.getColor() + "\"");
+          writer.write(", " + "\"balance\": " + player.getBalance());
+          writer.write(", " + "\"currentTileId\": " + player.getCurrentTile().getTileId());
+          writer.write("}");
+        }
+      }
 
       if (iterator.hasNext()) {
-        writer.write(",\n");
+        writer.write("},\n");
       } else {
-        writer.write("\n");
+        writer.write("}\n");
       }
     }
   }

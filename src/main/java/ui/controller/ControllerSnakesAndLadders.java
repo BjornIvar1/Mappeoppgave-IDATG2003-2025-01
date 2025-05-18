@@ -1,7 +1,9 @@
 package ui.controller;
 
 import engine.BoardGame;
-import filehandler.BoardFileReaderGson;
+import filehandler.board.BoardFileReaderGson;
+import filehandler.board.BoardFileWriter;
+import filehandler.board.BoardFileWriterGson;
 import filehandler.PlayerFileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -69,6 +71,33 @@ public class ControllerSnakesAndLadders {
       playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
+    } catch (IOException | NullOrBlankException e) {
+      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+          .warning("Could not read board or players from file: " + e.getMessage());
+    }
+    return boardGame;
+  }
+
+  public void saveGame() throws IOException {
+    BoardFileWriter writer = new BoardFileWriterGson();
+    writer.writeBoard(game.getBoard(), game.getPlayers(), Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH));
+  }
+
+  public void loadGame() throws IOException {
+    BoardGame boardGame = new BoardGame();
+    BoardFileReaderGson reader = new BoardFileReaderGson();
+    PlayerFileReader playerReader = new PlayerFileReader();
+    try {
+      boardGame.createBoard(reader.readBoard(Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH)));
+      playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
+      boardGame.createDice(2);
+      //TODO siden du kan plasere spilleren på currenttile her
+      // så kan man bare legge til currenttile i player konstruktøren og skrive den ned i Player filereader
+      // og videre lese av en lagret fil av spillerene og så plassere dem på currentttile
+      // igjen kan og currenttile altid være 1 i player?
+      // kan dette gå ?
+      // Mulig lage en ny branch for å teste dette
+      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTile())));
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());

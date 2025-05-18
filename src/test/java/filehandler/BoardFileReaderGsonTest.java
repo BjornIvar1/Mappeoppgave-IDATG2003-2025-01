@@ -1,5 +1,6 @@
 package filehandler;
 
+import filehandler.board.BoardFileReaderGson;
 import model.Board;
 import model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;

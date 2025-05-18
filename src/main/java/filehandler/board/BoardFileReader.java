@@ -1,4 +1,4 @@
-package filehandler;
+package filehandler.board;
 
 import java.io.IOException;
 import java.nio.file.Path;

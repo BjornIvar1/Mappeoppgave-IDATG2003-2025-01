@@ -1,6 +1,9 @@
 package filehandler;
 
+import filehandler.board.BoardFileWriter;
+import filehandler.board.BoardFileWriterGson;
 import model.Board;
+import model.Player;
 import model.Tile;
 import model.tileactions.LadderAction;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,11 +11,13 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardFileWriterGsonTest {
   private BoardFileWriter boardFileWriter;
+  private List<Player> playerList = List.of(new Player("Player1", "RED", null, 0));
 
   @BeforeEach
   void setUp() {
@@ -33,7 +38,7 @@ class BoardFileWriterGsonTest {
     board.addTile(tile3);
 
     Path path = Files.createTempFile("board-writer-test", ".json");
-    boardFileWriter.writeBoard(board, path);
+    boardFileWriter.writeBoard(board, playerList, path);
 
     String expected = """
         {
