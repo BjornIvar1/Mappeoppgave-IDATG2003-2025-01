@@ -125,7 +125,7 @@ public class CreatePlayer extends BasePage {
     });
     snakesAndLaddersHard.setOnAction(actionEvent -> {
       gameBoardPath = Constants.SNAKES_AND_LADDERS_HARD_BOARD_FILE_PATH;
-      chooseGameBoard.setText(snakesAndLaddersNormal.getText());
+      chooseGameBoard.setText(snakesAndLaddersHard.getText());
     });
 
 
