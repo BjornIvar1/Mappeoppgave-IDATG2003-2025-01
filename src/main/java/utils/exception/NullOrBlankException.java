@@ -1,4 +1,4 @@
-package model.exception;
+package utils.exception;
 
 /**
  * Exception thrown when a tile is not found.
@@ -8,16 +8,16 @@ package model.exception;
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.0.1
- * @since 0.0.1
+ * @since 0.0.2
  */
-public class TileNotFoundException extends Exception {
+public class NullOrBlankException extends Exception {
 
   /**
    * Constructs a new TileNotFound with the specified detail message.
    *
    * @param message the detail message
    */
-  public TileNotFoundException(String message) {
+  public NullOrBlankException(String message) {
     super(message);
   }
 }
