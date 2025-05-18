@@ -3,19 +3,19 @@ package ui.gui;
 import engine.BoardGame;
 import filehandler.BoardFileReaderGson;
 import filehandler.PlayerFileReader;
+import java.io.IOException;
+import java.nio.file.Path;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
-
-import java.io.IOException;
-import java.nio.file.Path;
+import utils.exception.NullOrBlankException;
 
 /**
  * This class represents the base page for the game.
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.1
+ * @version 0.4.2
  */
 public class BaseGamePage extends BasePage {
 
@@ -101,7 +101,7 @@ public class BaseGamePage extends BasePage {
       boardGame.createDice(2);
       playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException | NullOrBlankException e) {
       System.out.println("Could not read board or players from file: " + e.getMessage());
     }
     return boardGame;
