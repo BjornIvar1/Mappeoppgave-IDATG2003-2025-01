@@ -2,14 +2,13 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.exception.NegativeIntegerException;
-import model.exception.TileNotFoundException;
+import utils.exception.NullOrBlankException;
 
 /**
  * Represent an action when a player lands on a model.Tile.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.2
+ * @version 0.3.3
  * @since 0.0.1
  */
 public interface TileAction {
@@ -18,7 +17,7 @@ public interface TileAction {
    *
    * @param player The model.Player who lands on the tile
    */
-  void perform(Player player) throws NegativeIntegerException, TileNotFoundException;
+  void perform(Player player) throws NullOrBlankException;
 
   /**
    * Accesses a description of what happens when the player lands on a tile.
