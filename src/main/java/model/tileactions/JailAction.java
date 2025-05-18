@@ -2,8 +2,6 @@ package model.tileactions;
 
 import javafx.scene.paint.Color;
 import model.Player;
-import model.exception.NegativeIntegerException;
-import model.exception.TileNotFoundException;
 
 /**
  * Represents a jail action in the game of Monopoly.
@@ -14,7 +12,7 @@ import model.exception.TileNotFoundException;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.1
+ * @version 0.0.2
  */
 public class JailAction implements TileAction {
   private String description;
@@ -28,8 +26,15 @@ public class JailAction implements TileAction {
     this.description = description;
   }
 
+  /**
+   * Performs the jail action on the specified player.
+   *
+   * <p>This method sets the player's status to in jail.</p>
+   *
+   * @param player the player to perform the action on
+   */
   @Override
-  public void perform(Player player) throws NegativeIntegerException, TileNotFoundException {
+  public void perform(Player player) {
     player.setInJail(true);
   }
 
