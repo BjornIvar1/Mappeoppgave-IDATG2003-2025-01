@@ -1,9 +1,6 @@
 package ui.gui.game;
 
-import ui.controller.ControllerMonopoly;
 import engine.BoardGame;
-import ui.gui.BaseGamePage;
-import ui.factory.ButtonFactory;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,9 +12,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
-import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
+import ui.controller.ControllerMonopoly;
+import ui.factory.ButtonFactory;
+import ui.gui.BaseGamePage;
 import utils.Constants;
+import utils.exception.NullOrBlankException;
 import utils.MessageDisplay;
 
 /**
@@ -32,7 +32,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.8.3
+ * @version 0.8.4
  */
 public class MonopolyPage extends BaseGamePage {
   private BoardGame boardGameForMonopoly;
@@ -151,7 +151,8 @@ public class MonopolyPage extends BaseGamePage {
     Button startGameButton = getStartGameButton(rollDice, playerInformation);
 
 
-    controlPanel.getChildren().addAll(startGameButton, rollDice, gameInformation, playerInformation);
+    controlPanel.getChildren().addAll(startGameButton,
+        rollDice, gameInformation, playerInformation);
     return controlPanel;
   }
 
@@ -190,19 +191,20 @@ public class MonopolyPage extends BaseGamePage {
     rollDice.setOnAction(e -> {
       try {
         boardGameForMonopoly.play();
-      } catch (TileNotFoundException ex) {
+      } catch (NullOrBlankException ex) {
         Logger.getLogger(MonopolyPage.class.getName())
             .warning("Tile not found: " + ex.getMessage());
       }
       Player player = boardGameForMonopoly.getCurrentPlayer();
-      int rollSum = boardGameForMonopoly.getDice().getDie(0) + boardGameForMonopoly.getDice().getDie(1);
+      int rollSum = boardGameForMonopoly.getDice().getDie(0)
+          + boardGameForMonopoly.getDice().getDie(1);
 
       if (player.getBalance() >= 1000000) { // Winning condition
         gameInformation.setText(MessageDisplay.winningMessage(player));
         rollDice.setDisable(true);
         Button startGameButton = (Button)
-            ((HBox) rollDice.getParent()).
-                getChildren().getFirst(); //code from GitHub Copilot.
+            ((HBox) rollDice.getParent())
+                .getChildren().getFirst(); //code from GitHub Copilot.
         startGameButton.setDisable(false);
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
