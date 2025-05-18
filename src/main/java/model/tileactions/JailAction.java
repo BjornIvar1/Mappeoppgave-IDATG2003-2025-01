@@ -13,7 +13,7 @@ import model.exception.TileNotFoundException;
  * skip a turn of the player that has landed on the tile.</p>
  *
  * @since 0.0.1
- * @author Arpit @ Bjørn
+ * @author A. Sahoo, B.I. Høie
  * @version 0.0.1
  */
 public class JailAction implements TileAction {
@@ -41,6 +41,19 @@ public class JailAction implements TileAction {
   @Override
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * Sets the description of the jail action.
+   *
+   * @param description the new description of the jail action.
+   * @throws IllegalArgumentException if the description is null or blank.
+   */
+  public void setDescription(String description) throws IllegalArgumentException {
+    if (description == null || description.isEmpty()) {
+      throw new IllegalArgumentException("Description cannot be null or empty");
+    }
+    this.description = description;
   }
 
   /**
