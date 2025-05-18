@@ -11,13 +11,14 @@ import model.Player;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
+import utils.exception.NullOrBlankException;
 
 /**
  * Controller for the Snakes and Ladders game.
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
@@ -68,7 +69,7 @@ public class ControllerSnakesAndLadders {
       playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException e) {
+    } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());
     }
