@@ -5,16 +5,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 import model.Player;
-import model.exception.NullOrBlankColorException;
 
 /**
  * PlayerFileReader class reads the file of player stored in the csv files
  * and adds the players back to the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.5
+ * @version 0.0.6
  * @since 0.0.1
  */
 public class PlayerFileReader {
@@ -48,9 +46,6 @@ public class PlayerFileReader {
       System.out.println("File format error");
     } catch (NumberFormatException e) {
       System.out.println("Not an integer: " + e.getMessage());
-    } catch (NullOrBlankColorException e) {
-      Logger.getLogger(PlayerFileReader.class.getName())
-          .warning("Null or blank color: " + e.getMessage());
     }
   }
 }
