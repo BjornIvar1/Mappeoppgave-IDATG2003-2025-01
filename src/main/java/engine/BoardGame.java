@@ -14,7 +14,7 @@ import model.exception.TileNotFoundException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.4
+ * @version 0.3.0
  * @since 0.0.1
  */
 public class BoardGame {
@@ -122,6 +122,10 @@ public class BoardGame {
       throw new IllegalArgumentException("The current player can not be null.");
     }
 
+    if (currentPlayer.isPlayerInJail()) {
+      currentPlayer.setInJail(false);
+      getAspersionCurrentPlayer();
+    }
     int steps = dice.roll();
     currentPlayer.move(steps);
 
@@ -131,6 +135,10 @@ public class BoardGame {
       return;
     }
 
+    getAspersionCurrentPlayer();
+  }
+
+  private void getAspersionCurrentPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     currentPlayer = players.get(currentPlayerIndex);
   }
