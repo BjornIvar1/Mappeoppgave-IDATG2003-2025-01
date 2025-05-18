@@ -1,7 +1,16 @@
 package ui.controller;
 
+import filehandler.PlayerFileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import model.Player;
 import ui.gui.game.MonopolyPage;
 import ui.gui.game.SnakesAndLaddersPage;
+import utils.Constants;
+import utils.exception.GUIInvalidNameException;
+import utils.exception.InvalidPlayerFields;
 
 /**
  * Manages user creation interactions.
@@ -15,27 +24,91 @@ import ui.gui.game.SnakesAndLaddersPage;
  */
 public class ControllerCreatePlayer {
   private final SceneManager sceneManager;
-  private final int gameID;
+  private final int gameId;
 
   /**
    * Constructs a {@code ControllerCreatePlayer} with a specified scene manager.
    *
    * @param sceneManager the {@code SceneManager} responsible for handling scene transitions
    */
-  public ControllerCreatePlayer(SceneManager sceneManager, int gameID) {
+  public ControllerCreatePlayer(SceneManager sceneManager, int gameId) {
     this.sceneManager = sceneManager;
-    this.gameID = gameID;
+    this.gameId = gameId;
   }
 
+  /**
+   * Navigates to the game page based on the game ID.
+   *
+   * <p>This method sets the view to the correct game page based on the game IDm,
+   * and uses the gameBoardPath for selecting the type of board to use.</p>
+   *
+   * @param gameBoardPath the path to the selected game board
+   */
   public void goToGame(String gameBoardPath) {
-    if (gameID == 1) {
-      sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
-    } else if (gameID == 2) {
+    if (gameId == 1) {
+      sceneManager.setView(new SnakesAndLaddersPage(
+          new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
+    } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager)));
     }
   }
 
-  public int getGameID() {
-    return gameID;
+  /**
+   * Validates user input for player names and game board selection.
+   *
+   * @param numberOfPlayerFields the number of player fields
+   * @param gameBoardText the text of the selected game board
+   * @param playerAmount the number of players
+   * @param playerFields the list of player fields
+   */
+  public void validateUserInput(int numberOfPlayerFields,
+                                String gameBoardText,
+                                int playerAmount,
+                                List<HBox> playerFields) {
+    if (numberOfPlayerFields == 0) {
+      throw new InvalidPlayerFields("Please select a number of players.");
+    }
+
+    if ("Choose Game Board".equals(gameBoardText) && gameId == 1) {
+      throw new InvalidPlayerFields("Please select a game board.");
+    }
+
+    for (int i = 0; i < playerAmount; i++) {
+      HBox playerFieldBox = playerFields.get(i);
+      TextField playerField = (TextField) playerFieldBox.getChildren().get(1);
+      String userName = playerField.getText().trim();
+      if (userName.isEmpty()) {
+        throw new GUIInvalidNameException("Player " + (i + 1) + " name is empty.");
+      }
+    }
+  }
+
+  /**
+   * Creates player objects based on user input and writes them to a CSV file.
+   *
+   * @param playerAmount the number of players
+   * @param playerFields the list of player fields
+   * @param listOfColors the list of colors for players
+   */
+  public void createPlayer(int playerAmount, List<HBox> playerFields, List<String> listOfColors) {
+    List<Player> playerList = new ArrayList<>();
+
+    for (int i = 0; i < playerAmount; i++) {
+      HBox playerFieldBox = playerFields.get(i);
+      TextField playerField = (TextField) playerFieldBox.getChildren().get(1);
+      String userName = playerField.getText().trim();
+      Player player = new Player(userName, listOfColors.get(i), null, 0);
+      playerList.add(player);
+    }
+    PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
+  }
+
+  /**
+   * Returns the {@code SceneManager} associated with this controller.
+   *
+   * @return the {@code SceneManager} instance
+   */
+  public int getGameId() {
+    return gameId;
   }
 }

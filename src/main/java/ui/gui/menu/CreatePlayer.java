@@ -1,7 +1,5 @@
 package ui.gui.menu;
 
-import filehandler.PlayerFileWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import model.Player;
 import ui.controller.ControllerCreatePlayer;
 import ui.gui.BasePage;
 import utils.Constants;
@@ -61,7 +58,7 @@ public class CreatePlayer extends BasePage {
 
     Button createUserButton = getStartGameButton();
     chooseGameBoard = getSplitMenuButton();
-    if (controller.getGameID() == 2) {
+    if (controller.getGameId() == 2) {
       chooseGameBoard.setVisible(false);
     }
 
@@ -93,7 +90,6 @@ public class CreatePlayer extends BasePage {
     }
   }
 
-  //https://stackoverflow.com/questions/43745272/generate-plain-text-fields-based-on-chosen-spinner-value
   /**
    * Sets up the spinner control for selecting the number of players.
    */
@@ -152,13 +148,13 @@ public class CreatePlayer extends BasePage {
    */
   private Button getStartGameButton() {
     Button startGameButton = new Button("Start Game");
-
     startGameButton.setOnAction(event -> {
       try {
-        int numberOfPlayerFields = playerAmount.getValue();
-
-        validateUserInput(numberOfPlayerFields);
-        createPlayer();
+        controller.validateUserInput(playerAmount.getValue(),
+            chooseGameBoard.getText(),
+            playerAmount.getValue(),
+            playerFields);
+        controller.createPlayer(playerAmount.getValue(), playerFields, listOfColors);
 
         alertConfirmation.setContentText("Users created successfully!");
         alertConfirmation.show();
@@ -169,46 +165,5 @@ public class CreatePlayer extends BasePage {
       }
     });
     return startGameButton;
-  }
-
-  /**
-   * Creates player objects based on user input and writes them to a CSV file.
-   */
-  private void createPlayer() {
-    List<Player> playerList = new ArrayList<>();
-
-    for (int i = 0; i < playerAmount.getValue(); i++) {
-      HBox playerFieldBox = playerFields.get(i);
-      TextField playerField = (TextField) playerFieldBox.getChildren().get(1);
-      String userName = playerField.getText().trim();
-      Player player = new Player(userName, listOfColors.get(i), null, 0);
-      playerList.add(player);
-    }
-    PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
-  }
-
-  /**
-   * Validates user input for player names and game board selection.
-   *
-   * @param numberOfPlayerFields the number of player fields
-   * @throws InvalidPlayerFields if the input is invalid
-   */
-  private void validateUserInput(int numberOfPlayerFields) {
-    if (numberOfPlayerFields == 0) {
-      throw new InvalidPlayerFields("Please select a number of players.");
-    }
-
-    if (chooseGameBoard.getText().equals("Choose Game Board") && controller.getGameID() == 1) {
-      throw new InvalidPlayerFields("Please select a game board.");
-    }
-
-    for (int i = 0; i < playerAmount.getValue(); i++) {
-      HBox playerFieldBox = playerFields.get(i);
-      TextField playerField = (TextField) playerFieldBox.getChildren().get(1);
-      String userName = playerField.getText().trim();
-      if (userName.isEmpty()) {
-        throw new GUIInvalidNameException("Player " + (i + 1) + " name is empty.");
-      }
-    }
   }
 }
