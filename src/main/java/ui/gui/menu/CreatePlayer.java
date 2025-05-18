@@ -8,9 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Player;
-import model.exception.InvalidNameException;
 import model.exception.NullOrBlankColorException;
-import ui.controller.ControllerCreateUser;
+import ui.controller.ControllerCreatePlayer;
 import ui.gui.BasePage;
 import ui.gui.exception.GUIInvalidNameException;
 import ui.gui.exception.InvalidPlayerFields;
@@ -19,18 +18,17 @@ import utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateUser extends BasePage {
-  private final ControllerCreateUser controller;
+public class CreatePlayer extends BasePage {
+  private final ControllerCreatePlayer controller;
   private final Spinner<Integer> playerAmount = new Spinner<>(0,4,0);
   private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
   private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
   private final ObservableList<TextField> playerFields = FXCollections.observableArrayList();
   private final List<String> listOfColors = List.of("RED", "BLUE", "GREEN", "YELLOW");
+  private String gameboardPath;
 
 
-  public CreateUser(ControllerCreateUser controllerGameChoice) {
-    //TODO lag en id for spillet de skal spille sliik den sender deg til rikitg spill i kontrolleren til createusercontroller?
-    //TODO Deretter så er det een if statement for hvor de sendes if game === monoply go to monoply else go to snakes and ladders?
+  public CreatePlayer(ControllerCreatePlayer controllerGameChoice) {
     this.controller = controllerGameChoice;
     setCenter(createUserPane());
   }
@@ -58,10 +56,35 @@ public class CreateUser extends BasePage {
     });
 
     Button createUserButton = getCreateUserButton();
+    SplitMenuButton chooseGameBoard = getSplitMenuButton();
+    if (controller.getGameID() == 2) {
+      chooseGameBoard.setVisible(false);
+    }
 
-    container.getChildren().addAll(playerAmount, createUserButton);
+    container.getChildren().addAll(playerAmount, createUserButton, chooseGameBoard);
     container.setAlignment(Pos.CENTER);
     return container;
+  }
+
+  private SplitMenuButton getSplitMenuButton() {
+    SplitMenuButton chooseGameBoard = new SplitMenuButton();
+    chooseGameBoard.setText("Choose Game Board");
+    MenuItem snakesAndLaddersNormal = new MenuItem("Normal Snakes and Ladders");
+    MenuItem snakesAndLaddersSmall = new MenuItem("Small Snakes and Ladders");
+
+    snakesAndLaddersNormal.setOnAction(actionEvent -> {
+      gameboardPath = Constants.SNAKES_AND_LADDERS_BOARD_FILE_PATH;
+      System.out.println("Normal");
+      chooseGameBoard.setText(snakesAndLaddersNormal.getText());
+    });
+    snakesAndLaddersSmall.setOnAction(actionEvent -> {
+      gameboardPath = Constants.SNAKES_AND_LADDERS_SMALL_BOARD_FILE_PATH;
+      System.out.println("Small");
+      chooseGameBoard.setText(snakesAndLaddersSmall.getText());
+    });
+
+    chooseGameBoard.getItems().addAll(snakesAndLaddersNormal, snakesAndLaddersSmall);
+    return chooseGameBoard;
   }
 
   private Button getCreateUserButton() {
@@ -93,7 +116,7 @@ public class CreateUser extends BasePage {
         alertConfirmation.setContentText("Users created successfully!");
         alertConfirmation.show();
         PlayerFileWriter.writeToCSV(playerList, Constants.PLAYER_FILE_PATH);
-        controller.goToSnakesAndLadders();
+        controller.goToGame(gameboardPath);
       } catch (NullOrBlankColorException | GUIInvalidNameException | InvalidPlayerFields e) {
         alertWarning.setContentText(e.getMessage());
         alertWarning.show();

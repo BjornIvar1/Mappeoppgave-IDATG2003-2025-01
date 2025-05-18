@@ -1,7 +1,6 @@
 package ui.controller;
 
-import ui.gui.game.MonopolyPage;
-import ui.gui.game.SnakesAndLaddersPage;
+import ui.gui.menu.CreateUser;
 
 /**
  * Manages game selection interactions.
@@ -26,19 +25,12 @@ public class ControllerGameSelection {
   }
 
   /**
-   * Navigates to the Snakes and Ladders game page.
+   * Navigates to the create user page.
    *
-   * <p>This method updates the scene to display the {@code SnakesAndLaddersPage} interface,
-   * allowing users to play the game.</p>
+   * @param gameID the ID of the game to be selected
    */
-  public void goToSnakesAndLadders() {
-    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
+  public void goToCreateUser(int gameID) {
+    sceneManager.setView(new CreateUser(new ControllerCreateUser(sceneManager, gameID)));
   }
-
-  public void goToMonopoly() {
-    MonopolyPage monopolyPage = new MonopolyPage(new ControllerMonopoly(sceneManager));
-    sceneManager.setView(monopolyPage);
-  }
-
 }
 
