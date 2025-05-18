@@ -14,7 +14,7 @@ public class ControllerCreateUser {
     this.sceneManager = sceneManager;
   }
 
-  public void goToSnakesAndLadders() {
-    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager)));
+  public void goToSnakesAndLadders(String gameBoardPath) {
+    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
   }
 }
