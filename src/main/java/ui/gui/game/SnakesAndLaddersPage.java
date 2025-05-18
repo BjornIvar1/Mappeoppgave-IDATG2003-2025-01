@@ -11,13 +11,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
-import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 import ui.controller.ControllerSnakesAndLadders;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
 import utils.Constants;
 import utils.MessageDisplay;
+import utils.exception.NullOrBlankException;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -32,7 +32,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.1
+ * @version 0.3.2
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private final ControllerSnakesAndLadders controller;
@@ -126,7 +126,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rollDice.setOnAction(e -> {
       try {
         controller.getGame().play();
-      } catch (TileNotFoundException ex) {
+      } catch (NullOrBlankException ex) {
         Logger.getLogger(SnakesAndLaddersPage.class.getName())
             .warning("Tile not found: " + ex.getMessage());
       }
