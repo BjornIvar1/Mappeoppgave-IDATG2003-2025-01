@@ -5,7 +5,7 @@ package utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.3
+ * @version 0.0.4
  */
 public final class Constants {
   // Prevent instantiation
@@ -15,7 +15,7 @@ public final class Constants {
       "src/main/resources/board/SnakesAndLaddersBoard.json";
   public static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
-  public static final int SNAKES_AND_LADDERS_TILE_SIZE = 60;
+  public static final int TILE_SIZE = 60;
 
   public static final String MONOPOLY_BOARD_FILE_PATH =
       "src/main/resources/board/monopolyBoard.json";
@@ -28,4 +28,6 @@ public final class Constants {
   public static final String LABEL_LAST_ROLLED_BUTTON = "Last rolled: ---";
   public static final String ACTION = "action";
   public static final String DESCRIPTION = "description";
+
+  public static final int WINNING_BALANCE = 3000000;
 }
