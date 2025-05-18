@@ -6,7 +6,7 @@ import java.util.List;
 import model.Board;
 import model.Player;
 import model.Tile;
-import model.exception.TileNotFoundException;
+import utils.exception.NullOrBlankException;
 
 /**
  * The class {@code engine.BoardGame} represents the whole game.
@@ -14,7 +14,7 @@ import model.exception.TileNotFoundException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.0
+ * @version 0.3.1
  * @since 0.0.1
  */
 public class BoardGame {
@@ -41,7 +41,7 @@ public class BoardGame {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
-    PlayerFileWriter.writeToCSV(players, "src/main/resources/players/playersInGameFile.csv");
+    PlayerFileWriter.writeToCsv(players, "src/main/resources/players/playersInGameFile.csv");
   }
 
   /**
@@ -77,10 +77,11 @@ public class BoardGame {
    * If board is null it throws an exception.
    *
    * @param board the board to create
+   * @throws NullOrBlankException if the board is null
    */
-  public void createBoard(Board board) {
+  public void createBoard(Board board) throws NullOrBlankException {
     if (board == null) {
-      throw new IllegalArgumentException("The board can not be null.");
+      throw new NullOrBlankException("The board can not be null.");
     }
     this.board = board;
   }
@@ -110,7 +111,7 @@ public class BoardGame {
    * that is not the last tile,
    * it will move to the next player.</p>
    */
-  public void play() throws TileNotFoundException {
+  public void play() throws NullOrBlankException {
     if (currentPlayer == null) {
       players.forEach(player -> {
         currentPlayer = players.get(currentPlayerIndex);
@@ -119,7 +120,7 @@ public class BoardGame {
     }
 
     if (currentPlayer == null) {
-      throw new IllegalArgumentException("The current player can not be null.");
+      throw new NullOrBlankException("The current player can not be null.");
     }
 
     if (currentPlayer.isPlayerInJail()) {
