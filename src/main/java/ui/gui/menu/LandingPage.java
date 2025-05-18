@@ -1,6 +1,6 @@
 package ui.gui.menu;
 
-import ui.gui.BasePage;
+import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,8 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import ui.controller.ControllerLandingPage;
-
-import java.util.Objects;
+import ui.gui.BasePage;
 
 /**
  * This class represents the landing page.
@@ -21,11 +20,16 @@ import java.util.Objects;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class LandingPage extends BasePage {
   private final ControllerLandingPage controller;
 
+  /**
+   * Constructs a {@code LandingPage} with the specified controller.
+   *
+   * @param controller the controller for the landing page.
+   */
   public LandingPage(ControllerLandingPage controller) {
     this.controller = controller;
     setCenter(buttonAndImage());
@@ -54,9 +58,9 @@ public class LandingPage extends BasePage {
    */
   private FlowPane imagePaneCreate() {
     FlowPane imagePane = new FlowPane();
-    ImageView image = new ImageView(Objects.
-        requireNonNull(getClass().
-            getResource("/image/logo.png")).toExternalForm());
+    ImageView image = new ImageView(Objects
+        .requireNonNull(getClass()
+            .getResource("/image/logo.png")).toExternalForm());
     imagePane.getChildren().add(image);
     imagePane.setAlignment(Pos.CENTER);
     return imagePane;
@@ -71,7 +75,7 @@ public class LandingPage extends BasePage {
   private FlowPane startButtonPaneCreate() {
     FlowPane buttonPane = new FlowPane();
     Button startButton = new Button("Start");
-    startButton.setOnAction(event ->  controller.switchToGameChoice() );
+    startButton.setOnAction(event ->  controller.switchToGameChoice());
     startButton.prefHeight(30);
     startButton.prefWidth(300);
     buttonPane.getChildren().addAll(startButton);
