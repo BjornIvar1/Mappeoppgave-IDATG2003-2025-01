@@ -13,7 +13,7 @@ import model.exception.TileNotFoundException;
  * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.3
+ * @version 0.3.0
  * @since 0.0.1
  */
 
@@ -23,9 +23,11 @@ public class Player {
   private final BoardGame game;
   private String color;
   private int balance;
+  private boolean inJail;
 
   /**
-   * A constructor for the class player.
+   * A constructor for the class player for players in the
+   * monopoly game.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
@@ -41,6 +43,22 @@ public class Player {
     this.balance = balance;
     setBalance(0);
 
+  }
+
+  /**
+   * A constructor for the class player for players in the
+   * snakes and ladders game.
+   *
+   * @param name is the name of the player.
+   * @param game the board game the player is playing.
+   * @param color the color of the player.
+   * @throws NullOrBlankColorException if name or color is null or blank
+   */
+  public Player(String name, String color, BoardGame game)
+      throws NullOrBlankColorException {
+    setName(name);
+    setColor(color);
+    this.game = game;
   }
 
   /**
@@ -156,4 +174,24 @@ public class Player {
     }
     this.balance = balance;
   }
+
+  /**
+   * Mutator method for the player's inJail status.
+   *
+   * @param inJail the new inJail status of the player
+   *
+   */
+  public void setInJail(boolean inJail) {
+    this.inJail = inJail;
+  }
+
+  /**
+   * Accessor method for the player's inJail status.
+   *
+   * @return true if the player is in jail, false otherwise
+   */
+  public boolean isPlayerInJail() {
+    return inJail;
+  }
+
 }
