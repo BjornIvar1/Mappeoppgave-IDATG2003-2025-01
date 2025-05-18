@@ -5,10 +5,10 @@ import javafx.scene.paint.Color;
 import model.Board;
 import model.Player;
 import model.Tile;
-import model.exception.NullOrBlankColorException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.exception.NullOrBlankException;
 
 import static org.junit.jupiter.api.Assertions.*;
 class JailActionTest {
@@ -27,7 +27,7 @@ class JailActionTest {
   }
 
   @BeforeEach
-  void setup() throws NullOrBlankColorException {
+  void setup() throws NullOrBlankException {
     jailAction = new JailAction("You are in jail");
     boardGame = new BoardGame();
     tile1 = new Tile(1, 1, 0);
