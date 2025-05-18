@@ -34,7 +34,7 @@
         "amount": 500000
       }
     },
-    { "id": 7, "x": 6, "y": 0, "nextTile": 8 },
+    { "id": 7, "x": 6, "y": 0, "nextTile": 8},
     { "id": 8, "x": 7, "y": 0, "nextTile": 9,
       "action": {
         "type": "LooseMoneyAction",
@@ -49,9 +49,13 @@
         "amount": 500000
       }
     },
-    { "id": 10, "x": 9, "y": 0, "nextTile": 11},
+    { "id": 10, "x": 9, "y": 0, "nextTile": 11,
+      "action": {
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
+      }},
 
-    { "id": 11, "x": 9, "y": 1, "nextTile": 12 },
+    { "id": 11, "x": 9, "y": 1, "nextTile": 12},
     { "id": 12, "x": 9, "y": 2, "nextTile": 13,
       "action": {
         "type": "LooseMoneyAction",
@@ -66,8 +70,12 @@
         "amount": 500000
       }
     },
-    { "id": 14, "x": 9, "y": 4, "nextTile": 15 },
-    { "id": 15, "x": 9, "y": 5, "nextTile": 16 },
+    { "id": 14, "x": 9, "y": 4, "nextTile": 15},
+    { "id": 15, "x": 9, "y": 5, "nextTile": 16,
+      "action": {
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
+      } },
     { "id": 16, "x": 9, "y": 6, "nextTile": 17 },
     { "id": 17, "x": 9, "y": 7, "nextTile": 18,
       "action": {
@@ -76,10 +84,14 @@
         "amount": 500000
       }
     },
-    { "id": 18, "x": 9, "y": 8, "nextTile": 19 },
-    { "id": 19, "x": 9, "y": 9, "nextTile": 20 },
+    { "id": 18, "x": 9, "y": 8, "nextTile": 19},
+    { "id": 19, "x": 9, "y": 9, "nextTile": 20},
 
-    { "id": 20, "x": 8, "y": 9, "nextTile": 21 },
+    { "id": 20, "x": 8, "y": 9, "nextTile": 21,
+      "action": {
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
+      }},
     { "id": 21, "x": 7, "y": 9, "nextTile": 22,
       "action": {
         "type": "LooseMoneyAction",
@@ -96,7 +108,11 @@
       }
     },
     { "id": 24, "x": 4, "y": 9, "nextTile": 25 },
-    { "id": 25, "x": 3, "y": 9, "nextTile": 26 },
+    { "id": 25, "x": 3, "y": 9, "nextTile": 26,
+      "action": {
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
+      }},
     { "id": 26, "x": 2, "y": 9, "nextTile": 27,
       "action": {
         "type": "LooseMoneyAction",
@@ -110,13 +126,12 @@
     { "id": 29, "x": 0, "y": 8, "nextTile": 30 },
     { "id": 30, "x": 0, "y": 7, "nextTile": 31,
       "action": {
-        "type": "BankAction",
-        "description": "You received $500000",
-        "amount": 500000
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
       }
     },
     { "id": 31, "x": 0, "y": 6, "nextTile": 32 },
-    { "id": 32, "x": 0, "y": 5, "nextTile": 33 },
+    { "id": 32, "x": 0, "y": 5, "nextTile": 33},
     { "id": 33, "x": 0, "y": 4, "nextTile": 34,
       "action": {
         "type": "LooseMoneyAction",
@@ -127,12 +142,11 @@
     { "id": 34, "x": 0, "y": 3, "nextTile": 35 },
     { "id": 35, "x": 0, "y": 2, "nextTile": 36,
       "action": {
-        "type": "BankAction",
-        "description": "You received $500000",
-        "amount": 500000
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
       }
     },
-    { "id": 36, "x": 0, "y": 1, "nextTile": 37 },
+    { "id": 36, "x": 0, "y": 1, "nextTile": 37},
     { "id": 37, "x": 0, "y": 0, "nextTile": 38,
       "action": {
         "type": "LooseMoneyAction",
@@ -147,8 +161,12 @@
         "amount": 500000
       }
     },
-    { "id": 39, "x": 2, "y": 0, "nextTile": 40 },
+    { "id": 39, "x": 2, "y": 0, "nextTile": 40},
 
-    { "id": 40, "x": 3, "y": 0, "nextTile": 1 }
+    { "id": 40, "x": 3, "y": 0, "nextTile": 1,
+      "action": {
+        "type": "JailAction",
+        "description": "Jail: your turn is skipped"
+      }}
   ]
 }
