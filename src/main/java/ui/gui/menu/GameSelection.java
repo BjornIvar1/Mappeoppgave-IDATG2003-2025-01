@@ -1,6 +1,5 @@
 package ui.gui.menu;
 
-import ui.gui.BasePage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import ui.controller.ControllerGameSelection;
-
+import ui.gui.BasePage;
 import java.util.Objects;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Objects;
  * allowing users to select and start a game with a single button click.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.0
+ * @version 0.2.1
  * @since 0.0.1
  */
 public class GameSelection extends BasePage {
@@ -94,7 +93,7 @@ public class GameSelection extends BasePage {
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
 
-    snakesLaddersButton.setOnAction(event ->  controller.goToCreateUser(1) );
+    snakesLaddersButton.setOnAction(event ->  controller.goToCreateUser(1));
     monopolyButton.setOnAction(event -> controller.goToCreateUser(2));
 
     buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
