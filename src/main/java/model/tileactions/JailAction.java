@@ -1,11 +1,21 @@
 package model.tileactions;
 
-import engine.BoardGame;
 import javafx.scene.paint.Color;
 import model.Player;
 import model.exception.NegativeIntegerException;
 import model.exception.TileNotFoundException;
 
+/**
+ * Represents a jail action in the game of Monopoly.
+ *
+ * <p>This class implements the TileAction interface and allows the player
+ * to perform actions related to being in jail. The class is responsible to
+ * skip a turn of the player that has landed on the tile.</p>
+ *
+ * @since 0.0.1
+ * @author Arpit @ Bjørn
+ * @version 0.0.1
+ */
 public class JailAction implements TileAction {
   private String description;
 
