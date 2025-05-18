@@ -10,10 +10,10 @@ import java.util.List;
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
- * @since 0.0.1
+ * @since 0.0.2
  */
 public class Dice extends Die {
-  private final List<Die> dice;
+  private final List<Die> diceToPlay;
 
   /**
    * Constructor for engine.Dice object that holds multiple dice.
@@ -22,9 +22,9 @@ public class Dice extends Die {
    * @param numberOfDice stored in the ArrayList dice
    */
   public Dice(int numberOfDice) {
-    dice = new ArrayList<>();
+    diceToPlay = new ArrayList<>();
     for (int i = 0; i < numberOfDice; i++) {
-      dice.add(new Die());
+      diceToPlay.add(new Die());
     }
   }
 
@@ -34,7 +34,7 @@ public class Dice extends Die {
    * @return the quantity of dices.
    */
   public int getNumberOfDice() {
-    return dice.size();
+    return diceToPlay.size();
   }
 
   /**
@@ -46,7 +46,7 @@ public class Dice extends Die {
   @Override
   public int roll() {
     int sum = 0;
-    for (Die die : dice) {
+    for (Die die : diceToPlay) {
       sum += die.roll();
     }
     return sum;
@@ -59,6 +59,6 @@ public class Dice extends Die {
    * @return the value of a die
    */
   public int getDie(int dieNumber) {
-    return dice.get(dieNumber).getValue();
+    return diceToPlay.get(dieNumber).getValue();
   }
 }
