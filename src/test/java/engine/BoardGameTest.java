@@ -1,12 +1,12 @@
 package engine;
 
-import model.Board;
-import model.Player;
-import model.exception.NullOrBlankColorException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import model.Board;
+import model.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import utils.exception.NullOrBlankException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardGameTest {
@@ -16,7 +16,7 @@ class BoardGameTest {
   Player player2;
 
   @BeforeEach
-  void setUp() throws NullOrBlankColorException {
+  void setUp() {
     boardGame = new BoardGame();
     players = new ArrayList<>();
 
@@ -67,14 +67,14 @@ class BoardGameTest {
   }
 
   @Test
-  void createBoardPositiveTest() {
+  void createBoardPositiveTest() throws NullOrBlankException {
     boardGame.createBoard(new Board(10, 10));
     assertNotNull(boardGame.getBoard());
   }
 
   @Test
   void createBoardNegativeTest() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> boardGame.createBoard(null));
+    Exception exception = assertThrows(NullOrBlankException.class, () -> boardGame.createBoard(null));
     assertEquals("The board can not be null.", exception.getMessage());
   }
 }
