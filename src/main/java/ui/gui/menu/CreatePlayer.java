@@ -77,15 +77,13 @@ public class CreatePlayer extends BasePage {
     Button loadGameButton = new Button("Load Last Saved Game");
 
     loadGameButton.setOnAction(event -> {
-      Path csvSnakesAndLadders = Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
-      Path csvMonopoly = Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV);
-      if (Files.exists(csvSnakesAndLadders) && controller.getGameId() == 1) {
+      try {
+        controller.loadSavedGame();
         controller.goToGameSelection();
-      } else if (Files.exists(csvMonopoly) && controller.getGameId() == 2) {
-        controller.goToGameSelection();
-      }
-      else {
-        alertWarning.setContentText("No saved game found.");
+        alertConfirmation.setContentText("Game loaded successfully!");
+        alertConfirmation.show();
+      } catch (Exception e) {
+        alertWarning.setContentText(e.getMessage());
         alertWarning.show();
       }
     });
