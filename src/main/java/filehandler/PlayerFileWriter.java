@@ -15,8 +15,7 @@ import model.Player;
  * @since 0.0.1
  */
 public class PlayerFileWriter {
-
-  public PlayerFileWriter() {}
+  private PlayerFileWriter () {}
 
   /**
    * Write a CSV file from a list.
