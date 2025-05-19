@@ -47,7 +47,7 @@ public class ControllerCreatePlayer {
   public void goToGame(String gameBoardPath) {
     if (gameId == 1) {
       sceneManager.setView(new SnakesAndLaddersPage(
-          new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
+          new ControllerSnakesAndLadders(sceneManager, gameBoardPath, Constants.PLAYER_FILE_PATH)));
     } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager)));
     }
