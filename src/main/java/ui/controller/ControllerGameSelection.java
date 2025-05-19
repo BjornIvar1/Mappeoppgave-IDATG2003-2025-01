@@ -1,8 +1,6 @@
 package ui.controller;
 
-import ui.gui.game.SnakesAndLaddersPage;
 import ui.gui.menu.CreatePlayer;
-import utils.Constants;
 
 /**
  * Manages game selection interactions.
@@ -33,14 +31,6 @@ public class ControllerGameSelection {
    */
   public void goToCreateUser(int gameId) {
     sceneManager.setView(new CreatePlayer(new ControllerCreatePlayer(sceneManager, gameId)));
-  }
-
-  /**
-   * Navigates to the last game saved.
-   */
-  public void goToGameSelection() {
-    sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
-        Constants.BOARD_SAVED_FILEPATH, Constants.PLAYER_SAVED_FILEPATH)));
   }
 }
 
