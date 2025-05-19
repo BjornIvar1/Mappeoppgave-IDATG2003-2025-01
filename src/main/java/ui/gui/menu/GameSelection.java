@@ -1,5 +1,6 @@
 package ui.gui.menu;
 
+import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import ui.controller.ControllerGameSelection;
 import ui.gui.BasePage;
-import java.util.Objects;
 
 /**
  * Represents the game selection interface.
@@ -84,19 +84,25 @@ public class GameSelection extends BasePage {
    */
   private HBox createButtonPane() {
     HBox buttonPane = new HBox();
-    Button snakesLaddersButton = new Button("Snakes and Ladders");
-    Button monopolyButton = new Button("Monopoly");
-
     buttonPane.setSpacing(30);
+
+    Button snakesLaddersButton = new Button("Snakes and Ladders");
     snakesLaddersButton.setPrefHeight(30);
     snakesLaddersButton.setPrefWidth(300);
+
+    Button monopolyButton = new Button("Monopoly");
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
 
+    Button loadGameButton = new Button("Load Game");
+    loadGameButton.setPrefHeight(30);
+    loadGameButton.setPrefWidth(300);
+
     snakesLaddersButton.setOnAction(event ->  controller.goToCreateUser(1));
     monopolyButton.setOnAction(event -> controller.goToCreateUser(2));
+    loadGameButton.setOnAction(event -> controller.goToGameSelection());
 
-    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
+    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton, loadGameButton);
     buttonPane.setAlignment(Pos.CENTER);
     return buttonPane;
   }
