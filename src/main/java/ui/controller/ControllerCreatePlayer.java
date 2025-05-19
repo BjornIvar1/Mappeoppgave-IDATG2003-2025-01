@@ -1,6 +1,10 @@
 package ui.controller;
 
 import filehandler.PlayerFileWriter;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.TextField;
@@ -66,6 +70,21 @@ public class ControllerCreatePlayer {
     } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
           Constants.MONOPOLY_PLAYER_SAVED_CSV)));
+    }
+  }
+
+  private boolean canLoadSavedGame() {
+    if (gameId == 1) {
+      return Files.exists(Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV));
+    } else if (gameId == 2) {
+      return Files.exists(Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV));
+    }
+    return false;
+  }
+
+  public void loadSavedGame() {
+    if (!canLoadSavedGame()) {
+      throw new IllegalStateException("No saved game found.");
     }
   }
 
