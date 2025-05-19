@@ -159,11 +159,20 @@ public class MonopolyPage extends BaseGamePage {
 
     Button rollDice = getRollDiceButton(playerInformation);
     Button startButton = getStartGameButton(playerInformation);
+    Button saveGame = getSaveGameButton();
 
 
-    controlPanel.getChildren().addAll(startButton, rollDice, gameInformation, playerInformation);
+    controlPanel.getChildren().addAll(startButton, rollDice,
+        gameInformation, playerInformation, saveGame);
     return controlPanel;
   }
+
+  private Button getSaveGameButton() {
+    Button saveGame = new Button("Save Game");
+    saveGame.setOnAction(e -> controllerMonopoly.saveGame());
+    return saveGame;
+  }
+
 
   /**
    * Creates the button to start the game.
