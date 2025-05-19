@@ -1,5 +1,7 @@
 package ui.gui.menu;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +15,8 @@ import ui.gui.BasePage;
 import utils.Constants;
 import utils.exception.GUIInvalidNameException;
 import utils.exception.InvalidPlayerFields;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents the player creation interface.
@@ -62,13 +66,30 @@ public class CreatePlayer extends BasePage {
     }
 
     Button createUserButton = getStartGameButton();
-    Button loadGameButton = new Button("Load Last Saved Game");
-
-    loadGameButton.setOnAction(event -> controller.goToGameSelection());
+    Button loadGameButton = getLoadGameButton();
 
     container.getChildren().addAll(playerAmount, chooseGameBoard, createUserButton, loadGameButton);
     container.setAlignment(Pos.CENTER);
     return container;
+  }
+
+  private Button getLoadGameButton() {
+    Button loadGameButton = new Button("Load Last Saved Game");
+
+    loadGameButton.setOnAction(event -> {
+      Path csvSnakesAndLadders = Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
+      Path csvMonopoly = Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV);
+      if (Files.exists(csvSnakesAndLadders) && controller.getGameId() == 1) {
+        controller.goToGameSelection();
+      } else if (Files.exists(csvMonopoly) && controller.getGameId() == 2) {
+        controller.goToGameSelection();
+      }
+      else {
+        alertWarning.setContentText("No saved game found.");
+        alertWarning.show();
+      }
+    });
+    return loadGameButton;
   }
 
   /**
