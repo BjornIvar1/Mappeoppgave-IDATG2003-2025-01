@@ -1,15 +1,16 @@
 package ui.controller;
 
 import engine.BoardGame;
-import filehandler.BoardFileReaderGson;
 import filehandler.PlayerFileReader;
+import filehandler.PlayerFileWriter;
+import filehandler.board.BoardFileReaderGson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-import model.exception.TileNotFoundException;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
+import utils.exception.NullOrBlankException;
 
 /**
  * The controller for the Monopoly game.
@@ -25,6 +26,7 @@ import utils.Constants;
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
+  private final String playerFilePath;
   private BoardGame boardGameForMonopoly;
 
   /**
@@ -32,8 +34,9 @@ public class ControllerMonopoly {
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
    */
-  public ControllerMonopoly(SceneManager sceneManager) {
+  public ControllerMonopoly(SceneManager sceneManager, String playerFilePath) {
     this.sceneManager = sceneManager;
+    this.playerFilePath = playerFilePath;
   }
 
   /**
@@ -82,13 +85,21 @@ public class ControllerMonopoly {
     PlayerFileReader playerReader = new PlayerFileReader();
     try {
       boardGame.createBoard(reader.readBoard(Path.of(Constants.MONOPOLY_BOARD_FILE_PATH)));
+      playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
-      playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException e) {
+      boardGame.getPlayers().forEach(player ->
+          player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
+    } catch (IOException | NullOrBlankException e) {
       System.out.println("Could not read board or players from file: " + e.getMessage());
     }
     return boardGame;
+  }
+
+  /**
+   * Saves the current game state to a file.
+   */
+  public void saveGame() {
+    PlayerFileWriter.writeToCsv(boardGameForMonopoly.getPlayers(), Constants.PLAYER_SAVED_FILEPATH);
   }
 
   /**
@@ -103,9 +114,8 @@ public class ControllerMonopoly {
   public void initializeRollDice() {
     try {
       boardGameForMonopoly.play();
-    } catch (TileNotFoundException ex) {
-      Logger.getLogger(ControllerMonopoly.class.getName())
-          .warning("Tile not found: " + ex.getMessage());
+    } catch (NullOrBlankException e) {
+      Logger.getLogger(ControllerMonopoly.class.getName());
     }
   }
 
