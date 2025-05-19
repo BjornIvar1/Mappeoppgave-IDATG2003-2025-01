@@ -39,7 +39,7 @@ public class ControllerCreatePlayer {
   /**
    * Navigates to the game page based on the game ID.
    *
-   * <p>This method sets the view to the correct game page based on the game IDm,
+   * <p>This method sets the view to the correct game page based on the game ID,
    * and uses the gameBoardPath for selecting the type of board to use.</p>
    *
    * @param gameBoardPath the path to the selected game board
@@ -49,7 +49,23 @@ public class ControllerCreatePlayer {
       sceneManager.setView(new SnakesAndLaddersPage(
           new ControllerSnakesAndLadders(sceneManager, gameBoardPath, Constants.PLAYER_FILE_PATH)));
     } else if (gameId == 2) {
-      sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager)));
+      sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
+          Constants.PLAYER_FILE_PATH)));
+    }
+  }
+
+  /**
+   * Navigates to the last game saved.
+   *
+   * <p>This method sets the view to the correct game page based on the game ID</p>
+   */
+  public void goToGameSelection() {
+    if (gameId == 1) {
+      sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
+          Constants.BOARD_SAVED_FILEPATH, Constants.PLAYER_SAVED_FILEPATH)));
+    } else if (gameId == 2) {
+      sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
+          Constants.PLAYER_SAVED_FILEPATH)));
     }
   }
 
