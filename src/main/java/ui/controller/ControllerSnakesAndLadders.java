@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 import model.Player;
+import model.Tile;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
@@ -70,7 +71,7 @@ public class ControllerSnakesAndLadders {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
       playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
       boardGame.createDice(2);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
+      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());
@@ -84,25 +85,22 @@ public class ControllerSnakesAndLadders {
   }
 
   public void loadGame() throws IOException {
-    BoardGame boardGame = new BoardGame();
     BoardFileReaderGson reader = new BoardFileReaderGson();
     PlayerFileReader playerReader = new PlayerFileReader();
     try {
-      boardGame.createBoard(reader.readBoard(Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH)));
-      playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
-      boardGame.createDice(2);
-      //TODO siden du kan plasere spilleren på currenttile her
-      // så kan man bare legge til currenttile i player konstruktøren og skrive den ned i Player filereader
-      // og videre lese av en lagret fil av spillerene og så plassere dem på currentttile
-      // igjen kan og currenttile altid være 1 i player?
-      // kan dette gå ?
-      // Mulig lage en ny branch for å teste dette
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTile())));
+      BoardGame loadgame = new BoardGame();
+      loadgame.createBoard(reader.readBoard(Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH)));
+      playerReader.readCsvBuffered("src/main/resources/players/playersSaved.csv", loadgame);
+      loadgame.createDice(2);
+      for (Player player : loadgame.getPlayers()) {
+        Tile tile = loadgame.getBoard().getTile(player.getCurrentTileId());
+        player.placeOnTile(tile);
+      }
+      this.game = loadgame;
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());
     }
-    return boardGame;
   }
 
   /**

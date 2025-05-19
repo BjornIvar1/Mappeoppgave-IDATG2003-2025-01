@@ -69,15 +69,13 @@ public class BoardFileReaderGson implements BoardFileReader {
       Tile tile = new Tile(id, x, y);
       board.addTile(tile);
       tileMap.put(id, tile);
-      if (tileObj.has("player1")) {
-        JsonObject playerObj = tileObj.getAsJsonObject("player1");
-        String name = playerObj.get("name").getAsString();
-        String color = playerObj.get("color").getAsString();
-        int balance = playerObj.get("balance").getAsInt();
-        int currentTileId = playerObj.get("currentTileId").getAsInt();
-        Player player1 = new Player(name, color, null, balance);
-        player1.placeOnTile(tileMap.get(currentTileId));
-      }
+//      if (tileObj.has("player1")) {
+//        JsonObject playerObj = tileObj.getAsJsonObject("player1");
+//        String name = playerObj.get("name").getAsString();
+//        String color = playerObj.get("color").getAsString();
+//        int balance = playerObj.get("balance").getAsInt();
+//        Player player1 = new Player(name, color, null, balance, 0);
+//      }
     }
     return tileMap;
   }

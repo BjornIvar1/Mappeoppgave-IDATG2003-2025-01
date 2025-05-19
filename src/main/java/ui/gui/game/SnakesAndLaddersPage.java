@@ -93,6 +93,16 @@ public class SnakesAndLaddersPage extends BaseGamePage {
 
     Button rollDice = getRollDice();
     Button saveGame = new Button("Save Game");
+    Button loadGame = new Button("Load Game");
+    loadGame.setOnAction(e -> {
+      try {
+        controller.loadGame();
+        updateBoard(mainLayout);
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+      System.out.println("Game loaded");
+    });
     saveGame.setOnAction(e -> {
       try {
         controller.saveGame();
@@ -106,7 +116,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
 
-    controlPanel.getChildren().addAll(startButton, saveGame, rollDice,gameInformation, playerInformation);
+    controlPanel.getChildren().addAll(startButton, saveGame, loadGame, rollDice,gameInformation, playerInformation);
     return controlPanel;
   }
 

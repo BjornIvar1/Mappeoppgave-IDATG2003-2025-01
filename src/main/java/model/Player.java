@@ -23,6 +23,7 @@ public class Player {
   private String color;
   private int balance;
   private boolean inJail;
+  private final int currentTileId;
 
   /**
    * A constructor for the {@code Player} class.
@@ -38,7 +39,25 @@ public class Player {
     this.game = game;
     this.balance = balance;
     setBalance(0);
+    this.currentTileId = 1;
+  }
 
+  public Player(String name, String color, BoardGame game, int balance, int currentTile) {
+    setName(name);
+    setColor(color);
+    this.game = game;
+    this.balance = balance;
+    setBalance(0);
+    this.currentTileId = currentTile;
+  }
+
+  /**
+   * Accessor method for the player's current tile id.
+   *
+   * @return the player's current tile id
+   */
+  public int getCurrentTileId() {
+    return currentTileId;
   }
 
   /**

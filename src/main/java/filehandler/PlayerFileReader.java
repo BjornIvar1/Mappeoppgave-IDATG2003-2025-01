@@ -31,11 +31,12 @@ public class PlayerFileReader {
       String line;
       while ((line = reader.readLine()) != null) {
         String[] words = line.split("\\s*,\\s*");
-        if (words.length >= 3) {
+        if (words.length >= 4) {
           String name = words[0].strip();
           String color = words[1].strip();
           int balance = Integer.parseInt(words[2].strip());
-          game.addPlayer(new Player(name, color, game, balance));
+          int tileid = Integer.parseInt(words[3].strip());
+          game.addPlayer(new Player(name, color, game, balance, tileid));
         } else {
           System.out.println("Skipping invalid line: " + line);
         }

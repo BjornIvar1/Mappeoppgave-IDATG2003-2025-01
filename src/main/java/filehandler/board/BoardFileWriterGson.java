@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 
+import filehandler.PlayerFileWriter;
 import model.Board;
 import model.Player;
 import model.Tile;
@@ -53,6 +54,8 @@ public class BoardFileWriterGson implements BoardFileWriter {
    */
   private static void writeTiles(Board board, List<Player> playerList, BufferedWriter writer) throws IOException {
     Iterator<Tile> iterator = board.getTiles().values().iterator();
+    PlayerFileWriter playerFileWriter = new PlayerFileWriter();
+    playerFileWriter.writeToCsv(playerList, "src/main/resources/players/playersSaved.csv");
     while (iterator.hasNext()) {
       Tile tile = iterator.next();
       writer.write("    {");
@@ -70,14 +73,16 @@ public class BoardFileWriterGson implements BoardFileWriter {
 
       for (int i = 0; i < playerList.size(); i++) {
         Player player = playerList.get(i);
-        if (tile.getTileId() == player.getCurrentTile().getTileId()) {
-          writer.write(", " + "\"player"+ (i+1) + "\": { ");
-          writer.write("\"name\": \"" + player.getName() + "\"");
-          writer.write(", " + "\"color\": \"" + player.getColor() + "\"");
-          writer.write(", " + "\"balance\": " + player.getBalance());
-          writer.write(", " + "\"currentTileId\": " + player.getCurrentTile().getTileId());
-          writer.write("}");
-        }
+//        if (tile.getTileId() == player.getCurrentTile().getTileId()) {
+//          PlayerFileWriter playerFileWriter = new PlayerFileWriter();
+//          playerFileWriter.writeToCsv(playerList, "playersSaved.csv");
+//          writer.write(", " + "\"player"+ (i+1) + "\": { ");
+//          writer.write("\"name\": \"" + player.getName() + "\"");
+//          writer.write(", " + "\"color\": \"" + player.getColor() + "\"");
+//          writer.write(", " + "\"balance\": " + player.getBalance());
+//          //writer.write(", " + "\"currentTileId\": " + player.getCurrentTile());
+//          writer.write("}");
+//        }
       }
 
       if (iterator.hasNext()) {
