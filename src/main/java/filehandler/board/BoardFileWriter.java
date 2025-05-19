@@ -8,5 +8,5 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface BoardFileWriter {
-  void writeBoard(Board board, List<Player> playerList, Path filePath) throws IOException;
+  void writeBoard(Board board, Path filePath) throws IOException;
 }
