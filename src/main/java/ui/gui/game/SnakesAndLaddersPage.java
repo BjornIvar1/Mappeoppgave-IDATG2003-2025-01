@@ -25,10 +25,13 @@ import utils.exception.NullOrBlankException;
  *
  * <p>This class is responsible for displaying the game board and handling user interactions</p>
  *
- * <p>The user is introduced to two buttons start game and roll dice</p>
+ * <p>The user is introduced to three buttons, a control panel and the board game.</p>
  * <ul>
  *   <li>Start Game: Initializes a new game</li>
  *   <li>Roll Dice: Plays the game by rolling the dice</li>
+ *   <li>Control panel: Lets the user know who has rolled and the score.</li>
+ *   <li>Board: Displays the game board with player pieces and different tiles</li>
+ *   <li>Return: Returns to the game selection menu</li>
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
@@ -209,8 +212,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private StackPane createTile(int tileId) {
     final StackPane stack = new StackPane();
     Rectangle rect = new Rectangle(Constants
-        .SNAKES_AND_LADDERS_TILE_SIZE,
-        Constants.SNAKES_AND_LADDERS_TILE_SIZE);
+        .TILE_SIZE,
+        Constants.TILE_SIZE);
     Color baseColor = (tileId % 2 == 0) ? Color.web(Constants.COLOR_TILE_EVEN)
         : Color.web(Constants.COLOR_TILE_ODD);
 
@@ -221,7 +224,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     TileAction landAction = controller.getCurrentPlayerAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
-      text.setWrappingWidth(Constants.SNAKES_AND_LADDERS_TILE_SIZE);
+      text.setWrappingWidth(Constants.TILE_SIZE);
       text.setText(landAction.getDescription());
     }
 
@@ -246,6 +249,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
         });
   }
 
+  /**
+   * Creates a return button to go back to the game selection menu.
+   *
+   * <p>This button is used to navigate back to the game selection menu.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to return to the game selection menu.
+   */
   private Button createReturnButton() {
     return ButtonFactory.returnButtonFactory("back",
         controller::switchToGameSelection);
