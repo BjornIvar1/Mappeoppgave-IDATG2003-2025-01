@@ -5,12 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.List;
-
-import filehandler.PlayerFileWriter;
 import model.Board;
-import model.Player;
 import model.Tile;
+import model.tileactions.*;
 
 /**
  * Class that writes a board to a file using Gson.
@@ -29,7 +26,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
    * @throws IOException if the file could not be written
    */
   @Override
-  public void writeBoard(Board board, List<Player> playerList, Path filePath) throws IOException {
+  public void writeBoard(Board board, Path filePath) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
       writer.write("{\n");
       writer.write("  \"name\": \"" + "Snakes and Ladders" + "\",\n");
@@ -38,7 +35,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
       writer.write("  \"columns\": " + board.getColumns() + ",\n");
       writer.write("  \"tiles\": [\n");
 
-      writeTiles(board, playerList, writer);
+      writeTiles(board, writer);
 
       writer.write("  ]\n");
       writer.write("}");
@@ -52,10 +49,8 @@ public class BoardFileWriterGson implements BoardFileWriter {
    * @param writer the writer to write to the file
    * @throws IOException if the file could not be written
    */
-  private static void writeTiles(Board board, List<Player> playerList, BufferedWriter writer) throws IOException {
+  private static void writeTiles(Board board, BufferedWriter writer) throws IOException {
     Iterator<Tile> iterator = board.getTiles().values().iterator();
-    PlayerFileWriter playerFileWriter = new PlayerFileWriter();
-    playerFileWriter.writeToCsv(playerList, "src/main/resources/players/playersSaved.csv");
     while (iterator.hasNext()) {
       Tile tile = iterator.next();
       writer.write("    {");
@@ -68,22 +63,9 @@ public class BoardFileWriterGson implements BoardFileWriter {
       }
 
       if (tile.getLandAction() != null) {
-        writeLandAction(writer, tile);
+        writeTileAction(writer, tile);
       }
 
-      for (int i = 0; i < playerList.size(); i++) {
-        Player player = playerList.get(i);
-//        if (tile.getTileId() == player.getCurrentTile().getTileId()) {
-//          PlayerFileWriter playerFileWriter = new PlayerFileWriter();
-//          playerFileWriter.writeToCsv(playerList, "playersSaved.csv");
-//          writer.write(", " + "\"player"+ (i+1) + "\": { ");
-//          writer.write("\"name\": \"" + player.getName() + "\"");
-//          writer.write(", " + "\"color\": \"" + player.getColor() + "\"");
-//          writer.write(", " + "\"balance\": " + player.getBalance());
-//          //writer.write(", " + "\"currentTileId\": " + player.getCurrentTile());
-//          writer.write("}");
-//        }
-      }
 
       if (iterator.hasNext()) {
         writer.write("},\n");
@@ -93,18 +75,12 @@ public class BoardFileWriterGson implements BoardFileWriter {
     }
   }
 
-  /**
-   * Writes the land action of the tile to the file.
-   *
-   * @param writer the writer to write to the file
-   * @param tile the tile to write the land action of
-   * @throws IOException if the file could not be written
-   */
-  private static void writeLandAction(BufferedWriter writer, Tile tile) throws IOException {
+  private static void writeTileAction(BufferedWriter writer, Tile tile) throws IOException {
+    TileAction action = tile.getLandAction();
     writer.write(", " + "\"action\": { ");
-    writer.write("\"type\": \"" + "LadderAction" + "\"");
-    writer.write(", " + "\"description\": \"" + tile.getLandAction().getDescription() + "\"");
-    writer.write(", " + "\"destinationTileId\": " + tile.getLandAction().getDestinationTile());
+    writer.write("\"type\": \"" + action.getClass().getSimpleName() + "\"");
+    writer.write(", " + "\"description\": \"" + action.getDescription() + "\"");
+    writer.write(", " + "\"destinationTileId\": " + action.getDestinationTile());
     writer.write("}");
   }
 }
