@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BoardFileWriterGsonTest {
   private BoardFileWriter boardFileWriter;
-  private List<Player> playerList = List.of(new Player("Player1", "RED", null, 0));
 
   @BeforeEach
   void setUp() {
@@ -38,7 +37,7 @@ class BoardFileWriterGsonTest {
     board.addTile(tile3);
 
     Path path = Files.createTempFile("board-writer-test", ".json");
-    boardFileWriter.writeBoard(board, playerList, path);
+    boardFileWriter.writeBoard(board, path);
 
     String expected = """
         {
