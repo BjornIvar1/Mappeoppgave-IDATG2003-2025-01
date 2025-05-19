@@ -94,15 +94,10 @@ public class GameSelection extends BasePage {
     monopolyButton.setPrefHeight(30);
     monopolyButton.setPrefWidth(300);
 
-    Button loadGameButton = new Button("Load Game");
-    loadGameButton.setPrefHeight(30);
-    loadGameButton.setPrefWidth(300);
-
     snakesLaddersButton.setOnAction(event ->  controller.goToCreateUser(1));
     monopolyButton.setOnAction(event -> controller.goToCreateUser(2));
-    loadGameButton.setOnAction(event -> controller.goToGameSelection());
 
-    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton, loadGameButton);
+    buttonPane.getChildren().addAll(snakesLaddersButton, monopolyButton);
     buttonPane.setAlignment(Pos.CENTER);
     return buttonPane;
   }
