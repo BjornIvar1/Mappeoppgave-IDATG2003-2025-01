@@ -1,20 +1,21 @@
 package ui.controller;
 
 import engine.BoardGame;
+import filehandler.PlayerFileReader;
+import filehandler.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import filehandler.board.BoardFileWriter;
 import filehandler.board.BoardFileWriterGson;
-import filehandler.PlayerFileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 import model.Player;
-import model.Tile;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.NullOrBlankException;
+
 
 /**
  * Controller for the Snakes and Ladders game.
@@ -26,6 +27,7 @@ import utils.exception.NullOrBlankException;
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
   private final String boardFilePath;
+  private final String playerFilePath;
   private BoardGame game;
 
   /**
@@ -33,9 +35,12 @@ public class ControllerSnakesAndLadders {
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
    */
-  public ControllerSnakesAndLadders(SceneManager sceneManager, String boardFilePath) {
+  public ControllerSnakesAndLadders(SceneManager sceneManager,
+                                    String boardFilePath,
+                                    String playerFilePath) {
     this.sceneManager = sceneManager;
     this.boardFilePath = boardFilePath;
+    this.playerFilePath = playerFilePath;
   }
 
   /**
@@ -69,9 +74,10 @@ public class ControllerSnakesAndLadders {
     PlayerFileReader playerReader = new PlayerFileReader();
     try {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
-      playerReader.readCsvBuffered(Constants.PLAYER_FILE_PATH, boardGame);
+      playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
+      boardGame.getPlayers().forEach(player ->
+          player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());
@@ -79,28 +85,13 @@ public class ControllerSnakesAndLadders {
     return boardGame;
   }
 
+  /**
+   * Saves the current game state to a file.
+   */
   public void saveGame() throws IOException {
     BoardFileWriter writer = new BoardFileWriterGson();
-    writer.writeBoard(game.getBoard(), game.getPlayers(), Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH));
-  }
-
-  public void loadGame() throws IOException {
-    BoardFileReaderGson reader = new BoardFileReaderGson();
-    PlayerFileReader playerReader = new PlayerFileReader();
-    try {
-      BoardGame loadgame = new BoardGame();
-      loadgame.createBoard(reader.readBoard(Path.of(Constants.SNAKES_AND_LADDERS_SAVE_BOARD_FILE_PATH)));
-      playerReader.readCsvBuffered("src/main/resources/players/playersSaved.csv", loadgame);
-      loadgame.createDice(2);
-      for (Player player : loadgame.getPlayers()) {
-        Tile tile = loadgame.getBoard().getTile(player.getCurrentTileId());
-        player.placeOnTile(tile);
-      }
-      this.game = loadgame;
-    } catch (IOException | NullOrBlankException e) {
-      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
-          .warning("Could not read board or players from file: " + e.getMessage());
-    }
+    writer.writeBoard(game.getBoard(), Path.of(Constants.BOARD_SAVED_FILEPATH));
+    PlayerFileWriter.writeToCsv(game.getPlayers(), "src/main/resources/players/playersSaved.csv");
   }
 
   /**
