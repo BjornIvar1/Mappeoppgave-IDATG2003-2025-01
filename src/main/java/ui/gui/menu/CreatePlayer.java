@@ -56,13 +56,17 @@ public class CreatePlayer extends BasePage {
     setupPlayerField(container);
     setupPlayerAmount();
 
-    Button createUserButton = getStartGameButton();
     chooseGameBoard = getSplitMenuButton();
     if (controller.getGameId() == 2) {
       chooseGameBoard.setVisible(false);
     }
 
-    container.getChildren().addAll(playerAmount, chooseGameBoard, createUserButton);
+    Button createUserButton = getStartGameButton();
+    Button loadGameButton = new Button("Load Last Saved Game");
+
+    loadGameButton.setOnAction(event -> controller.goToGameSelection());
+
+    container.getChildren().addAll(playerAmount, chooseGameBoard, createUserButton, loadGameButton);
     container.setAlignment(Pos.CENTER);
     return container;
   }
