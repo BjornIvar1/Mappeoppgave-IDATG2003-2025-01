@@ -62,10 +62,10 @@ public class ControllerCreatePlayer {
   public void goToGameSelection() {
     if (gameId == 1) {
       sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
-          Constants.BOARD_SAVED_FILEPATH, Constants.PLAYER_SAVED_FILEPATH)));
+          Constants.BOARD_SAVED_FILEPATH, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV)));
     } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
-          Constants.PLAYER_SAVED_FILEPATH)));
+          Constants.MONOPOLY_PLAYER_SAVED_CSV)));
     }
   }
 

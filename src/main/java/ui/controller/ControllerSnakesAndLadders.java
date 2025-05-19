@@ -91,7 +91,7 @@ public class ControllerSnakesAndLadders {
   public void saveGame() throws IOException {
     BoardFileWriter writer = new BoardFileWriterGson();
     writer.writeBoard(game.getBoard(), Path.of(Constants.BOARD_SAVED_FILEPATH));
-    PlayerFileWriter.writeToCsv(game.getPlayers(), "src/main/resources/players/playersSaved.csv");
+    PlayerFileWriter.writeToCsv(game.getPlayers(), Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
   }
 
   /**

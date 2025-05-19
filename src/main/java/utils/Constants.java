@@ -19,8 +19,10 @@ public final class Constants {
       "src/main/resources/board/SnakesAndLadders/SnakesAndLaddersHardBoard.json";
   public static final String BOARD_SAVED_FILEPATH =
       "src/main/resources/board/BoardSaved.json";
-  public static final String PLAYER_SAVED_FILEPATH =
-      "src/main/resources/players/playersSaved.csv";
+  public static final String SNAKES_AND_LADDERS_PLAYER_SAVED_CSV =
+      "src/main/resources/players/playersSavedSnakesAndLadders.csv";
+  public static final String MONOPOLY_PLAYER_SAVED_CSV =
+      "src/main/resources/players/PlayersSaveMonopoly";
   public static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
   public static final int TILE_SIZE = 60;

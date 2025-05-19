@@ -99,7 +99,7 @@ public class ControllerMonopoly {
    * Saves the current game state to a file.
    */
   public void saveGame() {
-    PlayerFileWriter.writeToCsv(boardGameForMonopoly.getPlayers(), Constants.PLAYER_SAVED_FILEPATH);
+    PlayerFileWriter.writeToCsv(boardGameForMonopoly.getPlayers(), Constants.MONOPOLY_PLAYER_SAVED_CSV);
   }
 
   /**
