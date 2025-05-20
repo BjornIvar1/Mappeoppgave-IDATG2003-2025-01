@@ -9,7 +9,6 @@ import filehandler.board.BoardFileWriterGson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 import model.Player;
 import model.Tile;
@@ -24,7 +23,7 @@ import utils.exception.NullOrBlankException;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.2
+ * @version 0.2.0
  */
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
@@ -78,7 +77,7 @@ public class ControllerSnakesAndLadders {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
       playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
-      boardGame.getPlayers().forEach(player ->
+      boardGame.getPlayerIterator().forEachRemaining(player ->
           player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
@@ -163,7 +162,7 @@ public class ControllerSnakesAndLadders {
    *
    * @return the list of {@code Player}
    */
-  public List<Player> getPlayers() {
-    return game.getPlayers();
+  public Iterator<Player> getPlayers() {
+    return game.getPlayerIterator();
   }
 }
