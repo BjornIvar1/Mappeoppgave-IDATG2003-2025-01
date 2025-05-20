@@ -2,6 +2,7 @@ package engine;
 
 import filehandler.PlayerFileWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import model.Board;
 import model.Player;
@@ -14,7 +15,7 @@ import utils.exception.NullOrBlankException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.2
+ * @version 0.4.0
  * @since 0.0.1
  */
 public class BoardGame {
@@ -52,6 +53,10 @@ public class BoardGame {
    */
   public List<Player> getPlayers() {
     return players;
+  }
+
+  public Iterator<Player> getPlayerIterator() {
+    return players.iterator();
   }
 
   /**
