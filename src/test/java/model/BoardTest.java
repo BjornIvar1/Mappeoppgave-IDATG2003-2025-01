@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,6 +68,15 @@ class BoardTest {
   }
 
   @Test
+  void getTileByIdNegativeTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    assertNull(board.getTileById(4));
+  }
+
+  @Test
   void setRowsPositive_Test() {
     board.setRows(5);
     assertEquals(5, board.getRows());
@@ -89,4 +99,41 @@ class BoardTest {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> board.setColumns(-1));
     assertEquals("Columns must be greater than 0", exception.getMessage());
   }
+
+  @Test
+  void getTileCountTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    assertEquals(3, board.getTileCount());
+  }
+
+  @Test
+  void getTileCountNegativeTest() {
+    assertEquals(0, board.getTileCount());
+  }
+
+  @Test
+  void getTileIteratorTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    Iterator<Tile> iterator = board.getTileIterator();
+    assertTrue(iterator.hasNext());
+    assertEquals(tile1, iterator.next());
+    assertTrue(iterator.hasNext());
+    assertEquals(tile2, iterator.next());
+    assertTrue(iterator.hasNext());
+    assertEquals(tile3, iterator.next());
+    assertFalse(iterator.hasNext());
+  }
+
+  @Test
+  void getTileIteratorNegativeTest() {
+    Iterator<Tile> iterator = board.getTileIterator();
+    assertFalse(iterator.hasNext());
+  }
+
 }
