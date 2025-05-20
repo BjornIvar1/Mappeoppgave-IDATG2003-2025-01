@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import utils.exception.IntegerException;
 
@@ -12,7 +13,7 @@ import utils.exception.IntegerException;
  * add tiles and fetch tiles.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.3
+ * @version 0.3.0
  * @since 0.0.1
  */
 public class Board {
@@ -60,6 +61,24 @@ public class Board {
    */
   public Map<Integer, Tile> getTiles() {
     return tiles;
+  }
+
+  /**
+   * Returns an iterator for the tiles.
+   *
+   * @return an iterator for the tiles
+   */
+  public Iterator<Tile> getTileIterator() {
+    return tiles.values().iterator();
+  }
+
+  /**
+   * Returns the number of tiles on the board.
+   *
+   * @return the number of tiles on the board
+   */
+  public int getTileCount() {
+    return tiles.size();
   }
 
   /**
