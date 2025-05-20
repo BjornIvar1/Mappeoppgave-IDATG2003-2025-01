@@ -20,7 +20,6 @@ import utils.exception.NullOrBlankException;
 public class BoardGame {
   private final List<Player> players;
   private Board board;
-  private Player currentPlayer;
   private Dice dice;
   private int currentPlayerIndex;
 
@@ -100,7 +99,7 @@ public class BoardGame {
    * @return currentPlayer
    */
   public Player getCurrentPlayer() {
-    return currentPlayer;
+    return players.get(currentPlayerIndex);
   }
 
   /**
@@ -110,26 +109,19 @@ public class BoardGame {
    * to the next tile. If the player lands on a tile
    * that is not the last tile,
    * it will move to the next player.</p>
+   *
+   * @throws NullOrBlankException if there are no players in the game
    */
   public void play() throws NullOrBlankException {
-    if (currentPlayer == null) {
-      players.forEach(player -> {
-        currentPlayer = players.get(currentPlayerIndex);
-        if (player.getCurrentTile() == null) {
-          player.placeOnTile(board.getTile(1));
-        } else {
-          player.placeOnTile(player.getCurrentTile());
-        }
-      });
+    if (players.isEmpty()) {
+      throw new NullOrBlankException("There are no players in the game.");
     }
 
-    if (currentPlayer == null) {
-      throw new NullOrBlankException("The current player can not be null.");
-    }
+    Player currentPlayer = players.get(currentPlayerIndex);
 
     if (currentPlayer.isPlayerInJail()) {
       currentPlayer.setInJail(false);
-      getAspersionCurrentPlayer();
+      goToNextPlayer();
     }
     int steps = dice.roll();
     currentPlayer.move(steps);
@@ -140,11 +132,10 @@ public class BoardGame {
       return;
     }
 
-    getAspersionCurrentPlayer();
+    goToNextPlayer();
   }
 
-  private void getAspersionCurrentPlayer() {
+  private void goToNextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-    currentPlayer = players.get(currentPlayerIndex);
   }
 }
