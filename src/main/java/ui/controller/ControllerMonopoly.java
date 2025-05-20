@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
+import model.Player;
 import model.Tile;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
@@ -24,7 +25,7 @@ import utils.exception.NullOrBlankException;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.3.0
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
@@ -89,7 +90,7 @@ public class ControllerMonopoly {
       boardGame.createBoard(reader.readBoard(Path.of(Constants.MONOPOLY_BOARD_FILE_PATH)));
       playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
-      boardGame.getPlayers().forEach(player ->
+      boardGame.getPlayerIterator().forEachRemaining(player ->
           player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       System.out.println("Could not read board or players from file: " + e.getMessage());
@@ -102,6 +103,7 @@ public class ControllerMonopoly {
    */
   public void saveGame() {
     PlayerFileWriter.writeToCsv(boardGameForMonopoly.getPlayers(), Constants.MONOPOLY_PLAYER_SAVED_CSV);
+    //TODO listener
   }
 
   /**
@@ -151,6 +153,10 @@ public class ControllerMonopoly {
       }
     }
     return null; // Return null if no matching tile is found
+  }
+
+  public Iterator<Player> getPlayersIterator() {
+    return boardGameForMonopoly.getPlayerIterator();
   }
 
 
