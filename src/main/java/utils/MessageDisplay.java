@@ -1,7 +1,5 @@
 package utils;
 
-import model.Player;
-
 /**
  * This class is responsible for displaying messages in the game.
  *
