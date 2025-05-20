@@ -2,12 +2,10 @@ package ui.gui.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -32,11 +30,13 @@ import java.util.Iterator;
  *   <li>Roll Dice: Plays the game by rolling the dice</li>
  *   <li>Control panel: Lets the user know who has rolled and the score.</li>
  *   <li>Board: Displays the game board with player pieces and different tiles</li>
+ *   <li>Game Rules: Displays the rules of the game</li>
+ *   <li>Save game: Allows the user to save the game</li>
  *   <li>Return: Returns to the game selection menu</li>
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.8.6
+ * @version 0.9.0
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -45,6 +45,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerMonopoly controllerMonopoly;
   private Button startGameButton;
   private Button rollDiceButton;
+  private final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
 
   /**
    * Constructor for the MonopolyPage class.
@@ -64,7 +65,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
-
     setPageContent(mainLayout);
   }
 
@@ -78,12 +78,40 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @param controlPanel The horizontal box containing control buttons and labels.
    */
   private void getMainLayout(GridPane board, HBox controlPanel) {
-    mainLayout.setTop(createReturnButton());
+    mainLayout.setTop(createTopBar());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     mainLayout.setPadding(new Insets(10));
     mainLayout.setMinHeight(600); // Set minimum height for the layout
     mainLayout.setPrefHeight(800); // Set preferred height for the layout
+  }
+
+  /**
+   * Creates the top bar of the game page.
+   *
+   * <p>This method creates a horizontal box layout containing buttons for returning
+   * to the game selection menu and displaying game rules.</p>
+   *
+   * @return A HBox containing the top bar elements.
+   */
+  private HBox createTopBar() {
+    HBox topBar = new HBox();
+    topBar.setPadding(new Insets(10));
+    topBar.setSpacing(10);
+    topBar.setAlignment(Pos.CENTER);
+
+    Button returnButton = createReturnButton();
+    Button gameRulesButton = createGameRulesButton();
+
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
+
+    returnButton.setMaxWidth(Double.MAX_VALUE);
+    gameRulesButton.setMaxWidth(Double.MAX_VALUE);
+
+    topBar.getChildren().addAll(returnButton, spacer, gameRulesButton);
+    mainLayout.setTop(topBar);
+    return topBar;
   }
 
   /**
@@ -167,6 +195,13 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     return controlPanel;
   }
 
+  /**
+   * A button to save the game.
+   *
+   * <p>This button allows the user to save the current game state.</p>
+   *
+   * @return Button to save the game.
+   */
   private Button getSaveGameButton() {
     Button saveGame = new Button("Save Game");
     saveGame.setOnAction(e -> controllerMonopoly.saveGame());
@@ -300,7 +335,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         controllerMonopoly::switchToGameSelection);
   }
 
-
   /**
    * A notification method that is called when a player moves.
    *
@@ -312,6 +346,32 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   @Override
   public void observerPlayerMoved(int tileId) {
     gameInformation.setText("rolled: " + tileId);
+  }
+
+  /**
+   * Create a button to display the game rules.
+   *
+   * <p>This button opens an alert dialog with the game rules when clicked.
+   * The user is prompted:</p>
+   *
+   * <li>Game Rules</li>
+   * <li>Monopoly Game Rules</li>
+   * <li>Game rules text</li>
+   *
+   * @return a Button to display the game rules.
+   */
+  private Button createGameRulesButton() {
+    Button gameRulesButton = new Button("Game Rules");
+    gameRulesButton.setOnAction(event -> {
+      gameRulesAlert.setTitle("Game Rules");
+      gameRulesAlert.setHeaderText("Monopoly Game Rules");
+      gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
+      gameRulesAlert.setResizable(true);
+      gameRulesAlert.setWidth(400);
+      gameRulesAlert.setHeight(500);
+      gameRulesAlert.showAndWait();
+    });
+    return gameRulesButton;
   }
 }
 
