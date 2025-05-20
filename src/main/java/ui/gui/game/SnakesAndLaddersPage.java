@@ -1,6 +1,7 @@
 package ui.gui.game;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,7 +37,7 @@ import utils.exception.NullOrBlankException;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.2
+ * @version 0.3.3
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private final ControllerSnakesAndLadders controller;
@@ -114,7 +115,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       try {
         controller.saveGame();
       } catch (IOException ex) {
-        throw new RuntimeException(ex);
+        Logger.getLogger(SnakesAndLaddersPage.class.getName())
+            .warning("Could not save game: " + ex.getMessage());
       }
     });
     return saveGame;
@@ -241,12 +243,15 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @param stack the StackPane representing the tile
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    controller.getPlayers().stream()
-        .filter(player -> player.getCurrentTile().getTileId() == tileId)
-        .forEach(player -> {
-          Circle playerCircle = createPlayer(player.getColor());
-          stack.getChildren().add(playerCircle);
-        });
+    Iterator<Player> playerIterator = controller.getGame()
+        .getPlayerIterator();
+    while (playerIterator.hasNext()) {
+      Player player = playerIterator.next();
+      if (player.getCurrentTile().getTileId() == tileId) {
+        Circle circle = createPlayer(player.getColor());
+        stack.getChildren().add(circle);
+      }
+    }
   }
 
   /**
