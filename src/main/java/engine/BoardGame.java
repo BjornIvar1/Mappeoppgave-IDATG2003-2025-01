@@ -14,7 +14,7 @@ import utils.exception.NullOrBlankException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.1
+ * @version 0.3.2
  * @since 0.0.1
  */
 public class BoardGame {
@@ -129,21 +129,26 @@ public class BoardGame {
 
     if (currentPlayer.isPlayerInJail()) {
       currentPlayer.setInJail(false);
-      getAspersionCurrentPlayer();
+      getUniqueCurrentPlayer();
     }
     int steps = dice.roll();
     currentPlayer.move(steps);
 
     Tile currentTile = currentPlayer.getCurrentTile();
 
-    if (currentTile.getTileId() == board.getTiles().size()) {
+    if (currentTile.getTileId() == board.getTileCount()) {
       return;
     }
 
-    getAspersionCurrentPlayer();
+    getUniqueCurrentPlayer();
   }
 
-  private void getAspersionCurrentPlayer() {
+  /**
+   * This method is responsible for getting the next player.
+   *
+   * <p>It will check if the current player is the last player<\p>
+   */
+  private void getUniqueCurrentPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     currentPlayer = players.get(currentPlayerIndex);
   }
