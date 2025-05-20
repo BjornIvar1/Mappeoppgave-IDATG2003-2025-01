@@ -18,7 +18,10 @@ import utils.exception.NullOrBlankException;
 
 
 /**
- * Controller for the Snakes and Ladders game.
+ * Controls the game logic for Snakes and Ladders.
+ *
+ * <p>This class iss responsible for interacting with the game engine,
+ * loading and saving game data and providing data to the UI</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
@@ -27,20 +30,18 @@ import utils.exception.NullOrBlankException;
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
   private final String boardFilePath;
-  private final String playerFilePath;
   private BoardGame game;
 
   /**
-   * Constructs a {@code ControllerSnakesAndLadders} with the specified scene manager.
+   * Constructs a {@code ControllerSnakesAndLadders} for the Snakes and Ladders game.
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
+   * @param boardFilePath the path to the board file
    */
   public ControllerSnakesAndLadders(SceneManager sceneManager,
-                                    String boardFilePath,
-                                    String playerFilePath) {
+                                    String boardFilePath) {
     this.sceneManager = sceneManager;
     this.boardFilePath = boardFilePath;
-    this.playerFilePath = playerFilePath;
   }
 
   /**
@@ -59,12 +60,11 @@ public class ControllerSnakesAndLadders {
   }
 
   /**
-   * Initializes the board game by reading the board and player data from files.
+   * Creates a new {@link BoardGame} by reading the board and player data from files.
    *
-   * <p>This method creates a new {@code BoardGame} instance,
-   * reads the board configuration from a JSON file,
-   * and initializes the players from a CSV file.
-   * It also places each player on the starting tile of the board.</p>
+   * <p>Reads the board configuration from a JSON file,
+   * and the player data from a CSV file. Initializes the game with two dice,
+   * and places each player on the starting tile.</p>
    *
    * @return a new {@code BoardGame} instance with the initialized board and players
    */
@@ -74,7 +74,7 @@ public class ControllerSnakesAndLadders {
     PlayerFileReader playerReader = new PlayerFileReader();
     try {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
-      playerReader.readCsvBuffered(playerFilePath, boardGame);
+      playerReader.readCsvBuffered(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayers().forEach(player ->
           player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
@@ -87,15 +87,60 @@ public class ControllerSnakesAndLadders {
 
   /**
    * Saves the current game state to a file.
+   *
+   * <p>This method uses {@link BoardFileWriter} to save the current board used,
+   * and {@link PlayerFileWriter} to save the players to a CSV file.</p>
    */
-  public void saveGame() throws IOException {
-    BoardFileWriter writer = new BoardFileWriterGson();
-    writer.writeBoard(game.getBoard(), Path.of(Constants.BOARD_SAVED_FILEPATH));
-    PlayerFileWriter.writeToCsv(game.getPlayers(), Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
+  public void saveGame() {
+    try {
+      BoardFileWriter writer = new BoardFileWriterGson();
+      writer.writeBoard(game.getBoard(), Path.of(Constants.BOARD_SAVED_FILEPATH));
+      PlayerFileWriter.writeToCsv(game.getPlayers(), Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
+    } catch (IOException e) {
+      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+          .warning("Could not save game:: " + e.getMessage());
+    }
   }
 
   /**
-   * Returns the current game instance.
+   * Checks whether the current player has won the game.
+   *
+   * <p>Returns true if a player have reached the final tile,
+   * or false otherwise</p>
+   */
+  public boolean winningCondition() {
+    return game.getCurrentPlayer().getCurrentTile().getTileId() == getTotalTiles();
+  }
+
+  /**
+   * Rolls the dice and performs the player's turn.
+   *
+   * <p>Handles player movement and catches any data related errors</p>
+   */
+  public void rollDice() {
+    try {
+      game.play();
+    } catch (NullOrBlankException e) {
+      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+          .warning("Failed to play turn: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Calculates the sum of the values of all dice.
+   *
+   * @return the sum of the values of all dice
+   */
+  public int getDieSum() {
+    int sum = 0;
+    for (int i = 0; i < game.getDice().getNumberOfDice(); i++) {
+      sum += game.getDice().getDie(i);
+    }
+    return sum;
+  }
+
+  /**
+   * Returns the current {@link BoardGame} instance.
    *
    * @return the current {@code BoardGame} instance
    */
@@ -131,21 +176,12 @@ public class ControllerSnakesAndLadders {
   }
 
   /**
-   * Returns the current players ID.
-   *
-   * @return the ID of the current player
-   */
-  public int getCurrentTileId() {
-    return game.getCurrentPlayer().getCurrentTile().getTileId();
-  }
-
-  /**
-   * Returns the current players action on the specified tile.
+   * Return the {@link TileAction} associated to a specific tile.
    *
    * @param tileId the ID of the tile
-   * @return the {@code TileAction} associated with the current player on the specified tile
+   * @return the {@code TileAction} associated with the current tile, or {@code null}
    */
-  public TileAction getCurrentPlayerAction(int tileId) {
+  public TileAction getTileAction(int tileId) {
     return game.getBoard().getTiles().get(tileId).getLandAction();
   }
 
@@ -154,6 +190,7 @@ public class ControllerSnakesAndLadders {
    *
    * @return the list of {@code Player}
    */
+  //TODO Make it an iterator or stream etc...
   public List<Player> getPlayers() {
     return game.getPlayers();
   }
