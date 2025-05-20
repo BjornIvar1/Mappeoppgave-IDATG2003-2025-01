@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import model.Board;
 import model.Player;
@@ -76,5 +77,23 @@ class BoardGameTest {
   void createBoardNegativeTest() {
     Exception exception = assertThrows(NullOrBlankException.class, () -> boardGame.createBoard(null));
     assertEquals("The board can not be null.", exception.getMessage());
+  }
+
+  @Test
+  void getPlayerIteratorPositiveTest() {
+    boardGame.addPlayer(player1);
+    boardGame.addPlayer(player2);
+    Iterator<Player> playerIterator = boardGame.getPlayerIterator();
+    assertTrue(playerIterator.hasNext());
+    assertEquals(player1, playerIterator.next());
+    assertTrue(playerIterator.hasNext());
+    assertEquals(player2, playerIterator.next());
+    assertFalse(playerIterator.hasNext());
+  }
+
+  @Test
+  void getPlayerIteratorNegativeTest() {
+    Iterator<Player> playerIterator = boardGame.getPlayerIterator();
+    assertFalse(playerIterator.hasNext());
   }
 }
