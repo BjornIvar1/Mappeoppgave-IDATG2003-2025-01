@@ -1,4 +1,4 @@
-package filehandler;
+package filehandler.board;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import model.tileactions.*;
 import model.Board;
 import model.Tile;
+import model.tileactions.*;
 import utils.Constants;
 
 /**
@@ -97,16 +97,20 @@ public class BoardFileReaderGson implements BoardFileReader {
    * @param tilesArray the JSON array of tiles
    * @param tileMap the map of tiles
    */
-  private static void createTileAction(JsonArray tilesArray, Map<Integer, Tile> tileMap, JsonObject rootObj) {
+  private static void createTileAction(JsonArray tilesArray,
+                                       Map<Integer, Tile> tileMap,
+                                       JsonObject rootObj) {
     for (JsonElement element : tilesArray) {
       JsonObject tileObj = element.getAsJsonObject();
       int id = tileObj.get("id").getAsInt();
       Tile currentTile = tileMap.get(id);
-      if (tileObj.has(Constants.ACTION) && "Snakes and Ladders".equals(rootObj.get("name").getAsString())) {
+      if (tileObj.has(Constants.ACTION)
+          && "Snakes and Ladders".equals(rootObj.get("name").getAsString())) {
         JsonObject actionObj = tileObj.getAsJsonObject(Constants.ACTION);
         TileAction tileAction = createTileActionSnakesAndLadders(actionObj);
         currentTile.setLandAction(tileAction);
-      } else if (tileObj.has(Constants.ACTION) && "Monopoly".equals(rootObj.get("name").getAsString())) {
+      } else if (tileObj.has(Constants.ACTION)
+          && "Monopoly".equals(rootObj.get("name").getAsString())) {
         JsonObject actionObj = tileObj.getAsJsonObject(Constants.ACTION);
         TileAction tileAction = createTileMonopolyAction(actionObj);
         currentTile.setLandAction(tileAction);

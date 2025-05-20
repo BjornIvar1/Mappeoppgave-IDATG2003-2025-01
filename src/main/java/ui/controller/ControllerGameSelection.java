@@ -1,6 +1,6 @@
 package ui.controller;
 
-import ui.gui.menu.CreatePlayer;
+import ui.gui.menu.GameSetupPage;
 
 /**
  * Manages game selection interactions.
@@ -30,7 +30,7 @@ public class ControllerGameSelection {
    * @param gameId the ID of the game to be selected
    */
   public void goToCreateUser(int gameId) {
-    sceneManager.setView(new CreatePlayer(new ControllerCreatePlayer(sceneManager, gameId)));
+    sceneManager.setView(new GameSetupPage(new ControllerGameSetupPage(sceneManager, gameId)));
   }
 }
 

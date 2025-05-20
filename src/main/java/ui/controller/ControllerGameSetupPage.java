@@ -1,6 +1,8 @@
 package ui.controller;
 
 import filehandler.PlayerFileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.TextField;
@@ -22,16 +24,16 @@ import utils.exception.InvalidPlayerFields;
  * @since 0.0.1
  * @version 0.0.4
  */
-public class ControllerCreatePlayer {
+public class ControllerGameSetupPage {
   private final SceneManager sceneManager;
   private final int gameId;
 
   /**
-   * Constructs a {@code ControllerCreatePlayer} with a specified scene manager.
+   * Constructs a {@code ControllerGameSetupPage} with a specified scene manager.
    *
    * @param sceneManager the {@code SceneManager} responsible for handling scene transitions
    */
-  public ControllerCreatePlayer(SceneManager sceneManager, int gameId) {
+  public ControllerGameSetupPage(SceneManager sceneManager, int gameId) {
     this.sceneManager = sceneManager;
     this.gameId = gameId;
   }
@@ -39,7 +41,7 @@ public class ControllerCreatePlayer {
   /**
    * Navigates to the game page based on the game ID.
    *
-   * <p>This method sets the view to the correct game page based on the game IDm,
+   * <p>This method sets the view to the correct game page based on the game ID,
    * and uses the gameBoardPath for selecting the type of board to use.</p>
    *
    * @param gameBoardPath the path to the selected game board
@@ -47,9 +49,48 @@ public class ControllerCreatePlayer {
   public void goToGame(String gameBoardPath) {
     if (gameId == 1) {
       sceneManager.setView(new SnakesAndLaddersPage(
-          new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
+          new ControllerSnakesAndLadders(sceneManager, gameBoardPath, Constants.PLAYER_FILE_PATH)));
     } else if (gameId == 2) {
-      sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager)));
+      sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
+          Constants.PLAYER_FILE_PATH)));
+    }
+  }
+
+  /**
+   * Checks if a saved game can be loaded based on the game ID.
+   *
+   * <p>This method verifies if a saved game file exists for the specified game ID.</p>
+   *
+   * @return {@code true} if a saved game can be loaded, {@code false} otherwise
+   */
+  private boolean canLoadSavedGame() {
+    if (gameId == 1) {
+      return Files.exists(Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV));
+    } else if (gameId == 2) {
+      return Files.exists(Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV));
+    }
+    return false;
+  }
+
+  /**
+   * Loads the saved game based on the game ID.
+   *
+   * <p>This method sets the view to the correct game page based on the game ID
+   * and loads the saved game data.</p>
+   *
+   * @throws IllegalStateException if no saved game is found
+   */
+  public void loadSavedGame() {
+    if (!canLoadSavedGame()) {
+      throw new IllegalStateException("No saved game found.");
+    } else {
+      if (gameId == 1) {
+        sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
+            Constants.BOARD_SAVED_FILEPATH, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV)));
+      } else if (gameId == 2) {
+        sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
+            Constants.MONOPOLY_PLAYER_SAVED_CSV)));
+      }
     }
   }
 

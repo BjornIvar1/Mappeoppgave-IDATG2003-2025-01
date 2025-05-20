@@ -15,8 +15,7 @@ import model.Player;
  * @since 0.0.1
  */
 public class PlayerFileWriter {
-
-  private PlayerFileWriter() {}
+  private PlayerFileWriter () {}
 
   /**
    * Write a CSV file from a list.
@@ -27,7 +26,8 @@ public class PlayerFileWriter {
   public static void writeToCsv(List<Player> playersToSave, String fileName) {
     try (BufferedWriter writer = Files.newBufferedWriter(Path.of(fileName))) {
       for (Player player : playersToSave) {
-        writer.write(player.getName() + "," + player.getColor() + "," + player.getBalance() + "\n");
+        int currentTileId = player.getCurrentTile() != null ? player.getCurrentTile().getTileId() : player.getCurrentTileId();
+        writer.write(player.getName() + "," + player.getColor() + "," + player.getBalance() + "," + currentTileId + "\n");
       }
     } catch (IOException e) {
       System.out.println("Error writing to file: " + fileName);

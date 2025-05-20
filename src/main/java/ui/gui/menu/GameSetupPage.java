@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import ui.controller.ControllerCreatePlayer;
+import ui.controller.ControllerGameSetupPage;
 import ui.gui.BasePage;
 import utils.Constants;
 import utils.exception.GUIInvalidNameException;
@@ -25,8 +25,8 @@ import utils.exception.InvalidPlayerFields;
  * @version 0.2.0
  * @since 0.0.1
  */
-public class CreatePlayer extends BasePage {
-  private final ControllerCreatePlayer controller;
+public class GameSetupPage extends BasePage {
+  private final ControllerGameSetupPage controller;
   private final Spinner<Integer> playerAmount = new Spinner<>(0, 4, 0);
   private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
   private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -36,11 +36,11 @@ public class CreatePlayer extends BasePage {
   private String gameBoardPath;
 
   /**
-   * Constructs a {@code CreatePlayer} instance with a given game controller.
+   * Constructs a {@code GameSetupPage} instance with a given game controller.
    *
    * @param controllerGameChoice the game controller responsible for player creation logic
    */
-  public CreatePlayer(ControllerCreatePlayer controllerGameChoice) {
+  public GameSetupPage(ControllerGameSetupPage controllerGameChoice) {
     this.controller = controllerGameChoice;
     setCenter(createUserPane());
   }
@@ -56,15 +56,33 @@ public class CreatePlayer extends BasePage {
     setupPlayerField(container);
     setupPlayerAmount();
 
-    Button createUserButton = getStartGameButton();
     chooseGameBoard = getSplitMenuButton();
     if (controller.getGameId() == 2) {
       chooseGameBoard.setVisible(false);
     }
 
-    container.getChildren().addAll(playerAmount, chooseGameBoard, createUserButton);
+    Button createUserButton = getStartGameButton();
+    Button loadGameButton = getLoadGameButton();
+
+    container.getChildren().addAll(playerAmount, chooseGameBoard, createUserButton, loadGameButton);
     container.setAlignment(Pos.CENTER);
     return container;
+  }
+
+  private Button getLoadGameButton() {
+    Button loadGameButton = new Button("Load Last Saved Game");
+
+    loadGameButton.setOnAction(event -> {
+      try {
+        controller.loadSavedGame();
+        alertConfirmation.setContentText("Game loaded successfully!");
+        alertConfirmation.show();
+      } catch (Exception e) {
+        alertWarning.setContentText(e.getMessage());
+        alertWarning.show();
+      }
+    });
+    return loadGameButton;
   }
 
   /**
@@ -156,7 +174,7 @@ public class CreatePlayer extends BasePage {
             playerFields);
         controller.createPlayer(playerAmount.getValue(), playerFields, listOfColors);
 
-        alertConfirmation.setContentText("Users created successfully!");
+        alertConfirmation.setContentText("Game created successfully!");
         alertConfirmation.show();
         controller.goToGame(gameBoardPath);
       } catch (GUIInvalidNameException | InvalidPlayerFields e) {

@@ -1,4 +1,4 @@
-package filehandler;
+package filehandler.board;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import model.Board;
 import model.Tile;
+import model.tileactions.*;
 
 /**
  * Class that writes a board to a file using Gson.
@@ -62,30 +63,24 @@ public class BoardFileWriterGson implements BoardFileWriter {
       }
 
       if (tile.getLandAction() != null) {
-        writeLandAction(writer, tile);
+        writeTileAction(writer, tile);
       }
-      writer.write("}");
+
 
       if (iterator.hasNext()) {
-        writer.write(",\n");
+        writer.write("},\n");
       } else {
-        writer.write("\n");
+        writer.write("}\n");
       }
     }
   }
 
-  /**
-   * Writes the land action of the tile to the file.
-   *
-   * @param writer the writer to write to the file
-   * @param tile the tile to write the land action of
-   * @throws IOException if the file could not be written
-   */
-  private static void writeLandAction(BufferedWriter writer, Tile tile) throws IOException {
+  private static void writeTileAction(BufferedWriter writer, Tile tile) throws IOException {
+    TileAction action = tile.getLandAction();
     writer.write(", " + "\"action\": { ");
-    writer.write("\"type\": \"" + "LadderAction" + "\"");
-    writer.write(", " + "\"description\": \"" + tile.getLandAction().getDescription() + "\"");
-    writer.write(", " + "\"destinationTileId\": " + tile.getLandAction().getDestinationTile());
+    writer.write("\"type\": \"" + action.getClass().getSimpleName() + "\"");
+    writer.write(", " + "\"description\": \"" + action.getDescription() + "\"");
+    writer.write(", " + "\"destinationTileId\": " + action.getDestinationTile());
     writer.write("}");
   }
 }

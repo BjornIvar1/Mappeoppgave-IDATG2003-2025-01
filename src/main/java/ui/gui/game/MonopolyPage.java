@@ -1,12 +1,13 @@
 package ui.gui.game;
 
-import engine.BoardGame;
-import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -17,47 +18,49 @@ import ui.controller.ControllerMonopoly;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
 import utils.Constants;
-import utils.exception.NullOrBlankException;
-import utils.MessageDisplay;
 
 /**
  * Represents the Monopoly game page in the GUI.
  *
- * <p>This class is responsible for displaying the game board and handling user interactions</p>
+ * <p>This class is responsible for displaying the game board and handling user interactions.</p>
  *
- * <p>The user is introduced to two buttons start game and roll dice</p>
+ * <p>The user is introduced to three buttons, a control panel and the board game.</p>
  * <ul>
  *   <li>Start Game: Initializes a new game</li>
+ *   <li>Roll Dice: Plays the game by rolling the dice</li>
+ *   <li>Control panel: Lets the user know who has rolled and the score.</li>
+ *   <li>Board: Displays the game board with player pieces and different tiles</li>
+ *   <li>Return: Returns to the game selection menu</li>
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @since 0.0.1
  * @version 0.8.4
+ * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage {
-  private BoardGame boardGameForMonopoly;
   private final BorderPane mainLayout;
   private Label gameInformation;
   private final ControllerMonopoly controllerMonopoly;
+  private Button startGameButton;
+  private Button rollDiceButton;
 
   /**
    * Constructor for the MonopolyPage class.
+   *
+   * <p>This class sets up the Monopoly game page, including the game board,
+   * control panel, and buttons for user interaction.</p>
    *
    * @param controllerMonopoly the controller for the Monopoly game.
    */
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     this.controllerMonopoly = controllerMonopoly;
-    initializeGameMPY();
+    controllerMonopoly.initializeMonopoly();
+
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
     mainLayout = new BorderPane();
-    mainLayout.setTop(createReturnButton());
-    mainLayout.setCenter(board);
-    mainLayout.setBottom(controlPanel);
-    mainLayout.setPadding(new Insets(10));
-    mainLayout.setMinHeight(600); // Set minimum height for the layout
-    mainLayout.setPrefHeight(800); // Set preferred height for the layout
+    getMainLayout(board, controlPanel);
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
@@ -66,15 +69,21 @@ public class MonopolyPage extends BaseGamePage {
   }
 
   /**
-   * Initializes the Monopoly game by loading the board configuration and player data
-   * from the specified file paths.
+   * Creates the main layout for the Monopoly game page.
    *
-   * <p>This method sets up the `boardGameForMonopoly` object by reading the board
-   * layout from a JSON file and player information from a CSV file.</p>
+   * <p>This method sets up the main layout of the game page, including the board,
+   * control panel, and return button.</p>
+   *
+   * @param board       The grid containing the Monopoly board.
+   * @param controlPanel The horizontal box containing control buttons and labels.
    */
-  private void initializeGameMPY() {
-    boardGameForMonopoly = initializeBoardGame(Constants.MONOPOLY_BOARD_FILE_PATH,
-        Constants.PLAYER_FILE_PATH);
+  private void getMainLayout(GridPane board, HBox controlPanel) {
+    mainLayout.setTop(createReturnButton());
+    mainLayout.setCenter(board);
+    mainLayout.setBottom(controlPanel);
+    mainLayout.setPadding(new Insets(10));
+    mainLayout.setMinHeight(600); // Set minimum height for the layout
+    mainLayout.setPrefHeight(800); // Set preferred height for the layout
   }
 
   /**
@@ -96,34 +105,34 @@ public class MonopolyPage extends BaseGamePage {
     int firstTileId = 1; // Start with tile ID 1
 
     //First row from left to right. Tile from 1-10.
-    for (int xCoordinateRow = gridSize - 2; xCoordinateRow >= 0; xCoordinateRow--) {
+    for (int xcoordinateRow = gridSize - 2; xcoordinateRow >= 0; xcoordinateRow--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, xCoordinateRow, gridSize - 1);
+        grid.add(tile, xcoordinateRow, gridSize - 1);
       }
     }
 
     //First column from bottom to top. Tile from 11-19.
-    for (int yCoordinateColumn = gridSize - 2; yCoordinateColumn >= 0; yCoordinateColumn--) {
+    for (int ycoordinateColumn = gridSize - 2; ycoordinateColumn >= 0; ycoordinateColumn--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, 0, yCoordinateColumn);
+        grid.add(tile, 0, ycoordinateColumn);
       }
     }
 
     //Second row from right to left. Tile from 20-30.
-    for (int xCoordinateRow = 1; xCoordinateRow < gridSize - 1; xCoordinateRow++) {
+    for (int xcoordinateRow = 1; xcoordinateRow < gridSize - 1; xcoordinateRow++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, xCoordinateRow, 0);
+        grid.add(tile, xcoordinateRow, 0);
       }
     }
 
     //Second column from top to bottom. Tile from 31-40.
-    for (int yCoordinateColumn = 0; yCoordinateColumn < gridSize; yCoordinateColumn++) {
+    for (int ycoordinateColumn = 0; ycoordinateColumn < gridSize; ycoordinateColumn++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, gridSize - 1, yCoordinateColumn);
+        grid.add(tile, gridSize - 1, ycoordinateColumn);
       }
     }
     return grid;
@@ -145,35 +154,43 @@ public class MonopolyPage extends BaseGamePage {
     controlPanel.setAlignment(Pos.CENTER);
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
-    Label playerInformation = new Label(displayPlayerInfoMonopoly(boardGameForMonopoly));
+    Label playerInformation = new Label(displayPlayerInfoMonopoly(
+        controllerMonopoly.getBoardGame()));
 
-    Button rollDice = rollDiceButton(playerInformation);
-    Button startGameButton = getStartGameButton(rollDice, playerInformation);
+    Button rollDice = getRollDiceButton(playerInformation);
+    Button startButton = getStartGameButton(playerInformation);
+    Button saveGame = getSaveGameButton();
 
 
-    controlPanel.getChildren().addAll(startGameButton,
-        rollDice, gameInformation, playerInformation);
+    controlPanel.getChildren().addAll(startButton, rollDice,
+        gameInformation, playerInformation, saveGame);
     return controlPanel;
   }
+
+  private Button getSaveGameButton() {
+    Button saveGame = new Button("Save Game");
+    saveGame.setOnAction(e -> controllerMonopoly.saveGame());
+    return saveGame;
+  }
+
 
   /**
    * Creates the button to start the game.
    *
    * <p>This method initializes the game and enables the roll dice button.</p>
    *
-   * @param rollDice          The button to roll the dice.
    * @param playerInformation The label to display player information.
    * @return Button to start the game.
    */
-  private Button getStartGameButton(Button rollDice, Label playerInformation) {
-    Button startGameButton = new Button("Start Game");
+  private Button getStartGameButton(Label playerInformation) {
+    startGameButton = new Button("Start Game");
     startGameButton.setDisable(true);
     startGameButton.setOnAction(event -> {
-      initializeGameMPY();
+      controllerMonopoly.initializeMonopoly();
       updateBoard();
-      rollDice.setDisable(false);
+      rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);
-      playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
+      playerInformation.setText(displayPlayerInfoMonopoly(controllerMonopoly.getBoardGame()));
     });
     return startGameButton;
   }
@@ -186,37 +203,34 @@ public class MonopolyPage extends BaseGamePage {
    * @param playerInformation The label to display player information.
    * @return Button to roll the dice.
    */
-  private Button rollDiceButton(Label playerInformation) {
-    Button rollDice = new Button("Roll Dice");
-    rollDice.setOnAction(e -> {
-      try {
-        boardGameForMonopoly.play();
-      } catch (NullOrBlankException ex) {
-        Logger.getLogger(MonopolyPage.class.getName())
-            .warning("Tile not found: " + ex.getMessage());
-      }
-      Player player = boardGameForMonopoly.getCurrentPlayer();
-      int rollSum = boardGameForMonopoly.getDice().getDie(0)
-          + boardGameForMonopoly.getDice().getDie(1);
-
-      if (player.getBalance() >= 1000000) { // Winning condition
-        gameInformation.setText(MessageDisplay.winningMessage(player));
-        rollDice.setDisable(true);
-        Button startGameButton = (Button)
-            ((HBox) rollDice.getParent())
-                .getChildren().getFirst(); //code from GitHub Copilot.
-        startGameButton.setDisable(false);
+  private Button getRollDiceButton(Label playerInformation) {
+    rollDiceButton = new Button("Roll Dice");
+    rollDiceButton.setDisable(false);
+    rollDiceButton.setOnAction(event -> {
+      controllerMonopoly.initializeRollDice();
+      Player player = controllerMonopoly.getBoardGame().getCurrentPlayer();
+      int rollSum = controllerMonopoly.getBoardGame().getDice().getDie(0)
+          + controllerMonopoly.getBoardGame().getDice().getDie(1);
+      if (!controllerMonopoly.winnerFound()) {
+        gameInformation.setText(controllerMonopoly
+            .getBoardGame().getCurrentPlayer().getName() + " rolled: " + rollSum);
       } else {
-        gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
+        gameInformation.setText("Winner: " + player.getName());
+        rollDiceButton.setDisable(true);
+        startGameButton.setDisable(false);
       }
-      playerInformation.setText(displayPlayerInfoMonopoly(boardGameForMonopoly));
+      playerInformation.setText(displayPlayerInfoMonopoly(controllerMonopoly.getBoardGame()));
       updateBoard();
     });
-    return rollDice;
+    return rollDiceButton;
   }
 
   /**
    * Updates the board display by creating a new board grid and replacing the old one.
+   *
+   * <p>This method is called to refresh the board display after a player rolls the dice.
+   * It creates a new grid layout for the board
+   * and sets it as the center of the main layout.</p>
    */
   private void updateBoard() {
     GridPane boardGrid = createBoard();
@@ -235,15 +249,13 @@ public class MonopolyPage extends BaseGamePage {
    */
   private StackPane createTile(int tileId) {
     StackPane stack = new StackPane();
-    Rectangle rect = new Rectangle(60, 60);
+    Rectangle rect = new Rectangle(Constants.TILE_SIZE, Constants.TILE_SIZE);
     Color baseColor = getColor(tileId);
-
     rect.setFill(baseColor);
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-
-    TileAction landAction = boardGameForMonopoly.getBoard().getTiles().get(tileId).getLandAction();
+    TileAction landAction = controllerMonopoly.getTileAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(60);
@@ -256,7 +268,6 @@ public class MonopolyPage extends BaseGamePage {
     return stack;
   }
 
-
   /**
    * Places player pieces on the specified tile.
    *
@@ -267,7 +278,7 @@ public class MonopolyPage extends BaseGamePage {
    * @param stack  The StackPane representing the tile.
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    boardGameForMonopoly.getPlayers().stream()
+    controllerMonopoly.getBoardGame().getPlayers().stream()
         .filter(player -> player.getCurrentTile().getTileId() == tileId)
         .forEach(player -> {
           Circle playerCircle = createPlayer(player.getColor());
@@ -275,6 +286,14 @@ public class MonopolyPage extends BaseGamePage {
         });
   }
 
+  /**
+   * Creates a return button to go back to the game selection menu.
+   *
+   * <p>This button is used to navigate back to the game selection menu.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to return to the game selection menu.
+   */
   private Button createReturnButton() {
     return ButtonFactory.returnButtonFactory("back",
         controllerMonopoly::switchToGameSelection);

@@ -17,12 +17,13 @@ import utils.exception.NullOrBlankException;
  */
 
 public class Player {
-  private String name;
-  private Tile currentTile;
   private final BoardGame game;
+  private final int currentTileId;
+  private String name;
   private String color;
   private int balance;
   private boolean inJail;
+  private Tile currentTile;
 
   /**
    * A constructor for the {@code Player} class.
@@ -38,7 +39,38 @@ public class Player {
     this.game = game;
     this.balance = balance;
     setBalance(0);
+    this.currentTileId = 1;
+  }
 
+  /**
+   * Constructor for the {@code Player} class.
+   *
+   * <p>This constructor is used to create a player with a specific tile id.
+   * It is used when loading a saved game.</p>
+   *
+   *
+   * @param name is the name of the player.
+   * @param game the board game the player is playing.
+   * @param color the color of the player.
+   * @param balance the balance of the player.
+   * @param currentTileId the id of the tile the player is on.
+   */
+  public Player(String name, String color, BoardGame game, int balance, int currentTileId) {
+    setName(name);
+    setColor(color);
+    this.game = game;
+    this.balance = balance;
+    setBalance(0);
+    this.currentTileId = currentTileId;
+  }
+
+  /**
+   * Accessor method for the player's current tile id.
+   *
+   * @return the player's current tile id
+   */
+  public int getCurrentTileId() {
+    return currentTileId;
   }
 
   /**
