@@ -36,7 +36,7 @@ import java.util.Iterator;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.8.5
+ * @version 0.8.6
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -57,10 +57,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     this.controllerMonopoly = controllerMonopoly;
     controllerMonopoly.initializeMonopoly();
-    controllerMonopoly.getBoardGame().addObserver(this);
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
-
     mainLayout = new BorderPane();
     getMainLayout(board, controlPanel);
 
@@ -107,34 +105,34 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     int firstTileId = 1; // Start with tile ID 1
 
     //First row from left to right. Tile from 1-10.
-    for (int xcoordinateRow = gridSize - 2; xcoordinateRow >= 0; xcoordinateRow--) {
+    for (int x_coordinateRow = gridSize - 2; x_coordinateRow >= 0; x_coordinateRow--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, xcoordinateRow, gridSize - 1);
+        grid.add(tile, x_coordinateRow, gridSize - 1);
       }
     }
 
     //First column from bottom to top. Tile from 11-19.
-    for (int ycoordinateColumn = gridSize - 2; ycoordinateColumn >= 0; ycoordinateColumn--) {
+    for (int y_coordinateColumn = gridSize - 2; y_coordinateColumn >= 0; y_coordinateColumn--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, 0, ycoordinateColumn);
+        grid.add(tile, 0, y_coordinateColumn);
       }
     }
 
     //Second row from right to left. Tile from 20-30.
-    for (int xcoordinateRow = 1; xcoordinateRow < gridSize - 1; xcoordinateRow++) {
+    for (int x_coordinateRow = 1; x_coordinateRow < gridSize - 1; x_coordinateRow++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, xcoordinateRow, 0);
+        grid.add(tile, x_coordinateRow, 0);
       }
     }
 
     //Second column from top to bottom. Tile from 31-40.
-    for (int ycoordinateColumn = 0; ycoordinateColumn < gridSize; ycoordinateColumn++) {
+    for (int y_coordinateColumn = 0; y_coordinateColumn < gridSize; y_coordinateColumn++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, gridSize - 1, ycoordinateColumn);
+        grid.add(tile, gridSize - 1, y_coordinateColumn);
       }
     }
     return grid;
