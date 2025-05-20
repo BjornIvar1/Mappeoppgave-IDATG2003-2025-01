@@ -18,6 +18,7 @@ import ui.controller.ControllerMonopoly;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
 import utils.Constants;
+import java.util.Iterator;
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -34,7 +35,7 @@ import utils.Constants;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.8.4
+ * @version 0.8.5
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage {
@@ -278,12 +279,14 @@ public class MonopolyPage extends BaseGamePage {
    * @param stack  The StackPane representing the tile.
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    controllerMonopoly.getBoardGame().getPlayers().stream()
-        .filter(player -> player.getCurrentTile().getTileId() == tileId)
-        .forEach(player -> {
-          Circle playerCircle = createPlayer(player.getColor());
-          stack.getChildren().add(playerCircle);
-        });
+    Iterator<Player> playerIterator = controllerMonopoly.getPlayersIterator();
+    while (playerIterator.hasNext()) {
+      Player player = playerIterator.next();
+      if (player.getCurrentTile().getTileId() == tileId) {
+        Circle circle = createPlayer(player.getColor());
+        stack.getChildren().add(circle);
+      }
+    }
   }
 
   /**
