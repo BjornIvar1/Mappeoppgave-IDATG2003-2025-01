@@ -4,7 +4,7 @@ STUDENT NAME = "ARPIT SAHOO"
 STUDENT ID = "131809"
 
 STUDENT NAME = "Bjørn Ivar Thorsen Høie"  
-STUDENT ID = ""
+STUDENT ID = "134131"
 
 ## About
 3Spill is an application that allows the user to play a variety of games. 
