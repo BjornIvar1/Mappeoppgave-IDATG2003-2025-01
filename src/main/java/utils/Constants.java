@@ -5,7 +5,7 @@ package utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.4
+ * @version 0.0.5
  */
 public final class Constants {
   // Prevent instantiation
@@ -35,9 +35,19 @@ public final class Constants {
 
   public static final String LABEL_START_GAME_BUTTON = "Start Game";
   public static final String LABEL_ROLL_DICE_BUTTON = "Roll Dice";
+
   public static final String LABEL_LAST_ROLLED_BUTTON = "Last rolled: ---";
   public static final String ACTION = "action";
   public static final String DESCRIPTION = "description";
 
   public static final int WINNING_BALANCE = 3000000;
+
+  public static final String MONOPOLY_RULES  = """
+      This is a simplified monopoly game for 1-4 players. \
+      Everyone gets 2 dice and rolls them. The player that earns $3,000,000 wins.
+      There are three different tiles in the game:
+      Money tile: The player that lands receives $500,000.
+      Tax tile: The player that lands pays $250,000.
+      Jail tile: The player that lands on this tile will be skipped in the next turn.
+      Good luck and have fun!""";
 }
