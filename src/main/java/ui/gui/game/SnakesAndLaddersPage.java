@@ -252,7 +252,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-    TileAction landAction = controller.getCurrentPlayerAction(tileId);
+    TileAction landAction = controller.getTileAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(Constants.TILE_SIZE);
