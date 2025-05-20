@@ -6,7 +6,9 @@ import filehandler.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.logging.Logger;
+import model.Tile;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
@@ -22,7 +24,7 @@ import utils.exception.NullOrBlankException;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
@@ -141,7 +143,14 @@ public class ControllerMonopoly {
    * @return the {@code TileAction} associated with the specified tile ID
    */
   public TileAction getTileAction(int tileId) {
-    return boardGameForMonopoly.getBoard().getTiles().get(tileId).getLandAction();
+    Iterator<Tile> tileIterator = boardGameForMonopoly.getBoard().getTileIterator();
+    while (tileIterator.hasNext()) {
+      Tile tile = tileIterator.next();
+      if (tile.getTileId() == tileId) {
+        return tile.getLandAction();
+      }
+    }
+    return null; // Return null if no matching tile is found
   }
 
 
