@@ -5,6 +5,8 @@ import filehandler.board.BoardFileReaderGson;
 import filehandler.PlayerFileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
@@ -15,7 +17,7 @@ import utils.exception.NullOrBlankException;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.2
+ * @version 0.4.3
  */
 public class BaseGamePage extends BasePage {
 
@@ -53,15 +55,19 @@ public class BaseGamePage extends BasePage {
   /**
    * Displays the players in the game.
    *
+   * <p>This method is used to display the players in the game
+   * for the Snakes and Ladders game.</p>
+   *
    * @param boardGame the board game
    * @return a string representation of the players
    */
   protected String displayPlayers(BoardGame boardGame) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (Player player : boardGame.getPlayers()) {
+    Iterator<Player> playerIterator = boardGame.getPlayerIterator();
+    while (playerIterator.hasNext()) {
+      Player player = playerIterator.next();
       stringBuilder.append("Name: ").append(player.getName()).append("; ")
-          .append("Game Piece: ").append(player.getColor())
-          .append("\n");
+          .append("Game Piece: ").append(player.getColor()).append("\n");
     }
     return stringBuilder.toString();
   }
@@ -69,15 +75,20 @@ public class BaseGamePage extends BasePage {
   /**
    * Displays the players in the game for Monopoly.
    *
+   * <p>This method is used to display the players in the game
+   * for the Monopoly game.</p>
+   *
    * @param boardGame the board game
    * @return a string representation of the players
    */
   protected String displayPlayerInfoMonopoly(BoardGame boardGame) {
     StringBuilder stringBuilder = new StringBuilder();
-    for (Player p : boardGame.getPlayers()) {
-      stringBuilder.append("Name: ").append(p.getName()).append("; ")
-          .append("Game Piece: ").append(p.getColor()).append("; ")
-          .append("Balance: ").append(p.getBalance()).append("\n");
+    Iterator<Player> playerIteratorInMonopoly = boardGame.getPlayerIterator();
+    while (playerIteratorInMonopoly.hasNext()) {
+      Player player = playerIteratorInMonopoly.next();
+      stringBuilder.append("Name: ").append(player.getName()).append("; ")
+          .append("Game Piece: ").append(player.getColor()).append("; ")
+          .append("Balance: ").append(player.getBalance()).append("\n");
     }
     return stringBuilder.toString();
   }
