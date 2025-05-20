@@ -1,6 +1,5 @@
 package engine;
 
-import filehandler.PlayerFileWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +7,7 @@ import model.Board;
 import model.Player;
 import model.Tile;
 import observer.BoardGameObserver;
+import observer.Subjects;
 import utils.exception.NullOrBlankException;
 
 /**
@@ -16,10 +16,10 @@ import utils.exception.NullOrBlankException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.0
+ * @version 0.5.0
  * @since 0.0.1
  */
-public class BoardGame {
+public class BoardGame implements Subjects {
   private final List<Player> players;
   private Board board;
   private Player currentPlayer;
@@ -35,18 +35,6 @@ public class BoardGame {
     observers = new ArrayList<>();
   }
 
-  private void notifyPlayerMoved(int tileId) {
-    for (BoardGameObserver observer : observers) {
-      observer.observerPlayerMoved(tileId);
-    }
-  }
-
-  public void addObserver(BoardGameObserver observer) {
-    if (observer != null && !observers.contains(observer)) {
-      observers.add(observer);
-    }
-  }
-
   /**
    * A method for adding a player to the board game.
    * The player can not already exist or be {@code null}
@@ -57,7 +45,6 @@ public class BoardGame {
     if (!players.contains(player) && player != null) {
       players.add(player);
     }
-    PlayerFileWriter.writeToCsv(players, "src/main/resources/players/playersInGameFile.csv");
   }
 
   /**
@@ -159,7 +146,7 @@ public class BoardGame {
     if (currentTile.getTileId() == board.getTileCount()) {
       return;
     }
-    notifyPlayerMoved(currentPlayer.getCurrentTile().getTileId());
+    notifyObservers();
     getUniqueCurrentPlayer();
   }
 
@@ -171,5 +158,37 @@ public class BoardGame {
   private void getUniqueCurrentPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     currentPlayer = players.get(currentPlayerIndex);
+  }
+
+  /**
+   * Adds an observer to the list of observers.
+   *
+   * @param observer the observer to add
+   */
+  @Override
+  public void addObserver(BoardGameObserver observer) {
+    observers.add(observer);
+  }
+
+  /**
+   * Removes an observer from the list of observers.
+   *
+   * @param observer the observer to remove
+   */
+  @Override
+  public void removeObserver(BoardGameObserver observer) {
+    observers.remove(observer);
+  }
+
+  /**
+   * Notifies all registered observers about a change.
+   *
+   * <p>This method is called when a player moves to a new tile on the board.
+   * It notifies all registered observers about the player's movement.</p>
+   */
+  @Override
+  public void notifyObservers() {
+    observers.forEach(observer ->
+        observer.observerPlayerMoved(currentPlayer.getCurrentTile().getTileId()));
   }
 }
