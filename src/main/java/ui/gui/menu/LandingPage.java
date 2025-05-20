@@ -20,7 +20,7 @@ import ui.gui.BasePage;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class LandingPage extends BasePage {
   private final ControllerLandingPage controller;
@@ -76,8 +76,8 @@ public class LandingPage extends BasePage {
     FlowPane buttonPane = new FlowPane();
     Button startButton = new Button("Start");
     startButton.setOnAction(event ->  controller.switchToGameChoice());
-    startButton.prefHeight(30);
-    startButton.prefWidth(300);
+    startButton.setPrefHeight(30);
+    startButton.setPrefWidth(300);
     buttonPane.getChildren().addAll(startButton);
     buttonPane.setAlignment(Pos.CENTER);
     return buttonPane;
