@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import model.Player;
 import model.Tile;
 import model.tileactions.TileAction;
+import ui.gui.game.MonopolyPage;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.NullOrBlankException;
@@ -27,12 +28,13 @@ import utils.exception.NullOrBlankException;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.0
+ * @version 0.3.1
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
   private final String playerFilePath;
   private BoardGame boardGameForMonopoly;
+  private final MonopolyPage monopolyPage;
 
   /**
    * Constructs a {@code ControllerMonopoly} with the specified scene manager.
@@ -42,6 +44,7 @@ public class ControllerMonopoly {
   public ControllerMonopoly(SceneManager sceneManager, String playerFilePath) {
     this.sceneManager = sceneManager;
     this.playerFilePath = playerFilePath;
+    this.monopolyPage = new MonopolyPage(this);
   }
 
   /**
@@ -52,6 +55,7 @@ public class ControllerMonopoly {
    * when the user want to return to the game selection menu.</p>
    */
   public void switchToGameSelection() {
+    boardGameForMonopoly.removeObserver(monopolyPage);
     sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
   }
 
@@ -63,6 +67,7 @@ public class ControllerMonopoly {
    */
   public void initializeMonopoly() {
     boardGameForMonopoly = initializeBoardGame();
+    boardGameForMonopoly.addObserver(monopolyPage);
   }
 
   /**
@@ -172,6 +177,4 @@ public class ControllerMonopoly {
   public Iterator<Player> getPlayersIterator() {
     return boardGameForMonopoly.getPlayerIterator();
   }
-
-
 }
