@@ -8,9 +8,11 @@ import filehandler.board.BoardFileWriter;
 import filehandler.board.BoardFileWriterGson;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import model.Player;
+import model.Tile;
 import model.tileactions.TileAction;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
@@ -22,7 +24,7 @@ import utils.exception.NullOrBlankException;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
@@ -140,13 +142,20 @@ public class ControllerSnakesAndLadders {
   }
 
   /**
-   * Returns the current players action on the specified tile.
+   * Returns the current player's action for a specific tile.
    *
    * @param tileId the ID of the tile
-   * @return the {@code TileAction} associated with the current player on the specified tile
+   * @return the {@code TileAction} associated with the tile
    */
   public TileAction getCurrentPlayerAction(int tileId) {
-    return game.getBoard().getTiles().get(tileId).getLandAction();
+    Iterator<Tile> tileIterator = game.getBoard().getTileIterator();
+    while (tileIterator.hasNext()) {
+      Tile tile = tileIterator.next();
+      if (tile.getTileId() == tileId) {
+        return tile.getLandAction();
+      }
+    }
+    return null; // Return null if no matching tile is found
   }
 
   /**
