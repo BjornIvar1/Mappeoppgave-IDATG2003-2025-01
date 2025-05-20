@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import model.Player;
 import ui.gui.game.MonopolyPage;
 import ui.gui.game.SnakesAndLaddersPage;
+import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.GUIInvalidNameException;
 import utils.exception.InvalidPlayerFields;
@@ -22,7 +23,7 @@ import utils.exception.InvalidPlayerFields;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.4
+ * @version 0.0.5
  */
 public class ControllerGameSetupPage {
   private final SceneManager sceneManager;
@@ -151,5 +152,14 @@ public class ControllerGameSetupPage {
    */
   public int getGameId() {
     return gameId;
+  }
+
+  /**
+   * Navigates back to the game selection page.
+   *
+   * <p>This method enables a button to return to the game selection page.</p>
+   */
+  public void returnToGameSelection() {
+    sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
   }
 }
