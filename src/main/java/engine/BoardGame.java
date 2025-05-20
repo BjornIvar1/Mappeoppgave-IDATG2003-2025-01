@@ -7,6 +7,7 @@ import java.util.List;
 import model.Board;
 import model.Player;
 import model.Tile;
+import observer.BoardGameObserver;
 import utils.exception.NullOrBlankException;
 
 /**
@@ -24,12 +25,26 @@ public class BoardGame {
   private Player currentPlayer;
   private Dice dice;
   private int currentPlayerIndex;
+  private final List<BoardGameObserver> observers;
 
   /**
    * A constructor the {@code engine.BoardGame} class.
    */
   public BoardGame() {
     players = new ArrayList<>();
+    observers = new ArrayList<>();
+  }
+
+  private void notifyPlayerMoved(int tileId) {
+    for (BoardGameObserver observer : observers) {
+      observer.observerPlayerMoved(tileId);
+    }
+  }
+
+  public void addObserver(BoardGameObserver observer) {
+    if (observer != null && !observers.contains(observer)) {
+      observers.add(observer);
+    }
   }
 
   /**
@@ -144,7 +159,7 @@ public class BoardGame {
     if (currentTile.getTileId() == board.getTileCount()) {
       return;
     }
-
+    notifyPlayerMoved(currentPlayer.getCurrentTile().getTileId());
     getUniqueCurrentPlayer();
   }
 
