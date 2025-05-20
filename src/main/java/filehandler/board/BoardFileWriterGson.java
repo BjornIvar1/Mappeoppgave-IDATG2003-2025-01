@@ -13,7 +13,7 @@ import model.tileactions.*;
  * Class that writes a board to a file using Gson.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.2
+ * @version 0.2.3
  * @since 0.0.1
  */
 public class BoardFileWriterGson implements BoardFileWriter {
@@ -50,7 +50,7 @@ public class BoardFileWriterGson implements BoardFileWriter {
    * @throws IOException if the file could not be written
    */
   private static void writeTiles(Board board, BufferedWriter writer) throws IOException {
-    Iterator<Tile> iterator = board.getTiles().values().iterator();
+    Iterator<Tile> iterator = board.getTileIterator();
     while (iterator.hasNext()) {
       Tile tile = iterator.next();
       writer.write("    {");
