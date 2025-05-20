@@ -6,7 +6,9 @@ import filehandler.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 import model.Player;
 import model.Tile;
@@ -98,12 +100,24 @@ public class ControllerMonopoly {
     return boardGame;
   }
 
+
   /**
-   * Saves the current game state to a file.
+   * Saves the current game state to a CSV file.
+   *
+   * <p>This method saves the current players data to a CSV file
+   * using the {@code PlayerFileWriter} class.</p>
    */
   public void saveGame() {
-    PlayerFileWriter.writeToCsv(boardGameForMonopoly.getPlayers(), Constants.MONOPOLY_PLAYER_SAVED_CSV);
-    //TODO listener
+    Iterator<Player> playerIterator = getPlayersIterator();
+    // Get the iterator for players
+    List<Player> players = new ArrayList<>(); // Create a list to store players
+    while (playerIterator.hasNext()) {
+      Player player = playerIterator.next(); // Get the next player
+      players.add(player); // Add the player to the list
+    }
+    PlayerFileWriter.writeToCsv(players, Constants.MONOPOLY_PLAYER_SAVED_CSV);
+    // Save the players to a CSV file
+    players.clear(); // Clear the list after saving
   }
 
   /**
