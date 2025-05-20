@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
 import model.tileactions.TileAction;
+import observer.BoardGameObserver;
 import ui.controller.ControllerMonopoly;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
@@ -38,7 +39,7 @@ import java.util.Iterator;
  * @version 0.8.5
  * @since 0.0.1
  */
-public class MonopolyPage extends BaseGamePage {
+public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private final BorderPane mainLayout;
   private Label gameInformation;
   private final ControllerMonopoly controllerMonopoly;
@@ -56,7 +57,7 @@ public class MonopolyPage extends BaseGamePage {
   public MonopolyPage(ControllerMonopoly controllerMonopoly) {
     this.controllerMonopoly = controllerMonopoly;
     controllerMonopoly.initializeMonopoly();
-
+    controllerMonopoly.getBoardGame().addObserver(this);
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
@@ -213,8 +214,7 @@ public class MonopolyPage extends BaseGamePage {
       int rollSum = controllerMonopoly.getBoardGame().getDice().getDie(0)
           + controllerMonopoly.getBoardGame().getDice().getDie(1);
       if (!controllerMonopoly.winnerFound()) {
-        gameInformation.setText(controllerMonopoly
-            .getBoardGame().getCurrentPlayer().getName() + " rolled: " + rollSum);
+        observerPlayerMoved(rollSum);
       } else {
         gameInformation.setText("Winner: " + player.getName());
         rollDiceButton.setDisable(true);
@@ -303,5 +303,17 @@ public class MonopolyPage extends BaseGamePage {
   }
 
 
+  /**
+   * A notification method that is called when a player moves.
+   *
+   * <p>This method updates the game information label
+   * to display the rolled value.</p>
+   *
+   * @param tileId the ID of the tile the player moved to.
+   */
+  @Override
+  public void observerPlayerMoved(int tileId) {
+    gameInformation.setText("rolled: " + tileId);
+  }
 }
 
