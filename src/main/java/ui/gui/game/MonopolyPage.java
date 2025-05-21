@@ -155,13 +155,12 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDiceButton.setDisable(false);
     rollDiceButton.setOnAction(event -> {
-      String playerName = controller.getGame().getCurrentPlayer().getName();
+//      String playerName = controller.getGame().getCurrentPlayer().getName();
       controller.rollDice();
-      if (controller.winnerFound()) {
-        gameInformation.setText(MessageDisplay.winningMessage(playerName));
-        rollDiceButton.setDisable(true);
-        startGameButton.setDisable(false);
-      }
+//      if (controller.winnerFound()) {
+//        rollDiceButton.setDisable(true);
+//        startGameButton.setDisable(false);
+//      }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
     });
@@ -373,6 +372,32 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         gameInformation.setText(MessageDisplay.playerInJailMessage(name));
       }
     });
+  }
+
+
+  /**
+   * A notification method that is called when a player wins the game.
+   *
+   * <p>This method updates the game information
+   * label to display the winning message. It also disables
+   * {@code rollDiceButton} and enables {@code startGameButton}
+   * to allow the user to start a new game.</p>
+   *
+   * @param name the name of the player who won.
+   * @param winner the total steps the player moved to win.
+   */
+  @Override
+  public void observerPlayerWonInMonopoly(String name, boolean winner) {
+    if (winner) {
+      Platform.runLater(() -> gameInformation.setText(MessageDisplay.winningMessage(name)));
+      rollDiceButton.setDisable(true);
+      startGameButton.setDisable(false);
+    }
+  }
+
+  @Override
+  public void observerPlayerWonInSnakesAndLadders(String name, boolean winner) {
+    // This method is not used in Monopoly, but it is required by the interface.
   }
 }
 

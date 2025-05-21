@@ -136,15 +136,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDiceButton.setDisable(false);
     rollDiceButton.setOnAction(e -> {
-      String playerName = controller.getGame().getCurrentPlayer().getName();
       controller.rollDice();
-
-      if (controller.winningCondition()) {
-        gameInformation.setText(MessageDisplay.winningMessage(playerName));
-        rollDiceButton.setDisable(true);
-        startGameButton.setDisable(false);
-      }
-
       updateBoard();
     });
     return rollDiceButton;
@@ -174,7 +166,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startGameButton.setDisable(true);
     startGameButton.setOnAction(e -> {
-      controller.initializeGame();
+      controller.initializeGame1();
       updateBoard();
       rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);
@@ -329,5 +321,21 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
         gameInformation.setText(MessageDisplay.playerInJailMessage(name));
       }
     });
+  }
+
+  @Override
+  public void observerPlayerWonInMonopoly(String name, boolean winner) {
+    // This method is not used in Snakes and Ladders, but must be implemented.
+  }
+
+  @Override
+  public void observerPlayerWonInSnakesAndLadders(String name, boolean winner) {
+    if (winner) {
+      Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
+        gameInformation.setText(MessageDisplay.winningMessage(name));
+      });
+      rollDiceButton.setDisable(true);
+      startGameButton.setDisable(false);
+    }
   }
 }

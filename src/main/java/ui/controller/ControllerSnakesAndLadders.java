@@ -67,6 +67,14 @@ public class ControllerSnakesAndLadders {
     game.addObserver(snakesAndLaddersPage);
   }
 
+  public void initializeGame1() {
+    game.removeObserver(snakesAndLaddersPage);
+    game = initializeBoardGame();
+    game.addObserver(snakesAndLaddersPage);
+  }
+
+
+
   /**
    * Creates a new {@link BoardGame} by reading the board and player data from files.
    *
