@@ -1,6 +1,6 @@
 package ui.controller;
 
-import filehandler.PlayerFileWriter;
+import filehandler.player.PlayerFileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import utils.exception.InvalidPlayerFields;
 /**
  * Controller for handling game setup page interactions.
  *
- * <p>This includes player creation, game board selection,
+ * <p>This includes handling player creation, game board selection,
  * loading saved games, and validation for user input.</p>
  *
  * @author A. Sahoo, B.I. Høie
@@ -81,7 +81,7 @@ public class ControllerGameSetupPage {
   }
 
   /**
-   * Checks if a saved game file exists and can be loaded for the selected game.
+   * Checks if a saved game file exists for the selected game.
    *
    * @return {@code true} if a saved game can exists, otherwise {@code false}
    */
@@ -113,7 +113,7 @@ public class ControllerGameSetupPage {
       throw new InvalidPlayerFields("Please select a number of players.");
     }
 
-    if ("Choose Game Board".equals(gameBoardText) && gameId == 1) {
+    if (Constants.LABEL_CHOOSE_GAME_BOARD.equals(gameBoardText) && gameId == 1) {
       throw new InvalidPlayerFields("Please select a game board.");
     }
 
@@ -128,7 +128,7 @@ public class ControllerGameSetupPage {
   }
 
   /**
-   * Creates {@link Player} objects based on user input and writes them to a CSV file.
+   * Creates {@link Player} object based on user input and writes them to a CSV file.
    *
    * @param playerAmount the number of players
    * @param playerFields the list of player fields
