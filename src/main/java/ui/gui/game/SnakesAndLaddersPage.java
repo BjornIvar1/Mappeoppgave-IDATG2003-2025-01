@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Player;
 import model.tileactions.TileAction;
+import observer.BoardGameObserver;
 import ui.controller.ControllerSnakesAndLadders;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
@@ -34,9 +35,9 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.0
+ * @version 0.5.0
  */
-public class SnakesAndLaddersPage extends BaseGamePage {
+public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerSnakesAndLadders controller;
   private BorderPane mainLayout;
   private Label gameInformation;
@@ -139,7 +140,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
       } else {
-        gameInformation.setText(MessageDisplay.rollDiceMessage(playerName, controller.getDieSum()));
+        observerPlayerMoved(playerName, controller.getDieSum());
       }
       updateBoard();
     });
@@ -308,5 +309,10 @@ public class SnakesAndLaddersPage extends BaseGamePage {
         stack.getChildren().add(circle);
       }
     }
+  }
+
+  @Override
+  public void observerPlayerMoved(String name, int rolledSum) {
+    gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
   }
 }
