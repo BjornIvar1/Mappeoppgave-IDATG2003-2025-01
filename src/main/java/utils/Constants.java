@@ -70,7 +70,7 @@ public final class Constants {
   /**
    * Label for the start game button.
    */
-  public static final String LABEL_START_GAME_BUTTON = "Start Game";
+  public static final String LABEL_RESTART_GAME_BUTTON = "Restart Game";
 
   /**
    * Label for the save game button.

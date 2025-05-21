@@ -28,7 +28,7 @@ import utils.MessageDisplay;
  * such as rolling dice, saving a game, or restarting the game.</p>
  *
  * <ul>
- *   <li>Start Game: Initializes a new game</li>
+ *   <li>Restart Game: Initializes a new game</li>
  *   <li>Control panel: Displays the three buttons the user can interact with,
  *   and information about the game</li>
  *   <li>Board: Displays the game board with player pieces</li>
@@ -43,7 +43,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   private final ControllerSnakesAndLadders controller;
   private BorderPane mainLayout;
   private Label gameInformation;
-  private Button startGameButton;
+  private Button restartGameButton;
   private Button rollDiceButton;
 
   /**
@@ -93,7 +93,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    *
    * <p>The control panel includes:</p>
    * <ul>
-   *   <li>Start Game: Initializes a new game</li>
+   *   <li>Reset Game: Initializes a new game</li>
    *   <li>Roll Dice: Rolls the dice and updates the game state</li>
    *   <li>Game Information: Displays the last rolled dice and player information</li>
    *   <li>Player Information: Displays the information of the players</li>
@@ -111,12 +111,12 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
 
     rollDiceButton = getRollDiceButton();
     Button saveGame = getSaveGameButton();
-    startGameButton = getStartGameButton();
+    restartGameButton = getResetGameButton();
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
 
-    controlPanel.getChildren().addAll(startGameButton,
+    controlPanel.getChildren().addAll(restartGameButton,
         rollDiceButton,
         gameInformation,
         playerInformation,
@@ -156,23 +156,23 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   }
 
   /**
-   * Creates the button to start the game.
+   * Creates the button to restarts the game.
    *
    * <p>Uses the controller to initialize a new game</p>
    *
-   * @return Button to start the game.
+   * @return Button to restart the game.
    */
-  private Button getStartGameButton() {
-    startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
-    startGameButton.setDisable(true);
-    startGameButton.setOnAction(e -> {
-      controller.initializeGame();
+  private Button getResetGameButton() {
+    restartGameButton = new Button(Constants.LABEL_RESTART_GAME_BUTTON);
+    restartGameButton.setDisable(true);
+    restartGameButton.setOnAction(e -> {
+      controller.resetGame();
       controller.getGame().addObserver(this);
       updateBoard();
       rollDiceButton.setDisable(false);
-      startGameButton.setDisable(true);
+      restartGameButton.setDisable(true);
     });
-    return startGameButton;
+    return restartGameButton;
   }
 
   /**
@@ -334,7 +334,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     if (winner) {
       Platform.runLater(() -> gameInformation.setText(MessageDisplay.winningMessage(name)));
       rollDiceButton.setDisable(true);
-      startGameButton.setDisable(false);
+      restartGameButton.setDisable(false);
     }
   }
 }
