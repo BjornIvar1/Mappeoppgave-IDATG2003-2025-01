@@ -5,7 +5,7 @@ package utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.2
+ * @version 0.1.0
  */
 public class MessageDisplay {
   // Prevent instantiation
@@ -29,5 +29,15 @@ public class MessageDisplay {
    */
   public static String rollDiceMessage(String player, int rollSum) {
     return player + " rolled: " + rollSum;
+  }
+
+  /**
+   * Displays the message if player lands on a jail tile.
+   *
+   * @param player the player who landed on the jail.
+   * @return the message to be displayed
+   */
+  public static String playerInJailMessage(String player) {
+    return player + " is in jail";
   }
 }
