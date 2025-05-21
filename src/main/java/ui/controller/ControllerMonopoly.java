@@ -1,10 +1,10 @@
 package ui.controller;
 
 import engine.BoardGame;
+import filehandler.board.BoardFileReaderGson;
 import filehandler.board.BoardFileWriter;
 import filehandler.player.PlayerFileReader;
 import filehandler.player.PlayerFileWriter;
-import filehandler.board.BoardFileReaderGson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
