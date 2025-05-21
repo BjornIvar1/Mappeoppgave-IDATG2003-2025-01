@@ -133,16 +133,6 @@ public class ControllerSnakesAndLadders {
   }
 
   /**
-   * Checks whether the current player has won the game.
-   *
-   * <p>Returns {@code true} if a player have reached the final tile,
-   * or {@code false} otherwise</p>
-   */
-  public boolean winningCondition() {
-    return game.getCurrentPlayer().getCurrentTile().getTileId() == getTotalTiles();
-  }
-
-  /**
    * Rolls the dice and performs the player's turn.
    *
    * <p>Handles player movement and catches any data related errors</p>

@@ -154,17 +154,6 @@ public class ControllerMonopoly {
   }
 
   /**
-   * Checks whether the current player has won the game.
-   *
-   * <p>Returns {@code true} if a player have earned the winning balance,
-   * or {@code false} otherwise</p>
-   */
-  public boolean winnerFound() {
-    return game.getCurrentPlayer().getBalance()
-        >= Constants.WINNING_BALANCE;
-  }
-
-  /**
    * Returns the current player's action for a specific tile.
    *
    * @param tileId the ID of the tile
