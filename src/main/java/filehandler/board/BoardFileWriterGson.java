@@ -10,7 +10,10 @@ import model.Tile;
 import model.tileactions.*;
 
 /**
- * Class that writes a board to a file using Gson.
+ * Class that writes a {@link Board} to a JSON file by using Gson.
+ *
+ * <p>Each tile is written with an id, its position and {@code TileAction} if it exists,
+ *   and stores it as JSON file.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.3
@@ -19,11 +22,13 @@ import model.tileactions.*;
 public class BoardFileWriterGson implements BoardFileWriter {
 
   /**
-   * Writes a board to a file using Gson.
+   * Writes a board into file using Gson.
+   *
+   * <p>This includes writing the data for the tiles.</p>
    *
    * @param board the board to write
-   * @param filePath the path to the file
-   * @throws IOException if the file could not be written
+   * @param filePath the path for the file
+   * @throws IOException if the file can not be written
    */
   @Override
   public void writeBoard(Board board, Path filePath) throws IOException {
@@ -44,6 +49,9 @@ public class BoardFileWriterGson implements BoardFileWriter {
 
   /**
    * Writes the tiles of the board to the file.
+   *
+   * <p>Each tile includes the tile id, x and y coordinate,
+   * links it up to the next tile and any associated action.</p>
    *
    * @param board the board to write
    * @param writer the writer to write to the file
@@ -75,6 +83,15 @@ public class BoardFileWriterGson implements BoardFileWriter {
     }
   }
 
+  /**
+   * Writes the action of the tile to the file.
+   *
+   * <p>Each action includes the type, description and destination tile id.</p>
+   *
+   * @param writer the writer to write to the file
+   * @param tile the tile to write
+   * @throws IOException if the file could not be written
+   */
   private static void writeTileAction(BufferedWriter writer, Tile tile) throws IOException {
     TileAction action = tile.getLandAction();
     writer.write(", " + "\"action\": { ");

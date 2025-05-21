@@ -9,8 +9,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 
 /**
- * This class represents the base page for the application.
- * Including methods needed for all the pages.
+ * This class includes methods needed for all the pages.
+ *
+ * <p>Provides a shared functionality such as a top menu bar</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
@@ -19,9 +20,7 @@ import javafx.scene.layout.*;
 public class BasePage extends BorderPane {
 
   /**
-   * Creates a new instance of BasePage.
-   *
-   * <p>This constructor initializes the top menu bar for the page.</p>
+   * Constructs {@link BasePage} with a default top menu bar.
    */
   public BasePage() {
     setTop(createMenuBar());
@@ -74,9 +73,7 @@ public class BasePage extends BorderPane {
   /**
    * Sets the content of the page.
    *
-   * <p>This method sets the center of the page to the specified content.</p>
-   *
-   * @param content the content to be set in the center of the page.
+   * @param content the content to be set
    */
   protected void setPageContent(Pane content) {
     setCenter(content);

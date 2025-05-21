@@ -68,7 +68,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    *
    * <p>The layout is structured as follows:</p>
    * <ul>
-   *   <li>Top: Contains the return button to go back to the game selection menu</li>
+   *   <li>Top: Contains a button to return and display the game rules</li>
    *   <li>Center: Contains the game board</li>
    *   <li>Bottom: Contains the control panel with buttons and game information</li>
    *</ul>
@@ -93,6 +93,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    *   <li>Start Game: Initializes a new game</li>
    *   <li>Roll Dice: Rolls the dice and updates the game state</li>
    *   <li>Game Information: Displays the last rolled dice and player information</li>
+   *   <li>Player Information: Displays the information of the players</li>
    *   <li>Save Game: Saves the current game state</li>
    * </ul>
    *
@@ -107,7 +108,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
 
     rollDiceButton = getRollDiceButton();
     Button saveGame = getSaveGameButton();
-    startGameButton = getStartGameButton(rollDiceButton);
+    startGameButton = getStartGameButton();
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
@@ -167,13 +168,13 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    *
    * @return Button to start the game.
    */
-  private Button getStartGameButton(Button rollDice) {
+  private Button getStartGameButton() {
     startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startGameButton.setDisable(true);
     startGameButton.setOnAction(e -> {
       controller.initializeGame();
       updateBoard();
-      rollDice.setDisable(false);
+      rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);
     });
     return startGameButton;

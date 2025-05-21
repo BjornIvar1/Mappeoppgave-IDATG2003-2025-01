@@ -1,8 +1,8 @@
 package ui.controller;
 
 import engine.BoardGame;
-import filehandler.PlayerFileReader;
-import filehandler.PlayerFileWriter;
+import filehandler.player.PlayerFileReader;
+import filehandler.player.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import filehandler.board.BoardFileWriter;
 import filehandler.board.BoardFileWriterGson;
@@ -85,7 +85,7 @@ public class ControllerSnakesAndLadders {
       playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayerIterator().forEachRemaining(player ->
-          player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
+          player.placeOnTile(boardGame.getBoard().getTileById(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Could not read board or players from file: " + e.getMessage());
@@ -113,8 +113,8 @@ public class ControllerSnakesAndLadders {
   /**
    * Checks whether the current player has won the game.
    *
-   * <p>Returns true if a player have reached the final tile,
-   * or false otherwise</p>
+   * <p>Returns {@code true} if a player have reached the final tile,
+   * or {@code false} otherwise</p>
    */
   public boolean winningCondition() {
     return game.getCurrentPlayer().getCurrentTile().getTileId() == getTotalTiles();

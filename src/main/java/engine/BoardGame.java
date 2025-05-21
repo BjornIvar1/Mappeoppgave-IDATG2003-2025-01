@@ -11,9 +11,10 @@ import observer.Subjects;
 import utils.exception.NullOrBlankException;
 
 /**
- * The class {@code engine.BoardGame} represents the whole game.
- * It includes methods for: adding a player, creating dice, creating a board
- * and playing the game.
+ * The {@code engine.BoardGame} class represents the logic for a playing a board game.
+ *
+ * <p>The class manages players, the board, dice and the turn,
+ * It also implements the {@link Subjects} interface for notifying the observers</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.6.2
@@ -38,7 +39,7 @@ public class BoardGame implements Subjects {
    * A method for adding a player to the board game.
    * The player can not already exist or be {@code null}
    *
-   * @param player the player to add
+   * @param player the {@link Player} to add
    */
   public void addPlayer(Player player) {
     if (!players.contains(player) && player != null) {
@@ -47,8 +48,9 @@ public class BoardGame implements Subjects {
   }
 
   /**
-   * Retrieves a player that is participating in
-   * the game.
+   * Returns the list of players in the game.
+   *
+   * <p>This method is only used in test classes</p>
    *
    * @return players.
    */
@@ -56,13 +58,18 @@ public class BoardGame implements Subjects {
     return players;
   }
 
+  /**
+   * Returns an iterator for the players in the game.
+   *
+   * @return an iterator for the players
+   */
   public Iterator<Player> getPlayerIterator() {
     return players.iterator();
   }
 
   /**
    * Creates a new set of dice with a specific amount,
-   * using the constructor from the class engine.Dice.
+   * using the constructor from the class {@link Dice}.
    *
    * @param numberOfDice the number of dice to create
    */
@@ -70,9 +77,10 @@ public class BoardGame implements Subjects {
     this.dice = new Dice(numberOfDice);
   }
 
-  /** Accessor the dice that are created.
+  /**
+   * Returns the {@link Dice} used in the game.
    *
-   * @return the dices that are created.
+   * @return the dices instance
    */
   public Dice getDice() {
     return dice;
@@ -80,7 +88,6 @@ public class BoardGame implements Subjects {
 
   /**
    * Creates a new board for the game.
-   * If board is null it throws an exception.
    *
    * @param board the board to create
    * @throws NullOrBlankException if the board is null
@@ -92,7 +99,10 @@ public class BoardGame implements Subjects {
     this.board = board;
   }
 
-  /** Accessor method that returns the board.
+  /**
+   * Returns the {@link Board} used in the game.
+   *
+   * <p>This method is only used in test classes</p>
    *
    * @return board.
    */
@@ -101,7 +111,7 @@ public class BoardGame implements Subjects {
   }
 
   /**
-   * Accessor method that returns the current player.
+   * Returns the player whose turn it currently is in the game.
    *
    * @return currentPlayer
    */

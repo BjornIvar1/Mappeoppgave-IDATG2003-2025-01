@@ -19,7 +19,7 @@ abstract class MonopolyActions implements TileAction {
   private String description;
 
   /**
-   * Creates a tile action.
+   * Constructs a Monopoly tile Action with a specified description.
    *
    * @param description of what happens when the player lands on a tile.
    */

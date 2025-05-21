@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * The class engine.Die represents a six sided die,
- * that can generate a number between 1-6.
+ * which generates a number from 1-6.
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
@@ -28,7 +28,7 @@ public class Die {
   /**
    * Returns the last rolled value.
    *
-   * @return the value of the last rolled
+   * @return the last rolled value
    */
   public int getValue() {
     return lastRolledValue;

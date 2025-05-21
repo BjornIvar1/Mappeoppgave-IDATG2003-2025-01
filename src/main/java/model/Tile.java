@@ -1,12 +1,13 @@
 package model;
 
-import utils.exception.IntegerException;
 import model.tileactions.TileAction;
+import utils.exception.IntegerException;
 import utils.exception.NullOrBlankException;
 
 /**
- * Class model.Tile represents a tile on a game board.
- * Each tile has its own ID, and a tile can perform an action on a player.
+ * Represents a tile on the game board.
+ *
+ * <p>Each tile has it own unique ID, coordinates and optionally an action to perform.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.4
@@ -20,9 +21,11 @@ public class Tile {
   private int yCoordinate;
 
   /**
-   * Constructor for creating model.Tile with a unique ID.
+   * Constructs a {@link Tile} with a given ID and coordinates.
    *
    * @param tileId the id for the tile
+   * @param xCoordinate the x-coordinate of the tile
+   * @param yCoordinate the y-coordinate of the tile
    */
   public Tile(int tileId, int xCoordinate, int yCoordinate) {
     setTileId(tileId);
@@ -52,7 +55,7 @@ public class Tile {
   }
 
   /**
-   * Sets the tileId of a tile.
+   * Sets the unique ID of the tile.
    *
    * @param tileId the id of the tile
    * @throws IntegerException if the tileId is negative

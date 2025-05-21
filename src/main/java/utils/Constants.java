@@ -88,6 +88,11 @@ public final class Constants {
   public static final String LABEL_LAST_ROLLED_BUTTON = "Last rolled: ---";
 
   /**
+   * Label for the choosing a game board.
+   */
+  public static final String LABEL_CHOOSE_GAME_BOARD = "Choose Game Board";
+
+  /**
    * Const for the word Action.
    */
   public static final String ACTION = "action";

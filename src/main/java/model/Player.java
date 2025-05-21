@@ -2,11 +2,11 @@ package model;
 
 import engine.BoardGame;
 import utils.exception.IntegerException;
-import utils.exception.StringException;
 import utils.exception.NullOrBlankException;
+import utils.exception.StringException;
 
 /**
- * An entity class for player.
+ * Represents a player in the board game.
  *
  * <p>This class represents the player in the game.
  * Including methods for moving the player around the board</p>
@@ -26,7 +26,7 @@ public class Player {
   private Tile currentTile;
 
   /**
-   * A constructor for the {@code Player} class.
+   * A constructor for the {@code Player} class with a starting tile ID of 1.
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
@@ -65,50 +65,6 @@ public class Player {
   }
 
   /**
-   * Accessor method for the player's current tile id.
-   *
-   * @return the player's current tile id
-   */
-  public int getCurrentTileId() {
-    return currentTileId;
-  }
-
-  /**
-   * Mutator method for the name.
-   *
-   * @param name of the player
-   * @throws StringException if name is null or isBlank
-   */
-  public void setName(String name) throws StringException {
-    if (name == null || name.isBlank()) {
-      throw new StringException("Name cannot be null or blank");
-    }
-    this.name = name;
-  }
-
-  /**
-   * Accessor method for player name.
-   *
-   * @return the player name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Mutator method for the name.
-   *
-   * @param color of the player
-   * @throws StringException if color is null or isBlank
-   */
-  public void setColor(String color) throws StringException {
-    if (color == null || color.isBlank()) {
-      throw new StringException("Color cannot be null or blank");
-    }
-    this.color = color;
-  }
-
-  /**
    * Accessor method for player name.
    *
    * @return the color of th player
@@ -137,10 +93,10 @@ public class Player {
   }
 
   /**
-   * Moves the player to a specific tile.
+   * Moves the player to a specific tile using its tile ID.
    *
-   * @param tileId The id of the tile the player should move to.
-   * @throws NullOrBlankException if the tile with the given id is not found
+   * @param tileId the ID of the destination tile
+   * @throws NullOrBlankException if the tile with the given ID is not found
    */
   public void moveToTile(int tileId) throws NullOrBlankException {
     Tile destination = game.getBoard().getTileById(tileId);
@@ -154,7 +110,7 @@ public class Player {
   /**
    * The current tile the player is placed on the board.
    *
-   * @param tile the player is on.
+   * @param tile the {@link Tile} to place the player on
    */
   public void placeOnTile(Tile tile) {
     currentTile = tile;
@@ -163,7 +119,7 @@ public class Player {
   /**
    * Accesses the current tile the player is on.
    *
-   * @return the current tile the player is on.
+   * @return the current {@link Tile}
    */
   public Tile getCurrentTile() {
     return currentTile;
@@ -210,4 +166,47 @@ public class Player {
     return inSkipped;
   }
 
+  /**
+   * Accessor method for the player's current tile id.
+   *
+   * @return the current tile ID
+   */
+  public int getCurrentTileId() {
+    return currentTileId;
+  }
+
+  /**
+   * Mutator method for the name.
+   *
+   * @param name the name of a player
+   * @throws StringException if name is {@code null} or blank
+   */
+  public void setName(String name) throws StringException {
+    if (name == null || name.isBlank()) {
+      throw new StringException("Name cannot be null or blank");
+    }
+    this.name = name;
+  }
+
+  /**
+   * Accessor method for player name.
+   *
+   * @return the player name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Mutator method for the name.
+   *
+   * @param color of the player
+   * @throws StringException if color is {@code null} or isBlank
+   */
+  public void setColor(String color) throws StringException {
+    if (color == null || color.isBlank()) {
+      throw new StringException("Color cannot be null or blank");
+    }
+    this.color = color;
+  }
 }

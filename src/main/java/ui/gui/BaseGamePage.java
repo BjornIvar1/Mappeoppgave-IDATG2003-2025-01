@@ -99,6 +99,4 @@ public class BaseGamePage extends BasePage {
     }
     return stringBuilder.toString();
   }
-
-
 }

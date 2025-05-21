@@ -32,18 +32,18 @@ class BoardTest {
     board.addTile(tile2);
     board.addTile(tile3);
 
-    assertEquals(tile1, board.getTile(1));
-    assertEquals(tile2, board.getTile(2));
-    assertEquals(tile3, board.getTile(3));
+    assertEquals(tile1, board.getTileById(1));
+    assertEquals(tile2, board.getTileById(2));
+    assertEquals(tile3, board.getTileById(3));
   }
 
   @Test
-  void negativeTestGetTile() {
-    assertNull(board.getTile(4));
+  void negativeTestGetTileById() {
+    assertNull(board.getTileById(4));
   }
 
   @Test
-  void getTilesTest() {
+  void getTilesTestById() {
     board.addTile(tile1);
     board.addTile(tile2);
     board.addTile(tile3);
@@ -57,7 +57,7 @@ class BoardTest {
   }
 
   @Test
-  void getTileById_Test() {
+  void getTileByIdById_Test() {
     board.addTile(tile1);
     board.addTile(tile2);
     board.addTile(tile3);
@@ -68,7 +68,7 @@ class BoardTest {
   }
 
   @Test
-  void getTileByIdNegativeTest() {
+  void getTileByIdByIdNegativeTest() {
     board.addTile(tile1);
     board.addTile(tile2);
     board.addTile(tile3);
@@ -101,7 +101,7 @@ class BoardTest {
   }
 
   @Test
-  void getTileCountTest() {
+  void getTileByIdCountTest() {
     board.addTile(tile1);
     board.addTile(tile2);
     board.addTile(tile3);
@@ -110,12 +110,12 @@ class BoardTest {
   }
 
   @Test
-  void getTileCountNegativeTest() {
+  void getTileByIdCountNegativeTest() {
     assertEquals(0, board.getTileCount());
   }
 
   @Test
-  void getTileIteratorTest() {
+  void getTileByIdIteratorTest() {
     board.addTile(tile1);
     board.addTile(tile2);
     board.addTile(tile3);
@@ -131,7 +131,7 @@ class BoardTest {
   }
 
   @Test
-  void getTileIteratorNegativeTest() {
+  void getTileByIdIteratorNegativeTest() {
     Iterator<Tile> iterator = board.getTileIterator();
     assertFalse(iterator.hasNext());
   }

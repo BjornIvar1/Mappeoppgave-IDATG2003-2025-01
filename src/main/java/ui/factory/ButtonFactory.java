@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import utils.Constants;
 
 /**
- * A button Factory.
+ * A factory class for creating common buttons in the ui.
  *
  * <p>A factory class that creates standard button that other classes
  * use. This is to reuse and modify actions with the buttons.</p>

@@ -5,8 +5,7 @@ import ui.gui.menu.GameSetupPage;
 /**
  * Manages game selection interactions.
  *
- * <p>This controller facilitates navigation and scene management related to game choices.
- * It allows the user to choose and start a game.</p>
+ * <p>Allows the user to select a game and navigates to the game setup page.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1

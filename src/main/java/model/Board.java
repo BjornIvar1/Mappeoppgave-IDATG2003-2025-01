@@ -6,11 +6,11 @@ import java.util.Map;
 import utils.exception.IntegerException;
 
 /**
- * Class that represents the board.
+ * Represents a board for the game.
  *
  * <p>The board is a collection of {@link Tile} that creates the
- * board. There is a possibility to
- * add tiles and fetch tiles.</p>
+ * board. The class supports adding tiles, retrieving tiles by ID,
+ * and storing board dimensions.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.3.0
@@ -22,8 +22,12 @@ public class Board {
   private int columns;
 
   /**
-   * Constructs a new model.Board object and creates a HashMap for the tiles,
-   * as an empty Hashmap to store the tiles for the board.
+   * Constructs a new {@link Board} with the specified number of rows and columns.
+   *
+   * <p>Creates an empty {@link HashMap} of tiles for the board layout</p>
+   *
+   * @param rows the number of rows on the board
+   * @param columns the number of columns on the board
    */
   public Board(int rows, int columns) {
     tiles = new HashMap<>();
@@ -32,13 +36,10 @@ public class Board {
   }
 
   /**
-   * Add tiles to the board.
+   * Add tiles to the board using its ID as the key.
    *
-   * <p>Adds the tile to the board.
-   * gives a new key value by checking the quantity of tiles.
-   * </p>
    *
-   * @param tile the tile that will be added on the board.
+   * @param tile the {@link Tile} to be added
    */
   public void addTile(Tile tile) {
     tiles.put(tile.getTileId(), tile);
@@ -50,7 +51,7 @@ public class Board {
    * @param tileId the ID of the tile we need to find.
    * @return the tile we need from the board.
    */
-  public Tile getTile(int tileId) {
+  public Tile getTileById(int tileId) {
     return tiles.get(tileId);
   }
 
@@ -79,16 +80,6 @@ public class Board {
    */
   public int getTileCount() {
     return tiles.size();
-  }
-
-  /**
-   * Returns the tile using the id.
-   *
-   * @param id the id of the tile
-   * @return the tile
-   */
-  public Tile getTileById(int id) {
-    return tiles.get(id);
   }
 
   /**

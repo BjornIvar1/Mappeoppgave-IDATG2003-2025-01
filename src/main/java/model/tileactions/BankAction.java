@@ -6,11 +6,10 @@ import utils.exception.IntegerException;
 import utils.exception.StringException;
 
 /**
- * Represents the bank action in the game of Monopoly.
+ * Represents the tile action where the player receives money from the bank in Monopoly.
  *
- * <p>Inherits from the TileAction interface and allows the player
- * to perform actions related to banking, such as
- * withdrawing money.</p>
+ * <p>This action gives a specified amount of money to the player when landed upon.
+ * It extends {@link MonopolyActions} and overrides the methods.</p>
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
@@ -19,10 +18,11 @@ import utils.exception.StringException;
 public class BankAction extends MonopolyActions {
   private int money;
   private String description;
+
   /**
-   * Creates a bank action with a specified amount of money.
+   * Constructs a {@link BankAction} object with the specified amount of money and description.
    *
-   * @param money       the amount of money to be given to the player.
+   * @param money the amount of money to be given to the player.
    * @param description the description of the action.
    */
   public BankAction(int money, String description) {
@@ -39,6 +39,7 @@ public class BankAction extends MonopolyActions {
   public void perform(Player player) {
     player.setBalance(player.getBalance() + getMoney());
   }
+
   /**
    * Returns the description of the bank action.
    *
@@ -49,13 +50,18 @@ public class BankAction extends MonopolyActions {
     return description;
   }
 
+  /**
+   * Returns the destination tile for the bank action.
+   *
+   * @return 0 (no specific destination tile).
+   */
   @Override
   public int getDestinationTile() {
-    return 0; // No specific destination tile for bank action
+    return 0;
   }
 
   /**
-   * Returns the color of the bank action.
+   * Returns the tile color for the bank action.
    *
    * @return the color of the bank action.
    */
@@ -73,24 +79,20 @@ public class BankAction extends MonopolyActions {
   }
 
   /**
-   * Mutates the amount of money the player will get.
-   *
-   * <p>Sets the amount of money the player will get.</p>
+   * Sets the amount of money the player will get.
    *
    * @param money that the player will get.
    * @throws IntegerException if the money is lower than 0.
    */
    public void setMoney(int money) throws IntegerException {
     if (money <= 0) {
-      throw new IntegerException("Money cannot be negative");
+      throw new IntegerException("Money mus be greater than 0");
     }
     this.money = money;
   }
 
   /**
-   * Mutates the description.
-   *
-   * <p>Sets the description of the bank tile.</p>
+   * Sets the description of the bank tile.
    *
    * @param description of what happens when the player lands on a ladder.
    * @throws StringException if the description is null og empty.
