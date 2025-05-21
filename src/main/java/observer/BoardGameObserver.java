@@ -10,7 +10,7 @@ package observer;
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.0.1
- * @since 0.0.1
+ * @since 0.1.0
  */
 public interface BoardGameObserver {
 
@@ -24,4 +24,15 @@ public interface BoardGameObserver {
    * @param rolledSum the total steps the player will move after rolling the dice.
    */
   void observerPlayerMoved(String name, int rolledSum);
+
+  /**
+   * Notifies observers when a player is in jail.
+   *
+   * <p>This method is called when a player is in jail.
+   * It notifies all registered observers about the player's status.</p>
+   *
+   * @param name the name of the player who is in jail.
+   * @param isInJail true if the player is in jail, false otherwise.
+   */
+  void observerIsPlayerInJail(String name, boolean isInJail);
 }
