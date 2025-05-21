@@ -1,10 +1,6 @@
 package ui.gui;
 
 import engine.BoardGame;
-import filehandler.board.BoardFileReaderGson;
-import filehandler.PlayerFileReader;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Iterator;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,14 +11,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Player;
-import utils.exception.NullOrBlankException;
 
 /**
  * This class represents the base page for the game.
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.4.3
+ * @version 0.4.4
  */
 public class BaseGamePage extends BasePage {
 
@@ -96,31 +91,6 @@ public class BaseGamePage extends BasePage {
           .append("Balance: ").append(player.getBalance()).append("\n");
     }
     return stringBuilder.toString();
-  }
-
-  /**
-   * Initializes the board game with players and board.
-   *
-   * <p>This method reads the board and player files, creates the board,
-   * and initializes the players.<p>
-   *
-   * @param boardFilePath of the board file.
-   * @param playerFilePath of the player file.
-   * @return the initialized board game.
-   */
-  protected BoardGame initializeBoardGame(String boardFilePath, String playerFilePath) {
-    BoardGame boardGame = new BoardGame();
-    BoardFileReaderGson reader = new BoardFileReaderGson();
-    PlayerFileReader playerReader = new PlayerFileReader();
-    try {
-      boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
-      boardGame.createDice(2);
-      playerReader.readCsvBuffered(playerFilePath, boardGame);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
-    } catch (IOException | NullPointerException | NullOrBlankException e) {
-      System.out.println("Could not read board or players from file: " + e.getMessage());
-    }
-    return boardGame;
   }
 
   /**
