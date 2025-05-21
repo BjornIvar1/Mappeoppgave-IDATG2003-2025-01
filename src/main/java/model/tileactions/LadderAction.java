@@ -23,9 +23,10 @@ public class LadderAction implements TileAction {
   private String description;
 
   /**
-   * Creates a tile destination of where the player will land.
+   * Constructs a {@link LadderAction} object with the specified destination tile and description.
    *
    * @param destinationTile of where the user will land.
+   * @param description of what happens when the player lands on a ladder.
    */
   public LadderAction(int destinationTile, String description) {
     setDestinationTile(destinationTile);
@@ -75,7 +76,7 @@ public class LadderAction implements TileAction {
   }
 
   /**
-   * Mutates the description.
+   * Sets the description of the ladder action.
    *
    * @param description of what happens when the player lands on a ladder.
    * @throws IllegalArgumentException if the description is null og empty.

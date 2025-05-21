@@ -5,7 +5,10 @@ import model.Player;
 import utils.exception.NullOrBlankException;
 
 /**
- * Represent an action when a player lands on a model.Tile.
+ * Represent an action when a player lands on a {@link model.Tile}.
+ *
+ * <p>Implemented by classes which defines what happens
+ * when a player lands on a specific tile.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.3.3
