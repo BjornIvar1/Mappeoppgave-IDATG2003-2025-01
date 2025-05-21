@@ -33,7 +33,7 @@ import utils.exception.NullOrBlankException;
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
   private final String playerFilePath;
-  private BoardGame boardGameForMonopoly;
+  private BoardGame game;
   private final MonopolyPage monopolyPage;
 
   /**
@@ -55,7 +55,7 @@ public class ControllerMonopoly {
    * when the user want to return to the game selection menu.</p>
    */
   public void switchToGameSelection() {
-    boardGameForMonopoly.removeObserver(monopolyPage);
+    game.removeObserver(monopolyPage);
     sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
   }
 
@@ -66,8 +66,35 @@ public class ControllerMonopoly {
    * reading from the specified files.</p>
    */
   public void initializeMonopoly() {
-    boardGameForMonopoly = initializeBoardGame();
-    boardGameForMonopoly.addObserver(monopolyPage);
+    game = initializeBoardGame();
+    game.addObserver(monopolyPage);
+  }
+
+  /**
+   * Rolls the dice and performs the player's turn.
+   *
+   * <p>Handles player movement and catches any data related errors</p>
+   */
+  public void rollDice() {
+    try {
+      game.play();
+    } catch (NullOrBlankException e) {
+      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+          .warning("Failed to play turn: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Calculates the sum of the values of all dice.
+   *
+   * @return the sum of the values of all dice
+   */
+  public int getDieSum() {
+    int sum = 0;
+    for (int i = 0; i < game.getDice().getNumberOfDice(); i++) {
+      sum += game.getDice().getDie(i);
+    }
+    return sum;
   }
 
   /**
@@ -75,8 +102,8 @@ public class ControllerMonopoly {
    *
    * @return the current {@code BoardGame} instance
    */
-  public BoardGame getBoardGame() {
-    return boardGameForMonopoly;
+  public BoardGame getGame() {
+    return game;
   }
 
   /**
@@ -126,23 +153,6 @@ public class ControllerMonopoly {
   }
 
   /**
-   * Initializes the dice and simulates a turn in the game.
-   *
-   * <p>This method simulates a turn in the game by rolling the dice
-   * and moving the current player to the next tile.
-   * If the player lands on a tile that is not the last tile,
-   * it will move to the next player.
-   * an exception thrown when the tile is not found. </p>
-   */
-  public void initializeRollDice() {
-    try {
-      boardGameForMonopoly.play();
-    } catch (NullOrBlankException e) {
-      Logger.getLogger(ControllerMonopoly.class.getName());
-    }
-  }
-
-  /**
    * Checks if a player has won the game.
    *
    * <p>This method determines if the current player
@@ -151,7 +161,7 @@ public class ControllerMonopoly {
    * @return {@code true} if the current player has won, otherwise {@code false}.
    */
   public boolean winnerFound() {
-    return boardGameForMonopoly.getCurrentPlayer().getBalance()
+    return game.getCurrentPlayer().getBalance()
         >= Constants.WINNING_BALANCE;
   }
 
@@ -164,7 +174,7 @@ public class ControllerMonopoly {
    * @return the {@code TileAction} associated with the specified tile ID
    */
   public TileAction getTileAction(int tileId) {
-    Iterator<Tile> tileIterator = boardGameForMonopoly.getBoard().getTileIterator();
+    Iterator<Tile> tileIterator = game.getBoard().getTileIterator();
     while (tileIterator.hasNext()) {
       Tile tile = tileIterator.next();
       if (tile.getTileId() == tileId) {
@@ -175,6 +185,6 @@ public class ControllerMonopoly {
   }
 
   public Iterator<Player> getPlayersIterator() {
-    return boardGameForMonopoly.getPlayerIterator();
+    return game.getPlayerIterator();
   }
 }
