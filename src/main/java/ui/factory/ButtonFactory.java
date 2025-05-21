@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.1
+ * @version 0.1.0
  */
 public class ButtonFactory {
 
@@ -38,5 +38,19 @@ public class ButtonFactory {
     button.setOnMouseExited(e -> button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;"));
     button.setOnAction(event -> action.run());
     return button;
+  }
+
+  public static Button createGameInfoButton(String buttonTitle, Runnable action) {
+    Button gameRulesButton = new Button(buttonTitle);
+    gameRulesButton.setStyle("-fx-background-color: BLUE; -fx-text-fill: white; -fx-font-size: 16px;");
+    gameRulesButton.setPrefSize(100, 40);
+    gameRulesButton.setOnMouseEntered(e -> gameRulesButton
+        .setStyle("-fx-background-color: LIGHTBLUE;" +
+            " -fx-text-fill: white; -fx-font-size: 16px;"));
+    gameRulesButton.setOnMouseExited(e -> gameRulesButton
+        .setStyle("-fx-background-color: BLUE;" +
+            " -fx-text-fill: white; -fx-font-size: 16px;"));
+    gameRulesButton.setOnAction(event -> action.run());
+    return gameRulesButton;
   }
 }
