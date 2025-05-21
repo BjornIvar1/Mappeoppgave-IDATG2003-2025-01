@@ -28,7 +28,7 @@ import utils.MessageDisplay;
  *
  * <p>The user is introduced to three buttons, a control panel and the board game.</p>
  * <ul>
- *   <li>Start Game: Initializes a new game</li>
+ *   <li>Restart Game: Initializes a new game</li>
  *   <li>Roll Dice: Plays the game by rolling the dice</li>
  *   <li>Control panel: Lets the user know who has rolled and the score.</li>
  *   <li>Board: Displays the game board with player pieces and different tiles</li>
@@ -45,7 +45,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerMonopoly controller;
   private BorderPane mainLayout;
   private Label gameInformation;
-  private Button startGameButton;
+  private Button restartGameButton;
   private Button rollDiceButton;
 
   /**
@@ -114,7 +114,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    *
    * <p>The control panel includes:</p>
    * <ul>
-   *   <li>Start Game: Initializes a new game</li>
+   *   <li>Restart Game: Initializes a new game</li>
    *   <li>Roll Dice: Rolls the dice and updates the game state</li>
    *   <li>Game Information: Displays the last rolled dice and player information</li>
    *   <li>Player Information: Displays the information of the players</li>
@@ -134,11 +134,11 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         controller.getGame()));
 
     Button rollDice = getRollDiceButton(playerInformation);
-    Button startButton = getStartGameButton(playerInformation);
+    Button restartGame = getResetGameButton(playerInformation);
     Button saveGame = getSaveGameButton();
 
 
-    controlPanel.getChildren().addAll(startButton, rollDice,
+    controlPanel.getChildren().addAll(restartGame, rollDice,
         gameInformation, playerInformation, saveGame);
     return controlPanel;
   }
@@ -160,7 +160,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
       if (controller.winnerFound()) {
         gameInformation.setText(MessageDisplay.winningMessage(playerName));
         rollDiceButton.setDisable(true);
-        startGameButton.setDisable(false);
+        restartGameButton.setDisable(false);
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
@@ -182,24 +182,24 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Creates the button to start the game.
+   * Creates the button to restarts the game.
    *
    * <p>Uses the controller to initialize a new game</p>
    *
    * @param playerInformation The label to display player information.
-   * @return Button to start the game.
+   * @return Button to restart the game.
    */
-  private Button getStartGameButton(Label playerInformation) {
-    startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
-    startGameButton.setDisable(true);
-    startGameButton.setOnAction(event -> {
-      controller.initializeMonopoly();
+  private Button getResetGameButton(Label playerInformation) {
+    restartGameButton = new Button(Constants.LABEL_RESTART_GAME_BUTTON);
+    restartGameButton.setDisable(true);
+    restartGameButton.setOnAction(event -> {
+      controller.resetGame();
       updateBoard();
       rollDiceButton.setDisable(false);
-      startGameButton.setDisable(true);
+      restartGameButton.setDisable(true);
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
     });
-    return startGameButton;
+    return restartGameButton;
   }
 
   /**

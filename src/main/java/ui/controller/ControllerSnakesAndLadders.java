@@ -1,15 +1,15 @@
 package ui.controller;
 
-import model.engine.BoardGame;
-import filehandler.player.PlayerFileReader;
-import filehandler.player.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import filehandler.board.BoardFileWriter;
 import filehandler.board.BoardFileWriterGson;
+import filehandler.player.PlayerFileReader;
+import filehandler.player.PlayerFileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
+import model.engine.BoardGame;
 import model.entity.Player;
 import model.entity.Tile;
 import model.tileactions.TileAction;
@@ -17,6 +17,8 @@ import ui.gui.game.SnakesAndLaddersPage;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.NullOrBlankException;
+
+
 
 
 /**
@@ -64,6 +66,18 @@ public class ControllerSnakesAndLadders {
    */
   public void initializeGame() {
     game = initializeBoardGame();
+    game.addObserver(snakesAndLaddersPage);
+  }
+
+  /**
+   * Resets the Snakes and Ladders game
+   * by reinitializing the board and placing players on the start tile.
+   */
+  public void resetGame() {
+    game.removeObserver(snakesAndLaddersPage);
+    game = initializeBoardGame();
+    game.getPlayerIterator().forEachRemaining(player ->
+        player.placeOnTile(game.getBoard().getTileById(1)));
     game.addObserver(snakesAndLaddersPage);
   }
 
@@ -132,19 +146,6 @@ public class ControllerSnakesAndLadders {
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
           .warning("Failed to play turn: " + e.getMessage());
     }
-  }
-
-  /**
-   * Calculates the sum of the values of all dice.
-   *
-   * @return the sum of the values of all dice
-   */
-  public int getDieSum() {
-    int sum = 0;
-    for (int i = 0; i < game.getDice().getNumberOfDice(); i++) {
-      sum += game.getDice().getDie(i);
-    }
-    return sum;
   }
 
   /**

@@ -75,6 +75,18 @@ public class ControllerMonopoly {
   }
 
   /**
+   * Resets the Snakes and Ladders game
+   * by reinitializing the board and placing players on the start tile.
+   */
+  public void resetGame() {
+    game.removeObserver(monopolyPage);
+    game = initializeBoardGame();
+    game.getPlayerIterator().forEachRemaining(player ->
+        player.placeOnTile(game.getBoard().getTileById(1)));
+    game.addObserver(monopolyPage);
+  }
+
+  /**
    * Rolls the dice and performs the player's turn.
    *
    * <p>Handles player movement and catches any data related errors</p>
@@ -86,19 +98,6 @@ public class ControllerMonopoly {
       Logger.getLogger(ControllerMonopoly.class.getName())
           .warning("Failed to play turn: " + e.getMessage());
     }
-  }
-
-  /**
-   * Calculates the sum of the values of all dice.
-   *
-   * @return the sum of the values of all dice
-   */
-  public int getDieSum() {
-    int sum = 0;
-    for (int i = 0; i < game.getDice().getNumberOfDice(); i++) {
-      sum += game.getDice().getDie(i);
-    }
-    return sum;
   }
 
   /**
