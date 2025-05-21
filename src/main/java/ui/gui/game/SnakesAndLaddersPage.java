@@ -1,6 +1,8 @@
 package ui.gui.game;
 
 import java.util.Iterator;
+
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -35,7 +37,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.5.2
+ * @version 0.6.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerSnakesAndLadders controller;
@@ -52,6 +54,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   public SnakesAndLaddersPage(ControllerSnakesAndLadders controller) {
     this.controller = controller;
     controller.initializeGame();
+    controller.getGame().addObserver(this);
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
@@ -140,9 +143,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
         gameInformation.setText(MessageDisplay.winningMessage(playerName));
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
-      } else {
-        observerPlayerMoved(playerName, controller.getDieSum());
       }
+
       updateBoard();
     });
     return rollDiceButton;
@@ -320,6 +322,12 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
 
   @Override
   public void observerIsPlayerSkipped(String name, boolean isSkipped) {
-    // not required for this game
+    Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
+      // This is necessary to ensure thread safety when updating the UI
+      // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
+      if (isSkipped) { // Check if the player is in skip and update the game information label
+        gameInformation.setText(MessageDisplay.playerInJailMessage(name));
+      }
+    });
   }
 }
