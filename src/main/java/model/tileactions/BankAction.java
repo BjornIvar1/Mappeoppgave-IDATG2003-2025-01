@@ -13,9 +13,9 @@ import utils.exception.StringException;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.1.7
+ * @version 0.1.8
  */
-public class BankAction extends MonopolyActions {
+public class BankAction implements TileAction {
   private int money;
   private String description;
 
@@ -26,7 +26,7 @@ public class BankAction extends MonopolyActions {
    * @param description the description of the action.
    */
   public BankAction(int money, String description) {
-    super(description);
+    setDescription(description);
     setMoney(money);
   }
 
@@ -97,7 +97,6 @@ public class BankAction extends MonopolyActions {
    * @param description of what happens when the player lands on a ladder.
    * @throws StringException if the description is null og empty.
    */
-  @Override
   public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
       throw new StringException("Description cannot be null or empty");
