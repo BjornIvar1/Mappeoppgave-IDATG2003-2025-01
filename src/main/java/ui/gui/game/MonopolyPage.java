@@ -361,17 +361,16 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return a Button to display the game rules.
    */
   private Button createGameRulesButton() {
-    Button gameRulesButton = new Button("Game Rules");
-    gameRulesButton.setOnAction(event -> {
-      gameRulesAlert.setTitle("Game Rules");
-      gameRulesAlert.setHeaderText("Monopoly Game Rules");
-      gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
-      gameRulesAlert.setResizable(true);
-      gameRulesAlert.setWidth(400);
-      gameRulesAlert.setHeight(500);
-      gameRulesAlert.showAndWait();
-    });
-    return gameRulesButton;
+    return ButtonFactory.createGameInfoButton("Rules",
+        () -> {
+          gameRulesAlert.setTitle(Constants.GAME_RULES);
+          gameRulesAlert.setHeaderText(Constants.GAME_MONOPOLY_HEADER);
+          gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
+          gameRulesAlert.setResizable(true);
+          gameRulesAlert.setWidth(400);
+          gameRulesAlert.setHeight(500);
+          gameRulesAlert.showAndWait();
+        });
   }
 }
 
