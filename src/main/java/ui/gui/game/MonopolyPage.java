@@ -38,7 +38,7 @@ import utils.MessageDisplay;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -155,8 +155,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
       } else {
-        observerIsPlayerInJail(playerName,
-            controller.getGame().getCurrentPlayer().isPlayerInJail());
+        observerIsPlayerSkipped(playerName,
+            controller.getGame().getCurrentPlayer().isPlayerIsSkipped());
         observerPlayerMoved(playerName, controller.getDieSum());
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
@@ -361,20 +361,20 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * A notification method that is called when a player is in jail.
+   * A notification method that is called when a player is in skip.
    *
    * <p>This method updates the game information label
-   * to display the player's jail status.</p>
+   * to display the player's skip status.</p>
    *
    * @param name the name of the player.
-   * @param isInJail true if the player is in jail, false otherwise.
+   * @param isInJail true if the player is in skip, false otherwise.
    */
   @Override
-  public void observerIsPlayerInJail(String name, boolean isInJail) {
+  public void observerIsPlayerSkipped(String name, boolean isInJail) {
     Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
       // This is necessary to ensure thread safety when updating the UI
       // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
-      if (isInJail) { // Check if the player is in jail and update the game information label
+      if (isInJail) { // Check if the player is in skip and update the game information label
         gameInformation.setText(MessageDisplay.playerInJailMessage(name));
       }
     });
