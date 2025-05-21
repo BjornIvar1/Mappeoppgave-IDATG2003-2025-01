@@ -5,44 +5,44 @@ import model.Player;
 import utils.exception.StringException;
 
 /**
- * Represents a jail action in the game of Monopoly.
+ * Represents a skip action in the game of Monopoly.
  *
- * <p>This class implements the TileAction interface and allows the player
- * to perform actions related to being in jail. The class is responsible to
+ * <p>This class implements the {@link TileAction} interface and allows the player
+ * to perform actions related to being in skip. The class is responsible to
  * skip a turn of the player that has landed on the tile.</p>
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.3
+ * @version 0.0.4
  */
-public class JailAction implements TileAction {
+public class SkipAction implements TileAction {
   private String description;
 
   /**
-   * Creates a jail action with a specified description and color.
+   * Creates a skip action with a specified description.
    *
    * @param description the description of the action
    */
-  public JailAction(String description) {
+  public SkipAction(String description) {
     this.description = description;
   }
 
   /**
-   * Performs the jail action on the specified player.
+   * Performs the skip action on the specified player.
    *
-   * <p>This method sets the player's status to in jail.</p>
+   * <p>This method sets the player's status to in skip.</p>
    *
-   * @param player the player to perform the action on
+   * @param player that will be skipped.
    */
   @Override
   public void perform(Player player) {
-    player.setInJail(true);
+    player.setInSkipped(true);
   }
 
   /**
-   * Returns the description of the jail action.
+   * Returns the description of the skip action.
    *
-   * @return the description of the jail action
+   * @return the description of the skip action
    */
   @Override
   public String getDescription() {
@@ -50,9 +50,9 @@ public class JailAction implements TileAction {
   }
 
   /**
-   * Sets the description of the jail action.
+   * Sets the description of the {@code SkipAction}.
    *
-   * @param description the new description of the jail action.
+   * @param description the new description of the skip action.
    * @throws StringException if the description is null or blank.
    */
   public void setDescription(String description) throws StringException {
@@ -63,9 +63,9 @@ public class JailAction implements TileAction {
   }
 
   /**
-   * Returns the color of the jail action.
+   * Returns the color of the {@code SkipAction}.
    *
-   * @return the color of the jail action
+   * @return the color of the {@code SkipAction}.
    */
   @Override
   public Color getColor() {
@@ -74,6 +74,6 @@ public class JailAction implements TileAction {
 
   @Override
   public int getDestinationTile() {
-    return 0; // No specific destination tile for jail action
+    return 0; // No specific destination tile for skip action
   }
 }
