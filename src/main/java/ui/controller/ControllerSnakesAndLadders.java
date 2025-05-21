@@ -179,16 +179,6 @@ public class ControllerSnakesAndLadders {
   }
 
   /**
-   * Return the {@link TileAction} associated to a specific tile.
-   * Returns the current players ID.
-   *
-   * @return the ID of the current player
-   */
-  public int getCurrentTileId() {
-    return game.getCurrentPlayer().getCurrentTile().getTileId();
-  }
-
-  /**
    * Returns the current player's action for a specific tile.
    *
    * @param tileId the ID of the tile
@@ -202,7 +192,7 @@ public class ControllerSnakesAndLadders {
         return tile.getLandAction();
       }
     }
-    return null; // Return null if no matching tile is found
+    return null;
   }
 
   /**
