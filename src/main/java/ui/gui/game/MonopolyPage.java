@@ -155,12 +155,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
     rollDiceButton.setDisable(false);
     rollDiceButton.setOnAction(event -> {
-//      String playerName = controller.getGame().getCurrentPlayer().getName();
       controller.rollDice();
-//      if (controller.winnerFound()) {
-//        rollDiceButton.setDisable(true);
-//        startGameButton.setDisable(false);
-//      }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
     });
@@ -193,6 +188,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     startGameButton.setDisable(true);
     startGameButton.setOnAction(event -> {
       controller.initializeMonopoly();
+      controller.getGame().addObserver(this);
       updateBoard();
       rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);

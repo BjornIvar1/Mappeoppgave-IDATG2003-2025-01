@@ -166,7 +166,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
     startGameButton.setDisable(true);
     startGameButton.setOnAction(e -> {
-      controller.initializeGame1();
+      controller.initializeGame();
+      controller.getGame().addObserver(this);
       updateBoard();
       rollDiceButton.setDisable(false);
       startGameButton.setDisable(true);
