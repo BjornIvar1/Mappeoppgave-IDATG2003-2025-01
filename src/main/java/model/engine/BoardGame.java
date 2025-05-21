@@ -8,6 +8,7 @@ import model.entity.Player;
 import model.entity.Tile;
 import observer.BoardGameObserver;
 import observer.Subjects;
+import utils.Constants;
 import utils.exception.NullOrBlankException;
 
 /**
@@ -17,7 +18,7 @@ import utils.exception.NullOrBlankException;
  * It also implements the {@link Subjects} interface for notifying the observers</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.6.2
+ * @version 0.7.0
  * @since 0.0.1
  */
 public class BoardGame implements Subjects {
@@ -130,6 +131,7 @@ public class BoardGame implements Subjects {
    * @throws NullOrBlankException if there are no players in the game
    */
   public void play() throws NullOrBlankException {
+
     if (players.isEmpty()) {
       throw new NullOrBlankException("There are no players in the game.");
     }
@@ -144,16 +146,14 @@ public class BoardGame implements Subjects {
     }
     int steps = dice.roll();
     currentPlayer.move(steps);
+    notifyObservers();
 
     Tile currentTile = currentPlayer.getCurrentTile();
-
-    notifyObservers();
 
     if (currentTile.getTileId() == board.getTiles().size()) {
       notifyObservers();
       return;
     }
-
     notifyObservers();
     goToNextPlayer();
   }
@@ -191,9 +191,19 @@ public class BoardGame implements Subjects {
   @Override
   public void notifyObservers() {
     Player currentPlayer = getCurrentPlayer();
+    boolean isWinner = currentPlayer.getCurrentTile().getTileId() == board.getTiles().size();
+
     observers.forEach(observer -> {
+      observer.observerPlayerWonInSnakesAndLadders(currentPlayer.getName(), isWinner);
+      observer.observerPlayerWonInMonopoly(currentPlayer.getName(),
+          currentPlayer.getBalance() >= Constants.WINNING_BALANCE);
       observer.observerIsPlayerSkipped(currentPlayer.getName(), currentPlayer.isPlayerIsSkipped());
       observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS());
     });
+
+    System.out.println("Current Player: " + currentPlayer.getName());
+    System.out.println("Current Tile ID: " + currentPlayer.getCurrentTile().getTileId());
+    System.out.println("Winning Tile ID: " + board.getTiles().size());
+    System.out.println("Is Winner: " + isWinner);
   }
 }
