@@ -37,7 +37,7 @@ import utils.exception.NullOrBlankException;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.3
+ * @version 0.4.0
  */
 public class SnakesAndLaddersPage extends BaseGamePage {
   private final ControllerSnakesAndLadders controller;
@@ -76,7 +76,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    */
   private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
     mainLayout = new BorderPane();
-    mainLayout.setTop(createReturnButton());
+    mainLayout.setTop(createTopHBox());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     return mainLayout;
@@ -179,6 +179,47 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
+   * Creates a return button to go back to the game selection menu.
+   *
+   * <p>This button is used to navigate back to the game selection menu.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to return to the game selection menu.
+   */
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory(
+        controller::switchToGameSelection);
+  }
+
+  /**
+   * Creates a button to display the game rules.
+   *
+   * <p>This button is used to show the game rules and information.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to display the game rules.
+   */
+  private Button createGameRulesButton() {
+    return ButtonFactory.gameRulesButton(
+        Constants.GAME_RULES,
+        Constants.GAME_SNAKES_AND_LADDERS_HEADER,
+        Constants.SNAKES_AND_LADDERS_RULES
+    );
+  }
+
+  /**
+   * Creates the top bar with buttons for returning to the game selection menu
+   * and displaying game rules.
+   *
+   * @return HBox containing the top bar with buttons.
+   */
+  private HBox createTopHBox() {
+    Button returnButton = createReturnButton();
+    Button gameRulesButton = createGameRulesButton();
+    return createTopBar(returnButton, gameRulesButton);
+  }
+
+  /**
    * Creates the board grid for the Snakes and Ladders game.
    *
    * @return GridPane representing the game board.
@@ -252,18 +293,5 @@ public class SnakesAndLaddersPage extends BaseGamePage {
         stack.getChildren().add(circle);
       }
     }
-  }
-
-  /**
-   * Creates a return button to go back to the game selection menu.
-   *
-   * <p>This button is used to navigate back to the game selection menu.
-   * The button is created by the {@code ButtonFactory}. </p>
-   *
-   * @return Button to return to the game selection menu.
-   */
-  private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
-        controller::switchToGameSelection);
   }
 }
