@@ -47,16 +47,16 @@ class BoardFileReaderGsonTest {
 
     //Testing the tiles
     for (int i = 1; i <= 6; i++) {
-      assertEquals(i, board.getTile(i).getTileId(), "The id should be " + i);
+      assertEquals(i, board.getTileById(i).getTileId(), "The id should be " + i);
       if (i == 6) {
-        assertNull(board.getTile(i).getNextTile(), "The next tile should be null");
+        assertNull(board.getTileById(i).getNextTile(), "The next tile should be null");
       } else {
-        assertEquals(i+1, board.getTile(i).getNextTile().getTileId(), "The next tile id should be " + (i+1));
+        assertEquals(i+1, board.getTileById(i).getNextTile().getTileId(), "The next tile id should be " + (i+1));
       }
     }
 
     //Testing the actions
-    TileAction ladderActionTile3 = board.getTile(3).getLandAction();
+    TileAction ladderActionTile3 = board.getTileById(3).getLandAction();
     assertEquals("LadderAction", ladderActionTile3.getClass().getSimpleName(), "The action should be a LadderAction");
     assertEquals("Ladder from 3 to 6", ladderActionTile3.getDescription(), "The description should be 'Ladder from 3 to 6'");
     assertEquals(6, ladderActionTile3.getDestinationTile(), "The destination tile id should be 6");
