@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import utils.exception.NullOrBlankException;
 
 import static org.junit.jupiter.api.Assertions.*;
-class JailActionTest {
-  JailAction jailAction;
+class SkipActionTest {
+  SkipAction skipAction;
   BoardGame boardGame;
   Board board;
   Player player;
@@ -28,7 +28,7 @@ class JailActionTest {
 
   @BeforeEach
   void setup() throws NullOrBlankException {
-    jailAction = new JailAction("You are in jail");
+    skipAction = new SkipAction("You are in skip");
     boardGame = new BoardGame();
     tile1 = new Tile(1, 1, 0);
     tile2 = new Tile(2, 2, 0);
@@ -49,35 +49,35 @@ class JailActionTest {
 
   @Test
   void performTest() {
-    jailAction.perform(player);
-    assertTrue(player.isPlayerInJail());
+    skipAction.perform(player);
+    assertTrue(player.isPlayerIsSkipped());
   }
 
   @Test
   void performNegativeTest() {
-    assertFalse(player.isPlayerInJail());
+    assertFalse(player.isPlayerIsSkipped());
   }
 
   @Test
   void getDescriptionPositiveTest() {
-    jailAction.setDescription("You are in jail!");
-    assertEquals("You are in jail!", jailAction.getDescription());
+    skipAction.setDescription("You are in skip!");
+    assertEquals("You are in skip!", skipAction.getDescription());
   }
 
   @Test
   void setDescriptionNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> jailAction.setDescription(null));
+    assertThrows(IllegalArgumentException.class, () -> skipAction.setDescription(null));
   }
 
   @Test
   void setDescriptionEmptyTest() {
-    assertThrows(IllegalArgumentException.class, () -> jailAction.setDescription(""));
+    assertThrows(IllegalArgumentException.class, () -> skipAction.setDescription(""));
   }
 
   @Test
   void getColorTest() {
     Color expectedColor = Color.web("#dfdfdf");
-    assertEquals(expectedColor, jailAction.getColor());
+    assertEquals(expectedColor, skipAction.getColor());
   }
   
 }
