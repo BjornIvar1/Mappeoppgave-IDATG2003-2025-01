@@ -25,7 +25,7 @@ import utils.exception.InvalidPlayerFields;
  * {@code GameSelection} page.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.0
+ * @version 0.3.1
  * @since 0.0.1
  */
 public class GameSetupPage extends BasePage {
@@ -199,7 +199,7 @@ public class GameSetupPage extends BasePage {
    */
   private FlowPane backToGameSelectionPage() {
     Button returnButton = ButtonFactory
-        .returnButtonFactory("Back", controller::returnToGameSelection);
+        .returnButtonFactory( controller::returnToGameSelection);
     FlowPane flowPane = new FlowPane();
     flowPane.getChildren().add(returnButton);
     flowPane.setAlignment(Pos.TOP_LEFT);
