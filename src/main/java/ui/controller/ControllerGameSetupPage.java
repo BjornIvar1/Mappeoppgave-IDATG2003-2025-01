@@ -51,10 +51,10 @@ public class ControllerGameSetupPage {
   public void goToGame(String gameBoardPath) {
     if (gameId == 1) {
       sceneManager.setView(new SnakesAndLaddersPage(
-          new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
+          new ControllerSnakesAndLadders(sceneManager, gameBoardPath, Constants.PLAYER_FILE_PATH)));
     } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
-          Constants.MONOPOLY_PLAYER_SAVED_CSV)));
+          Constants.PLAYER_FILE_PATH)));
     }
   }
 
@@ -72,7 +72,7 @@ public class ControllerGameSetupPage {
     } else {
       if (gameId == 1) {
         sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
-            Constants.BOARD_SAVED_FILEPATH)));
+            Constants.BOARD_SAVED_FILEPATH, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV)));
       } else if (gameId == 2) {
         sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
             Constants.MONOPOLY_PLAYER_SAVED_CSV)));
@@ -144,11 +144,7 @@ public class ControllerGameSetupPage {
       Player player = new Player(userName, listOfColors.get(i), null, 0);
       playerList.add(player);
     }
-    if (gameId == 1) {
-      PlayerFileWriter.writeToCsv(playerList, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
-    } else if (gameId == 2) {
-      PlayerFileWriter.writeToCsv(playerList, Constants.MONOPOLY_PLAYER_SAVED_CSV);
-    }
+    PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
   }
 
   /**
