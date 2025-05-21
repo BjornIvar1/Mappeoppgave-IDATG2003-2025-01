@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import utils.Constants;
 
 /**
- * A button Factory.
+ * A factory class for creating common buttons in the ui.
  *
  * <p>A factory class that creates standard button that other classes
  * use. This is to reuse and modify actions with the buttons.</p>
@@ -32,7 +32,7 @@ public class ButtonFactory {
    *               the button.
    * @return a button.
    */
-  public static Button returnButtonFactory( Runnable action) {
+  public static Button returnButtonFactory(Runnable action) {
     Button button = new Button(Constants.BACK);
     button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;");
     button.setPrefSize(100, 40);
