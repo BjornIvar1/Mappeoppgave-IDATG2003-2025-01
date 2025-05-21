@@ -1,10 +1,10 @@
 package model.tileactions;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import javafx.scene.paint.Color;
-import model.Board;
-import model.Player;
-import model.Tile;
+import model.entity.Board;
+import model.entity.Player;
+import model.entity.Tile;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

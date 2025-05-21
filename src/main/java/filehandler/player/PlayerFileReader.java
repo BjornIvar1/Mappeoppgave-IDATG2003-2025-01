@@ -1,11 +1,11 @@
 package filehandler.player;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import model.Player;
+import model.entity.Player;
 
 /**
  * This class is responsible for reading player data from a CSV file and adding them to the game.

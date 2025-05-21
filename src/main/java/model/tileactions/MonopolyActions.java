@@ -1,6 +1,6 @@
 package model.tileactions;
 
-import model.Player;
+import model.entity.Player;
 import utils.exception.NullOrBlankException;
 import utils.exception.StringException;
 
@@ -45,7 +45,7 @@ abstract class MonopolyActions implements TileAction {
    *
    * <p>Empty method, since it is in use by the subclasses.</p>
    *
-   * @param player The model.Player who lands on the tile
+   * @param player The model.entity.Player who lands on the tile
    */
   @Override
   public void perform(Player player) throws NullOrBlankException {

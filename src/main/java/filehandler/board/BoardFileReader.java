@@ -2,7 +2,7 @@ package filehandler.board;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import model.Board;
+import model.entity.Board;
 
 /**
  * An interface for reading a board from a file.

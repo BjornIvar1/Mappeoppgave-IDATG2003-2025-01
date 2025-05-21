@@ -1,7 +1,7 @@
 package model.tileactions;
 
 import javafx.scene.paint.Color;
-import model.Player;
+import model.entity.Player;
 import utils.exception.StringException;
 
 /**

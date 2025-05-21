@@ -10,12 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.Player;
+import model.entity.Player;
 import model.tileactions.TileAction;
 import observer.BoardGameObserver;
 import ui.controller.ControllerSnakesAndLadders;
 import ui.factory.ButtonFactory;
-import ui.gui.BaseGamePage;
+import ui.gui.base.BaseGamePage;
 import utils.Constants;
 import utils.MessageDisplay;
 

@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import model.Board;
-import model.Tile;
+import model.entity.Board;
+import model.entity.Tile;
 import model.tileactions.*;
 import utils.Constants;
 

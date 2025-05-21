@@ -1,4 +1,4 @@
-package ui.gui;
+package ui.gui.base;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

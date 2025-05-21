@@ -1,5 +1,7 @@
 package model;
 
+import model.entity.Board;
+import model.entity.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;

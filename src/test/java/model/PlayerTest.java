@@ -2,7 +2,9 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
+import model.entity.Player;
+import model.entity.Tile;
 import utils.exception.IntegerException;
 import utils.exception.StringException;
 import org.junit.jupiter.api.*;

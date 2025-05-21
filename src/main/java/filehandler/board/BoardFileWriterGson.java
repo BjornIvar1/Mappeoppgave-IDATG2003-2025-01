@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
-import model.Board;
-import model.Tile;
+import model.entity.Board;
+import model.entity.Tile;
 import model.tileactions.*;
 
 /**

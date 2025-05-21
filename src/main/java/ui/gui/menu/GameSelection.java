@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import ui.controller.ControllerGameSelection;
-import ui.gui.BasePage;
+import ui.gui.base.BasePage;
 
 /**
  * Represents the game selection interface.

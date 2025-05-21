@@ -1,6 +1,6 @@
-package model;
+package model.entity;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import utils.exception.IntegerException;
 import utils.exception.NullOrBlankException;
 import utils.exception.StringException;

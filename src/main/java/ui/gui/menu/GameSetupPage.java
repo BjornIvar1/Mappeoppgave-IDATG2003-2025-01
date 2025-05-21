@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ui.controller.ControllerGameSetupPage;
 import ui.factory.ButtonFactory;
-import ui.gui.BasePage;
+import ui.gui.base.BasePage;
 import utils.Constants;
 import utils.exception.GUIInvalidNameException;
 import utils.exception.InvalidPlayerFields;

@@ -1,6 +1,6 @@
 package ui.controller;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import filehandler.player.PlayerFileReader;
 import filehandler.player.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
-import model.Player;
-import model.Tile;
+import model.entity.Player;
+import model.entity.Tile;
 import model.tileactions.TileAction;
 import ui.gui.game.SnakesAndLaddersPage;
 import ui.gui.menu.GameSelection;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import model.Player;
+import model.entity.Player;
 import ui.gui.game.MonopolyPage;
 import ui.gui.game.SnakesAndLaddersPage;
 import ui.gui.menu.GameSelection;

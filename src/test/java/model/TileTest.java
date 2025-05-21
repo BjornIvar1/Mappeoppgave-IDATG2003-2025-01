@@ -1,5 +1,6 @@
 package model;
 
+import model.entity.Tile;
 import model.tileactions.LadderAction;
 import model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +40,7 @@ class TileTest {
   @Test
   void setIncorrectTileId() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> tile1.setTileId(-1));
-    assertEquals("model.Tile ID must be a positive integer.", exception.getMessage());
+    assertEquals("model.entity.Tile ID must be a positive integer.", exception.getMessage());
   }
 
   @Test

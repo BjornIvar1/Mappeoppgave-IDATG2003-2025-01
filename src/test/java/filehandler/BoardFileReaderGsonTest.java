@@ -1,7 +1,7 @@
 package filehandler;
 
 import filehandler.board.BoardFileReaderGson;
-import model.Board;
+import model.entity.Board;
 import model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

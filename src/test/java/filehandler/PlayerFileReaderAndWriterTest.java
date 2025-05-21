@@ -1,6 +1,6 @@
 package filehandler;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import filehandler.player.PlayerFileReader;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,6 @@
 package ui.controller;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import filehandler.board.BoardFileReaderGson;
 import filehandler.board.BoardFileWriter;
 import filehandler.player.PlayerFileReader;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
-import model.Player;
-import model.Tile;
+import model.entity.Player;
+import model.entity.Tile;
 import model.tileactions.TileAction;
 import ui.gui.game.MonopolyPage;
 import ui.gui.menu.GameSelection;

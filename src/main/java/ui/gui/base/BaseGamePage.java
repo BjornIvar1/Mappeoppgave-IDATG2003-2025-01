@@ -1,10 +1,10 @@
-package ui.gui;
+package ui.gui.base;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import java.util.Iterator;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import model.Player;
+import model.entity.Player;
 
 /**
  * This class represents the base page for the game.

@@ -3,8 +3,11 @@ package engine;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import model.Board;
-import model.Player;
+
+import model.engine.BoardGame;
+import model.engine.Dice;
+import model.entity.Board;
+import model.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.exception.NullOrBlankException;

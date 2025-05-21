@@ -1,11 +1,12 @@
 package model.tileactions;
 
 import javafx.scene.paint.Color;
-import model.Player;
+import model.entity.Player;
+import model.entity.Tile;
 import utils.exception.NullOrBlankException;
 
 /**
- * Represent an action when a player lands on a {@link model.Tile}.
+ * Represent an action when a player lands on a {@link Tile}.
  *
  * <p>Implemented by classes which defines what happens
  * when a player lands on a specific tile.</p>
@@ -18,7 +19,7 @@ public interface TileAction {
   /**
    * Perform an Action when a player lands on a tile.
    *
-   * @param player The model.Player who lands on the tile
+   * @param player The model.entity.Player who lands on the tile
    */
   void perform(Player player) throws NullOrBlankException;
 

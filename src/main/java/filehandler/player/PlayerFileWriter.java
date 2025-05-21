@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
-import model.Player;
+import model.entity.Player;
 
 /**
  * PlayerFileWriter writes and saves all the players that are stored in the game.

@@ -1,4 +1,4 @@
-package model;
+package model.entity;
 
 import model.tileactions.TileAction;
 import utils.exception.IntegerException;
@@ -62,7 +62,7 @@ public class Tile {
    */
   public void setTileId(int tileId) {
     if (tileId < 0) {
-      throw new IntegerException("model.Tile ID must be a positive integer.");
+      throw new IntegerException("model.entity.Tile ID must be a positive integer.");
     }
     this.tileId = tileId;
   }

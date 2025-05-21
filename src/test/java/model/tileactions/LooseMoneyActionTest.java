@@ -1,11 +1,11 @@
 package model.tileactions;
 
-import engine.BoardGame;
+import model.engine.BoardGame;
 import javafx.scene.paint.Color;
-import model.Board;
+import model.entity.Board;
 import utils.exception.IntegerException;
-import model.Player;
-import model.Tile;
+import model.entity.Player;
+import model.entity.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.exception.NullOrBlankException;

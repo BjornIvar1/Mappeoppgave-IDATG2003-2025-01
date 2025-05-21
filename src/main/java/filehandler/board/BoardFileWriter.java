@@ -2,7 +2,7 @@ package filehandler.board;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import model.Board;
+import model.entity.Board;
 
 /**
  * An interface for writing a {@link Board} object to a file.

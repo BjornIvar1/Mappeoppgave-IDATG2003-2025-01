@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import ui.controller.ControllerLandingPage;
-import ui.gui.BasePage;
+import ui.gui.base.BasePage;
 
 /**
  * This class represents the landing page.

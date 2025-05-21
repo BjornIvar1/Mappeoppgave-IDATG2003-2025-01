@@ -1,11 +1,11 @@
-package engine;
+package model.engine;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import model.Board;
-import model.Player;
-import model.Tile;
+import model.entity.Board;
+import model.entity.Player;
+import model.entity.Tile;
 import observer.BoardGameObserver;
 import observer.Subjects;
 import utils.exception.NullOrBlankException;
