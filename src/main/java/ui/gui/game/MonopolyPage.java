@@ -38,7 +38,7 @@ import utils.MessageDisplay;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.10.1
+ * @version 0.10.2
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -147,17 +147,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     rollDiceButton.setOnAction(event -> {
       String playerName = controller.getGame().getCurrentPlayer().getName();
       controller.rollDice();
-
-
-
       if (controller.winnerFound()) {
         gameInformation.setText(MessageDisplay.winningMessage(playerName));
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
-      } else {
-        observerIsPlayerSkipped(playerName,
-            controller.getGame().getCurrentPlayer().isPlayerIsSkipped());
-        observerPlayerMoved(playerName, controller.getDieSum());
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
