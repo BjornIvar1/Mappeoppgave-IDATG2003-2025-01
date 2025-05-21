@@ -14,9 +14,9 @@ import utils.exception.StringException;
  *
  * @since 0.0.1
  * @author Arpit @ Bjørn
- * @version 0.2.3
+ * @version 0.2.4
  */
-public class LooseMoneyAction extends MonopolyActions {
+public class LooseMoneyAction implements TileAction {
   private int money;
   private String description;
 
@@ -27,7 +27,7 @@ public class LooseMoneyAction extends MonopolyActions {
    * @param description the description of the action.
    */
   public LooseMoneyAction(int money, String description) {
-    super(description);
+    setDescription(description);
     setMoney(money);
   }
 
@@ -45,9 +45,20 @@ public class LooseMoneyAction extends MonopolyActions {
     }
   }
 
+
+  /**
+   * Returns the description of the loose money action.
+   *
+   * @return the description of the loose money action.
+   */
   @Override
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public int getDestinationTile() {
+    return 0; // No specific destination tile for loose money action
   }
 
   /**
@@ -72,19 +83,12 @@ public class LooseMoneyAction extends MonopolyActions {
     return money;
   }
 
-  @Override
-  public int getDestinationTile() {
-    return 0; // No specific destination tile for LooseMoneyAction.
-  }
-
-
   /**
    * Mutates the description of what happens when the player lands on a tile.
    *
    * @param description of what happens when the player lands on a tile.
    * @throws StringException if the description is null or blank.
    */
-  @Override
   public void setDescription(String description) throws StringException {
     if (description == null || description.isEmpty()) {
       throw new StringException("Description cannot be null or empty");
