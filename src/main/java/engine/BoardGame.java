@@ -16,7 +16,7 @@ import utils.exception.NullOrBlankException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.5.0
+ * @version 0.6.0
  * @since 0.0.1
  */
 public class BoardGame implements Subjects {
@@ -138,7 +138,7 @@ public class BoardGame implements Subjects {
     if (currentTile.getTileId() == board.getTiles().size()) {
       return;
     }
-
+    notifyObservers();
     goToNextPlayer();
   }
 
@@ -169,12 +169,13 @@ public class BoardGame implements Subjects {
   /**
    * Notifies all registered observers about a change.
    *
-   * <p>This method is called when a player moves to a new tile on the board.
-   * It notifies all registered observers about the player's movement.</p>
+   * <p>This method is called when a player moves to a new tile on the board
+   * and how many steps.</p>
    */
   @Override
   public void notifyObservers() {
+    Player currentPlayer = getCurrentPlayer();
     observers.forEach(observer ->
-        observer.observerPlayerMoved(getCurrentPlayer().getCurrentTile().getTileId()));
+        observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS()));
   }
 }
