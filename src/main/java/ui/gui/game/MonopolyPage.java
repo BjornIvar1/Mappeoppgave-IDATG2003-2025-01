@@ -38,12 +38,11 @@ import utils.MessageDisplay;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.9.0
+ * @version 0.9.1
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerMonopoly controller;
-  private final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
   private BorderPane mainLayout;
   private Label gameInformation;
   private Button startGameButton;
@@ -98,24 +97,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    *
    * @return A HBox containing the top bar elements.
    */
-  private HBox createTopBar() {
-    HBox topBar = new HBox();
-    topBar.setPadding(new Insets(10));
-    topBar.setSpacing(10);
-    topBar.setAlignment(Pos.CENTER);
-
+  private HBox createTopHBox() {
     Button returnButton = createReturnButton();
     Button gameRulesButton = createGameRulesButton();
-
-    Region spacer = new Region();
-    HBox.setHgrow(spacer, Priority.ALWAYS);
-
-    returnButton.setMaxWidth(Double.MAX_VALUE);
-    gameRulesButton.setMaxWidth(Double.MAX_VALUE);
-
-    topBar.getChildren().addAll(returnButton, spacer, gameRulesButton);
-    mainLayout.setTop(topBar);
-    return topBar;
+    return createTopBar(returnButton, gameRulesButton);
   }
 
   /**
@@ -188,6 +173,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     return saveGame;
   }
 
+
   /**
    * Creates the button to start the game.
    *
@@ -218,7 +204,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return Button to return to the game selection menu.
    */
   private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
+    return ButtonFactory.returnButtonFactory(
         controller::switchToGameSelection);
   }
 
@@ -372,6 +358,25 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   @Override
   public void observerPlayerMoved(int tileId) {
     gameInformation.setText("rolled: " + tileId);
+  }
+
+  /**
+   * Create a button to display the game rules.
+   *
+   * <p>This button opens an alert dialog with the game rules when clicked.
+   * The user is prompted:</p>
+   *
+   * <li>Game Rules</li>
+   * <li>Monopoly Game Rules</li>
+   * <li>Game rules text</li>
+   *
+   * @return a Button to display the game rules.
+   */
+  private Button createGameRulesButton() {
+    return ButtonFactory.gameRulesButton(
+        Constants.GAME_MONOPOLY_HEADER,
+        Constants.GAME_RULES,
+        Constants.MONOPOLY_RULES);
   }
 }
 

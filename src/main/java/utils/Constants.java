@@ -5,7 +5,7 @@ package utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.3.0
  */
 public final class Constants {
   // Prevent instantiation
@@ -108,7 +108,12 @@ public final class Constants {
   /**
    * Const for the word players.
    */
-  public static final String GAME_RULES = "Game";
+  public static final String GAME_RULES = "Rules";
+
+  /**
+   * Const for the word back.
+   */
+  public static final String BACK = "Back";
 
   /**
    * Const for the word for Monopoly rules.
@@ -140,9 +145,5 @@ public final class Constants {
   public static final String SNAKES_AND_LADDERS_RULES = """
       This is a snakes and ladders game for 1-4 players. \
       Everyone gets 2 dice and rolls them. The player that reaches the end first wins.
-      There are three different boards in the game:
-      Easy board: The player that lands on a snake tile goes back 3 tiles.
-      Normal board: The player that lands on a snake tile goes back 5 tiles.
-      Hard board: The player that lands on a snake tile goes back 7 tiles.
       Good luck and have fun!""";
 }
