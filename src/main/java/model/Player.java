@@ -12,7 +12,7 @@ import utils.exception.NullOrBlankException;
  * Including methods for moving the player around the board</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.1
+ * @version 0.3.2
  * @since 0.0.1
  */
 
@@ -22,7 +22,7 @@ public class Player {
   private String name;
   private String color;
   private int balance;
-  private boolean inJail;
+  private boolean inSkipped;
   private Tile currentTile;
 
   /**
@@ -194,20 +194,20 @@ public class Player {
   /**
    * Mutator method for the player's inJail status.
    *
-   * @param inJail the new inJail status of the player
+   * @param inSkipped the new inJail status of the player
    *
    */
-  public void setInJail(boolean inJail) {
-    this.inJail = inJail;
+  public void setInSkipped(boolean inSkipped) {
+    this.inSkipped = inSkipped;
   }
 
   /**
    * Accessor method for the player's inJail status.
    *
-   * @return true if the player is in jail, false otherwise
+   * @return true if the player is in skip, false otherwise
    */
-  public boolean isPlayerInJail() {
-    return inJail;
+  public boolean isPlayerIsSkipped() {
+    return inSkipped;
   }
 
 }
