@@ -1,7 +1,5 @@
 package utils;
 
-import model.Player;
-
 /**
  * This class is responsible for displaying messages in the game.
  *
@@ -19,18 +17,17 @@ public class MessageDisplay {
    * @param player the player who won
    * @return the message to be displayed
    */
-  public static String winningMessage(Player player) {
-    return "Winner: " + player.getName() + "\n" + "Press Start Game to play again";
+  public static String winningMessage(String player) {
+    return "Winner: " + player + "\n" + "Press Start Game to play again";
   }
 
   /**
    * Displays the message when a player rolls the dice.
    *
-   * @param player the player who rolled the dice
    * @param rollSum the sum of the rolled dice
    * @return the message to be displayed
    */
-  public static String rollDiceMessage(Player player, int rollSum) {
-    return player.getName() + " rolled: " + rollSum;
+  public static String rollDiceMessage(String player, int rollSum) {
+    return player + " rolled: " + rollSum;
   }
 }

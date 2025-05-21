@@ -16,10 +16,10 @@ import utils.exception.GUIInvalidNameException;
 import utils.exception.InvalidPlayerFields;
 
 /**
- * Manages user creation interactions.
+ * Controller for handling game setup page interactions.
  *
- * <p>This controller facilitates navigation and scene management related to user creation.
- * It allows the user to create a new player and start a game.</p>
+ * <p>This includes player creation, game board selection,
+ * loading saved games, and validation for user input.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
@@ -30,9 +30,10 @@ public class ControllerGameSetupPage {
   private final int gameId;
 
   /**
-   * Constructs a {@code ControllerGameSetupPage} with a specified scene manager.
+   * Constructs a {@code ControllerGameSetupPage} with a scene manager and game ID.
    *
    * @param sceneManager the {@code SceneManager} responsible for handling scene transitions
+   * @param gameId the ID of the game (1 for Snakes and Ladders, 2 for Monopoly)
    */
   public ControllerGameSetupPage(SceneManager sceneManager, int gameId) {
     this.sceneManager = sceneManager;
@@ -43,38 +44,22 @@ public class ControllerGameSetupPage {
    * Navigates to the game page based on the game ID.
    *
    * <p>This method sets the view to the correct game page based on the game ID,
-   * and uses the gameBoardPath for selecting the type of board to use.</p>
+   * and uses the gameBoardPath for selecting the type of board to use for Snakes And Ladders.</p>
    *
    * @param gameBoardPath the path to the selected game board
    */
   public void goToGame(String gameBoardPath) {
     if (gameId == 1) {
       sceneManager.setView(new SnakesAndLaddersPage(
-          new ControllerSnakesAndLadders(sceneManager, gameBoardPath, Constants.PLAYER_FILE_PATH)));
+          new ControllerSnakesAndLadders(sceneManager, gameBoardPath)));
     } else if (gameId == 2) {
       sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
-          Constants.PLAYER_FILE_PATH)));
+          Constants.MONOPOLY_PLAYER_SAVED_CSV)));
     }
   }
 
   /**
-   * Checks if a saved game can be loaded based on the game ID.
-   *
-   * <p>This method verifies if a saved game file exists for the specified game ID.</p>
-   *
-   * @return {@code true} if a saved game can be loaded, {@code false} otherwise
-   */
-  private boolean canLoadSavedGame() {
-    if (gameId == 1) {
-      return Files.exists(Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV));
-    } else if (gameId == 2) {
-      return Files.exists(Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV));
-    }
-    return false;
-  }
-
-  /**
-   * Loads the saved game based on the game ID.
+   * Loads the saved game based and navigates to the game page.
    *
    * <p>This method sets the view to the correct game page based on the game ID
    * and loads the saved game data.</p>
@@ -87,7 +72,7 @@ public class ControllerGameSetupPage {
     } else {
       if (gameId == 1) {
         sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
-            Constants.BOARD_SAVED_FILEPATH, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV)));
+            Constants.BOARD_SAVED_FILEPATH)));
       } else if (gameId == 2) {
         sceneManager.setView(new MonopolyPage(new ControllerMonopoly(sceneManager,
             Constants.MONOPOLY_PLAYER_SAVED_CSV)));
@@ -96,7 +81,24 @@ public class ControllerGameSetupPage {
   }
 
   /**
+   * Checks if a saved game file exists and can be loaded for the selected game.
+   *
+   * @return {@code true} if a saved game can exists, otherwise {@code false}
+   */
+  private boolean canLoadSavedGame() {
+    if (gameId == 1) {
+      return Files.exists(Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV));
+    } else if (gameId == 2) {
+      return Files.exists(Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV));
+    }
+    return false;
+  }
+
+  /**
    * Validates user input for player names and game board selection.
+   *
+   * <p>This method checks if the number of player fields is valid,
+   * and throws an exception if the user input is invalid.</p>
    *
    * @param numberOfPlayerFields the number of player fields
    * @param gameBoardText the text of the selected game board
@@ -126,7 +128,7 @@ public class ControllerGameSetupPage {
   }
 
   /**
-   * Creates player objects based on user input and writes them to a CSV file.
+   * Creates {@link Player} objects based on user input and writes them to a CSV file.
    *
    * @param playerAmount the number of players
    * @param playerFields the list of player fields
@@ -142,11 +144,15 @@ public class ControllerGameSetupPage {
       Player player = new Player(userName, listOfColors.get(i), null, 0);
       playerList.add(player);
     }
-    PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
+    if (gameId == 1) {
+      PlayerFileWriter.writeToCsv(playerList, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
+    } else if (gameId == 2) {
+      PlayerFileWriter.writeToCsv(playerList, Constants.MONOPOLY_PLAYER_SAVED_CSV);
+    }
   }
 
   /**
-   * Returns the {@code SceneManager} associated with this controller.
+   * Returns the ID of the selected game.
    *
    * @return the {@code SceneManager} instance
    */

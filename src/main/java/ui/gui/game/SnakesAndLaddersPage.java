@@ -19,20 +19,19 @@ import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
 import utils.Constants;
 import utils.MessageDisplay;
-import utils.exception.NullOrBlankException;
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
  *
- * <p>This class is responsible for displaying the game board and handling user interactions</p>
+ * <p>This class is responsible for displaying the game board and handling user interactions,
+ * such as rolling dice, saving a game, or restarting the game.</p>
  *
- * <p>The user is introduced to three buttons, a control panel and the board game.</p>
  * <ul>
  *   <li>Start Game: Initializes a new game</li>
- *   <li>Roll Dice: Plays the game by rolling the dice</li>
- *   <li>Control panel: Lets the user know who has rolled and the score.</li>
- *   <li>Board: Displays the game board with player pieces and different tiles</li>
- *   <li>Return: Returns to the game selection menu</li>
+ *   <li>Control panel: Displays the three buttons the user can interact with,
+ *   and information about the game</li>
+ *   <li>Board: Displays the game board with player pieces</li>
+ *   <li>Return: Returns back to the {@link ui.gui.menu.GameSelection}/li>
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
@@ -43,11 +42,13 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   private final ControllerSnakesAndLadders controller;
   private BorderPane mainLayout;
   private Label gameInformation;
+  private Button startGameButton;
+  private Button rollDiceButton;
 
   /**
    * Constructor for the SnakesAndLaddersPage class.
    *
-   * @param controller the controller for the Snakes and Ladders game.
+   * @param controller the {@link ControllerSnakesAndLadders} which manges the game logic.
    */
   public SnakesAndLaddersPage(ControllerSnakesAndLadders controller) {
     this.controller = controller;
@@ -64,11 +65,14 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Creates a BoardPane with the main layout.
+   * Constructs the main layout of the Snakes and Ladders game page using {@link BorderPane}.
    *
-   * <p>A BoarderPane with the button the top,
-   * the board in the center and the control panel in
-   * the bottom.</p>
+   * <p>The layout is structured as follows:</p>
+   * <ul>
+   *   <li>Top: Contains the return button to go back to the game selection menu</li>
+   *   <li>Center: Contains the game board</li>
+   *   <li>Bottom: Contains the control panel with buttons and game information</li>
+   *</ul>
    *
    * @param board the snakes and ladder Board.
    * @param controlPanel the control panel.
@@ -83,7 +87,15 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Creates the control panel with buttons to start the game and roll the dice.
+   * Creates the control panel with buttons to play the game and game information.
+   *
+   * <p>The control panel includes:</p>
+   * <ul>
+   *   <li>Start Game: Initializes a new game</li>
+   *   <li>Roll Dice: Rolls the dice and updates the game state</li>
+   *   <li>Game Information: Displays the last rolled dice and player information</li>
+   *   <li>Save Game: Saves the current game state</li>
+   * </ul>
    *
    * @return HBox containing the control panel with buttons.
    */
@@ -94,94 +106,112 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     controlPanel.setAlignment(Pos.CENTER);
 
 
-    Button rollDice = getRollDice();
+    rollDiceButton = getRollDiceButton();
     Button saveGame = getSaveGameButton();
-    Button startButton = getStartGameButton(rollDice);
+    startGameButton = getStartGameButton(rollDiceButton);
 
     gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
 
-    controlPanel.getChildren().addAll(startButton,
-        rollDice,
+    controlPanel.getChildren().addAll(startGameButton,
+        rollDiceButton,
         gameInformation,
         playerInformation,
         saveGame);
     return controlPanel;
   }
 
+  /**
+   * Creates the button to roll the dice and play the game.
+   *
+   * <p>Uses the controller to roll the dice and move the current player.
+   * Also checks the winning condition and updates the UI accordingly</p>
+   *
+   * @return Button to roll the dice.
+   */
+  private Button getRollDiceButton() {
+    rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
+    rollDiceButton.setDisable(false);
+    rollDiceButton.setOnAction(e -> {
+      String playerName = controller.getGame().getCurrentPlayer().getName();
+      controller.rollDice();
+
+      if (controller.winningCondition()) {
+        gameInformation.setText(MessageDisplay.winningMessage(playerName));
+        rollDiceButton.setDisable(true);
+        startGameButton.setDisable(false);
+      } else {
+        gameInformation.setText(MessageDisplay.rollDiceMessage(playerName, controller.getDieSum()));
+      }
+      updateBoard(mainLayout);
+    });
+    return rollDiceButton;
+  }
+
+  /**
+   * Creates the button to save the game.
+   *
+   * <p>Uses the controller to save the current game to a file</p>
+   *
+   * @return Button to save the game.
+   */
   private Button getSaveGameButton() {
     Button saveGame = new Button("Save Game");
-    saveGame.setOnAction(e -> {
-      try {
-        controller.saveGame();
-      } catch (IOException ex) {
-        Logger.getLogger(SnakesAndLaddersPage.class.getName())
-            .warning("Could not save game: " + ex.getMessage());
-      }
-    });
+    saveGame.setOnAction(e -> controller.saveGame());
     return saveGame;
   }
 
   /**
    * Creates the button to start the game.
    *
+   * <p>Uses the controller to initialize a new game</p>
+   *
    * @return Button to start the game.
    */
   private Button getStartGameButton(Button rollDice) {
-    Button startButton = new Button(Constants.LABEL_START_GAME_BUTTON);
-    startButton.setDisable(true);
-    startButton.setOnAction(e -> {
+    startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
+    startGameButton.setDisable(true);
+    startGameButton.setOnAction(e -> {
       controller.initializeGame();
       updateBoard(mainLayout);
       rollDice.setDisable(false);
-      startButton.setDisable(true);
+      startGameButton.setDisable(true);
     });
-    return startButton;
+    return startGameButton;
   }
 
   /**
-   * Creates the button to roll the dice and play the game.
+   * Creates a return button to go back to the game selection menu.
    *
-   * @return Button to roll the dice.
+   * <p>This button is used to navigate back to the game selection menu.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to return to the game selection menu.
    */
-  private Button getRollDice() {
-    Button rollDice = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
-    rollDice.setOnAction(e -> {
-      try {
-        controller.getGame().play();
-      } catch (NullOrBlankException ex) {
-        Logger.getLogger(SnakesAndLaddersPage.class.getName())
-            .warning("Tile not found: " + ex.getMessage());
-      }
-      Player player = controller.getGame().getCurrentPlayer();
-      int rollSum = controller.getGame().getDice()
-          .getDie(0) + controller.getGame().getDice()
-          .getDie(1);
-
-      if (controller.getCurrentTileId() == controller.getTotalTiles()) {
-        gameInformation.setText(MessageDisplay.winningMessage(player));
-        Button startGameButton = (Button)
-            ((HBox) rollDice.getParent())
-                .getChildren().getFirst(); //code from GitHub Copilot.
-        startGameButton.setDisable(false);
-        rollDice.setDisable(true);
-      } else {
-        gameInformation.setText(MessageDisplay.rollDiceMessage(player, rollSum));
-      }
-      updateBoard(mainLayout);
-    });
-    return rollDice;
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory("back",
+        controller::switchToGameSelection);
   }
 
+  /**
+   * Updates the game board in the main layout.
+   *
+   * <p>This method is called when the game state changes,
+   * such as when a player rolls the dice or moves to a new tile.</p>
+   *
+   * @param mainLayout the main layout of the game page.
+   */
   private void updateBoard(BorderPane mainLayout) {
     GridPane boardGrid = createBoard();
     mainLayout.setCenter(boardGrid);
   }
 
   /**
-   * Creates the board grid for the Snakes and Ladders game.
+   * Creates and returns the board grid for the Snakes and Ladders game.
    *
-   * @return GridPane representing the game board.
+   * <p>Each tile displays its ID and action type, and shows any player currently on it.</p>
+   *
+   * @return the {@code GridPane} representing the game board.
    */
   private GridPane createBoard() {
     GridPane grid = new GridPane();
@@ -206,10 +236,13 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Creates a tile for the game board.
+   * Creates and return a single tile for the board.
+   *
+   *<p>Each tile is represented by a {@code StackPane} containing a rectangle,
+   * and information about the tile.</p>
    *
    * @param tileId the ID of the tile.
-   * @return StackPane representing the tile.
+   * @return a {@code StackPane} representing the tile.
    */
   private StackPane createTile(int tileId) {
     final StackPane stack = new StackPane();
@@ -223,7 +256,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-    TileAction landAction = controller.getCurrentPlayerAction(tileId);
+    TileAction landAction = controller.getTileAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(Constants.TILE_SIZE);
@@ -237,10 +270,10 @@ public class SnakesAndLaddersPage extends BaseGamePage {
   }
 
   /**
-   * Places the player on the specified tile.
+   * Places a circle on a specified tile representing the player.
    *
    * @param tileId the ID of the tile
-   * @param stack the StackPane representing the tile
+   * @param stack the {@code StackPane} representing the tile
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
     Iterator<Player> playerIterator = controller.getGame()
@@ -252,18 +285,5 @@ public class SnakesAndLaddersPage extends BaseGamePage {
         stack.getChildren().add(circle);
       }
     }
-  }
-
-  /**
-   * Creates a return button to go back to the game selection menu.
-   *
-   * <p>This button is used to navigate back to the game selection menu.
-   * The button is created by the {@code ButtonFactory}. </p>
-   *
-   * @return Button to return to the game selection menu.
-   */
-  private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
-        controller::switchToGameSelection);
   }
 }
