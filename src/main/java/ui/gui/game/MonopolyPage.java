@@ -1,5 +1,6 @@
 package ui.gui.game;
 
+import java.util.Iterator;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -17,7 +18,8 @@ import ui.controller.ControllerMonopoly;
 import ui.factory.ButtonFactory;
 import ui.gui.BaseGamePage;
 import utils.Constants;
-import java.util.Iterator;
+import utils.MessageDisplay;
+
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -40,12 +42,12 @@ import java.util.Iterator;
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
-  private final BorderPane mainLayout;
+  private final ControllerMonopoly controller;
+  private final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
+  private BorderPane mainLayout;
   private Label gameInformation;
-  private final ControllerMonopoly controllerMonopoly;
   private Button startGameButton;
   private Button rollDiceButton;
-  private final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
 
   /**
    * Constructor for the MonopolyPage class.
@@ -53,15 +55,15 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * <p>This class sets up the Monopoly game page, including the game board,
    * control panel, and buttons for user interaction.</p>
    *
-   * @param controllerMonopoly the controller for the Monopoly game.
+   * @param controller the controller for the Monopoly game.
    */
-  public MonopolyPage(ControllerMonopoly controllerMonopoly) {
-    this.controllerMonopoly = controllerMonopoly;
-    controllerMonopoly.initializeMonopoly();
+  public MonopolyPage(ControllerMonopoly controller) {
+    this.controller = controller;
+    controller.initializeMonopoly();
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
-    mainLayout = new BorderPane();
-    getMainLayout(board, controlPanel);
+
+    mainLayout = getBorderPane(board, controlPanel);
 
     BorderPane.setAlignment(board, Pos.CENTER);
     BorderPane.setAlignment(controlPanel, Pos.CENTER);
@@ -77,13 +79,15 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @param board       The grid containing the Monopoly board.
    * @param controlPanel The horizontal box containing control buttons and labels.
    */
-  private void getMainLayout(GridPane board, HBox controlPanel) {
+  private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
+    mainLayout = new BorderPane();
     mainLayout.setTop(createTopBar());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     mainLayout.setPadding(new Insets(10));
     mainLayout.setMinHeight(600); // Set minimum height for the layout
     mainLayout.setPrefHeight(800); // Set preferred height for the layout
+    return mainLayout;
   }
 
   /**
@@ -112,6 +116,146 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     topBar.getChildren().addAll(returnButton, spacer, gameRulesButton);
     mainLayout.setTop(topBar);
     return topBar;
+  }
+
+  /**
+   * Creates the control panel for the game.
+   *
+   * <p>This method creates a horizontal box layout containing buttons and labels
+   * for controlling the game. It includes a button to start the game and a label
+   * to display game information.</p>
+   *
+   * @return A HBox containing the control panel elements.
+   */
+  private HBox createControlPanel() {
+    HBox controlPanel = new HBox();
+    controlPanel.setPadding(new Insets(10));
+    controlPanel.setSpacing(10);
+    controlPanel.setAlignment(Pos.CENTER);
+
+    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
+    Label playerInformation = new Label(displayPlayerInfoMonopoly(
+        controller.getGame()));
+
+    Button rollDice = getRollDiceButton(playerInformation);
+    Button startButton = getStartGameButton(playerInformation);
+    Button saveGame = getSaveGameButton();
+
+
+    controlPanel.getChildren().addAll(startButton, rollDice,
+        gameInformation, playerInformation, saveGame);
+    return controlPanel;
+  }
+
+  /**
+   * Creates the button to roll the dice and play the game.
+   *
+   * <p>This method handles the action of rolling the dice and updating the game information.</p>
+   *
+   * @param playerInformation The label to display player information.
+   * @return Button to roll the dice.
+   */
+  private Button getRollDiceButton(Label playerInformation) {
+    rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
+    rollDiceButton.setDisable(false);
+    rollDiceButton.setOnAction(event -> {
+      String playerName = controller.getGame().getCurrentPlayer().getName();
+      controller.rollDice();
+
+      if (controller.winnerFound()) {
+        gameInformation.setText(MessageDisplay.winningMessage(playerName));
+        rollDiceButton.setDisable(true);
+        startGameButton.setDisable(false);
+      } else {
+        observerPlayerMoved(controller.getDieSum());
+      }
+      playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
+      updateBoard();
+    });
+    return rollDiceButton;
+  }
+
+  /**
+   * Creates the button to save the game.
+   *
+   * <p>Uses the controller to save the current game to a file</p>
+   *
+   * @return Button to save the game.
+   */
+  private Button getSaveGameButton() {
+    Button saveGame = new Button(Constants.LABEL_SAVE_GAME_BUTTON);
+    saveGame.setOnAction(e -> controller.saveGame());
+    return saveGame;
+  }
+
+  /**
+   * Creates the button to start the game.
+   *
+   * <p>This method initializes the game and enables the roll dice button.</p>
+   *
+   * @param playerInformation The label to display player information.
+   * @return Button to start the game.
+   */
+  private Button getStartGameButton(Label playerInformation) {
+    startGameButton = new Button(Constants.LABEL_START_GAME_BUTTON);
+    startGameButton.setDisable(true);
+    startGameButton.setOnAction(event -> {
+      controller.initializeMonopoly();
+      updateBoard();
+      rollDiceButton.setDisable(false);
+      startGameButton.setDisable(true);
+      playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
+    });
+    return startGameButton;
+  }
+
+  /**
+   * Creates a return button to go back to the game selection menu.
+   *
+   * <p>This button is used to navigate back to the game selection menu.
+   * The button is created by the {@code ButtonFactory}. </p>
+   *
+   * @return Button to return to the game selection menu.
+   */
+  private Button createReturnButton() {
+    return ButtonFactory.returnButtonFactory("back",
+        controller::switchToGameSelection);
+  }
+
+  /**
+   * Create a button to display the game rules.
+   *
+   * <p>This button opens an alert dialog with the game rules when clicked.
+   * The user is prompted:</p>
+   *
+   * <li>Game Rules</li>
+   * <li>Monopoly Game Rules</li>
+   * <li>Game rules text</li>
+   *
+   * @return a Button to display the game rules.
+   */
+  private Button createGameRulesButton() {
+    return ButtonFactory.createGameInfoButton("Rules",
+        () -> {
+          gameRulesAlert.setTitle(Constants.GAME_RULES);
+          gameRulesAlert.setHeaderText(Constants.GAME_MONOPOLY_HEADER);
+          gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
+          gameRulesAlert.setResizable(true);
+          gameRulesAlert.setWidth(400);
+          gameRulesAlert.setHeight(500);
+          gameRulesAlert.showAndWait();
+        });
+  }
+
+  /**
+   * Updates the game board in the main layout.
+   *
+   * <p>This method is called when the game state changes,
+   * such as when a player rolls the dice or moves to a new tile.</p>
+   */
+  private void updateBoard() {
+    GridPane boardGrid = createBoard();
+    mainLayout.setCenter(boardGrid);
   }
 
   /**
@@ -167,111 +311,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Creates the control panel for the game.
-   *
-   * <p>This method creates a horizontal box layout containing buttons and labels
-   * for controlling the game. It includes a button to start the game and a label
-   * to display game information.</p>
-   *
-   * @return A HBox containing the control panel elements.
-   */
-  private HBox createControlPanel() {
-    HBox controlPanel = new HBox();
-    controlPanel.setPadding(new Insets(10));
-    controlPanel.setSpacing(10);
-    controlPanel.setAlignment(Pos.CENTER);
-
-    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
-    Label playerInformation = new Label(displayPlayerInfoMonopoly(
-        controllerMonopoly.getBoardGame()));
-
-    Button rollDice = getRollDiceButton(playerInformation);
-    Button startButton = getStartGameButton(playerInformation);
-    Button saveGame = getSaveGameButton();
-
-
-    controlPanel.getChildren().addAll(startButton, rollDice,
-        gameInformation, playerInformation, saveGame);
-    return controlPanel;
-  }
-
-  /**
-   * A button to save the game.
-   *
-   * <p>This button allows the user to save the current game state.</p>
-   *
-   * @return Button to save the game.
-   */
-  private Button getSaveGameButton() {
-    Button saveGame = new Button("Save Game");
-    saveGame.setOnAction(e -> controllerMonopoly.saveGame());
-    return saveGame;
-  }
-
-
-  /**
-   * Creates the button to start the game.
-   *
-   * <p>This method initializes the game and enables the roll dice button.</p>
-   *
-   * @param playerInformation The label to display player information.
-   * @return Button to start the game.
-   */
-  private Button getStartGameButton(Label playerInformation) {
-    startGameButton = new Button("Start Game");
-    startGameButton.setDisable(true);
-    startGameButton.setOnAction(event -> {
-      controllerMonopoly.initializeMonopoly();
-      updateBoard();
-      rollDiceButton.setDisable(false);
-      startGameButton.setDisable(true);
-      playerInformation.setText(displayPlayerInfoMonopoly(controllerMonopoly.getBoardGame()));
-    });
-    return startGameButton;
-  }
-
-  /**
-   * Creates the button to roll the dice and play the game.
-   *
-   * <p>This method handles the action of rolling the dice and updating the game information.</p>
-   *
-   * @param playerInformation The label to display player information.
-   * @return Button to roll the dice.
-   */
-  private Button getRollDiceButton(Label playerInformation) {
-    rollDiceButton = new Button("Roll Dice");
-    rollDiceButton.setDisable(false);
-    rollDiceButton.setOnAction(event -> {
-      controllerMonopoly.initializeRollDice();
-      Player player = controllerMonopoly.getBoardGame().getCurrentPlayer();
-      int rollSum = controllerMonopoly.getBoardGame().getDice().getDie(0)
-          + controllerMonopoly.getBoardGame().getDice().getDie(1);
-      if (!controllerMonopoly.winnerFound()) {
-        observerPlayerMoved(rollSum);
-      } else {
-        gameInformation.setText("Winner: " + player.getName());
-        rollDiceButton.setDisable(true);
-        startGameButton.setDisable(false);
-      }
-      playerInformation.setText(displayPlayerInfoMonopoly(controllerMonopoly.getBoardGame()));
-      updateBoard();
-    });
-    return rollDiceButton;
-  }
-
-  /**
-   * Updates the board display by creating a new board grid and replacing the old one.
-   *
-   * <p>This method is called to refresh the board display after a player rolls the dice.
-   * It creates a new grid layout for the board
-   * and sets it as the center of the main layout.</p>
-   */
-  private void updateBoard() {
-    GridPane boardGrid = createBoard();
-    mainLayout.setCenter(boardGrid);
-  }
-
-  /**
    * Creates a tile for the Monopoly board.
    *
    * <p>This method generates a StackPane containing a rectangle representing the tile,
@@ -289,7 +328,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     rect.setStroke(Color.BLACK);
     Text text = new Text(String.valueOf(tileId));
 
-    TileAction landAction = controllerMonopoly.getTileAction(tileId);
+    TileAction landAction = controller.getTileAction(tileId);
     if (landAction != null) {
       rect.setFill(landAction.getColor());
       text.setWrappingWidth(60);
@@ -312,7 +351,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @param stack  The StackPane representing the tile.
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
-    Iterator<Player> playerIterator = controllerMonopoly.getPlayersIterator();
+    Iterator<Player> playerIterator = controller.getPlayersIterator();
     while (playerIterator.hasNext()) {
       Player player = playerIterator.next();
       if (player.getCurrentTile().getTileId() == tileId) {
@@ -320,19 +359,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         stack.getChildren().add(circle);
       }
     }
-  }
-
-  /**
-   * Creates a return button to go back to the game selection menu.
-   *
-   * <p>This button is used to navigate back to the game selection menu.
-   * The button is created by the {@code ButtonFactory}. </p>
-   *
-   * @return Button to return to the game selection menu.
-   */
-  private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
-        controllerMonopoly::switchToGameSelection);
   }
 
   /**
@@ -346,31 +372,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   @Override
   public void observerPlayerMoved(int tileId) {
     gameInformation.setText("rolled: " + tileId);
-  }
-
-  /**
-   * Create a button to display the game rules.
-   *
-   * <p>This button opens an alert dialog with the game rules when clicked.
-   * The user is prompted:</p>
-   *
-   * <li>Game Rules</li>
-   * <li>Monopoly Game Rules</li>
-   * <li>Game rules text</li>
-   *
-   * @return a Button to display the game rules.
-   */
-  private Button createGameRulesButton() {
-    return ButtonFactory.createGameInfoButton("Rules",
-        () -> {
-          gameRulesAlert.setTitle(Constants.GAME_RULES);
-          gameRulesAlert.setHeaderText(Constants.GAME_MONOPOLY_HEADER);
-          gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
-          gameRulesAlert.setResizable(true);
-          gameRulesAlert.setWidth(400);
-          gameRulesAlert.setHeight(500);
-          gameRulesAlert.showAndWait();
-        });
   }
 }
 
