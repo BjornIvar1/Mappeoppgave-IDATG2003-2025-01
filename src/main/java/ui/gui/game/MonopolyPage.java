@@ -151,7 +151,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
       } else {
-        observerPlayerMoved(controller.getDieSum());
+        observerPlayerMoved(playerName ,controller.getDieSum());
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
@@ -346,11 +346,11 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * <p>This method updates the game information label
    * to display the rolled value.</p>
    *
-   * @param tileId the ID of the tile the player moved to.
+   * @param rolledSum the ID of the tile the player moved to.
    */
   @Override
-  public void observerPlayerMoved(int tileId) {
-    gameInformation.setText("rolled: " + tileId);
+  public void observerPlayerMoved(String name, int rolledSum) {
+    gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
   }
 }
 
