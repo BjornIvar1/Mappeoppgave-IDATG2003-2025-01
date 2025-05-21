@@ -9,11 +9,12 @@ import java.util.List;
  * It includes methods for rolling multiple dice and return a specific die.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.1
+ * @version 0.3.0
  * @since 0.0.2
  */
 public class Dice extends Die {
   private final List<Die> diceToPlay;
+  private int lastRollS;
 
   /**
    * Constructor for engine.Dice object that holds multiple dice.
@@ -49,7 +50,12 @@ public class Dice extends Die {
     for (Die die : diceToPlay) {
       sum += die.roll();
     }
+    lastRollS = sum;
     return sum;
+  }
+
+  public int getLastRollS() {
+    return lastRollS;
   }
 
   /**
