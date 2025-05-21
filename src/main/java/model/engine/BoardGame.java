@@ -191,19 +191,15 @@ public class BoardGame implements Subjects {
   @Override
   public void notifyObservers() {
     Player currentPlayer = getCurrentPlayer();
-    boolean isWinner = currentPlayer.getCurrentTile().getTileId() == board.getTiles().size();
+    boolean isWinnerSnakesAndLadders = currentPlayer.getCurrentTile().getTileId() == board.getTiles().size();
+    boolean isWinnerMonopoly = currentPlayer.getBalance() >= Constants.WINNING_BALANCE;
 
     observers.forEach(observer -> {
-      observer.observerPlayerWonInSnakesAndLadders(currentPlayer.getName(), isWinner);
+      observer.observerPlayerWonInSnakesAndLadders(currentPlayer.getName(), isWinnerSnakesAndLadders);
       observer.observerPlayerWonInMonopoly(currentPlayer.getName(),
-          currentPlayer.getBalance() >= Constants.WINNING_BALANCE);
+          isWinnerMonopoly);
       observer.observerIsPlayerSkipped(currentPlayer.getName(), currentPlayer.isPlayerIsSkipped());
       observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS());
     });
-
-    System.out.println("Current Player: " + currentPlayer.getName());
-    System.out.println("Current Tile ID: " + currentPlayer.getCurrentTile().getTileId());
-    System.out.println("Winning Tile ID: " + board.getTiles().size());
-    System.out.println("Is Winner: " + isWinner);
   }
 }
