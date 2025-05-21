@@ -37,7 +37,7 @@ import utils.MessageDisplay;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.9.1
+ * @version 0.9.2
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -79,7 +79,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
     mainLayout = new BorderPane();
-    mainLayout.setTop(createTopHBox());
+    mainLayout.setTop(createTopHbox());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     mainLayout.setPadding(new Insets(10));
@@ -96,7 +96,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    *
    * @return A HBox containing the top bar elements.
    */
-  private HBox createTopHBox() {
+  private HBox createTopHbox() {
     Button returnButton = createReturnButton();
     Button gameRulesButton = createGameRulesButton();
     return createTopBar(returnButton, gameRulesButton);
@@ -151,7 +151,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
       } else {
-        observerPlayerMoved(playerName ,controller.getDieSum());
+        observerPlayerMoved(playerName, controller.getDieSum());
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
       updateBoard();
@@ -220,7 +220,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return a Button to display the game rules.
    */
   private Button createGameRulesButton() {
-    return ButtonFactory.gameRulesButton(
+    return ButtonFactory.informationButton(
+        Constants.GAME_RULES,
         Constants.GAME_MONOPOLY_HEADER,
         Constants.GAME_RULES,
         Constants.MONOPOLY_RULES);
@@ -256,34 +257,34 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     int firstTileId = 1; // Start with tile ID 1
 
     //First row from left to right. Tile from 1-10.
-    for (int x_coordinateRow = gridSize - 2; x_coordinateRow >= 0; x_coordinateRow--) {
+    for (int xcoordinateRow = gridSize - 2; xcoordinateRow >= 0; xcoordinateRow--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, x_coordinateRow, gridSize - 1);
+        grid.add(tile, xcoordinateRow, gridSize - 1);
       }
     }
 
     //First column from bottom to top. Tile from 11-19.
-    for (int y_coordinateColumn = gridSize - 2; y_coordinateColumn >= 0; y_coordinateColumn--) {
+    for (int ycoordinateColumn = gridSize - 2; ycoordinateColumn >= 0; ycoordinateColumn--) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, 0, y_coordinateColumn);
+        grid.add(tile, 0, ycoordinateColumn);
       }
     }
 
     //Second row from right to left. Tile from 20-30.
-    for (int x_coordinateRow = 1; x_coordinateRow < gridSize - 1; x_coordinateRow++) {
+    for (int xcoordinateRow = 1; xcoordinateRow < gridSize - 1; xcoordinateRow++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, x_coordinateRow, 0);
+        grid.add(tile, xcoordinateRow, 0);
       }
     }
 
     //Second column from top to bottom. Tile from 31-40.
-    for (int y_coordinateColumn = 0; y_coordinateColumn < gridSize; y_coordinateColumn++) {
+    for (int ycoordinateColumn = 0; ycoordinateColumn < gridSize; ycoordinateColumn++) {
       if (firstTileId <= 40) {
         StackPane tile = createTile(firstTileId++);
-        grid.add(tile, gridSize - 1, y_coordinateColumn);
+        grid.add(tile, gridSize - 1, ycoordinateColumn);
       }
     }
     return grid;
@@ -300,7 +301,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return A StackPane containing the tile representation.
    */
   private StackPane createTile(int tileId) {
-    StackPane stack = new StackPane();
     Rectangle rect = new Rectangle(Constants.TILE_SIZE, Constants.TILE_SIZE);
     Color baseColor = getColor(tileId);
     rect.setFill(baseColor);
@@ -314,6 +314,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
       text.setText(landAction.getDescription());
     }
 
+    StackPane stack = new StackPane();
     stack.getChildren().addAll(rect, text);
     placePlayerOnTile(tileId, stack);
 
