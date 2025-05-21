@@ -2,7 +2,6 @@ package ui.gui.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -36,7 +35,7 @@ import java.util.Iterator;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.9.0
+ * @version 0.9.1
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -45,8 +44,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerMonopoly controllerMonopoly;
   private Button startGameButton;
   private Button rollDiceButton;
-  private final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
-
   /**
    * Constructor for the MonopolyPage class.
    *
@@ -78,7 +75,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @param controlPanel The horizontal box containing control buttons and labels.
    */
   private void getMainLayout(GridPane board, HBox controlPanel) {
-    mainLayout.setTop(createTopBar());
+    mainLayout.setTop(createTopHBox());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     mainLayout.setPadding(new Insets(10));
@@ -94,24 +91,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    *
    * @return A HBox containing the top bar elements.
    */
-  private HBox createTopBar() {
-    HBox topBar = new HBox();
-    topBar.setPadding(new Insets(10));
-    topBar.setSpacing(10);
-    topBar.setAlignment(Pos.CENTER);
-
+  private HBox createTopHBox() {
     Button returnButton = createReturnButton();
     Button gameRulesButton = createGameRulesButton();
-
-    Region spacer = new Region();
-    HBox.setHgrow(spacer, Priority.ALWAYS);
-
-    returnButton.setMaxWidth(Double.MAX_VALUE);
-    gameRulesButton.setMaxWidth(Double.MAX_VALUE);
-
-    topBar.getChildren().addAll(returnButton, spacer, gameRulesButton);
-    mainLayout.setTop(topBar);
-    return topBar;
+    return createTopBar(returnButton, gameRulesButton);
   }
 
   /**
@@ -331,7 +314,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return Button to return to the game selection menu.
    */
   private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
+    return ButtonFactory.returnButtonFactory(
         controllerMonopoly::switchToGameSelection);
   }
 
@@ -361,16 +344,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return a Button to display the game rules.
    */
   private Button createGameRulesButton() {
-    return ButtonFactory.createGameInfoButton("Rules",
-        () -> {
-          gameRulesAlert.setTitle(Constants.GAME_RULES);
-          gameRulesAlert.setHeaderText(Constants.GAME_MONOPOLY_HEADER);
-          gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
-          gameRulesAlert.setResizable(true);
-          gameRulesAlert.setWidth(400);
-          gameRulesAlert.setHeight(500);
-          gameRulesAlert.showAndWait();
-        });
+    return ButtonFactory.gameRulesButton(
+        Constants.GAME_MONOPOLY_HEADER,
+        Constants.GAME_RULES,
+        Constants.MONOPOLY_RULES);
   }
 }
 
