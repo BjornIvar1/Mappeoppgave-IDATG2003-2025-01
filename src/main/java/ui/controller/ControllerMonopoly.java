@@ -1,8 +1,9 @@
 package ui.controller;
 
 import engine.BoardGame;
-import filehandler.PlayerFileReader;
-import filehandler.PlayerFileWriter;
+import filehandler.board.BoardFileWriter;
+import filehandler.player.PlayerFileReader;
+import filehandler.player.PlayerFileWriter;
 import filehandler.board.BoardFileReaderGson;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,7 +22,8 @@ import utils.exception.NullOrBlankException;
 /**
  * The controller for the Monopoly game.
  *
- * <p>This class is responsible for managing the interactions and logic specific to the
+ *
+ * <p>This class is responsible for interacting with the game engine and logic specific to the
  * Monopoly game. It handles the initialization of the game board, player setup,
  * dice rolling, and checking for a winner. It also handles scene switches from
  * the monopoly to the {@link GameSelection}.</p>
@@ -37,9 +39,11 @@ public class ControllerMonopoly {
   private final MonopolyPage monopolyPage;
 
   /**
-   * Constructs a {@code ControllerMonopoly} with the specified scene manager.
+   * Constructs a {@code ControllerMonopoly} with the specified scene manager,
+   * and player file path.
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
+   * @param playerFilePath the path to the player file
    */
   public ControllerMonopoly(SceneManager sceneManager, String playerFilePath) {
     this.sceneManager = sceneManager;
@@ -62,8 +66,8 @@ public class ControllerMonopoly {
   /**
    * Initializes the Monopoly game.
    *
-   * <p>This method sets up the game board and players by
-   * reading from the specified files.</p>
+   * <p>This method sets up the game board and players from saved files
+   * and registers the view as an observer.</p>
    */
   public void initializeMonopoly() {
     game = initializeBoardGame();
@@ -79,7 +83,7 @@ public class ControllerMonopoly {
     try {
       game.play();
     } catch (NullOrBlankException e) {
-      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+      Logger.getLogger(ControllerMonopoly.class.getName())
           .warning("Failed to play turn: " + e.getMessage());
     }
   }
@@ -107,12 +111,11 @@ public class ControllerMonopoly {
   }
 
   /**
-   * Initializes the board game by reading the board and player data from files.
+   * Creates a new {@link BoardGame} by reading the board and player data from files.
    *
-   * <p>This method creates a new {@code BoardGame} instance,
-   * reads the board configuration from a JSON file,
-   * and initializes the players from a CSV file.
-   * It also places each player on the starting tile of the board.</p>
+   * <p>Reads the board configuration from a JSON file,
+   * and the player data from a CSV file. Initializes the game with two dice,
+   * and places each player on the starting tile.</p>
    *
    * @return a new {@code BoardGame} instance with the initialized board and players
    */
@@ -125,19 +128,18 @@ public class ControllerMonopoly {
       playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayerIterator().forEachRemaining(player ->
-          player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
+          player.placeOnTile(boardGame.getBoard().getTileById(player.getCurrentTileId())));
     } catch (IOException | NullOrBlankException e) {
       System.out.println("Could not read board or players from file: " + e.getMessage());
     }
     return boardGame;
   }
 
-
   /**
-   * Saves the current game state to a CSV file.
+   * Saves the current game state to a file.
    *
-   * <p>This method saves the current players data to a CSV file
-   * using the {@code PlayerFileWriter} class.</p>
+   * <p>This method uses {@link BoardFileWriter} to save the current board used,
+   * and {@link PlayerFileWriter} to save the players to a CSV file.</p>
    */
   public void saveGame() {
     Iterator<Player> playerIterator = getPlayersIterator();
@@ -153,12 +155,10 @@ public class ControllerMonopoly {
   }
 
   /**
-   * Checks if a player has won the game.
+   * Checks whether the current player has won the game.
    *
-   * <p>This method determines if the current player
-   * has reached the winning balance.</p>
-   *
-   * @return {@code true} if the current player has won, otherwise {@code false}.
+   * <p>Returns {@code true} if a player have earned the winning balance,
+   * or {@code false} otherwise</p>
    */
   public boolean winnerFound() {
     return game.getCurrentPlayer().getBalance()
@@ -166,12 +166,10 @@ public class ControllerMonopoly {
   }
 
   /**
-   * Retrieves the tile action for a specific tile.
-   *
-   * <p>This method returns the {@code TileAction} associated with the specified tile ID.</p>
+   * Returns the current player's action for a specific tile.
    *
    * @param tileId the ID of the tile
-   * @return the {@code TileAction} associated with the specified tile ID
+   * @return the {@code TileAction} associated with the current tile, or {@code null}
    */
   public TileAction getTileAction(int tileId) {
     Iterator<Tile> tileIterator = game.getBoard().getTileIterator();
@@ -184,6 +182,11 @@ public class ControllerMonopoly {
     return null; // Return null if no matching tile is found
   }
 
+  /**
+   * Returns an iterator for players in the game.
+   *
+   * @return an {@code Iterator} of {@code Player} objects
+   */
   public Iterator<Player> getPlayersIterator() {
     return game.getPlayerIterator();
   }
