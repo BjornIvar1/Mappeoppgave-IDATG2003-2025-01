@@ -2,7 +2,7 @@ package ui.gui;
 
 import engine.BoardGame;
 import filehandler.board.BoardFileReaderGson;
-import filehandler.PlayerFileReader;
+import filehandler.player.PlayerFileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
@@ -116,7 +116,7 @@ public class BaseGamePage extends BasePage {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
       boardGame.createDice(2);
       playerReader.readCsvBuffered(playerFilePath, boardGame);
-      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTile(1)));
+      boardGame.getPlayers().forEach(player -> player.placeOnTile(boardGame.getBoard().getTileById(1)));
     } catch (IOException | NullPointerException | NullOrBlankException e) {
       System.out.println("Could not read board or players from file: " + e.getMessage());
     }
