@@ -20,7 +20,8 @@ public interface BoardGameObserver {
    * <p>This method is called when a player moves to a new tile on the board.
    * It notifies all registered observers about the player's movement.</p>
    *
-   * @param tileId the ID of the tile where the player has moved
+   * @param name the name of the player who moved.
+   * @param rolledSum the total steps the player will move after rolling the dice.
    */
-  void observerPlayerMoved(int tileId);
+  void observerPlayerMoved(String name, int rolledSum);
 }
