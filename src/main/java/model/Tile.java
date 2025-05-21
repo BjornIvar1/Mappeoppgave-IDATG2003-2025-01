@@ -22,7 +22,7 @@ public class Tile {
   /**
    * Constructor for creating model.Tile with a unique ID.
    *
-   * @param tileId the id for the tile
+   * @param tileId the id for the tile.
    */
   public Tile(int tileId, int xCoordinate, int yCoordinate) {
     setTileId(tileId);
@@ -34,7 +34,7 @@ public class Tile {
    * Performs an action on a player when a player lands on the tile.
    * The action is performed by the landAction.
    *
-   * @param player the player to perform an action on
+   * @param player the player who lands on the tile.
    */
   public void landPlayer(Player player) throws NullOrBlankException {
     if (player != null && landAction != null) {
@@ -102,7 +102,7 @@ public class Tile {
   /**
    * Returns the next tile.
    *
-   * @return the next tile on the board
+   * @return the next tile on the board.
    */
   public Tile getNextTile() {
     return nextTile;
@@ -120,7 +120,7 @@ public class Tile {
   /**
    * Returns the action to be performed when a player lands on the tile.
    *
-   * @return the action to be performed
+   * @return the action to be performed.
    */
   public TileAction getLandAction() {
     return landAction;
@@ -129,7 +129,7 @@ public class Tile {
   /**
    * Returns the x-coordinate of the tile.
    *
-   * @return the xCoordinate
+   * @return the xCoordinate.
    */
   public int getXCoordinate() {
     return xCoordinate;
@@ -138,7 +138,7 @@ public class Tile {
   /**
    * Returns the y-coordinate of the tile.
    *
-   * @return the yCoordinate
+   * @return the yCoordinate.
    */
   public int getYCoordinate() {
     return yCoordinate;
