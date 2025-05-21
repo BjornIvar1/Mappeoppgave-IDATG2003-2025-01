@@ -35,7 +35,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.5.0
+ * @version 0.5.1
  */
 public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerSnakesAndLadders controller;
@@ -79,7 +79,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    */
   private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
     mainLayout = new BorderPane();
-    mainLayout.setTop(createTopHBox());
+    mainLayout.setTop(createTopHbox());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     return mainLayout;
@@ -200,7 +200,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    * @return Button to display the game rules.
    */
   private Button createGameRulesButton() {
-    return ButtonFactory.gameRulesButton(
+    return ButtonFactory.informationButton(
+        Constants.GAME_RULES,
         Constants.GAME_RULES,
         Constants.GAME_SNAKES_AND_LADDERS_HEADER,
         Constants.SNAKES_AND_LADDERS_RULES
@@ -224,7 +225,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    *
    * @return HBox containing the top bar with buttons.
    */
-  private HBox createTopHBox() {
+  private HBox createTopHbox() {
     Button returnButton = createReturnButton();
     Button gameRulesButton = createGameRulesButton();
     return createTopBar(returnButton, gameRulesButton);
