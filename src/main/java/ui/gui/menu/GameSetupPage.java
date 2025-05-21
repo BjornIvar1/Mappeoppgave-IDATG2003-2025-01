@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,7 +24,7 @@ import utils.exception.InvalidPlayerFields;
  * {@code GameSelection} page.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.1
+ * @version 0.4.0
  * @since 0.0.1
  */
 public class GameSetupPage extends BasePage {
@@ -46,7 +45,18 @@ public class GameSetupPage extends BasePage {
   public GameSetupPage(ControllerGameSetupPage controllerGameChoice) {
     this.controller = controllerGameChoice;
     setCenter(createUserPane());
-    setTop(backToGameSelectionPage());
+    setTop(getTopBar());
+  }
+
+  /**
+   * Creates a top bar with a return button and an information button.
+   *
+   * @return a {@code HBox} containing the top bar elements
+   */
+  public HBox getTopBar() {
+    HBox topBar = createTopBar(backToGameSelectionPage(), getInformationButton());
+    topBar.setAlignment(Pos.CENTER);
+    return topBar;
   }
 
   /**
@@ -193,16 +203,30 @@ public class GameSetupPage extends BasePage {
   }
 
   /**
+   * Creates a button to help the user with information.
+   *
+   * <p>This is a button that opens a new alert window.
+   * The window will give the user all the information
+   * they need to setup the game before playing.</p>
+   *
+   * @return a {@code Button} to show game information
+   */
+  private Button getInformationButton() {
+    return ButtonFactory.informationButton(
+        Constants.INFO,
+        Constants.INFORMATION,
+        Constants.INFORMATION,
+        Constants.HELP_INFORMATION
+        );
+  }
+
+  /**
    * Creates a FlowPane with a button to return to the game selection page.
    *
-   * @return a {@code FlowPane} containing the return button
+   * @return a {@code Button} containing the return button
    */
-  private FlowPane backToGameSelectionPage() {
-    Button returnButton = ButtonFactory
-        .returnButtonFactory( controller::returnToGameSelection);
-    FlowPane flowPane = new FlowPane();
-    flowPane.getChildren().add(returnButton);
-    flowPane.setAlignment(Pos.TOP_LEFT);
-    return flowPane;
+  private Button backToGameSelectionPage() {
+    return ButtonFactory
+        .returnButtonFactory(controller::returnToGameSelection);
   }
 }
