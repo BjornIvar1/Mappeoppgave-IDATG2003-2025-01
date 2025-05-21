@@ -16,7 +16,7 @@ import utils.exception.NullOrBlankException;
  * and playing the game.
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.6.0
+ * @version 0.6.1
  * @since 0.0.1
  */
 public class BoardGame implements Subjects {
@@ -127,17 +127,23 @@ public class BoardGame implements Subjects {
     Player currentPlayer = players.get(currentPlayerIndex);
 
     if (currentPlayer.isPlayerInJail()) {
+      notifyObservers();
       currentPlayer.setInJail(false);
       goToNextPlayer();
+      return;
     }
     int steps = dice.roll();
     currentPlayer.move(steps);
 
     Tile currentTile = currentPlayer.getCurrentTile();
 
+    notifyObservers();
+
     if (currentTile.getTileId() == board.getTiles().size()) {
+      notifyObservers();
       return;
     }
+
     notifyObservers();
     goToNextPlayer();
   }
@@ -175,7 +181,9 @@ public class BoardGame implements Subjects {
   @Override
   public void notifyObservers() {
     Player currentPlayer = getCurrentPlayer();
-    observers.forEach(observer ->
-        observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS()));
+    observers.forEach(observer -> {
+      observer.observerIsPlayerInJail(currentPlayer.getName(), currentPlayer.isPlayerInJail());
+      observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS());
+    });
   }
 }
