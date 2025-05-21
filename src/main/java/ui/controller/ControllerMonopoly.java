@@ -79,7 +79,7 @@ public class ControllerMonopoly {
     try {
       game.play();
     } catch (NullOrBlankException e) {
-      Logger.getLogger(ControllerSnakesAndLadders.class.getName())
+      Logger.getLogger(ControllerMonopoly.class.getName())
           .warning("Failed to play turn: " + e.getMessage());
     }
   }
