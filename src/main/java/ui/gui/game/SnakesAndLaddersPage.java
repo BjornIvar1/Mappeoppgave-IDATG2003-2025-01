@@ -187,8 +187,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return Button to return to the game selection menu.
    */
   private Button createReturnButton() {
-    return ButtonFactory.returnButtonFactory("back",
-        controller::switchToGameSelection);
+    return ButtonFactory.returnButtonFactory(controller::switchToGameSelection);
   }
 
   /**

@@ -3,7 +3,6 @@ package ui.gui.game;
 import java.util.Iterator;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -80,7 +79,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
     mainLayout = new BorderPane();
-    mainLayout.setTop(createTopBar());
+    mainLayout.setTop(createTopHBox());
     mainLayout.setCenter(board);
     mainLayout.setBottom(controlPanel);
     mainLayout.setPadding(new Insets(10));
@@ -221,16 +220,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return a Button to display the game rules.
    */
   private Button createGameRulesButton() {
-    return ButtonFactory.createGameInfoButton("Rules",
-        () -> {
-          gameRulesAlert.setTitle(Constants.GAME_RULES);
-          gameRulesAlert.setHeaderText(Constants.GAME_MONOPOLY_HEADER);
-          gameRulesAlert.setContentText(Constants.MONOPOLY_RULES);
-          gameRulesAlert.setResizable(true);
-          gameRulesAlert.setWidth(400);
-          gameRulesAlert.setHeight(500);
-          gameRulesAlert.showAndWait();
-        });
+    return ButtonFactory.gameRulesButton(
+        Constants.GAME_MONOPOLY_HEADER,
+        Constants.GAME_RULES,
+        Constants.MONOPOLY_RULES);
   }
 
   /**
@@ -358,25 +351,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   @Override
   public void observerPlayerMoved(int tileId) {
     gameInformation.setText("rolled: " + tileId);
-  }
-
-  /**
-   * Create a button to display the game rules.
-   *
-   * <p>This button opens an alert dialog with the game rules when clicked.
-   * The user is prompted:</p>
-   *
-   * <li>Game Rules</li>
-   * <li>Monopoly Game Rules</li>
-   * <li>Game rules text</li>
-   *
-   * @return a Button to display the game rules.
-   */
-  private Button createGameRulesButton() {
-    return ButtonFactory.gameRulesButton(
-        Constants.GAME_MONOPOLY_HEADER,
-        Constants.GAME_RULES,
-        Constants.MONOPOLY_RULES);
   }
 }
 
