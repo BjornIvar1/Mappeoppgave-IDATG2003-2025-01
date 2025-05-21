@@ -69,14 +69,6 @@ public class ControllerSnakesAndLadders {
     game.addObserver(snakesAndLaddersPage);
   }
 
-  public void initializeGame1() {
-    game.removeObserver(snakesAndLaddersPage);
-    game = initializeBoardGame();
-    game.addObserver(snakesAndLaddersPage);
-  }
-
-
-
   /**
    * Resets the Snakes and Ladders game
    * by reinitializing the board and placing players on the start tile.
