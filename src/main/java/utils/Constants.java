@@ -124,7 +124,7 @@ public final class Constants {
       There are three different tiles in the game:
       Money tile: The player that lands receives $500,000.
       Tax tile: The player that lands pays $250,000.
-      Jail tile: The player that lands on this tile will be skipped in the next turn. 
+      Jail tile: The player that lands on this tile will be skipped in the next turn.
       (Note this will only happen when playing multiplayer)
       Good luck and have fun!""";
 
