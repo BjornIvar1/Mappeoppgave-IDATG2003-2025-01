@@ -1,6 +1,7 @@
 package ui.gui.game;
 
 import java.util.Iterator;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -37,7 +38,7 @@ import utils.MessageDisplay;
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.9.2
+ * @version 0.10.0
  * @since 0.0.1
  */
 public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
@@ -58,6 +59,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   public MonopolyPage(ControllerMonopoly controller) {
     this.controller = controller;
     controller.initializeMonopoly();
+    controller.getGame().addObserver(this);
     GridPane board = createBoard();
     HBox controlPanel = createControlPanel();
 
@@ -146,11 +148,15 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
       String playerName = controller.getGame().getCurrentPlayer().getName();
       controller.rollDice();
 
+
+
       if (controller.winnerFound()) {
         gameInformation.setText(MessageDisplay.winningMessage(playerName));
         rollDiceButton.setDisable(true);
         startGameButton.setDisable(false);
       } else {
+        observerIsPlayerInJail(playerName,
+            controller.getGame().getCurrentPlayer().isPlayerInJail());
         observerPlayerMoved(playerName, controller.getDieSum());
       }
       playerInformation.setText(displayPlayerInfoMonopoly(controller.getGame()));
@@ -352,6 +358,26 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   @Override
   public void observerPlayerMoved(String name, int rolledSum) {
     gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
+  }
+
+  /**
+   * A notification method that is called when a player is in jail.
+   *
+   * <p>This method updates the game information label
+   * to display the player's jail status.</p>
+   *
+   * @param name the name of the player.
+   * @param isInJail true if the player is in jail, false otherwise.
+   */
+  @Override
+  public void observerIsPlayerInJail(String name, boolean isInJail) {
+    Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
+      // This is necessary to ensure thread safety when updating the UI
+      // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
+      if (isInJail) { // Check if the player is in jail and update the game information label
+        gameInformation.setText(MessageDisplay.playerInJailMessage(name));
+      }
+    });
   }
 }
 
