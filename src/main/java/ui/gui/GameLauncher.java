@@ -15,7 +15,6 @@ import ui.controller.SceneManager;
  * @version 0.0.1
  */
 public class GameLauncher extends Application {
-
   /**
    * Starts the JavaFX application and initializes the user interface.
    *
@@ -36,8 +35,5 @@ public class GameLauncher extends Application {
   public static void main(String[] args) {
     launch(args);
   }
-
-
-
 }
 
