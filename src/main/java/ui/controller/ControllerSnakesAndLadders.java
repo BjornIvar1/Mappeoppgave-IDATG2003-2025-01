@@ -31,6 +31,7 @@ import utils.exception.NullOrBlankException;
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
   private final String boardFilePath;
+  private final String playerFilePath;
   private BoardGame game;
 
   /**
@@ -40,9 +41,10 @@ public class ControllerSnakesAndLadders {
    * @param boardFilePath the path to the board file
    */
   public ControllerSnakesAndLadders(SceneManager sceneManager,
-                                    String boardFilePath) {
+                                    String boardFilePath, String playerFilePath) {
     this.sceneManager = sceneManager;
     this.boardFilePath = boardFilePath;
+    this.playerFilePath = playerFilePath;
   }
 
   /**
@@ -75,7 +77,7 @@ public class ControllerSnakesAndLadders {
     PlayerFileReader playerReader = new PlayerFileReader();
     try {
       boardGame.createBoard(reader.readBoard(Path.of(boardFilePath)));
-      playerReader.readCsvBuffered(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV, boardGame);
+      playerReader.readCsvBuffered(playerFilePath, boardGame);
       boardGame.createDice(2);
       boardGame.getPlayerIterator().forEachRemaining(player ->
           player.placeOnTile(boardGame.getBoard().getTile(player.getCurrentTileId())));
