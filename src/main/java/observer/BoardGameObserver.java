@@ -9,8 +9,8 @@ package observer;
  * notified and updated automatically.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.0.1
- * @since 0.1.1
+ * @version 0.1.0
+ * @since 0.1.0
  */
 public interface BoardGameObserver {
 
@@ -35,4 +35,18 @@ public interface BoardGameObserver {
    * @param isInJail true if the player is in skip, false otherwise.
    */
   void observerIsPlayerSkipped(String name, boolean isInJail);
+
+
+  /**
+   * Notifies observers when a player wins the game in Monopoly.
+   *
+   * <p>This method is called when a player wins the game.
+   * It notifies all registered observers about the player's victory.</p>
+   *
+   * @param name the name of the player who won.
+   * @param winner the total steps the player moved to win.
+   */
+  void observerPlayerWonInMonopoly(String name, boolean winner);
+
+  void observerPlayerWonInSnakesAndLadders(String name, boolean winner);
 }
