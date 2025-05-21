@@ -69,13 +69,18 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Creates the main layout for the Monopoly game page.
+   * Constructs the main layout of the Snakes and Ladders game page using {@link BorderPane}.
    *
-   * <p>This method sets up the main layout of the game page, including the board,
-   * control panel, and return button.</p>
+   * <p>The layout is structured as follows:</p>
+   * <ul>
+   *   <li>Top: Contains a button to return and display the game rules</li>
+   *   <li>Center: Contains the game board</li>
+   *   <li>Bottom: Contains the control panel with buttons and game information</li>
+   *</ul>
    *
-   * @param board       The grid containing the Monopoly board.
-   * @param controlPanel The horizontal box containing control buttons and labels.
+   * @param board the snakes and ladder Board.
+   * @param controlPanel the control panel.
+   * @return main layout of the page.
    */
   private BorderPane getBorderPane(GridPane board, HBox controlPanel) {
     mainLayout = new BorderPane();
@@ -103,13 +108,18 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Creates the control panel for the game.
+   * Creates the control panel with buttons to play the game and game information.
    *
-   * <p>This method creates a horizontal box layout containing buttons and labels
-   * for controlling the game. It includes a button to start the game and a label
-   * to display game information.</p>
+   * <p>The control panel includes:</p>
+   * <ul>
+   *   <li>Start Game: Initializes a new game</li>
+   *   <li>Roll Dice: Rolls the dice and updates the game state</li>
+   *   <li>Game Information: Displays the last rolled dice and player information</li>
+   *   <li>Player Information: Displays the information of the players</li>
+   *   <li>Save Game: Saves the current game state</li>
+   * </ul>
    *
-   * @return A HBox containing the control panel elements.
+   * @return HBox containing the control panel with buttons.
    */
   private HBox createControlPanel() {
     HBox controlPanel = new HBox();
@@ -134,9 +144,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   /**
    * Creates the button to roll the dice and play the game.
    *
-   * <p>This method handles the action of rolling the dice and updating the game information.</p>
+   * <p>Uses the controller to roll the dice and move the current player.
+   * Also checks the winning condition and updates the UI accordingly</p>
    *
-   * @param playerInformation The label to display player information.
    * @return Button to roll the dice.
    */
   private Button getRollDiceButton(Label playerInformation) {
@@ -172,11 +182,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     return saveGame;
   }
 
-
   /**
    * Creates the button to start the game.
    *
-   * <p>This method initializes the game and enables the roll dice button.</p>
+   * <p>Uses the controller to initialize a new game</p>
    *
    * @param playerInformation The label to display player information.
    * @return Button to start the game.
@@ -208,16 +217,12 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Create a button to display the game rules.
+   * Creates a button to display the game rules.
    *
-   * <p>This button opens an alert dialog with the game rules when clicked.
-   * The user is prompted:</p>
+   * <p>This button is used to show the game rules and information.
+   * The button is created by the {@code ButtonFactory}. </p>
    *
-   * <li>Game Rules</li>
-   * <li>Monopoly Game Rules</li>
-   * <li>Game rules text</li>
-   *
-   * @return a Button to display the game rules.
+   * @return Button to display the game rules.
    */
   private Button createGameRulesButton() {
     return ButtonFactory.gameRulesButton(
@@ -321,13 +326,10 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   }
 
   /**
-   * Places player pieces on the specified tile.
+   * Places a circle on a specified tile representing the player.
    *
-   * <p>This method checks if any players are currently on the specified tile and
-   * adds their corresponding game pieces to the StackPane representing that tile.</p>
-   *
-   * @param tileId The ID of the tile where players should be placed.
-   * @param stack  The StackPane representing the tile.
+   * @param tileId the ID of the tile
+   * @param stack the {@code StackPane} representing the tile
    */
   private void placePlayerOnTile(int tileId, StackPane stack) {
     Iterator<Player> playerIterator = controller.getPlayersIterator();
