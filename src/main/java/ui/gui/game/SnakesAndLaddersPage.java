@@ -316,4 +316,9 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   public void observerPlayerMoved(String name, int rolledSum) {
     gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
   }
+
+  @Override
+  public void observerIsPlayerInJail(String name, boolean isInJail) {
+    // not required for this game
+  }
 }
