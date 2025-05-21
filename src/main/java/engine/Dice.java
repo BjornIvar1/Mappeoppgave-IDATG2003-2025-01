@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class engine.Dice extends the class engine.Die
- * to represent multiple dice.
- * It includes methods for rolling multiple dice and return a specific die.
+ * Represents a collection of multiple {@link Die} instances.
+ *
+ * <p>This class allows for rolling multiple dice at once,
+ * and it includes methods for rolling multiple dice and return a specific die.</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
@@ -16,10 +17,11 @@ public class Dice extends Die {
   private final List<Die> diceToPlay;
 
   /**
-   * Constructor for engine.Dice object that holds multiple dice.
-   * Creates an {@link ArrayList} containing a specific amount of dice.
+   * Constructor for {@link Dice} object which holds a specific number of dice.
    *
-   * @param numberOfDice stored in the ArrayList dice
+   * <p>Creates an {@link ArrayList} containing a specific amount of dice.</p>
+   *
+   * @param numberOfDice the number of {@link Die} objects
    */
   public Dice(int numberOfDice) {
     diceToPlay = new ArrayList<>();
@@ -29,7 +31,7 @@ public class Dice extends Die {
   }
 
   /**
-   * A method that access the quantity of dices in the game.
+   * Returns the total number of dice in the {@code Dice} object.
    *
    * @return the quantity of dices.
    */
