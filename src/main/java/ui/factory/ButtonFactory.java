@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
  */
 public class ButtonFactory {
 
-  private ButtonFactory () {
+  private ButtonFactory() {
     //empty constructor
   }
 
@@ -34,22 +34,37 @@ public class ButtonFactory {
     Button button = new Button(txt);
     button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;");
     button.setPrefSize(100, 40);
-    button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: GREEN; -fx-text-fill: white; -fx-font-size: 16px;"));
-    button.setOnMouseExited(e -> button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;"));
+    button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: GREEN;"
+        + " -fx-text-fill: white; -fx-font-size: 16px;"));
+    button.setOnMouseExited(e -> button.setStyle("-fx-background-color: RED; "
+        + "-fx-text-fill: white; -fx-font-size: 16px;"));
     button.setOnAction(event -> action.run());
     return button;
   }
 
+  /**
+   * A button that gives the user information about the game.
+   *
+   * <p>Creates a button that sends the user to the game
+   * information and rules. The button is blue, but when hovered
+   * upon it turns light blue.</p>
+   *
+   * @param buttonTitle the name of the button.
+   * @param action the action that will happen by clicking
+   *               the button.
+   * @return a button.
+   */
   public static Button createGameInfoButton(String buttonTitle, Runnable action) {
     Button gameRulesButton = new Button(buttonTitle);
-    gameRulesButton.setStyle("-fx-background-color: BLUE; -fx-text-fill: white; -fx-font-size: 16px;");
+    gameRulesButton.setStyle("-fx-background-color: BLUE; "
+        + "-fx-text-fill: white; -fx-font-size: 16px;");
     gameRulesButton.setPrefSize(100, 40);
     gameRulesButton.setOnMouseEntered(e -> gameRulesButton
-        .setStyle("-fx-background-color: LIGHTBLUE;" +
-            " -fx-text-fill: white; -fx-font-size: 16px;"));
+        .setStyle("-fx-background-color: LIGHTBLUE;"
+            + " -fx-text-fill: white; -fx-font-size: 16px;"));
     gameRulesButton.setOnMouseExited(e -> gameRulesButton
-        .setStyle("-fx-background-color: BLUE;" +
-            " -fx-text-fill: white; -fx-font-size: 16px;"));
+        .setStyle("-fx-background-color: BLUE;"
+            + " -fx-text-fill: white; -fx-font-size: 16px;"));
     gameRulesButton.setOnAction(event -> action.run());
     return gameRulesButton;
   }
