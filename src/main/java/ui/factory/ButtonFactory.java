@@ -1,6 +1,7 @@
 package ui.factory;
 
 import javafx.scene.control.Button;
+import utils.Constants;
 
 /**
  * A button Factory.
@@ -10,7 +11,7 @@ import javafx.scene.control.Button;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class ButtonFactory {
 
@@ -35,9 +36,9 @@ public class ButtonFactory {
     button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;");
     button.setPrefSize(100, 40);
     button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: GREEN;"
-        + " -fx-text-fill: white; -fx-font-size: 16px;"));
+        + Constants.GET_COLOR_WHITE));
     button.setOnMouseExited(e -> button.setStyle("-fx-background-color: RED; "
-        + "-fx-text-fill: white; -fx-font-size: 16px;"));
+        + Constants.GET_COLOR_WHITE));
     button.setOnAction(event -> action.run());
     return button;
   }
@@ -57,14 +58,14 @@ public class ButtonFactory {
   public static Button createGameInfoButton(String buttonTitle, Runnable action) {
     Button gameRulesButton = new Button(buttonTitle);
     gameRulesButton.setStyle("-fx-background-color: BLUE; "
-        + "-fx-text-fill: white; -fx-font-size: 16px;");
+        + Constants.GET_COLOR_WHITE);
     gameRulesButton.setPrefSize(100, 40);
     gameRulesButton.setOnMouseEntered(e -> gameRulesButton
         .setStyle("-fx-background-color: LIGHTBLUE;"
-            + " -fx-text-fill: white; -fx-font-size: 16px;"));
+            + Constants.GET_COLOR_WHITE));
     gameRulesButton.setOnMouseExited(e -> gameRulesButton
         .setStyle("-fx-background-color: BLUE;"
-            + " -fx-text-fill: white; -fx-font-size: 16px;"));
+            + Constants.GET_COLOR_WHITE));
     gameRulesButton.setOnAction(event -> action.run());
     return gameRulesButton;
   }
