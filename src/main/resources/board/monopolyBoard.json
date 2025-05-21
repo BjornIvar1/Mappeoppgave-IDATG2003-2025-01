@@ -51,7 +51,7 @@
     },
     { "id": 10, "x": 9, "y": 0, "nextTile": 11,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }},
 
@@ -73,7 +73,7 @@
     { "id": 14, "x": 9, "y": 4, "nextTile": 15},
     { "id": 15, "x": 9, "y": 5, "nextTile": 16,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       } },
     { "id": 16, "x": 9, "y": 6, "nextTile": 17 },
@@ -89,7 +89,7 @@
 
     { "id": 20, "x": 8, "y": 9, "nextTile": 21,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }},
     { "id": 21, "x": 7, "y": 9, "nextTile": 22,
@@ -110,7 +110,7 @@
     { "id": 24, "x": 4, "y": 9, "nextTile": 25 },
     { "id": 25, "x": 3, "y": 9, "nextTile": 26,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }},
     { "id": 26, "x": 2, "y": 9, "nextTile": 27,
@@ -126,7 +126,7 @@
     { "id": 29, "x": 0, "y": 8, "nextTile": 30 },
     { "id": 30, "x": 0, "y": 7, "nextTile": 31,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }
     },
@@ -142,7 +142,7 @@
     { "id": 34, "x": 0, "y": 3, "nextTile": 35 },
     { "id": 35, "x": 0, "y": 2, "nextTile": 36,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }
     },
@@ -165,7 +165,7 @@
 
     { "id": 40, "x": 3, "y": 0, "nextTile": 1,
       "action": {
-        "type": "JailAction",
+        "type": "SkipAction",
         "description": "Jail: your turn is skipped"
       }}
   ]
