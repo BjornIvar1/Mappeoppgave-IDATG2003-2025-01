@@ -1,8 +1,6 @@
 package ui.gui.game;
 
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -143,7 +141,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
       } else {
         gameInformation.setText(MessageDisplay.rollDiceMessage(playerName, controller.getDieSum()));
       }
-      updateBoard(mainLayout);
+      updateBoard();
     });
     return rollDiceButton;
   }
@@ -156,7 +154,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    * @return Button to save the game.
    */
   private Button getSaveGameButton() {
-    Button saveGame = new Button("Save Game");
+    Button saveGame = new Button(Constants.LABEL_SAVE_GAME_BUTTON);
     saveGame.setOnAction(e -> controller.saveGame());
     return saveGame;
   }
@@ -173,7 +171,7 @@ public class SnakesAndLaddersPage extends BaseGamePage {
     startGameButton.setDisable(true);
     startGameButton.setOnAction(e -> {
       controller.initializeGame();
-      updateBoard(mainLayout);
+      updateBoard();
       rollDice.setDisable(false);
       startGameButton.setDisable(true);
     });
@@ -198,10 +196,8 @@ public class SnakesAndLaddersPage extends BaseGamePage {
    *
    * <p>This method is called when the game state changes,
    * such as when a player rolls the dice or moves to a new tile.</p>
-   *
-   * @param mainLayout the main layout of the game page.
    */
-  private void updateBoard(BorderPane mainLayout) {
+  private void updateBoard() {
     GridPane boardGrid = createBoard();
     mainLayout.setCenter(boardGrid);
   }
