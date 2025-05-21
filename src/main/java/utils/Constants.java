@@ -73,6 +73,11 @@ public final class Constants {
   public static final String LABEL_START_GAME_BUTTON = "Start Game";
 
   /**
+   * Label for the save game button.
+   */
+  public static final String LABEL_SAVE_GAME_BUTTON = "Save Game";
+
+  /**
    * Label for the roll dice button.
    */
   public static final String LABEL_ROLL_DICE_BUTTON = "Roll Dice";
