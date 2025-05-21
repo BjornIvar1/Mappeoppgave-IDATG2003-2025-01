@@ -35,7 +35,7 @@ import utils.MessageDisplay;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.5.1
+ * @version 0.5.2
  */
 public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObserver {
   private final ControllerSnakesAndLadders controller;
@@ -318,7 +318,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   }
 
   @Override
-  public void observerIsPlayerInJail(String name, boolean isInJail) {
+  public void observerIsPlayerSkipped(String name, boolean isSkipped) {
     // not required for this game
   }
 }
