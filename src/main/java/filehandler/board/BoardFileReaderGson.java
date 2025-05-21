@@ -16,7 +16,10 @@ import model.tileactions.*;
 import utils.Constants;
 
 /**
- * Class that reads a board from a file using Gson.
+ * Class is responsible for reading a board from a file using Gson.
+ *
+ * <p>Reads the file and parses tiles, board dimensions, tile connections, and tile actions.
+ * Returns a new {@link Board} object</p>
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.5.0
@@ -25,10 +28,10 @@ import utils.Constants;
 public class BoardFileReaderGson implements BoardFileReader {
 
   /**
-   * Reads a board from a file using Gson.
+   * Reads a {@link Board} from a JSON file using Gson.
    *
-   * @param filePath the path to the file
-   * @return the board that was read from the file
+   * @param filePath the path to the JSON file
+   * @return the {@link  Board} object read from the file
    * @throws IOException if the file could not be read
    */
   @Override
@@ -49,11 +52,13 @@ public class BoardFileReaderGson implements BoardFileReader {
   }
 
   /**
-   * Creates a map of tiles from the JSON array and adds the tiles to {@link HashMap} tileMap.
-   * Returns the map of tiles.
+   * Creates the tiles from the JSON array and adds them to the board.
    *
-   * @param tilesArray the JSON array of tiles
-   * @param board the board to add the tiles to
+   * <p>Each tile is created with an id and its position using x and y coordinates,
+   *   and stores the tile in a {@link  HashMap}.</p>
+   *
+   * @param tilesArray the JSON array containing the tiles
+   * @param board the board where the tiles will be added
    * @return the map of tiles
    */
   private static Map<Integer, Tile> getTileMap(JsonArray tilesArray, Board board) {
@@ -72,9 +77,9 @@ public class BoardFileReaderGson implements BoardFileReader {
   }
 
   /**
-   * Links the next tile to the current tile.
+   * Links each tile to its next tile using {@code setNextTile()} method.
    *
-   * @param tilesArray the JSON array of tiles
+   * @param tilesArray the JSON array containing the tiles
    * @param tileMap the map of tiles
    */
   private static void linkNextTile(JsonArray tilesArray, Map<Integer, Tile> tileMap) {
@@ -94,7 +99,9 @@ public class BoardFileReaderGson implements BoardFileReader {
   /**
    * Creates a tile action for the tiles.
    *
-   * @param tilesArray the JSON array of tiles
+   * <p>Supports both board games Snakes and Ladders and Monopoly tile actions</p>
+   *
+   * @param tilesArray the JSON array containing the tiles
    * @param tileMap the map of tiles
    */
   private static void createTileAction(JsonArray tilesArray,
@@ -121,11 +128,12 @@ public class BoardFileReaderGson implements BoardFileReader {
   }
 
   /**
-   * Creates the tile Action for Snakes and Ladders.
-   * Returns the tile action or null, if the tile do not have an action.
+   * Creates a {@link TileAction} for Snakes and Ladders.
+   *
+   * <p>Supports actions of type {@link LadderAction} and {@link SnakeAction}</p>
    *
    * @param actionObj the JSON object of the action
-   * @return the tile action or null
+   * @return either the {@link TileAction} or {@code null} if the action is not supported
    */
   private static TileAction createTileActionSnakesAndLadders(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();
@@ -142,11 +150,13 @@ public class BoardFileReaderGson implements BoardFileReader {
   }
 
   /**
-   * Creates the tile Action for Monopoly.
-   * Returns the tile action or null, if the tile do not have an action.
+   * Creates a {@link TileAction} for Snakes and Ladders.
+   *
+   * <p>Supports actions of type {@link BankAction}, {@link LooseMoneyAction},
+   * and {@link JailAction}</p>
    *
    * @param actionObj the JSON object of the action
-   * @return the tile action or null
+   * @return either the {@link TileAction} or {@code null} if the action is not supported
    */
   private static TileAction createTileMonopolyAction(JsonObject actionObj) {
     String type = actionObj.get("type").getAsString();

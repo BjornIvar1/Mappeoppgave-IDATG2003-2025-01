@@ -7,13 +7,15 @@ import model.Board;
 /**
  * An interface for reading a board from a file.
  *
+ * <p>This interface defines a method for reading a board from a file.</p>
+ *
  * @author A. Sahoo, B.I. Høie
  * @version 0.2.1
  * @since 0.0.1
  */
 public interface BoardFileReader {
   /**
-   * Reads a board from a file.
+   * Reads a board from a file path.
    *
    * @param path the path to the file
    * @return the board read from the file
