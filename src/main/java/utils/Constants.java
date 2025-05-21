@@ -5,7 +5,7 @@ package utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.3.0
+ * @version 0.4.0
  */
 public final class Constants {
   // Prevent instantiation
@@ -102,7 +102,25 @@ public final class Constants {
    */
   public static final int WINNING_BALANCE = 3000000;
 
+  /**
+   * Information to the user on what they have to do before starting the game.
+   */
+  public static final String HELP_INFORMATION = """
+  1. choose the amount of players that will play the game.
+  2. When finished click the start game button.
+  3. If you choose to continue a previous game, press the "Load Last Saved Game" button.
+  Notice: In Snakes and ladders, you can choose between three different boards.""";
 
+  /**
+   * Const for the word info.
+   */
+  public static final String INFO = "info";
+
+  public static final String INFORMATION = "Information";
+
+  /**
+   * Constant for the color of the text in the {@code ButtonFactory} class.
+   */
   public static final String GET_COLOR_WHITE = "-fx-text-fill: white; -fx-font-size: 16px;";
 
   /**
