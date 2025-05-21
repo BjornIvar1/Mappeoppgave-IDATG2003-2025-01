@@ -10,7 +10,7 @@ package observer;
  *
  * @author A. Sahoo, B.I. Høie
  * @version 0.0.1
- * @since 0.1.0
+ * @since 0.1.1
  */
 public interface BoardGameObserver {
 
@@ -26,13 +26,13 @@ public interface BoardGameObserver {
   void observerPlayerMoved(String name, int rolledSum);
 
   /**
-   * Notifies observers when a player is in jail.
+   * Notifies observers when a player is in skip.
    *
-   * <p>This method is called when a player is in jail.
+   * <p>This method is called when a player is in skip.
    * It notifies all registered observers about the player's status.</p>
    *
-   * @param name the name of the player who is in jail.
-   * @param isInJail true if the player is in jail, false otherwise.
+   * @param name the name of the player who is in skip.
+   * @param isInJail true if the player is in skip, false otherwise.
    */
-  void observerIsPlayerInJail(String name, boolean isInJail);
+  void observerIsPlayerSkipped(String name, boolean isInJail);
 }
