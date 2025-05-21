@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import model.Player;
 import model.Tile;
 import model.tileactions.TileAction;
+import ui.gui.game.SnakesAndLaddersPage;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.NullOrBlankException;
@@ -26,13 +27,14 @@ import utils.exception.NullOrBlankException;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class ControllerSnakesAndLadders {
   private final SceneManager sceneManager;
   private final String boardFilePath;
   private final String playerFilePath;
   private BoardGame game;
+  private final SnakesAndLaddersPage snakesAndLaddersPage;
 
   /**
    * Constructs a {@code ControllerSnakesAndLadders} for the Snakes and Ladders game.
@@ -45,12 +47,14 @@ public class ControllerSnakesAndLadders {
     this.sceneManager = sceneManager;
     this.boardFilePath = boardFilePath;
     this.playerFilePath = playerFilePath;
+    snakesAndLaddersPage = new SnakesAndLaddersPage(this);
   }
 
   /**
    * Switches to the game selection scene.
    */
   public void switchToGameSelection() {
+    game.removeObserver(snakesAndLaddersPage);
     sceneManager.setView(new GameSelection(new ControllerGameSelection(sceneManager)));
   }
 
@@ -60,6 +64,7 @@ public class ControllerSnakesAndLadders {
    */
   public void initializeGame() {
     game = initializeBoardGame();
+    game.addObserver(snakesAndLaddersPage);
   }
 
   /**
