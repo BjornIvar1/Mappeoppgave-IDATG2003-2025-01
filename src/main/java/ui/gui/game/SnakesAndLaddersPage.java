@@ -332,9 +332,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   @Override
   public void observerPlayerWonInSnakesAndLadders(String name, boolean winner) {
     if (winner) {
-      Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
-        gameInformation.setText(MessageDisplay.winningMessage(name));
-      });
+      Platform.runLater(() -> gameInformation.setText(MessageDisplay.winningMessage(name)));
       rollDiceButton.setDisable(true);
       startGameButton.setDisable(false);
     }
