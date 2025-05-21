@@ -12,7 +12,7 @@ import utils.Constants;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class ButtonFactory {
   private static final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -32,7 +32,7 @@ public class ButtonFactory {
    *               the button.
    * @return a button.
    */
-  public static Button returnButtonFactory( Runnable action) {
+  public static Button returnButtonFactory(Runnable action) {
     Button button = new Button(Constants.BACK);
     button.setStyle("-fx-background-color: RED; -fx-text-fill: white; -fx-font-size: 16px;");
     button.setPrefSize(100, 40);
@@ -56,8 +56,9 @@ public class ButtonFactory {
    * @param alertContent The content text of the alert dialog.
    * @return A configured Button instance.
    */
-  public static Button gameRulesButton(String alertTitle, String alertHeader, String alertContent) {
-    Button gameRulesButton = new Button(Constants.GAME_RULES);
+  public static Button informationButton(String buttonName, String alertTitle,
+                                         String alertHeader, String alertContent) {
+    Button gameRulesButton = new Button(buttonName);
     gameRulesButton.setStyle("-fx-background-color: BLUE; "
         + Constants.GET_COLOR_WHITE);
     gameRulesButton.setPrefSize(100, 40);
