@@ -5,6 +5,8 @@ import edu.ntnu.idi.bidata.utils.exception.IntegerException;
 import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
 import edu.ntnu.idi.bidata.utils.exception.StringException;
 
+import java.util.logging.Logger;
+
 /**
  * Represents a player in the board game.
  *
@@ -88,7 +90,7 @@ public class Player {
     try {
       currentTile.landPlayer(this);
     } catch (NullOrBlankException e) {
-      System.out.println("Error: " + e.getMessage());
+      Logger.getLogger("Error: " + e.getMessage());
     }
   }
 
