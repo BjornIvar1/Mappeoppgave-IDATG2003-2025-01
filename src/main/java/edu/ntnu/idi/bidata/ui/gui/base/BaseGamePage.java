@@ -27,6 +27,13 @@ import javafx.scene.shape.Circle;
 public class BaseGamePage extends BasePage {
 
   /**
+   * Empty constructor for the BaseGamePage class.
+   */
+  public BaseGamePage() {
+    // empty constructor
+  }
+
+  /**
    * Creates a player game piece.
    *
    * @param playerColor the color of the player
@@ -200,6 +207,7 @@ public class BaseGamePage extends BasePage {
    * @param imageDice1 the image view for the first die
    * @param imageDice2 the image view for the second die
    * @param imagePlayerSkipped the image view for the player skipped
+   * @param gameInformation the label to display game information
    * @return the created VBox
    */
   protected VBox getVbox(Label gameInformation,
