@@ -1,11 +1,19 @@
 package edu.ntnu.idi.bidata.ui.gui.base;
 
 import edu.ntnu.idi.bidata.model.engine.BoardGame;
+import edu.ntnu.idi.bidata.model.engine.Dice;
 import edu.ntnu.idi.bidata.model.entity.Player;
+import edu.ntnu.idi.bidata.utils.Constants;
+import edu.ntnu.idi.bidata.utils.MessageDisplay;
 import java.util.Iterator;
 import java.util.Objects;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -134,5 +142,82 @@ public class BaseGamePage extends BasePage {
     return new Image(Objects
         .requireNonNull(getClass()
             .getResource(path)).toExternalForm());
+  }
+
+  /**
+   * Updates the dice and player information.
+   *
+   * <p>This method updates the game information label,
+   * the images of the dice, and the visibility of the player skipped image.</p>
+   *
+   * @param gameInformation the label to display game information
+   * @param imageDice1 the image view for the first die
+   * @param imageDice2 the image view for the second die
+   * @param imageSkipPlayer the image view for the player skipped
+   * @param name the name of the player
+   * @param dice the dice object containing the rolled values
+   */
+  protected void updateDiceAndPlayerInfo(Label gameInformation,
+                                         ImageView imageDice1,
+                                         ImageView imageDice2,
+                                         ImageView imageSkipPlayer,
+                                         String name, Dice dice) {
+    gameInformation.setText(MessageDisplay.rollDiceMessage(name));
+    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
+    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
+
+    imageDice1.setVisible(true);
+    imageDice2.setVisible(true);
+    imageSkipPlayer.setVisible(false);
+  }
+
+  /**
+   * Updates the game information when a players turn is skipped.
+   *
+   *
+   * <p>This method updates the images of the dice,
+   * and the visibility of the player skipped image.</p>
+   *
+   * @param imageDice1 the image view for the first die
+   * @param imageDice2 the image view for the second die
+   * @param imageSkipPlayer the image view for the player skipped
+   */
+  protected void updatePlayerSkipped(ImageView imageDice1,
+                                     ImageView imageDice2,
+                                     ImageView imageSkipPlayer) {
+    imageSkipPlayer.setVisible(true);
+    imageDice1.setVisible(false);
+    imageDice2.setVisible(false);
+  }
+
+  /**
+   * Creates a VBox with the game information and images of the dice.
+   *
+   * <p>This method creates a VBox with the game information label,
+   * the images of the dice, and the image of the player skipped.
+   * It sets the alignment and maximum width of the VBox.</p>
+   *
+   * @param imageDice1 the image view for the first die
+   * @param imageDice2 the image view for the second die
+   * @param imagePlayerSkipped the image view for the player skipped
+   * @return the created VBox
+   */
+  protected VBox getVbox(Label gameInformation,
+                         ImageView imageDice1,
+                         ImageView imageDice2,
+                         ImageView imagePlayerSkipped) {
+    HBox diceBox = new HBox(5, imageDice1, imageDice2);
+    diceBox.setAlignment(Pos.CENTER);
+
+    StackPane imageStack = new StackPane(diceBox, imagePlayerSkipped);
+    imageStack.setAlignment(Pos.CENTER);
+
+    gameInformation.setText(Constants.LABEL_LAST_ROLLED_BUTTON);
+
+    VBox box = new VBox(5);
+    box.setAlignment(Pos.CENTER);
+    box.setMaxWidth(200);
+    box.getChildren().addAll(gameInformation, imageStack);
+    return box;
   }
 }
