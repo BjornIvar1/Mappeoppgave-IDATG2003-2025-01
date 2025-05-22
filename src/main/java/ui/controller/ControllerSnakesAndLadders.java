@@ -7,7 +7,9 @@ import filehandler.player.PlayerFileReader;
 import filehandler.player.PlayerFileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 import model.engine.BoardGame;
 import model.entity.Player;
@@ -110,17 +112,25 @@ public class ControllerSnakesAndLadders {
   /**
    * Saves the current game state to a file.
    *
-   * <p>This method uses {@link BoardFileWriter} to save the current board used,
-   * and {@link PlayerFileWriter} to save the players to a CSV file.</p>
+   * <p>This method collects the current players using an iterator,
+   * and {@link PlayerFileWriter} to save the players to a CSV file.
+   * It also saves the current board used by using {@link BoardFileWriter}.</p>
+   *
+   * @throws IOException if an error occurs while saving the game
    */
-  public void saveGame() {
+  public void saveGame() throws IOException {
     try {
+      List<Player> players = new ArrayList<>();
+      getPlayersIterator().forEachRemaining(players::add);
+
       BoardFileWriter writer = new BoardFileWriterGson();
       writer.writeBoard(game.getBoard(), Path.of(Constants.BOARD_SAVED_FILEPATH));
-      PlayerFileWriter.writeToCsv(game.getPlayers(), Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
+      PlayerFileWriter.writeToCsv(players, Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV);
     } catch (IOException e) {
+      String errorMessage = "Could not save game: " + e.getMessage();
       Logger.getLogger(ControllerSnakesAndLadders.class.getName())
-          .warning("Could not save game:: " + e.getMessage());
+          .warning(errorMessage);
+      throw new IOException(errorMessage);
     }
   }
 
@@ -196,7 +206,7 @@ public class ControllerSnakesAndLadders {
    *
    * @return the list of {@code Player}
    */
-  public Iterator<Player> getPlayers() {
+  public Iterator<Player> getPlayersIterator() {
     return game.getPlayerIterator();
   }
 }
