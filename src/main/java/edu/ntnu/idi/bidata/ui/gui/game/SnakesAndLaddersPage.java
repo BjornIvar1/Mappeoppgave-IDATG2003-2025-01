@@ -53,6 +53,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   private Label gameInformation;
   private ImageView imageDice1;
   private ImageView imageDice2;
+  private ImageView imagePlayerSkipped;
   private Button restartGameButton;
   private Button rollDiceButton;
 
@@ -334,22 +335,14 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   }
 
   private VBox createGameInfoBox() {
-    FlowPane imagePane = new FlowPane();
-    imagePane.setAlignment(Pos.CENTER);
-
     imageDice1 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
     imageDice2 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imagePlayerSkipped = createImage(Constants.getImage(
+        Constants.PLAYER_SKIPPED_FILE_PATH), 50, 50, false);
 
-    imagePane.getChildren().addAll(imageDice1, imageDice2);
+    gameInformation = new Label();
 
-    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
-
-    VBox box = new VBox(1);
-    box.setAlignment(Pos.CENTER);
-    box.getChildren().addAll(gameInformation, imagePane);
-    box.setMaxWidth(200);
-
-    return box;
+    return getVbox(gameInformation, imageDice1, imageDice2, imagePlayerSkipped);
   }
 
   /**
@@ -363,18 +356,32 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    */
   @Override
   public void observerPlayerMoved(String name, Dice dice) {
-    gameInformation.setText(MessageDisplay.rollDiceMessage(name));
-    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
-    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
+    updateDiceAndPlayerInfo(gameInformation,
+        imageDice1,
+        imageDice2,
+        imagePlayerSkipped,
+        name, dice);
   }
 
+  /**
+   * A notification method that is called when a player is in skip.
+   *
+   * <p>This method updates the game information label
+   * to display the player's skip status, and updates the image displaying the player in jail.</p>
+   *
+   * @param name the name of the player.
+   * @param isSkipped true if the player is in skip, false otherwise.
+   */
   @Override
   public void observerIsPlayerSkipped(String name, boolean isSkipped) {
     Platform.runLater(() -> { // Update the UI on the JavaFX Application Thread
       // This is necessary to ensure thread safety when updating the UI
       // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
       if (isSkipped) { // Check if the player is in skip and update the game information label
-        gameInformation.setText(MessageDisplay.playerInJailMessage(name));
+        gameInformation.setText(MessageDisplay.playerSkippedMessage(name));
+        updatePlayerSkipped(imageDice1,
+            imageDice2,
+            imagePlayerSkipped);
       }
     });
   }
@@ -384,6 +391,17 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     // This method is not used in Snakes and Ladders, but must be implemented.
   }
 
+  /**
+   * A notification method that is called when a player wins the game.
+   *
+   * <p>This method updates the game information
+   * label to display the winning message. It also disables
+   * {@code rollDiceButton} and enables {@code startGameButton}
+   * to allow the user to start a new game.</p>
+   *
+   * @param name the name of the player who won.
+   * @param winner the total steps the player moved to win.
+   */
   @Override
   public void observerPlayerWonInSnakesAndLadders(String name, boolean winner) {
     if (winner) {
