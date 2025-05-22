@@ -7,11 +7,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import model.engine.Dice;
 import model.entity.Player;
 import model.tileactions.TileAction;
 import observer.BoardGameObserver;
@@ -20,6 +22,7 @@ import ui.factory.ButtonFactory;
 import ui.gui.base.BaseGamePage;
 import utils.Constants;
 import utils.MessageDisplay;
+
 
 /**
  * Represents the Snakes and Ladders game page in the GUI.
@@ -43,6 +46,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   private final ControllerSnakesAndLadders controller;
   private BorderPane mainLayout;
   private Label gameInformation;
+  private ImageView imageDice1;
+  private ImageView imageDice2;
   private Button restartGameButton;
   private Button rollDiceButton;
 
@@ -95,7 +100,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    * <ul>
    *   <li>Reset Game: Initializes a new game</li>
    *   <li>Roll Dice: Rolls the dice and updates the game state</li>
-   *   <li>Game Information: Displays the last rolled dice and player information</li>
+   *   <li>Game Info Box: A VBox displaying the last dice roll result and related imagery.</li>
    *   <li>Player Information: Displays the information of the players</li>
    *   <li>Save Game: Saves the current game state</li>
    * </ul>
@@ -108,19 +113,20 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-
     rollDiceButton = getRollDiceButton();
     Button saveGame = getSaveGameButton();
     restartGameButton = getResetGameButton();
 
-    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
+    VBox gameInfoBox = createGameInfoBox();
 
-    controlPanel.getChildren().addAll(restartGameButton,
+    controlPanel.getChildren().addAll(
+        restartGameButton,
         rollDiceButton,
-        gameInformation,
+        gameInfoBox,
         playerInformation,
-        saveGame);
+        saveGame
+    );
     return controlPanel;
   }
 
@@ -316,9 +322,39 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     }
   }
 
+  private VBox createGameInfoBox() {
+    FlowPane imagePane = new FlowPane();
+    imagePane.setAlignment(Pos.CENTER);
+
+    imageDice1 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
+    imageDice2 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
+
+    imagePane.getChildren().addAll(imageDice1, imageDice2);
+
+    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
+
+    VBox box = new VBox(1);
+    box.setAlignment(Pos.CENTER);
+    box.getChildren().addAll(gameInformation, imagePane);
+    box.setMaxWidth(200);
+
+    return box;
+  }
+
+  /**
+   * A notification method that is called when a player moves.
+   *
+   * <p>This method updates the game information label
+   * to display the rolled value, and updates the image to display the dice rolled.</p>
+   *
+   * @param name the name of the player.
+   * @param dice the rolled dice.
+   */
   @Override
-  public void observerPlayerMoved(String name, int rolledSum) {
-    gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
+  public void observerPlayerMoved(String name, Dice dice) {
+    gameInformation.setText(MessageDisplay.rollDiceMessage(name));
+    imageDice1.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(0))));
+    imageDice2.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(1))));
   }
 
   @Override
