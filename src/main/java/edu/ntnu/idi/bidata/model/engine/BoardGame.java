@@ -112,15 +112,6 @@ public class BoardGame implements Subjects {
   }
 
   /**
-   * Returns the player whose turn it currently is in the game.
-   *
-   * @return currentPlayer
-   */
-  public Player getCurrentPlayer() {
-    return players.get(currentPlayerIndex);
-  }
-
-  /**
    * This method is responsible for playing the game.
    *
    * <p>It rolls the dice and moves the current player
@@ -158,6 +149,18 @@ public class BoardGame implements Subjects {
     goToNextPlayer();
   }
 
+  /**
+   * Returns the player whose turn it currently is in the game.
+   *
+   * @return currentPlayer
+   */
+  private Player getCurrentPlayer() {
+    return players.get(currentPlayerIndex);
+  }
+
+  /**
+   * Advances the turn to the next player in the game.
+   */
   private void goToNextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
   }
