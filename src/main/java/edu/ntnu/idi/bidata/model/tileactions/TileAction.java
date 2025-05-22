@@ -20,6 +20,7 @@ public interface TileAction {
    * Perform an Action when a player lands on a tile.
    *
    * @param player The model.entity.Player who lands on the tile
+   * @throws NullOrBlankException if the player is null or blank
    */
   void perform(Player player) throws NullOrBlankException;
 
