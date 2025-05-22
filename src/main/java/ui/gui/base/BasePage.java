@@ -2,10 +2,7 @@ package ui.gui.base;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 /**
@@ -18,12 +15,34 @@ import javafx.scene.layout.*;
  * @version 0.2.0
  */
 public class BasePage extends BorderPane {
+  private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+  private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
 
   /**
    * Constructs {@link BasePage} with a default top menu bar.
    */
   public BasePage() {
     setTop(createMenuBar());
+  }
+
+  /**
+   * Sets the message of the alert confirmation dialog.
+   *
+   * @param message the message to be set
+   */
+  protected void setAlertConfirmation(String message) {
+    alertConfirmation.setContentText(message);
+    alertConfirmation.show();
+  }
+
+  /**
+   * Sets the message of the alert warning dialog.
+   *
+   * @param message the message to be set
+   */
+  protected void setAlertWarning(String message) {
+    alertWarning.setContentText(message);
+    alertWarning.show();
   }
 
   /**
