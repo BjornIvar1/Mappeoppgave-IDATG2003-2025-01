@@ -40,7 +40,7 @@ class BankActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", "RED", boardGame, 0);
+    player = new Player("John", "RED", boardGame, 0, 1);
     player.placeOnTile(tile1);
   }
 

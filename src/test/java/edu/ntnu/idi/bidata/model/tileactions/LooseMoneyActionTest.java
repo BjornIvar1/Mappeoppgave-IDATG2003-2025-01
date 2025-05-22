@@ -37,7 +37,7 @@ class LooseMoneyActionTest {
     board.addTile(tile3);
     boardGame.createBoard(board);
 
-    player = new Player("John", "RED", boardGame, 5000);
+    player = new Player("John", "RED", boardGame, 5000,1);
     player.placeOnTile(tile1);
   }
 
