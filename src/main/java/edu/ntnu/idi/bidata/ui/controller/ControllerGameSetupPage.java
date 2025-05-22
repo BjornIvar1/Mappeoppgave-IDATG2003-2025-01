@@ -8,7 +8,7 @@ import edu.ntnu.idi.bidata.ui.gui.menu.GameSelection;
 import edu.ntnu.idi.bidata.utils.Constants;
 import edu.ntnu.idi.bidata.utils.exception.GUIInvalidNameException;
 import edu.ntnu.idi.bidata.utils.exception.InvalidPlayerFields;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,15 +81,20 @@ public class ControllerGameSetupPage {
   }
 
   /**
-   * Checks if a saved game file exists for the selected game.
+   * Checks if a file can be loaded.
+   *
+   * <p>Checks if a saved game file exists for the selected game,
+   * and is not empty.</p>
    *
    * @return {@code true} if a saved game can exists, otherwise {@code false}
    */
   private boolean canLoadSavedGame() {
+    File snakesFile = Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV).toFile();
+    File monopolyFile = Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV).toFile();
     if (gameId == 1) {
-      return Files.exists(Paths.get(Constants.SNAKES_AND_LADDERS_PLAYER_SAVED_CSV));
+      return snakesFile.exists() && snakesFile.length() > 0;
     } else if (gameId == 2) {
-      return Files.exists(Paths.get(Constants.MONOPOLY_PLAYER_SAVED_CSV));
+      return monopolyFile.exists() && monopolyFile.length() > 0;
     }
     return false;
   }
