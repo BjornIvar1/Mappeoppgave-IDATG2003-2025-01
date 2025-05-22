@@ -145,7 +145,7 @@ public class ControllerGameSetupPage {
       HBox playerFieldBox = playerFields.get(i);
       TextField playerField = (TextField) playerFieldBox.getChildren().get(1);
       String userName = playerField.getText().trim();
-      Player player = new Player(userName, listOfColors.get(i), null, 0);
+      Player player = new Player(userName, listOfColors.get(i), null);
       playerList.add(player);
     }
     PlayerFileWriter.writeToCsv(playerList, Constants.PLAYER_FILE_PATH);
