@@ -17,6 +17,11 @@ import javafx.scene.control.Button;
 public class ButtonFactory {
   private static final Alert gameRulesAlert = new Alert(Alert.AlertType.INFORMATION);
 
+  /**
+   * Private constructor to prevent instantiation.
+   *
+   * <p>This class is a utility class and should not be instantiated.</p>
+   */
   private ButtonFactory() {
     //empty constructor
   }
@@ -51,6 +56,7 @@ public class ButtonFactory {
    * information and rules. The button is blue, but when hovered
    * upon it turns light blue.</p>
    *
+   * @param buttonName  The name of the button.
    * @param alertTitle  The title of the alert dialog.
    * @param alertHeader The header text of the alert dialog.
    * @param alertContent The content text of the alert dialog.
