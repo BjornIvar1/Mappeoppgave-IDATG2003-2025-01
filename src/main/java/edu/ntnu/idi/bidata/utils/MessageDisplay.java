@@ -24,6 +24,7 @@ public class MessageDisplay {
   /**
    * Displays the message when a player rolls the dice.
    *
+   * @param player the player who rolled the dice
    * @return the message to be displayed
    */
   public static String rollDiceMessage(String player) {
