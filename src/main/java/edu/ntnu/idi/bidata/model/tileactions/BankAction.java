@@ -8,8 +8,7 @@ import javafx.scene.paint.Color;
 /**
  * Represents the tile action where the player receives money from the bank in Monopoly.
  *
- * <p>This action gives a specified amount of money to the player when landed upon.
- * It extends {@link MonopolyActions} and overrides the methods.</p>
+ * <p>This action gives a specified amount of money to the player when landed upon.</p>
  *
  * @author Arpit @ Bjørn
  * @version 0.1.8
