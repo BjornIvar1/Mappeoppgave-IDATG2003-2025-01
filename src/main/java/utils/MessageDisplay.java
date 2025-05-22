@@ -24,11 +24,10 @@ public class MessageDisplay {
   /**
    * Displays the message when a player rolls the dice.
    *
-   * @param rollSum the sum of the rolled dice
    * @return the message to be displayed
    */
-  public static String rollDiceMessage(String player, int rollSum) {
-    return player + " rolled: " + rollSum;
+  public static String rollDiceMessage(String player) {
+    return player + " rolled: ";
   }
 
   /**
