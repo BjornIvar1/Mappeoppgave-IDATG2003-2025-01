@@ -1,8 +1,6 @@
 package ui.controller;
 
-import model.engine.BoardGame;
 import filehandler.board.BoardFileReaderGson;
-import filehandler.board.BoardFileWriter;
 import filehandler.player.PlayerFileReader;
 import filehandler.player.PlayerFileWriter;
 import java.io.IOException;
@@ -11,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
+import model.engine.BoardGame;
 import model.entity.Player;
 import model.entity.Tile;
 import model.tileactions.TileAction;
@@ -18,6 +17,7 @@ import ui.gui.game.MonopolyPage;
 import ui.gui.menu.GameSelection;
 import utils.Constants;
 import utils.exception.NullOrBlankException;
+
 
 /**
  * The controller for the Monopoly game.
@@ -137,20 +137,13 @@ public class ControllerMonopoly {
   /**
    * Saves the current game state to a file.
    *
-   * <p>This method uses {@link BoardFileWriter} to save the current board used,
-   * and {@link PlayerFileWriter} to save the players to a CSV file.</p>
+   * <p>This method collects the current players using an iterator,
+   * and saves them to a CSV file using {@link PlayerFileWriter}.</p>
    */
   public void saveGame() {
-    Iterator<Player> playerIterator = getPlayersIterator();
-    // Get the iterator for players
-    List<Player> players = new ArrayList<>(); // Create a list to store players
-    while (playerIterator.hasNext()) {
-      Player player = playerIterator.next(); // Get the next player
-      players.add(player); // Add the player to the list
-    }
+    List<Player> players = new ArrayList<>();
+    getPlayersIterator().forEachRemaining(players::add);
     PlayerFileWriter.writeToCsv(players, Constants.MONOPOLY_PLAYER_SAVED_CSV);
-    // Save the players to a CSV file
-    players.clear(); // Clear the list after saving
   }
 
   /**
