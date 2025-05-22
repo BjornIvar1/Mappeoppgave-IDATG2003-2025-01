@@ -1,5 +1,7 @@
 package observer;
 
+import model.engine.Dice;
+
 /**
  * The interface {@code BoardGameObserver} defines the observer pattern.
  *
@@ -23,7 +25,7 @@ public interface BoardGameObserver {
    * @param name the name of the player who moved.
    * @param rolledSum the total steps the player will move after rolling the dice.
    */
-  void observerPlayerMoved(String name, int rolledSum);
+  void observerPlayerMoved(String name, Dice dice);
 
   /**
    * Notifies observers when a player is in skip.
