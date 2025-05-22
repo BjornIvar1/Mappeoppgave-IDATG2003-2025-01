@@ -123,6 +123,9 @@ public class ControllerGameSetupPage {
       String userName = playerField.getText().trim();
       if (userName.isEmpty()) {
         throw new GUIInvalidNameException("Player " + (i + 1) + " name is empty.");
+      } else if (!userName.matches("^[A-Za-z0-9]+$")) {
+        throw new GUIInvalidNameException("Player " + (i + 1) + " name contains invalid characters." +
+            "\nOnly Letters and numbers are allowed.");
       }
     }
   }
