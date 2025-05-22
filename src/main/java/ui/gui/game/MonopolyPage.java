@@ -250,9 +250,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return VBox containing game information.
    */
   private VBox createGameInfoBox() {
-    imageDice1 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
-    imageDice2 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
-    imagePlayerInJail = createImage(Constants.PLAYER_IN_JAIL_FILE_PATH, 50, 50, false);
+    imageDice1 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imageDice2 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imagePlayerInJail = createImage(Constants.getImage(Constants.PLAYER_IN_JAIL_FILE_PATH), 50, 50, false);
 
     HBox diceBox = new HBox(5, imageDice1, imageDice2);
     diceBox.setAlignment(Pos.CENTER);
@@ -394,8 +394,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   public void observerPlayerMoved(String name, Dice dice) {
     gameInformation.setText(MessageDisplay.rollDiceMessage(name));
 
-    imageDice1.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(0))));
-    imageDice2.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(1))));
+    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
+    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
 
     imageDice1.setVisible(true);
     imageDice2.setVisible(true);

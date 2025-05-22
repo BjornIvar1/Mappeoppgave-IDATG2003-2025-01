@@ -326,8 +326,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     FlowPane imagePane = new FlowPane();
     imagePane.setAlignment(Pos.CENTER);
 
-    imageDice1 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
-    imageDice2 = createImage(Constants.DICE_ONE_IMAGE_FILE_PATH, 35, 35, true);
+    imageDice1 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imageDice2 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
 
     imagePane.getChildren().addAll(imageDice1, imageDice2);
 
@@ -353,8 +353,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
   @Override
   public void observerPlayerMoved(String name, Dice dice) {
     gameInformation.setText(MessageDisplay.rollDiceMessage(name));
-    imageDice1.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(0))));
-    imageDice2.setImage(loadImage(MessageDisplay.getImageOfDIce(dice.getDie(1))));
+    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
+    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
   }
 
   @Override
