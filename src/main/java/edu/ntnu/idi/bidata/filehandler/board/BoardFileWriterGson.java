@@ -21,6 +21,10 @@ import java.util.Iterator;
  */
 public class BoardFileWriterGson implements BoardFileWriter {
 
+  public BoardFileWriterGson() {
+    // Default constructor
+  }
+
   /**
    * Writes a board into file using Gson.
    *
