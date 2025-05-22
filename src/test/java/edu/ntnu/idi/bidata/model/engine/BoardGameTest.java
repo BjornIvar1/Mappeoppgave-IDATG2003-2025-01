@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import edu.ntnu.idi.bidata.model.entity.Board;
 import edu.ntnu.idi.bidata.model.entity.Player;
+import edu.ntnu.idi.bidata.model.entity.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
@@ -95,5 +96,40 @@ class BoardGameTest {
   void getPlayerIteratorNegativeTest() {
     Iterator<Player> playerIterator = boardGame.getPlayerIterator();
     assertFalse(playerIterator.hasNext());
+  }
+
+  @Test
+  void play_NoPlayers_ThrowsException() {
+    BoardGame game = new BoardGame(); // assuming no players added
+    assertThrows(NullOrBlankException.class, game::play);
+  }
+
+  @Test
+  void testPlay() throws NullOrBlankException {
+    BoardGame game = new BoardGame();
+    Board board = new Board(10, 10);
+    Tile tile1 = new Tile(1, 1, 0);
+    Tile tile2 = new Tile(1, 2, 0);
+    board.addTile(tile1);
+    board.addTile(tile2);
+    game.createBoard(board);
+
+    Player player1 = new Player("Player1", "RED", game, 1700, 1);
+    Player player2 = new Player("Player2", "BLACK", game, 1700, 1);
+
+    game.addPlayer(player1);
+    game.addPlayer(player2);
+
+    player1.placeOnTile(tile1);
+
+    game.createDice(1);
+
+    game.play();
+
+    player1.setInSkipped(true);
+    assertTrue(player1.isPlayerIsSkipped());
+
+    game.play();
+    assertFalse(player1.isPlayerIsSkipped());
   }
 }
