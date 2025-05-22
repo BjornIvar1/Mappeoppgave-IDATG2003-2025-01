@@ -39,4 +39,14 @@ public class MessageDisplay {
   public static String playerInJailMessage(String player) {
     return player + " is in jail";
   }
+
+  /**
+   * Displays the message if player lands on a skip tile.
+   *
+   * @param player the player who landed on the skip.
+   * @return the message to be displayed
+   */
+  public static String playerSkippedMessage(String player) {
+    return player + " is SKIPPED! LOL";
+  }
 }
