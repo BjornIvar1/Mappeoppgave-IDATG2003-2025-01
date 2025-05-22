@@ -1,8 +1,8 @@
 package filehandler;
 
-import filehandler.board.BoardFileReaderGson;
-import model.entity.Board;
-import model.tileactions.TileAction;
+import edu.ntnu.idi.bidata.filehandler.board.BoardFileReaderGson;
+import edu.ntnu.idi.bidata.model.entity.Board;
+import edu.ntnu.idi.bidata.model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package filehandler;
 
-import model.engine.BoardGame;
-import filehandler.player.PlayerFileReader;
+import edu.ntnu.idi.bidata.model.engine.BoardGame;
+import edu.ntnu.idi.bidata.filehandler.player.PlayerFileReader;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,10 @@
 package filehandler;
 
-import filehandler.board.BoardFileWriter;
-import filehandler.board.BoardFileWriterGson;
-import model.entity.Board;
-import model.entity.Tile;
-import model.tileactions.LadderAction;
+import edu.ntnu.idi.bidata.filehandler.board.BoardFileWriter;
+import edu.ntnu.idi.bidata.filehandler.board.BoardFileWriterGson;
+import edu.ntnu.idi.bidata.model.entity.Board;
+import edu.ntnu.idi.bidata.model.entity.Tile;
+import edu.ntnu.idi.bidata.model.tileactions.LadderAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

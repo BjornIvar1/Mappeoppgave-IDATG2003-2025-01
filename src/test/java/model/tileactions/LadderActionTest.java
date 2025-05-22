@@ -1,16 +1,15 @@
 package model.tileactions;
 
-import model.engine.BoardGame;
-import model.entity.Board;
-import model.entity.Player;
-import model.entity.Tile;
-import utils.exception.NullOrBlankException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import edu.ntnu.idi.bidata.model.tileactions.LadderAction;
+import edu.ntnu.idi.bidata.model.engine.BoardGame;
+import edu.ntnu.idi.bidata.model.entity.Board;
+import edu.ntnu.idi.bidata.model.entity.Player;
+import edu.ntnu.idi.bidata.model.entity.Tile;
+import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
 import java.util.HashMap;
 import java.util.Map;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LadderActionTest {
