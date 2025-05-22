@@ -43,6 +43,7 @@ public class ControllerSnakesAndLadders {
    *
    * @param sceneManager the {@code SceneManager} responsible for managing scene transitions
    * @param boardFilePath the path to the board file
+   * @param playerFilePath the path to the player file
    */
   public ControllerSnakesAndLadders(SceneManager sceneManager,
                                     String boardFilePath, String playerFilePath) {
