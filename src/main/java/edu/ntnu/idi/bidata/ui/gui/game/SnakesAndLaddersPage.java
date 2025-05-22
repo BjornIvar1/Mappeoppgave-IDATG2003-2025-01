@@ -1,12 +1,12 @@
 package edu.ntnu.idi.bidata.ui.gui.game;
 
+import edu.ntnu.idi.bidata.model.engine.Dice;
 import edu.ntnu.idi.bidata.model.entity.Player;
 import edu.ntnu.idi.bidata.model.tileactions.TileAction;
 import edu.ntnu.idi.bidata.observer.BoardGameObserver;
 import edu.ntnu.idi.bidata.ui.controller.ControllerSnakesAndLadders;
 import edu.ntnu.idi.bidata.ui.factory.ButtonFactory;
 import edu.ntnu.idi.bidata.ui.gui.base.BaseGamePage;
-import edu.ntnu.idi.bidata.ui.gui.menu.GameSelection;
 import edu.ntnu.idi.bidata.utils.Constants;
 import edu.ntnu.idi.bidata.utils.MessageDisplay;
 import java.io.IOException;
@@ -16,25 +16,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.engine.Dice;
-import model.entity.Player;
-import model.tileactions.TileAction;
-import observer.BoardGameObserver;
-import ui.controller.ControllerSnakesAndLadders;
-import ui.factory.ButtonFactory;
-import ui.gui.base.BaseGamePage;
-import utils.Constants;
-import utils.MessageDisplay;
+
 
 
 /**
@@ -48,7 +40,7 @@ import utils.MessageDisplay;
  *   <li>Control panel: Displays the three buttons the user can interact with,
  *   and information about the game</li>
  *   <li>Board: Displays the game board with player pieces</li>
- *   <li>Return: Returns back to the {@link ui.gui.menu.GameSelection}/li>
+ *   <li>Return: Returns back to the {@link edu.ntnu.idi.bidata.ui.gui.menu.GameSelection}/li>
  * </ul>
  *
  * @author A. Sahoo, B.I. Høie

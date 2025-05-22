@@ -1,6 +1,6 @@
 package edu.ntnu.idi.bidata.observer;
 
-import model.engine.Dice;
+import edu.ntnu.idi.bidata.model.engine.Dice;
 
 /**
  * The interface {@code BoardGameObserver} defines the observer pattern.

@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.ui.gui.game;
 
+import edu.ntnu.idi.bidata.model.engine.Dice;
 import edu.ntnu.idi.bidata.model.entity.Player;
 import edu.ntnu.idi.bidata.model.tileactions.TileAction;
 import edu.ntnu.idi.bidata.observer.BoardGameObserver;
@@ -14,26 +15,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.engine.Dice;
-import model.entity.Player;
-import model.tileactions.TileAction;
-import observer.BoardGameObserver;
-import ui.controller.ControllerMonopoly;
-import ui.factory.ButtonFactory;
-import ui.gui.base.BaseGamePage;
-import utils.Constants;
-import utils.MessageDisplay;
-
 
 /**
  * Represents the Monopoly game page in the GUI.
@@ -264,7 +255,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private VBox createGameInfoBox() {
     imageDice1 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
     imageDice2 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
-    imagePlayerInJail = createImage(Constants.getImage(Constants.PLAYER_IN_JAIL_FILE_PATH), 50, 50, false);
+    imagePlayerInJail = createImage(Constants.getImage(
+        Constants.PLAYER_IN_JAIL_FILE_PATH), 50, 50, false);
 
     HBox diceBox = new HBox(5, imageDice1, imageDice2);
     diceBox.setAlignment(Pos.CENTER);

@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import model.engine.BoardGame;
-import model.entity.Player;
 
 /**
  * This class represents the base page for the game.
