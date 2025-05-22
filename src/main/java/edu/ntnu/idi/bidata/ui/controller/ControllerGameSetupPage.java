@@ -68,7 +68,7 @@ public class ControllerGameSetupPage {
    */
   public void loadSavedGame() {
     if (!canLoadSavedGame()) {
-      throw new IllegalStateException("No saved game found.");
+      throw new IllegalStateException("No saved game found or the file is empty.");
     } else {
       if (gameId == 1) {
         sceneManager.setView(new SnakesAndLaddersPage(new ControllerSnakesAndLadders(sceneManager,
