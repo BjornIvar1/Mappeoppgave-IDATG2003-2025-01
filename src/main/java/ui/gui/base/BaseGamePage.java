@@ -1,10 +1,14 @@
 package ui.gui.base;
 
-import model.engine.BoardGame;
 import java.util.Iterator;
+import java.util.Objects;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import model.engine.BoardGame;
 import model.entity.Player;
+
 
 /**
  * This class represents the base page for the game.
@@ -98,5 +102,38 @@ public class BaseGamePage extends BasePage {
           .append("Balance: ").append(player.getBalance()).append("\n");
     }
     return stringBuilder.toString();
+  }
+
+  /**
+   * Creates an {@link ImageView} with a specified image path, width, height, and visibility.
+   *
+   * <p>The method loads an image from a given path,
+   * sets its width and height and applies the visibility.
+   * Returns the {@link ImageView}.</p>
+   *
+   * @param path the path to the image file
+   * @param width the width of the image
+   * @param height the height of the image
+   * @param isVisible true if the image should be visible, false otherwise
+   * @return the created {@link ImageView}
+   */
+  protected ImageView createImage(String path, int width, int height, boolean isVisible) {
+    ImageView imageView = new ImageView(loadImage(path));
+    imageView.setFitWidth(width);
+    imageView.setFitHeight(height);
+    imageView.setVisible(isVisible);
+    return imageView;
+  }
+
+  /**
+   * Loads an image from the specified path.
+   *
+   * @param path the path to the image file
+   * @return the loaded {@link Image}
+   */
+  protected Image loadImage(String path) {
+    return new Image(Objects
+        .requireNonNull(getClass()
+            .getResource(path)).toExternalForm());
   }
 }
