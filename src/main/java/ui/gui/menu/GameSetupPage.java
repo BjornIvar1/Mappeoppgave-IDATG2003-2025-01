@@ -30,8 +30,6 @@ import utils.exception.InvalidPlayerFields;
 public class GameSetupPage extends BasePage {
   private final ControllerGameSetupPage controller;
   private final Spinner<Integer> playerAmount = new Spinner<>(0, 4, 0);
-  private final Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-  private final Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
   private final ObservableList<HBox> playerFields = FXCollections.observableArrayList();
   private final List<String> listOfColors = List.of("RED", "BLUE", "GREEN", "YELLOW");
   private SplitMenuButton chooseGameBoard = new SplitMenuButton();
@@ -92,11 +90,9 @@ public class GameSetupPage extends BasePage {
     loadGameButton.setOnAction(event -> {
       try {
         controller.loadSavedGame();
-        alertConfirmation.setContentText("Game loaded successfully!");
-        alertConfirmation.show();
+        setAlertConfirmation(Constants.GAME_LOAD_SUCCESS_MESSAGE);
       } catch (Exception e) {
-        alertWarning.setContentText(e.getMessage());
-        alertWarning.show();
+        setAlertWarning(e.getMessage());
       }
     });
     return loadGameButton;
@@ -191,12 +187,10 @@ public class GameSetupPage extends BasePage {
             playerFields);
         controller.createPlayer(playerAmount.getValue(), playerFields, listOfColors);
 
-        alertConfirmation.setContentText("Game created successfully!");
-        alertConfirmation.show();
+        setAlertConfirmation(Constants.GAME_CREATED_SUCCESS_MESSAGE);
         controller.goToGame(gameBoardPath);
       } catch (GUIInvalidNameException | InvalidPlayerFields e) {
-        alertWarning.setContentText(e.getMessage());
-        alertWarning.show();
+        setAlertWarning(e.getMessage());
       }
     });
     return startGameButton;
@@ -207,7 +201,7 @@ public class GameSetupPage extends BasePage {
    *
    * <p>This is a button that opens a new alert window.
    * The window will give the user all the information
-   * they need to setup the game before playing.</p>
+   * they need to set up the game before playing.</p>
    *
    * @return a {@code Button} to show game information
    */
@@ -217,7 +211,7 @@ public class GameSetupPage extends BasePage {
         Constants.INFORMATION,
         Constants.INFORMATION,
         Constants.HELP_INFORMATION
-        );
+    );
   }
 
   /**
