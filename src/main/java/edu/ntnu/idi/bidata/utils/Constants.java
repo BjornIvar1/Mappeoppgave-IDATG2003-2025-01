@@ -5,7 +5,7 @@ package edu.ntnu.idi.bidata.utils;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.4.0
+ * @version 0.4.1
  */
 public final class Constants {
   // Prevent instantiation
@@ -111,7 +111,7 @@ public final class Constants {
    * Information to the user on what they have to do before starting the game.
    */
   public static final String HELP_INFORMATION = """
-  1. choose the amount of players that will play the game.
+  1. Choose the amount of players that will play the game.
   2. When finished click the start game button.
   3. If you choose to continue a previous game, press the "Load Last Saved Game" button.
   Notice: In Snakes and ladders, you can choose between three different boards.""";
@@ -174,7 +174,6 @@ public final class Constants {
       Money tile: The player that lands receives $500,000.
       Tax tile: The player that lands pays $250,000.
       Jail tile: The player that lands on this tile will be skipped in the next turn.
-      (Note this will only happen when playing multiplayer)
       Good luck and have fun!""";
 
 
