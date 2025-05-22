@@ -67,7 +67,7 @@ public class ControllerGameSetupPage {
    * @throws IllegalStateException if no saved game is found
    */
   public void loadSavedGame() {
-    if (canLoadSavedGame()) {
+    if (!canLoadSavedGame()) {
       throw new IllegalStateException("No saved game found or the file is empty.");
     } else {
       if (gameId == 1) {
