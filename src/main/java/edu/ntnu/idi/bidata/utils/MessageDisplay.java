@@ -18,7 +18,7 @@ public class MessageDisplay {
    * @return the message to be displayed
    */
   public static String winningMessage(String player) {
-    return "Winner: " + player + "\n" + "Press Start Game to play again";
+    return "Winner: " + player + "\n" + "Press Restart Game to play again";
   }
 
   /**
