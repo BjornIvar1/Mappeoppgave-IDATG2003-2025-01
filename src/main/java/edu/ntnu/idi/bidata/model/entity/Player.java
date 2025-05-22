@@ -26,26 +26,27 @@ public class Player {
   private Tile currentTile;
 
   /**
-   * A constructor for the {@code Player} class with a starting tile ID of 1.
+   * A constructor for the {@code Player}.
+   *
+   * <p>Sets by default the balance to 0, and the starting tile to 1</p>
    *
    * @param name is the name of the player.
    * @param game the board game the player is playing.
    * @param color the color of the player.
-   * @param balance the balance of the player.
    */
-  public Player(String name, String color, BoardGame game, int balance) {
+  public Player(String name, String color, BoardGame game) {
     setName(name);
     setColor(color);
-    this.game = game;
-    this.balance = balance;
     setBalance(0);
+    this.game = game;
     this.currentTileId = 1;
   }
 
   /**
    * Constructor for the {@code Player} class.
    *
-   * <p>This constructor is used to create a player with a specific tile id.
+   * <p>This constructor is used to create a player with a specific tile id,
+   * and the player's balance is set to the given value.
    * It is used when loading a saved game.</p>
    *
    *
@@ -58,9 +59,8 @@ public class Player {
   public Player(String name, String color, BoardGame game, int balance, int currentTileId) {
     setName(name);
     setColor(color);
+    setBalance(balance);
     this.game = game;
-    this.balance = balance;
-    setBalance(0);
     this.currentTileId = currentTileId;
   }
 
