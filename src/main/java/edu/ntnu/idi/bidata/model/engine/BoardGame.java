@@ -201,9 +201,11 @@ public class BoardGame implements Subjects {
           .getName(), isWinnerSnakesAndLadders);
       observer.observerPlayerWonInMonopoly(currentPlayer.getName(),
           isWinnerMonopoly);
+      observer.observerIsPlayerSkipped(currentPlayer.getName(), currentPlayer.isPlayerIsSkipped());
+      observer.observerPlayerMoved(currentPlayer.getName(), getDice());
       observer.observerIsPlayerSkipped(currentPlayer
           .getName(), currentPlayer.isPlayerIsSkipped());
-      observer.observerPlayerMoved(currentPlayer.getName(), getDice().getLastRollS());
+      observer.observerPlayerMoved(currentPlayer.getName(), getDice());
     });
   }
 }

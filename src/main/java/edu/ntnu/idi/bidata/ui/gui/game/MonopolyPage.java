@@ -18,10 +18,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import model.engine.Dice;
+import model.entity.Player;
+import model.tileactions.TileAction;
+import observer.BoardGameObserver;
+import ui.controller.ControllerMonopoly;
+import ui.factory.ButtonFactory;
+import ui.gui.base.BaseGamePage;
+import utils.Constants;
+import utils.MessageDisplay;
 
 
 /**
@@ -50,6 +61,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   private Label gameInformation;
   private Button restartGameButton;
   private Button rollDiceButton;
+  private ImageView imageDice1;
+  private ImageView imageDice2;
+  private ImageView imagePlayerInJail;
 
   /**
    * Constructor for the MonopolyPage class.
@@ -119,7 +133,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * <ul>
    *   <li>Restart Game: Initializes a new game</li>
    *   <li>Roll Dice: Rolls the dice and updates the game state</li>
-   *   <li>Game Information: Displays the last rolled dice and player information</li>
+   *   <li>Game Info Box: A VBox displaying the last dice roll result and related imagery.</li>
    *   <li>Player Information: Displays the information of the players</li>
    *   <li>Save Game: Saves the current game state</li>
    * </ul>
@@ -132,7 +146,6 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
 
-    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
     Label playerInformation = new Label(displayPlayerInfoMonopoly(
         controller.getGame()));
 
@@ -140,9 +153,11 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     Button restartGame = getResetGameButton(playerInformation);
     Button saveGame = getSaveGameButton();
 
+    VBox gameInfoBox = createGameInfoBox();
+
 
     controlPanel.getChildren().addAll(restartGame, rollDice,
-        gameInformation, playerInformation, saveGame);
+        gameInfoBox, playerInformation, saveGame);
     return controlPanel;
   }
 
@@ -231,6 +246,40 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
         Constants.GAME_MONOPOLY_HEADER,
         Constants.GAME_RULES,
         Constants.MONOPOLY_RULES);
+  }
+
+  /**
+   * Creates a VBox containing game information.
+   *
+   * <p>The VBox contains:
+   *   <ul>
+   *     <li>A label displaying who rolled th dice</li>
+   *     <li>Two images representing the rolled dice</li>
+   *     <li>An image representing a player in jail</li>
+   *   </ul>
+   * </p>
+   *
+   * @return VBox containing game information.
+   */
+  private VBox createGameInfoBox() {
+    imageDice1 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imageDice2 = createImage(Constants.getImage(Constants.DICE_ONE_IMAGE_FILE_PATH), 35, 35, true);
+    imagePlayerInJail = createImage(Constants.getImage(Constants.PLAYER_IN_JAIL_FILE_PATH), 50, 50, false);
+
+    HBox diceBox = new HBox(5, imageDice1, imageDice2);
+    diceBox.setAlignment(Pos.CENTER);
+
+    StackPane imageStack = new StackPane(diceBox, imagePlayerInJail);
+    imageStack.setAlignment(Pos.CENTER);
+
+    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
+
+    VBox box = new VBox(5);
+    box.setAlignment(Pos.CENTER);
+    box.setMaxWidth(200);
+    box.getChildren().addAll(gameInformation, imageStack);
+
+    return box;
   }
 
   /**
@@ -348,20 +397,28 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * A notification method that is called when a player moves.
    *
    * <p>This method updates the game information label
-   * to display the rolled value.</p>
+   * to display the rolled value, and updates the image to display the dice rolled.</p>
    *
-   * @param rolledSum the ID of the tile the player moved to.
+   * @param name the name of the player.
+   * @param dice the rolled dice.
    */
   @Override
-  public void observerPlayerMoved(String name, int rolledSum) {
-    gameInformation.setText(MessageDisplay.rollDiceMessage(name, rolledSum));
+  public void observerPlayerMoved(String name, Dice dice) {
+    gameInformation.setText(MessageDisplay.rollDiceMessage(name));
+
+    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
+    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
+
+    imageDice1.setVisible(true);
+    imageDice2.setVisible(true);
+    imagePlayerInJail.setVisible(false);
   }
 
   /**
    * A notification method that is called when a player is in skip.
    *
    * <p>This method updates the game information label
-   * to display the player's skip status.</p>
+   * to display the player's skip status, and updates the image displaying the player in jail.</p>
    *
    * @param name the name of the player.
    * @param isInJail true if the player is in skip, false otherwise.
@@ -373,6 +430,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
       // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
       if (isInJail) { // Check if the player is in skip and update the game information label
         gameInformation.setText(MessageDisplay.playerInJailMessage(name));
+        imagePlayerInJail.setVisible(true);
+        imageDice1.setVisible(false);
+        imageDice2.setVisible(false);
       }
     });
   }

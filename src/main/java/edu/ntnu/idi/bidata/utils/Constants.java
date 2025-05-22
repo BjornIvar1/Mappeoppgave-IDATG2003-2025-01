@@ -190,4 +190,33 @@ public final class Constants {
       This is a snakes and ladders game for 1-4 players. \
       Everyone gets 2 dice and rolls them. The player that reaches the end first wins.
       Good luck and have fun!""";
+
+  /**
+   * The file path to the image of the dice.
+   *
+   * @param value the value of the die
+   * @return the file path to the image of the die
+   */
+  public static String getImageOfDice(int value) {
+    return "/image/die/DieSide" + value + ".png";
+  }
+
+  /**
+   * The file path to the image.
+   */
+  public static String getImage(String imageName) {
+    return "/image/" + imageName;
+  }
+
+  /**
+   * The file path to the image of the dice.
+   */
+  public static final String DICE_ONE_IMAGE_FILE_PATH =
+      "die/DieSide1.png";
+
+  /**
+   * The file path to the image of player in jail.
+   */
+  public static final String PLAYER_IN_JAIL_FILE_PATH =
+      "monopoly/playerInJail.jpg";
 }
