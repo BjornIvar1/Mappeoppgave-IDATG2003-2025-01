@@ -124,4 +124,34 @@ class BoardTest {
     assertFalse(iterator.hasNext());
   }
 
+  @Test
+  void getTileByIdIteratorEmptyTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    Iterator<Tile> iterator = board.getTileIterator();
+    assertTrue(iterator.hasNext());
+    assertEquals(tile1, iterator.next());
+    assertTrue(iterator.hasNext());
+    assertEquals(tile2, iterator.next());
+    assertTrue(iterator.hasNext());
+    assertEquals(tile3, iterator.next());
+    assertFalse(iterator.hasNext());
+  }
+
+  @Test
+  void getTileByIdIteratorEmptyNegativeTest() {
+    Iterator<Tile> iterator = board.getTileIterator();
+    assertFalse(iterator.hasNext());
+  }
+
+  @Test
+  void getTileCountTest() {
+    board.addTile(tile1);
+    board.addTile(tile2);
+    board.addTile(tile3);
+
+    assertEquals(3, board.getTileCount());
+  }
 }
