@@ -26,6 +26,7 @@ public class SnakeAction implements TileAction {
    * Creates a tile destination of where the player will land.
    *
    * @param destinationTile of where the user will land.
+   * @param description of what happens when the player lands on a snake.
    */
   public SnakeAction(int destinationTile, String description) {
     setDestinationTile(destinationTile);
