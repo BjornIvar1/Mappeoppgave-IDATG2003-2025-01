@@ -85,7 +85,7 @@ public final class Constants {
   /**
    * Label for last rolled button.
    */
-  public static final String LABEL_LAST_ROLLED_BUTTON = "Last rolled: ---";
+  public static final String LABEL_LAST_ROLLED_BUTTON = "Last rolled:";
 
   /**
    * Label for the choosing a game board.
@@ -218,7 +218,10 @@ public final class Constants {
    * The file path to the image of player in jail.
    */
   public static final String PLAYER_IN_JAIL_FILE_PATH =
-      "monopoly/playerInJail.jpg";
+      "skippedturn/playerInJail.jpg";
+
+  public static final String PLAYER_SKIPPED_FILE_PATH =
+      "skippedturn/emojiLaughing.jpg";
 
   public static final String CONTROL_PANEL_STYLE =
       "-fx-background-color: #dce4f2; -fx-border-color: #ccc; -fx-border-width: 1px 0 0 0;";
