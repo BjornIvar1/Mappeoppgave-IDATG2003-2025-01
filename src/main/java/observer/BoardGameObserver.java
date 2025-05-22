@@ -23,7 +23,7 @@ public interface BoardGameObserver {
    * It notifies all registered observers about the player's movement.</p>
    *
    * @param name the name of the player who moved.
-   * @param rolledSum the total steps the player will move after rolling the dice.
+   * @param dice the dice rolled by the player.
    */
   void observerPlayerMoved(String name, Dice dice);
 
