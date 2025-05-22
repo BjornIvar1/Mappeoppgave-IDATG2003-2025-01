@@ -33,6 +33,13 @@ import java.util.Map;
 public class BoardFileReaderGson implements BoardFileReader {
 
   /**
+   * Empty constructor for {@link BoardFileReaderGson}.
+   */
+  public BoardFileReaderGson() {
+    // Default constructor, not in use.
+  }
+
+  /**
    * Reads a {@link Board} from a JSON file using Gson.
    *
    * @param filePath the path to the JSON file
