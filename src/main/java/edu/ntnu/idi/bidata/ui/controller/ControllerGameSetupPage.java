@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
  *
  * @author A. Sahoo, B.I. Høie
  * @since 0.0.1
- * @version 0.0.5
+ * @version 0.0.6
  */
 public class ControllerGameSetupPage {
   private final SceneManager sceneManager;
@@ -67,7 +67,7 @@ public class ControllerGameSetupPage {
    * @throws IllegalStateException if no saved game is found
    */
   public void loadSavedGame() {
-    if (!canLoadSavedGame()) {
+    if (canLoadSavedGame()) {
       throw new IllegalStateException("No saved game found or the file is empty.");
     } else {
       if (gameId == 1) {
