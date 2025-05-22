@@ -117,6 +117,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     controlPanel.setPadding(new Insets(10));
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
+    controlPanel.setStyle(Constants.CONTROL_PANEL_STYLE);
 
     rollDiceButton = getRollDiceButton();
     Button saveGame = getSaveGameButton();
@@ -124,6 +125,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
 
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
     VBox gameInfoBox = createGameInfoBox();
+    gameInfoBox.setStyle(Constants.GAME_INFO_BOX_STYLE);
+    playerInformation.setStyle(Constants.PLAYER_INFO_BOX_STYLE);
 
     controlPanel.getChildren().addAll(
         restartGameButton,
@@ -145,6 +148,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    */
   private Button getRollDiceButton() {
     rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
+    rollDiceButton.setStyle(Constants.ROLL_DICE_RESET_GAME_BUTTON_STYLE);
     rollDiceButton.setDisable(false);
     rollDiceButton.setOnAction(e -> {
       controller.rollDice();
@@ -163,6 +167,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    */
   private Button getSaveGameButton() {
     Button saveGame = new Button(Constants.LABEL_SAVE_GAME_BUTTON);
+    saveGame.setStyle(Constants.SAVE_GAME_BUTTON_STYLE);
     saveGame.setOnAction(e -> {
       try {
         controller.saveGame();
@@ -183,6 +188,7 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
    */
   private Button getResetGameButton() {
     restartGameButton = new Button(Constants.LABEL_RESTART_GAME_BUTTON);
+    restartGameButton.setStyle(Constants.ROLL_DICE_RESET_GAME_BUTTON_STYLE);
     restartGameButton.setDisable(true);
     restartGameButton.setOnAction(e -> {
       controller.resetGame();

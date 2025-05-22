@@ -136,6 +136,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     controlPanel.setPadding(new Insets(10));
     controlPanel.setSpacing(10);
     controlPanel.setAlignment(Pos.CENTER);
+    controlPanel.setStyle(Constants.CONTROL_PANEL_STYLE);
 
     Label playerInformation = new Label(displayPlayerInfoMonopoly(
         controller.getGame()));
@@ -145,6 +146,8 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     Button saveGame = getSaveGameButton();
 
     VBox gameInfoBox = createGameInfoBox();
+    gameInfoBox.setStyle(Constants.GAME_INFO_BOX_STYLE);
+    playerInformation.setStyle(Constants.PLAYER_INFO_BOX_STYLE);
 
 
     controlPanel.getChildren().addAll(restartGame, rollDice,
@@ -162,6 +165,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   private Button getRollDiceButton(Label playerInformation) {
     rollDiceButton = new Button(Constants.LABEL_ROLL_DICE_BUTTON);
+    rollDiceButton.setStyle(Constants.ROLL_DICE_RESET_GAME_BUTTON_STYLE);
     rollDiceButton.setDisable(false);
     rollDiceButton.setOnAction(event -> {
       controller.rollDice();
@@ -181,6 +185,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   private Button getSaveGameButton() {
     Button saveGame = new Button(Constants.LABEL_SAVE_GAME_BUTTON);
+    saveGame.setStyle(Constants.SAVE_GAME_BUTTON_STYLE);
     saveGame.setOnAction(e -> {
       controller.saveGame();
       setAlertConfirmation(Constants.GAME_SAVED_SUCCESS_MESSAGE);
@@ -198,6 +203,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   private Button getResetGameButton(Label playerInformation) {
     restartGameButton = new Button(Constants.LABEL_RESTART_GAME_BUTTON);
+    restartGameButton.setStyle(Constants.ROLL_DICE_RESET_GAME_BUTTON_STYLE);
     restartGameButton.setDisable(true);
     restartGameButton.setOnAction(event -> {
       controller.resetGame();

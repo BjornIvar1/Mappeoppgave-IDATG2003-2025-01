@@ -219,4 +219,33 @@ public final class Constants {
    */
   public static final String PLAYER_IN_JAIL_FILE_PATH =
       "monopoly/playerInJail.jpg";
+
+  public static final String CONTROL_PANEL_STYLE =
+      "-fx-background-color: #dce4f2; -fx-border-color: #ccc; -fx-border-width: 1px 0 0 0;";
+
+  public static final String GAME_INFO_BOX_STYLE =
+      "-fx-background-color: #f2f2f2; "
+          + "-fx-padding: 10;"
+          + "-fx-border-color: #ddd; "
+          + "-fx-border-radius: 8; "
+          + "-fx-background-radius: 8;";
+
+  public static final String PLAYER_INFO_BOX_STYLE =
+      "-fx-font-size: 13px; -fx-text-fill: #333;";
+
+  public static final String ROLL_DICE_RESET_GAME_BUTTON_STYLE =
+      "-fx-background-color: #4CAF50; "
+          + "-fx-text-fill: white; "
+          + "-fx-font-weight: bold; "
+          + "-fx-padding: 8 16; "
+          + "-fx-background-radius: 8; "
+          + "-fx-cursor: hand;";
+
+  public static final String SAVE_GAME_BUTTON_STYLE =
+      "-fx-background-color: #FFD54F; "
+          + "-fx-text-fill: white; "
+          + "-fx-font-weight: bold; "
+          + "-fx-padding: 8 16; "
+          + "-fx-background-radius: 8; "
+          + "-fx-cursor: hand;";
 }
