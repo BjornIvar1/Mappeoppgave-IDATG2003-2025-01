@@ -56,6 +56,11 @@ public class Dice extends Die {
     return sum;
   }
 
+  /**
+   * Returns the last rolled sum of the dice.
+   *
+   * @return the last rolled sum
+   */
   public int getLastRollS() {
     return lastRollS;
   }
