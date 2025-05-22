@@ -291,7 +291,7 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    * @return grid containing the Monopoly board layout.
    */
   private GridPane createBoard() {
-    GridPane grid = new GridPane();
+    GridPane grid = new GridPane(); // Recommended by GitHub Copilot v.1.5.45-241
     grid.setAlignment(Pos.CENTER);
     grid.setScaleX(0.8); // Set a scale for the horizontal axis
     grid.setScaleY(0.8); // Set a scale for the vertical axis
