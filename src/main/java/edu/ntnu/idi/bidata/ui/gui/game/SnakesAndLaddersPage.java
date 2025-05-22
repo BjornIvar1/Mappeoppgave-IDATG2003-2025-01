@@ -121,8 +121,8 @@ public class SnakesAndLaddersPage extends BaseGamePage implements BoardGameObser
     controlPanel.setStyle(Constants.CONTROL_PANEL_STYLE);
 
     rollDiceButton = getRollDiceButton();
-    Button saveGame = getSaveGameButton();
     restartGameButton = getResetGameButton();
+    Button saveGame = getSaveGameButton();
 
     Label playerInformation = new Label(displayPlayers(controller.getGame()));
     VBox gameInfoBox = createGameInfoBox();

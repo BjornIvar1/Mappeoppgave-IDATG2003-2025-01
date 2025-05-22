@@ -4,7 +4,6 @@ import edu.ntnu.idi.bidata.model.engine.BoardGame;
 import edu.ntnu.idi.bidata.utils.exception.IntegerException;
 import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
 import edu.ntnu.idi.bidata.utils.exception.StringException;
-
 import java.util.logging.Logger;
 
 /**
