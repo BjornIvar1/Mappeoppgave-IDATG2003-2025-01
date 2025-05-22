@@ -19,7 +19,7 @@
     { "id": 12, "x": 8, "y": 1, "nextTile": 13 },
     { "id": 13, "x": 7, "y": 1, "nextTile": 14 },
     { "id": 14, "x": 6, "y": 1, "nextTile": 15 },
-    { "id": 15, "x": 5, "y": 1, "nextTile": 16 , "action": { "type": "SnakeAction", "description": "Snake from 15 to 30", "destinationTileId": 4 }},
+    { "id": 15, "x": 5, "y": 1, "nextTile": 16 , "action": { "type": "SnakeAction", "description": "Snake from 15 to 4", "destinationTileId": 4 }},
     { "id": 16, "x": 4, "y": 1, "nextTile": 17 },
     { "id": 17, "x": 3, "y": 1, "nextTile": 18 },
     { "id": 18, "x": 2, "y": 1, "nextTile": 19 },
