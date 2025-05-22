@@ -1,7 +1,5 @@
-package model.entity;
+package edu.ntnu.idi.bidata.model.entity;
 
-import edu.ntnu.idi.bidata.model.entity.Board;
-import edu.ntnu.idi.bidata.model.entity.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;

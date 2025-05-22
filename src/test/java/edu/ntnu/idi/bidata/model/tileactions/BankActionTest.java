@@ -1,17 +1,15 @@
 package edu.ntnu.idi.bidata.model.tileactions;
 
 import edu.ntnu.idi.bidata.model.engine.BoardGame;
+import javafx.scene.paint.Color;
 import edu.ntnu.idi.bidata.model.entity.Board;
 import edu.ntnu.idi.bidata.model.entity.Player;
 import edu.ntnu.idi.bidata.model.entity.Tile;
-import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
-import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankActionTest {

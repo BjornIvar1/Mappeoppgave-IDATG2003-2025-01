@@ -1,6 +1,5 @@
-package model.entity;
+package edu.ntnu.idi.bidata.model.entity;
 
-import edu.ntnu.idi.bidata.model.entity.Tile;
 import edu.ntnu.idi.bidata.model.tileactions.LadderAction;
 import edu.ntnu.idi.bidata.model.tileactions.TileAction;
 import org.junit.jupiter.api.BeforeEach;

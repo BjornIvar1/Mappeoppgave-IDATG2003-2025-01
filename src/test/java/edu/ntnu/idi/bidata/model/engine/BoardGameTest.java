@@ -1,16 +1,13 @@
-package edu.ntnu.idi.bidata.engine;
+package edu.ntnu.idi.bidata.model.engine;
 
-import edu.ntnu.idi.bidata.model.engine.BoardGame;
-import edu.ntnu.idi.bidata.model.engine.Dice;
-import edu.ntnu.idi.bidata.model.entity.Board;
-import edu.ntnu.idi.bidata.model.entity.Player;
-import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import edu.ntnu.idi.bidata.model.entity.Board;
+import edu.ntnu.idi.bidata.model.entity.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardGameTest {

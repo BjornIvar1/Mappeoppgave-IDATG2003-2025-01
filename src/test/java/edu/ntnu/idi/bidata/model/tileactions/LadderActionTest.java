@@ -5,12 +5,10 @@ import edu.ntnu.idi.bidata.model.entity.Board;
 import edu.ntnu.idi.bidata.model.entity.Player;
 import edu.ntnu.idi.bidata.model.entity.Tile;
 import edu.ntnu.idi.bidata.utils.exception.NullOrBlankException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LadderActionTest {

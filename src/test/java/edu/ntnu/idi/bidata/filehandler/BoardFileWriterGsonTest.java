@@ -4,14 +4,12 @@ import edu.ntnu.idi.bidata.filehandler.board.BoardFileWriter;
 import edu.ntnu.idi.bidata.filehandler.board.BoardFileWriterGson;
 import edu.ntnu.idi.bidata.model.entity.Board;
 import edu.ntnu.idi.bidata.model.entity.Tile;
-import edu.ntnu.idi.bidata.model.tileactions.LadderAction;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+import edu.ntnu.idi.bidata.model.tileactions.LadderAction;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BoardFileWriterGsonTest {
