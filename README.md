@@ -9,12 +9,59 @@ STUDENT ID = "134131"
 ## About
 3Spill is an application that allows the user to play a variety of games. 
 The application is built using Java and JavaFX, and it is designed to be 
-modular and extensible. As user, you will be introduced to 2 different Snakes and
-Ladders games and one Monopoly game. The application is designed to be easy to use and
+modular and extensible. As user, you will be introduced to three different Snakes and
+Ladders games and one Monopoly game. The maximum number of players is 4, and the minimum is 1.
+The application is designed to be easy to use and
 intuitive, with a simple and clean user interface.
 
 
 ## Project tree
+```
+└───src
+    ├───main
+    │   ├───java
+    │   │   └───edu
+    │   │       └───ntnu
+    │   │           └───idi
+    │   │               └───bidata
+    │   │                   ├───filehandler
+    │   │                   │   ├───board
+    │   │                   │   └───player
+    │   │                   ├───model
+    │   │                   │   ├───engine
+    │   │                   │   ├───entity
+    │   │                   │   └───tileactions
+    │   │                   ├───observer
+    │   │                   ├───ui
+    │   │                   │   ├───controller
+    │   │                   │   ├───factory
+    │   │                   │   └───gui
+    │   │                   │       ├───base
+    │   │                   │       ├───game
+    │   │                   │       └───menu
+    │   │                   └───utils
+    │   │                       └───exception
+    │   └───resources
+    │       ├───board
+    │       │   ├───monopoly
+    │       │   └───SnakesAndLadders
+    │       ├───image
+    │       │   ├───die
+    │       │   └───skippedturn
+    │       └───players
+    └───test
+        └───java
+            └───edu
+                └───ntnu
+                    └───idi
+                        └───bidata
+                            ├───filehandler
+                            └───model
+                                ├───engine
+                                ├───entity
+                                └───tileactions
+
+```
 
 
 ## How to launch
