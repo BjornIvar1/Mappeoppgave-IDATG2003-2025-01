@@ -264,20 +264,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
     imagePlayerInJail = createImage(Constants.getImage(
         Constants.PLAYER_IN_JAIL_FILE_PATH), 50, 50, false);
 
-    HBox diceBox = new HBox(5, imageDice1, imageDice2);
-    diceBox.setAlignment(Pos.CENTER);
+    gameInformation = new Label();
 
-    StackPane imageStack = new StackPane(diceBox, imagePlayerInJail);
-    imageStack.setAlignment(Pos.CENTER);
-
-    gameInformation = new Label(Constants.LABEL_LAST_ROLLED_BUTTON);
-
-    VBox box = new VBox(5);
-    box.setAlignment(Pos.CENTER);
-    box.setMaxWidth(200);
-    box.getChildren().addAll(gameInformation, imageStack);
-
-    return box;
+    return getVbox(gameInformation, imageDice1, imageDice2, imagePlayerInJail);
   }
 
   /**
@@ -402,14 +391,11 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
    */
   @Override
   public void observerPlayerMoved(String name, Dice dice) {
-    gameInformation.setText(MessageDisplay.rollDiceMessage(name));
-
-    imageDice1.setImage(loadImage(Constants.getImageOfDice(dice.getDie(0))));
-    imageDice2.setImage(loadImage(Constants.getImageOfDice(dice.getDie(1))));
-
-    imageDice1.setVisible(true);
-    imageDice2.setVisible(true);
-    imagePlayerInJail.setVisible(false);
+    updateDiceAndPlayerInfo(gameInformation,
+        imageDice1,
+        imageDice2,
+        imagePlayerInJail,
+        name, dice);
   }
 
   /**
@@ -428,9 +414,9 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
       // https://riptutorial.com/javafx/example/7291/updating-the-ui-using-platform-runlater
       if (isInJail) { // Check if the player is in skip and update the game information label
         gameInformation.setText(MessageDisplay.playerInJailMessage(name));
-        imagePlayerInJail.setVisible(true);
-        imageDice1.setVisible(false);
-        imageDice2.setVisible(false);
+        updatePlayerSkipped(imageDice1,
+            imageDice2,
+            imagePlayerInJail);
       }
     });
   }
