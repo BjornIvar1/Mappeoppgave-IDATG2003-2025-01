@@ -121,7 +121,28 @@ public final class Constants {
    */
   public static final String INFO = "info";
 
+  /**
+   * Const for the word information.
+   */
   public static final String INFORMATION = "Information";
+
+  /**
+   * Const for game loaded success message.
+   */
+  public static final String GAME_LOAD_SUCCESS_MESSAGE =
+      "Game loaded successfully!";
+
+  /**
+   * Const for game created success message.
+   */
+  public static final String GAME_CREATED_SUCCESS_MESSAGE =
+      "Game created successfully!";
+
+  /**
+   * Const for game saved success message.
+   */
+  public static final String GAME_SAVED_SUCCESS_MESSAGE =
+      "Game saved successfully!";
 
   /**
    * Constant for the color of the text in the {@code ButtonFactory} class.
