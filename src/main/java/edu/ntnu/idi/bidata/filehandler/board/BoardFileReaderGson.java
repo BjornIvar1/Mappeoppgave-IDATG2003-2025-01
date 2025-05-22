@@ -150,6 +150,8 @@ public class BoardFileReaderGson implements BoardFileReader {
       int destinationTileId = actionObj.get("destinationTileId").getAsInt();
       String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new SnakeAction(destinationTileId, description);
+    } else if ("SkipAction".equals(type)) {
+      return getSkipAction(actionObj);
     }
     return null;
   }
@@ -174,10 +176,20 @@ public class BoardFileReaderGson implements BoardFileReader {
       String description = actionObj.get(Constants.DESCRIPTION).getAsString();
       return new LooseMoneyAction(amount, description);
     } else if ("SkipAction".equals(type)) {
-      String description = actionObj.get(Constants.DESCRIPTION).getAsString();
-      return new SkipAction(description);
+      return getSkipAction(actionObj);
     }
     return null;
+  }
+
+  /**
+   * Creates a {@link SkipAction} for the board game.
+   *
+   * @param actionObj the JSON object of the action
+   * @return the {@link SkipAction}
+   */
+  private static SkipAction getSkipAction(JsonObject actionObj) {
+    String description = actionObj.get(Constants.DESCRIPTION).getAsString();
+    return new SkipAction(description);
   }
 
 }
