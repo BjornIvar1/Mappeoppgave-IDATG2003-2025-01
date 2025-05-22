@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * allows the user to enter and leave the game.
  *
  * @since 0.0.1
- * @author Arpit & Bjørn
+ * @author A. Sahoo, B.I. Høie
  * @version 0.0.1
  */
 public class GameLauncher extends Application {
