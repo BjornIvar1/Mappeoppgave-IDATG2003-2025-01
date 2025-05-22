@@ -165,13 +165,17 @@ public class MonopolyPage extends BaseGamePage implements BoardGameObserver {
   /**
    * Creates the button to save the game.
    *
-   * <p>Uses the controller to save the current game to a file</p>
+   * <p>Uses the controller to save the current game to a file.
+   * Alerts the user if the save worked as intended or if it did not work.</p>
    *
    * @return Button to save the game.
    */
   private Button getSaveGameButton() {
     Button saveGame = new Button(Constants.LABEL_SAVE_GAME_BUTTON);
-    saveGame.setOnAction(e -> controller.saveGame());
+    saveGame.setOnAction(e -> {
+      controller.saveGame();
+      setAlertConfirmation(Constants.GAME_SAVED_SUCCESS_MESSAGE);
+    });
     return saveGame;
   }
 
