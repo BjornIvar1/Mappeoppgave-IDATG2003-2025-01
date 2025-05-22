@@ -27,13 +27,6 @@ import javafx.scene.shape.Circle;
 public class BaseGamePage extends BasePage {
 
   /**
-   * Empty constructor for the BaseGamePage class.
-   */
-  public BaseGamePage() {
-    // empty constructor
-  }
-
-  /**
    * Creates a player game piece.
    *
    * @param playerColor the color of the player
