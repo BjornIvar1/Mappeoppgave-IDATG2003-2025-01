@@ -47,6 +47,9 @@ public final class Constants {
   public static final String MONOPOLY_PLAYER_SAVED_CSV =
       "src/main/resources/players/PlayersSaveMonopoly";
 
+  /**
+   * The file path to the players in a game in a CSV file.
+   */
   public static final String PLAYER_FILE_PATH =
       "src/main/resources/players/playersInGameFile.csv";
   public static final int TILE_SIZE = 60;
@@ -202,6 +205,9 @@ public final class Constants {
 
   /**
    * The file path to the image.
+   *
+   * @param imageName the name of the image
+   * @return the file path to the image
    */
   public static String getImage(String imageName) {
     return "/image/" + imageName;
@@ -219,12 +225,21 @@ public final class Constants {
   public static final String PLAYER_IN_JAIL_FILE_PATH =
       "skippedturn/playerInJail.jpg";
 
+  /**
+   * The file path to the image of player skipped.
+   */
   public static final String PLAYER_SKIPPED_FILE_PATH =
       "skippedturn/emojiLaughing.jpg";
 
+  /**
+   * Style for control panel.
+   */
   public static final String CONTROL_PANEL_STYLE =
       "-fx-background-color: #dce4f2; -fx-border-color: #ccc; -fx-border-width: 1px 0 0 0;";
 
+  /**
+   * Style for the game information box.
+   */
   public static final String GAME_INFO_BOX_STYLE =
       "-fx-background-color: #f2f2f2; "
           + "-fx-padding: 10;"
@@ -232,9 +247,15 @@ public final class Constants {
           + "-fx-border-radius: 8; "
           + "-fx-background-radius: 8;";
 
+  /**
+   * Style for the player information box.
+   */
   public static final String PLAYER_INFO_BOX_STYLE =
       "-fx-font-size: 13px; -fx-text-fill: #333;";
 
+  /**
+   * Style for the roll dice button.
+   */
   public static final String ROLL_DICE_RESET_GAME_BUTTON_STYLE =
       "-fx-background-color: #4CAF50; "
           + "-fx-text-fill: white; "
@@ -243,6 +264,9 @@ public final class Constants {
           + "-fx-background-radius: 8; "
           + "-fx-cursor: hand;";
 
+  /**
+   * Style for the save game button.
+   */
   public static final String SAVE_GAME_BUTTON_STYLE =
       "-fx-background-color: #FFD54F; "
           + "-fx-text-fill: white; "
