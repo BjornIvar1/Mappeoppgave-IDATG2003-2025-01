@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  *
  * @since 0.0.1
  * @author A. Sahoo, B.I. Høie
- * @version 0.3.1
+ * @version 0.3.2
  */
 public class ControllerMonopoly {
   private final SceneManager sceneManager;
@@ -83,6 +83,8 @@ public class ControllerMonopoly {
     game = initializeBoardGame();
     game.getPlayerIterator().forEachRemaining(player ->
         player.placeOnTile(game.getBoard().getTileById(1)));
+    game.getPlayerIterator().forEachRemaining(player ->
+        player.setBalance(0));
     game.addObserver(monopolyPage);
   }
 
