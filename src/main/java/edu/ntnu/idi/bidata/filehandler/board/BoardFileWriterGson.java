@@ -16,14 +16,10 @@ import java.util.Iterator;
  *   and stores it as JSON file.</p>
  *
  * @author A. Sahoo, B.I. Høie
- * @version 0.2.3
+ * @version 0.2.4
  * @since 0.0.1
  */
 public class BoardFileWriterGson implements BoardFileWriter {
-
-  public BoardFileWriterGson() {
-    // Default constructor
-  }
 
   /**
    * Writes a board into file using Gson.
