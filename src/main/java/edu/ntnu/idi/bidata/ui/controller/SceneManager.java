@@ -22,6 +22,10 @@ public class SceneManager {
   /**
    * Constructs a {@code SceneManager} with the specified stage.
    *
+   * <p>This constructor initializes the {@code SceneManager} with the provided
+   * primary stage, which will be used to manage scene transitions.</p>
+   *
+   * @param newRoot the primary stage for this application
    */
   public SceneManager(Stage newRoot) {
     this.stage = newRoot;
@@ -33,6 +37,7 @@ public class SceneManager {
    * <p>This method clears the existing children of the root container and sets the
    * provided {@code Parent} view as the new content, aligning it to the edges.
    *
+   * @param newRoot the new root container to be set as the current view
    */
   public void setView(Pane newRoot) {
     Scene newScene = new Scene(newRoot, 800, 800);
